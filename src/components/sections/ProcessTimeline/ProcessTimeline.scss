@@ -1,0 +1,148 @@
+.process-timeline-section {
+    background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+  }
+  
+  .process-timeline-container {
+    margin: 0 auto;
+    padding: 100px 160px;
+  }
+  
+  .process-timeline-header {
+    text-align: left;
+    margin-bottom: 4rem;
+  
+    .process-timeline-title {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 1rem;
+    }
+  
+    .process-timeline-subtitle {
+      font-size: 1.25rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+  }
+  
+  .process-timeline {
+    position: relative;
+  }
+  
+  .process-step {
+    display: flex;
+    gap: 2rem;
+    margin-bottom: 3rem;
+    position: relative;
+  
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+  
+  .process-step-marker {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-shrink: 0;
+  
+    .process-step-number {
+      width: 60px;
+      height: 60px;
+      background: var(--primary-color);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      font-weight: 700;
+      z-index: 2;
+    }
+  
+    .process-step-connector {
+      flex: 1;
+      width: 3px;
+      background: var(--border-color);
+      margin: 1rem 0;
+    }
+  }
+  
+  .process-step-content {
+    flex: 1;
+    padding-bottom: 2rem;
+  
+    .process-step-title {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 0.75rem;
+    }
+  
+    .process-step-description {
+      color: var(--text-secondary);
+      line-height: 1.6;
+      margin-bottom: 1rem;
+    }
+  
+    .process-step-duration {
+      display: inline-block;
+      background: var(--accent-color);
+      color: var(--primary-color);
+      padding: 0.25rem 0.75rem;
+      border-radius: 12px;
+      font-size: 0.875rem;
+      font-weight: 600;
+    }
+  }
+  
+  // Адаптивность
+  @media (max-width: 768px) {
+    .process-timeline-section {
+      padding: 2rem 0;
+    }
+  
+    .process-timeline-container {
+      padding: 0 1rem;
+    }
+  
+    .process-timeline-header {
+      margin-bottom: 2rem;
+  
+      .process-timeline-title {
+        font-size: 2rem;
+      }
+  
+      .process-timeline-subtitle {
+        font-size: 1.125rem;
+      }
+    }
+  
+    .process-step {
+      flex-direction: column;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+  
+    .process-step-marker {
+      flex-direction: row;
+      align-items: center;
+  
+      .process-step-number {
+        width: 50px;
+        height: 50px;
+        font-size: 1.25rem;
+      }
+  
+      .process-step-connector {
+        width: 100%;
+        height: 3px;
+        margin: 0 1rem;
+      }
+    }
+  
+    .process-step-content {
+      padding-bottom: 0;
+      padding-left: 0;
+    }
+  }

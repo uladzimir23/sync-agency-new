@@ -1,0 +1,133 @@
+.select-date {
+    background: var(--bg-primary);
+    border-radius: 16px;
+    padding: 16px;
+    border: 1px solid var(--border-color);
+    margin-bottom: 20px;
+    width: 100%;
+    overflow: hidden; // Гарантируем, что ничего не выходит за пределы
+  
+    &__title {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin: 0 0 16px 0;
+    }
+  
+    &__week-days {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 4px;
+      margin-bottom: 12px;
+      text-align: center;
+    }
+  
+    &__week-day {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-secondary);
+      padding: 8px 4px;
+      
+      &--weekend {
+        color: #ef4444;
+      }
+    }
+  
+    &__stack {
+      width: 100%;
+      
+      .colabsys-btn-stack__container {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        gap: 4px;
+        width: 100%;
+      }
+      
+      .colabsys-btn-stack-item {
+        min-width: auto;
+        padding: 12px 8px;
+        border-radius: 12px;
+        
+        &.select-date__item--weekend {
+          .select-date__item-number {
+            color: #ef4444;
+          }
+        }
+        
+        .select-date__item {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          
+          &-number {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-primary);
+          }
+        }
+        
+        &[data-active="true"] {
+          .select-date__item-number {
+            color: white;
+          }
+        }
+      }
+    }
+  }
+  
+  // Стили для сегодняшней даты
+  .select-date__item--today {
+    .select-date__item-number {
+      color: var(--primary-color) !important;
+      font-weight: 700;
+    }
+  }
+  
+  // Стили для ховера на датах
+  .select-date__stack {
+    .colabsys-btn-stack-item:hover {
+      .select-date__item-number {
+        color: var(--primary-color);
+      }
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .select-date {
+      border-radius: 12px;
+      padding: 12px;
+      
+      &__stack {
+        .colabsys-btn-stack-item {
+          padding: 8px 4px;
+          
+          .select-date__item-number {
+            font-size: 12px;
+          }
+        }
+      }
+    }
+  }
+  
+  // Для очень маленьких экранов - уменьшаем размер ячеек
+  @media (max-width: 480px) {
+    .select-date {
+      &__week-days {
+        gap: 2px;
+      }
+      
+      &__stack {
+        .colabsys-btn-stack__container {
+          gap: 2px;
+        }
+        
+        .colabsys-btn-stack-item {
+          padding: 6px 2px;
+          
+          .select-date__item-number {
+            font-size: 11px;
+          }
+        }
+      }
+    }
+  }

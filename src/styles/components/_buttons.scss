@@ -1,0 +1,170 @@
+// Современный Sass для кнопок
+@use 'sass:map';
+@use '../abstracts' as vars;
+
+// Button Base Styles
+@mixin buttons {
+  .colabsys-btn {
+    @include vars.button-base;
+    position: relative;
+    overflow: hidden;
+    font-family: 'TASA Orbiter';
+
+    
+    // Варианты кнопок
+    &--primary {
+      background: linear-gradient(135deg, var(--colabsys-primary-500), var(--colabsys-primary-600));
+      color: white;
+      box-shadow: vars.shadow(sm);
+      
+      &:hover:not(:disabled) {
+        background: linear-gradient(135deg, var(--colabsys-primary-600), var(--colabsys-primary-700));
+        box-shadow: vars.shadow(md);
+      }
+    }
+    
+    &--secondary {
+      background: hsl(var(--colabsys-secondary));
+      color: hsl(var(--colabsys-secondary-foreground));
+      border: 1px solid hsl(var(--colabsys-border));
+      
+      &:hover:not(:disabled) {
+        background: hsl(var(--colabsys-accent));
+        border-color: hsl(var(--colabsys-primary));
+      }
+    }
+    
+    &--outline {
+      background: transparent;
+      color: hsl(var(--colabsys-primary));
+      border: 1px solid hsl(var(--colabsys-primary));
+      
+      &:hover:not(:disabled) {
+        background: hsl(var(--colabsys-primary));
+        color: hsl(var(--colabsys-primary-foreground));
+      }
+    }
+    
+    &--ghost {
+      background: transparent;
+      color: hsl(var(--colabsys-foreground));
+      
+      &:hover:not(:disabled) {
+        background: hsl(var(--colabsys-accent));
+        color: hsl(var(--colabsys-accent-foreground));
+      }
+    }
+    
+    // Размеры кнопок
+     &--sm {
+      padding: vars.spacing(2) vars.spacing(3);
+      font-size: vars.text-size(xs);
+      height: 1.5rem;
+    }
+    
+    &--md {
+      padding: vars.spacing(2) vars.spacing(3);
+      font-size: vars.text-size(sm);
+      height: 2rem;
+    }
+    
+    &--lg {
+      padding: vars.spacing(3) vars.spacing(5);
+      font-size: vars.text-size(base);
+      height: 3rem;
+    }  
+      
+    
+
+    // Анимационные варианты
+    &--scale {
+      @include vars.hover-lift;
+    }
+    
+    &--glow {
+      @include vars.glow-effect;
+    }
+    
+    // Ripple effect
+    &::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.3);
+      transform: translate(-50%, -50%);
+      transition: width 0.3s, height 0.3s;
+    }
+    
+    &:active::before {
+      width: 100%;
+      height: 100%;
+      transition: width 0s, height 0s;
+    }
+    
+    // Content wrapper
+    &__content {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      gap: vars.spacing(2);
+    }
+    
+    // Loading state
+    &.colabsys-btn--loading {
+      pointer-events: none;
+      
+      .colabsys-btn__content {
+        opacity: 0.7;
+      }
+      
+      &::after {
+        content: '';
+        width: 1rem;
+        height: 1rem;
+        border: 2px solid transparent;
+        border-top: 2px solid currentColor;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+      }
+    }
+  }
+
+  // Button group styles
+  .colabsys-btn-group {
+    gap: 10px;
+    display: flex;
+    border-radius: var(--colabsys-radius);
+    overflow: hidden;
+    box-shadow: vars.shadow(sm);
+    
+    .colabsys-btn {
+      border-radius: 0;
+      border-right: 1px solid hsl(var(--colabsys-border));
+      
+      &:last-child {
+        border-right: none;
+      }
+      
+      &:first-child {
+        border-top-left-radius: var(--colabsys-radius);
+        border-bottom-left-radius: var(--colabsys-radius);
+      }
+      
+      &:last-child {
+        border-top-right-radius: var(--colabsys-radius);
+        border-bottom-right-radius: var(--colabsys-radius);
+      }
+    }
+  }
+
+  // Keyframes для loading animation
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+}

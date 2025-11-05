@@ -1,0 +1,50 @@
+
+@font-face {
+    font-family: 'TASA Orbiter';
+    src: url('../assets/fonts/tasa-orbiter/TASAOrbiter-VariableFont_wght.ttf') format('truetype');
+    font-weight: 100 900;
+    font-style: normal;
+    font-display: swap;
+  }
+  
+  // Альтернативно: статические шрифты для лучшей совместимости
+  @font-face {
+    font-family: 'TASA Orbiter';
+    src: url('../assets/fonts/tasa-orbiter/static/TASAOrbiter-Regular.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+  }
+  
+  @font-face {
+    font-family: 'TASA Orbiter';
+    src: url('../assets/fonts/tasa-orbiter/static/TASAOrbiter-Medium.ttf') format('truetype');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+  }
+  
+  @font-face {
+    font-family: 'TASA Orbiter';
+    src: url('../assets/fonts/tasa-orbiter/static/TASAOrbiter-SemiBold.ttf') format('truetype');
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+  }
+  
+  @font-face {
+    font-family: 'TASA Orbiter';
+    src: url('../assets/fonts/tasa-orbiter/static/TASAOrbiter-Bold.ttf') format('truetype');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+  }
+  
+  @font-face {
+    font-family: 'TASA Orbiter';
+    src: url('../assets/fonts/tasa-orbiter/static/TASAOrbiter-ExtraBold.ttf') format('truetype');
+    font-weight: 800;
+    font-style: normal;
+    font-display: swap;
+  }
+

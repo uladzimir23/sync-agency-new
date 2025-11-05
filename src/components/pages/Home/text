@@ -1,0 +1,11 @@
+<div className="home-page-background">
+<WavyBackground
+  backgroundFill={getBackgroundFill()}
+  colors={["#38bdf8", "#818cf8", "#c084fc", "#e879f9"]}
+  waveWidth={20}
+  blur={10}
+  speed="fast"
+  waveOpacity={0.5}
+  containerClassName="home-page-wavy-bg"
+/>
+</div>

@@ -1,0 +1,60 @@
+// src/components/ui/cursor-follower/cursor-follower.scss
+.cursor-follower {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: var(--cursor-size);
+    height: var(--cursor-size);
+    background: var(--cursor-color);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    
+    // Убираем центрирование через transform, используем точное позиционирование
+    transform: scale(1);
+    transform-origin: center;
+    
+    // Убеждаемся, что анимации выполняются на GPU
+    will-change: transform, opacity;
+    
+    // Убираем выделение текста при кликах на курсор
+    user-select: none;
+    
+    // Добавляем тень для лучшей видимости
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.1);
+    
+    // Минимальный размер
+    min-width: var(--cursor-size);
+    min-height: var(--cursor-size);
+  }
+  
+  // Убираем стандартный курсор только для интерактивных элементов
+  button, a, .colabsys-btn-stack-item, .calendar-day, [data-cursor-hover] {
+    cursor: none !important;
+  }
+  
+  // Для полей ввода оставляем стандартный курсор
+  input, textarea, select, [contenteditable] {
+    cursor: auto !important;
+  }
+  
+  // Адаптивность: скрываем на мобильных устройствах
+  @media (max-width: 768px), (hover: none) {
+    .cursor-follower {
+      display: none;
+    }
+    
+    // Восстанавливаем курсор на мобильных
+    button, a, .colabsys-btn-stack-item, .calendar-day, [data-cursor-hover] {
+      cursor: pointer !important;
+    }
+  }
+  
+  // Улучшение производительности
+  @media (prefers-reduced-motion: reduce) {
+    .cursor-follower {
+      transition: none;
+    }
+  }

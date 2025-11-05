@@ -1,0 +1,107 @@
+.calendar-section {
+  padding: 24px 160px;
+  
+  &__title {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: var(--text-primary);
+  }
+}
+
+.calendar-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  align-items: start;
+  
+  // Гарантируем, что колонки занимают ровно 50%
+  & > * {
+    min-width: 0; // Важно для правильной работы grid
+  }
+}
+
+.calendar-left {
+  background: var(--bg-secondary);
+  border-radius: 40px;
+  padding: 40px;
+  border: 1px solid var(--border-color);
+  width: 100%;
+  position: relative; // Для абсолютного позиционирования дочерних элементов
+  overflow: hidden; // Скрываем всё, что выходит за пределы
+}
+
+.calendar-right {
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-secondary);
+  border-radius: 25px;
+  padding: 40px;
+  border: 1px solid var(--border-color);
+  height: fit-content;
+  width: 100%;
+  gap: 40px;
+}
+
+.calendar-step {
+  &__title {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin: 0 0 16px 0;
+  }
+}
+
+.text-secondary {
+  color: var(--text-secondary);
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.mb-4 {
+  margin-bottom: 16px;
+}
+
+// Адаптивность
+@media (max-width: 1024px) {
+  .calendar-layout {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+}
+
+@media (max-width: 768px) {
+  .calendar-section {
+    padding: 16px 0;
+  }
+  
+  .calendar-left,
+  .calendar-right {
+    padding: 16px;
+    border-radius: 12px;
+  }
+}
+
+// Улучшенные эффекты для контейнеров при ховере
+.calendar-left {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  
+  &:hover {
+    border-color: var(--border-color-accent);
+    box-shadow: inset 0px 0px 3px var(--border-color-accent);
+    border-radius: 35px;
+  }
+}
+
+// Эффекты для всех стеков внутри calendar-left
+.calendar-left {
+  .select-month__stack,
+  .select-date__stack,
+  .available-times__stack {
+    .colabsys-btn-stack-item {
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      
+    }
+  }
+}
+
