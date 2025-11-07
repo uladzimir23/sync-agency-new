@@ -1,5 +1,6 @@
 {
   "name": "colabsys-ui",
+  "homepage": "https://github.io/uladzimir23/sync-agency-new",
   "version": "0.1.0",
   "type": "module",
   "scripts": {
