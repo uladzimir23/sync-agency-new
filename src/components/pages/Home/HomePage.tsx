@@ -105,6 +105,7 @@ export const HomePage: React.FC = () => {
                 />
                 </div>
             </div>
+            <div className='product-hero-sections-wrapper'>
             <ProductHeroSection
                 title="Branding & Identity"
                 subtitle="Memorable Brand Experiences"
@@ -140,8 +141,7 @@ export const HomePage: React.FC = () => {
                 ctaText="Optimize Your Infrastructure"
                 onCtaClick={handleCtaClick}
             />
-
-            
+            </div>
             
           <CalendarSection />
 

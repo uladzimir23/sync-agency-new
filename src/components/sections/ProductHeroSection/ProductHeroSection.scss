@@ -16,8 +16,12 @@
   }
   
   .product-hero-text {
+    display: flex;
+    flex-direction: column;
+
     .product-hero-subtitle {
       display: inline-block;
+      width: fit-content;
       color: var(--primary-color);
       font-size: 0.875rem;
       font-weight: 600;
@@ -47,6 +51,7 @@
     }
   
     .product-hero-cta {
+        width: fit-content;
       background: transparent;
       color: var(--text-primary);
       border: none;

@@ -1,6 +1,7 @@
 .faq-section {
     padding: 100px 160px;
     margin: 0 auto;
+    
   }
   
   .faq-title {
@@ -13,12 +14,14 @@
   
   .faq-items {
     width: 100%;
+    
   }
   
   .faq-item {
     border-bottom: 1px solid var(--border-color);
     padding: 1.5rem 0;
     overflow: hidden;
+    
   
     &:first-child {
       border-top: 1px solid var(--border-color);

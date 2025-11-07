@@ -4,6 +4,30 @@
     width: 100%;
     overflow: hidden;
     justify-content: center;
+
+    .product-hero-sections-wrapper {
+
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        justify-items: stretch;
+
+        align-items: center;
+        align-content: flex-start;
+
+
+        .product-hero-section{
+            height: 100%;
+
+            .product-hero-content {
+                display: grid;
+                grid-template-columns: 1fr;
+                gap: 2rem;
+                align-items: center;
+            }
+
+
+        }
+    }
     
 
     .product-hero-section {
@@ -16,15 +40,21 @@
         position: relative;
         overflow: hidden;
         backdrop-filter: blur(0px);
-        opacity: 0.5;
+        //opacity: 0.5;
         cursor: default;
+
+        .product-hero-text {
+            align-items: center;
+        }
 
         h1 {
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             color: var(--text-primary);
+            font-size: 2.5rem;
         }
         
         p {
+            text-align: center;
             transition: color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             color: var(--text-secondary);
         }
