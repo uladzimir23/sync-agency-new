@@ -1,1 +1,0 @@
-export { SelectMonth } from './SelectMonth'
