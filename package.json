@@ -9,7 +9,8 @@
     "build": "vite build",
     "build:lib": "tsup src/index.ts --format esm,cjs --dts --external react",
     "preview": "vite preview",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "deploy": "npm run build && git add dist -f && git commit -m 'Deploy to GH Pages' && git subtree push --prefix dist origin gh-pages"
   },
   "dependencies": {
     "@tabler/icons-react": "^3.35.0",
