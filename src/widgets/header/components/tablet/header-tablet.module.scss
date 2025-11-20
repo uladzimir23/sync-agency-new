@@ -1,0 +1,219 @@
+@use '@app/styles/abstracts' as vars;
+
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: transparent;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0;
+  border-radius: 24px;
+  position: fixed;
+  width: calc(100% - 20px);
+  top: 10px;
+  left: 10px;
+  right: 10px;
+  z-index: 1000;
+  overflow: visible;
+  min-height: 60px;
+
+  &::before {
+    content: '';
+    position: absolute;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(86, 156, 254, 0.1),
+      transparent
+    );
+    transition: left 1.2s ease;
+  }
+  
+  &:hover {
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    box-shadow: var(--box-shadow-primary), inset 0px 0px 5px var(--border-color-accent);
+    background: var(--background-primary-yellow);
+
+    &::before {
+      left: 100%;
+    }
+  }
+}
+
+.blur {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backdrop-filter: blur(10px);
+  top: 0;
+  z-index: -1;
+  border-radius: 24px;
+  transition: backdrop-filter 0.3s ease;
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px !important;
+  padding: vars.spacing(3) vars.spacing(3);
+  transition: padding 0.3s ease;
+  min-height: 60px;
+}
+
+.logo {
+  margin-left: 10px;
+  flex-shrink: 0;
+  cursor: pointer;
+}
+
+.logoPlaceholder {
+  display: flex;
+  align-items: center;
+  font-family: 'TASA Orbiter';
+  font-weight: 700;
+  font-size: vars.text-size(lg);
+  color: var(--primary-color);
+  padding: vars.spacing(2) vars.spacing(4);
+  border-radius: var(--colabsys-radius);
+  background: transparent;
+  border: 0px solid var(--border-color-accent);
+
+  h3 {
+    background: linear-gradient(135deg, var(--primary-color), #ffffff);
+    font-weight: 700;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: -1px;
+  }
+}
+
+/* Правый блок с действиями (аналогично мобильной версии) */
+.actionsSection {
+  display: flex;
+  align-items: center;
+  gap: vars.spacing(2);
+  margin-right: 10px;
+}
+
+.themeToggle {
+  display: flex;
+  align-items: center;
+  
+  // Стили для переключателя темы
+  :global(.theme-toggle) {
+    transform: scale(0.9);
+  }
+}
+
+.discussBtn {
+  // Стили для кнопки Discuss
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+}
+
+/* Анимированная кнопка меню как в мобильной версии */
+.mobileToggle {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-primary-opacity);
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 8px;
+  border: none;
+  transition: all 0.3s ease;
+  position: relative;
+  width: 40px;
+  height: 40px;
+  -webkit-tap-highlight-color: transparent;
+  backdrop-filter: blur(3px);
+  border-radius: 40%;
+
+  &:before {
+    content: "";
+    position: absolute;
+    inset: 0px;
+    border-radius: 40%;
+    padding: 1px;
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--border-color-accent) 50%, var(--text-secondary) 100%);
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask-composite: exclude;
+    opacity: 0;
+    transition: all 0.3s ease;
+  }
+
+  &:hover {
+    background: var(--accent-color);
+    transform: translateY(0px);
+    box-shadow: 
+      0 4px 12px rgba(0, 0, 0, 0.15),
+      inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    
+    &::before {
+      opacity: 1;
+      transform: scale(0.98);
+      border-radius: 50%;
+    }
+  }
+}
+
+.menuIcon {
+  transition: all 0.3s ease;
+  opacity: 1;
+  transform: rotate(90deg);
+  
+  &.menuIconHidden {
+    opacity: 0;
+    transform: rotate(90deg) scale(0.3);
+  }
+}
+
+.closeIcon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.3);
+  opacity: 0;
+  transition: all 0.3s ease;
+  
+  &.closeIconVisible {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+/* Убираем старые стили навигации */
+.navSection,
+.nav {
+  display: none;
+}
+
+.actions {
+  display: none;
+}
+
+.actionItems {
+  display: none;
+}
+
+// Скрываем на других устройствах
+@media (max-width: vars.breakpoint(md)) {
+  .header {
+    display: none;
+  }
+}
+
+@media (min-width: vars.breakpoint(lg)) {
+  .header {
+    display: none;
+  }
+}

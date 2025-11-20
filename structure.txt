@@ -22,7 +22,6 @@
 │   │   ├── App.module.scss
 │   │   ├── App.tsx
 │   │   └── main.tsx
-│   ├── features
 │   ├── pages
 │   │   ├── About
 │   │   │   ├── AboutPage.scss
@@ -64,7 +63,6 @@
 │   │       ├── ProductDevelopmentPage.tsx
 │   │       └── index.ts
 │   ├── shared
-│   │   ├── api
 │   │   ├── assets
 │   │   │   ├── fonts
 │   │   │   │   ├── manrope
@@ -77,7 +75,6 @@
 │   │   │   │       │   ├── TASAOrbiter-Regular.ttf
 │   │   │   │       │   └── TASAOrbiter-SemiBold.ttf
 │   │   │   │       └── TASAOrbiter-VariableFont_wght.ttf
-│   │   │   ├── img
 │   │   │   └── svg
 │   │   │       └── Iconly
 │   │   │           └── Glass
@@ -98,7 +95,6 @@
 │   │   │   ├── useNavigation.ts
 │   │   │   ├── useTheme.ts
 │   │   │   └── useToday.ts
-│   │   ├── layout
 │   │   ├── lib
 │   │   │   └── data
 │   │   │       └── faqData.ts
@@ -142,6 +138,7 @@
 │   │   │   │   └── index.ts
 │   │   │   └── index.ts
 │   │   ├── theme
+│   │   │   ├── ThemeToggle.module.scss
 │   │   │   └── ThemeToggle.tsx
 │   │   ├── ui
 │   │   │   ├── AnimatedGradient
@@ -165,6 +162,7 @@
 │   │   │   │   └── index.ts
 │   │   │   ├── button
 │   │   │   │   ├── README.md
+│   │   │   │   ├── button.module.scss
 │   │   │   │   ├── button.tsx
 │   │   │   │   ├── button.types.ts
 │   │   │   │   └── index.ts
@@ -203,24 +201,46 @@
 │   │   └── utils
 │   │       └── utils.ts
 │   ├── widgets
-│   │   ├── footer
 │   │   └── header
 │   │       ├── header.module.scss
 │   │       ├── header.tsx
 │   │       ├── header.types.ts
-│   │       ├── index.scss
 │   │       ├── index.ts
-│   │       ├── mobile-menu.module.scss
+│   │       ├── mobile-menu-content.tsx
+│   │       ├── mobile-menu-item.tsx
+│   │       ├── mobile-menu.desktop.module.scss
+│   │       ├── mobile-menu.mobile.module.scss
 │   │       └── mobile-menu.tsx
 │   ├── App.test.tsx
 │   ├── index.css
 │   ├── index.tsx
 │   ├── react-app-env.d.ts
 │   └── setupTests.ts
+├── temp-deploy
+│   ├── assets
+│   │   ├── TASAOrbiter-Bold-Ch2NmCz6.ttf
+│   │   ├── TASAOrbiter-ExtraBold-BHxD3PhE.ttf
+│   │   ├── TASAOrbiter-Medium-CgtEOpsk.ttf
+│   │   ├── TASAOrbiter-Regular-_oJu-LLG.ttf
+│   │   ├── TASAOrbiter-SemiBold-DJKFhdc1.ttf
+│   │   ├── TASAOrbiter-VariableFont_wght-Dj6qc3UC.ttf
+│   │   ├── index-BAR_g79p.css
+│   │   ├── index-C-ZwQaYI.css
+│   │   ├── index-C8z97Dkk.js
+│   │   └── index-DFUc2y-P.js
+│   ├── favicon.ico
+│   ├── index.html
+│   ├── logo192.png
+│   ├── logo512.png
+│   ├── manifest.json
+│   └── robots.txt
+├── workflows
+│   └── deploy.yml
 ├── .gitignore
 ├── Notes.md
 ├── README.md
 ├── components.json
+├── deploy-gh-pages.sh
 ├── index.html
 ├── package-lock.json
 ├── package.json
@@ -229,4 +249,4 @@
 ├── tsconfig.node.json
 └── vite.config.ts
 
-67 directories, 163 files
+65 directories, 185 files

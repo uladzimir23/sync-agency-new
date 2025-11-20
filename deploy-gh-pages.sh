@@ -1,4 +1,6 @@
 #!/bin/bash
+#./deploy-gh-pages.sh
+
 
 set -e
 

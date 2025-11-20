@@ -17,7 +17,7 @@
   white-space: nowrap;
   vertical-align: middle;
   line-height: 1;
-  border-radius: 10px;
+  border-radius: 12px;
   
   // Базовые стили для всех кнопок
   background-color: var(--primary-color);
@@ -60,15 +60,16 @@
 
     color: var(--primary-color);
     //border: 1px solid var(--border-color);
-    backdrop-filter: blur(50px);
+    backdrop-filter: blur(3px);
     box-shadow: var(--box-shadow-primary);
+
 
         // Градиентная обводка
     &::before {
         content: '';
         position: absolute;
         inset: -1px;
-        border-radius: 10px;
+        border-radius: 12px;
         padding: 1px;
         background: linear-gradient(
         135deg,
@@ -85,13 +86,13 @@
     &:hover:not(.sync-btn--loading):not(:disabled) {
         background-color: var(--accent-color);
         //border: 1px solid var(--primary-color);
-        border-radius: 12px;
+        border-radius: 14px;
         scale: 0.99;
 
         &::before {
         opacity: 1;
         transform: scale(0.99);
-        border-radius: 12px;
+        border-radius: 14px;
 
         }
         
@@ -156,7 +157,7 @@
   }
 
   &--md {
-    padding: 0.75rem 1.5rem;
+    padding: 0.8rem 1.5rem;
     font-size: 1rem;
     min-height: 2.5rem;
   }
@@ -247,7 +248,7 @@
     }
 
     &--md {
-      padding: 0.5rem 1rem;
+      padding: 12px 1rem;
       font-size: 0.9rem;
       min-height: 2.25rem;
     }

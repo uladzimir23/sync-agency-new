@@ -6,7 +6,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   ({ 
     className, 
     variant = 'primary', 
-    size = 'sm', 
+    size = 'md', 
     animation = 'scale',
     loading = false,
     children, 
