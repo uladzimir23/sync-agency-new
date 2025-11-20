@@ -1,0 +1,44 @@
+@import '@app/styles/main.scss';
+
+.App {
+  min-height: 100vh;
+  transition: all 0.3s ease;
+}
+
+
+// Стилизация скроллбара
+::-webkit-scrollbar {
+  background: var(--bg-secondary);
+  width: 2px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-secondary);
+  width: 2px;
+
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--primary-color);
+  width: 2px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-color);
+  opacity: 0.8;
+}
+
+// src/App.scss (добавьте эти стили)
+button, a, .clickable, .colabsys-btn-stack-item, .calendar-day {
+  cursor: pointer !important;
+}
+
+// Для полей ввода оставляем стандартный курсор
+input, textarea, select {
+  cursor: auto !important;
+}
+
+// Плавный скролл для всей страницы
+html {
+  scroll-behavior: smooth;
+}

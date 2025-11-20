@@ -1,11 +1,11 @@
 // UI Components
-export { Button } from './components/ui/button'
+export { Button } from './shared/ui/button'
 
 // Hooks
-export { useAnimation } from './hooks/useAnimation'
+export { useAnimation } from './shared/hooks/useAnimation'
 
 // Types
-export type { ButtonProps } from './components/ui/button'
+export type { ButtonProps } from './shared/ui/button'
 
 // Utils
-export { cn } from './lib/utils'
+export { cn } from './shared/utils/utils'

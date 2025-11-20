@@ -10,23 +10,33 @@ export default defineConfig({
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),
+      '@app': path.resolve(__dirname, './src/app'),
+      '@styles': path.resolve(__dirname, './src/styles'),
+      '@pages': path.resolve(__dirname, './src/pages'),
+      '@widgets': path.resolve(__dirname, './src/widgets'),
+      '@features': path.resolve(__dirname, './src/features'),
+      '@entities': path.resolve(__dirname, './src/entities'),
+      '@shared': path.resolve(__dirname, './src/shared')
     },
   },
   server: {
     port: 3003,
+    host: '0.0.0.0',
+
     open: true
   },
   build: {
     cssCodeSplit: true,
     sourcemap: false,
     minify: 'esbuild',
-    // Для GitHub Pages, если приложение размещается в подпапке
     outDir: 'dist',
     assetsDir: 'assets'
   },
-  // Если приложение размещается не в корне (например, username.github.io/repo-name)
-  base: './', // или process.env.NODE_ENV === 'production' ? '/repo-name/' : './'
+  base: './',
   css: {
-    postcss: './postcss.config.js'
+    modules: {
+      localsConvention: 'camelCase',
+      generateScopedName: '[name]__[local]___[hash:base64:5]'
+    }
   }
 })

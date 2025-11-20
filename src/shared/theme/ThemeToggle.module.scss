@@ -1,0 +1,197 @@
+// src/shared/theme/ThemeToggle.module.scss
+@import '../../app/styles/main.scss';
+
+.theme-toggle {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border: none;
+  border-radius: 50%;
+  background: var(--bg-primary-opacity);
+  backdrop-filter: blur(10px);
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  color: var(--text-primary);
+  
+  // Градиентная обводка
+  &::before {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    border-radius: 100%;
+    padding: 1px;
+    background: linear-gradient(
+      135deg,
+      var(--primary-color) 0%,
+      var(--border-color-accent) 50%,
+      var(--text-secondary) 100%
+    );
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask-composite: exclude;
+    opacity: 0.3;
+    transition: all 0.3s ease;
+  }
+
+  &:hover {
+    background: var(--bg-primary-opacity-sec);
+    transform: translateY(0px);
+    box-shadow: 
+      0 4px 12px rgba(0, 0, 0, 0.15),
+      inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    
+    &::before {
+      opacity: 1;
+      transform: scale(0.98);
+    }
+    
+    svg {
+      transform: scale(1.02) rotate(0deg);
+    }
+  }
+
+  &:active {
+    transform: translateY(0) scale(0.95);
+    transition-duration: 0.1s;
+  }
+
+  // Стили для SVG иконок
+  svg {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1));
+  }
+
+  // Анимация переключения
+  &.fade-in-scale {
+    animation: fadeInScale 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  // Специфичные стили для светлой темы
+  :root & {
+    background: var(--bg-primary-opacity);
+    
+    &:hover {
+      background: var(--accent-color);
+    }
+  }
+
+  // Специфичные стили для темной темы
+  .dark-theme & {
+    background: var(--bg-primary-opacity);
+    
+    &:hover {
+      background: var(--accent-color);
+      box-shadow: 
+        0 4px 12px rgba(0, 0, 0, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    }
+  }
+
+  // Стили для размещения в хедере
+  &.colabsys-header__theme-toggle {
+    flex-shrink: 0;
+    margin: 0 0.5rem;
+    
+    @media (max-width: 768px) {
+      width: 40px;
+      height: 40px;
+      margin: 0 0.25rem;
+    }
+  }
+
+  // Состояние фокуса для доступности
+  &:focus-visible {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 2px;
+    
+    &::before {
+      opacity: 1;
+      transform: scale(1.1);
+    }
+  }
+
+  // Отключение дефолтного outline
+  &:focus:not(:focus-visible) {
+    outline: none;
+  }
+}
+
+// Анимация появления
+@keyframes fadeInScale {
+  0% {
+    opacity: 0;
+    transform: scale(0.8) rotate(-90deg);
+  }
+  60% {
+    opacity: 1;
+    transform: scale(1.05) rotate(10deg);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+  }
+}
+
+// Адаптивность
+@media (max-width: 480px) {
+  .theme-toggle {
+    width: 40px;
+    height: 40px;
+    
+    svg {
+      width: 18px;
+      height: 18px;
+    }
+  }
+}
+
+// Анимация переключения между иконками
+.theme-toggle {
+  // Солнце (светлая тема) - плавное появление
+  &:not(.dark-theme) svg {
+    animation: sunRise 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  // Луна (темная тема) - плавное появление
+  .dark-theme & svg {
+    animation: moonRise 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+}
+
+@keyframes sunRise {
+  0% {
+    opacity: 0;
+    transform: scale(0.5) rotate(-90deg);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+  }
+}
+
+@keyframes moonRise {
+  0% {
+    opacity: 0;
+    transform: scale(0.5) rotate(90deg);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+  }
+}
+
+// Пульсация при первом появлении
+.theme-toggle.pulse {
+  animation: pulseGlow 2s ease-in-out;
+}
+
+@keyframes pulseGlow {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(12, 140, 233, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 0 8px rgba(12, 140, 233, 0);
+  }
+}

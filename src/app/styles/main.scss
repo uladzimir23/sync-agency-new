@@ -1,0 +1,97 @@
+
+@import './fonts.scss';
+//@import './utilities.scss'; // Добавьте эту строку
+@import '../../shared/ui/button/button.module.scss'; // Добавьте эту строку
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: 'TASA Orbiter';
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    line-height: 1.5;
+    transition: all 0.3s ease;
+>
+    .p {
+        font-family: 'TASA Orbiter';
+
+    }
+    .span {
+        font-family: 'TASA Orbiter';
+
+    }
+  }
+
+
+  // CSS переменные для светлой темы
+  :root {
+    --black-white: black;
+    --bg-primary: #f2f2ff6d;
+    --bg-primary-opacity: rgba(255, 255, 255, 0.2);
+    --bg-primary-opacity-sec: rgba(255, 255, 255, 0.4);
+    --background-primary-section: #e8e8f9;
+
+    --background-primary-yellow:  #155ed40f;
+    //--background-primary-yellow:  #d4159e0f;
+
+    --background-primary-red:  #d4151511;
+
+    --bg-secondary: #f2fbfe77;
+    --bg-thirdly: #f2fbfebb;
+    --bg-fourthly: #e8f8ff;
+    --text-primary: #212529;
+    --text-secondary: #6c757d;
+    --text-thirdly: #6c757d;
+    --primary-color: #0C8CE9;
+    --primary-color-red: #ff0000;
+    --accent-color: #56aafe25;
+    --accent-color-red: #ff000020;
+    --border-color: #dee2e6;
+    --border-color-accent: #89bbf0;
+    --box-shadow-primary: 0px 0px 2px 1px #223c501a;
+    --text-shadow-primary: #223c5015;
+
+
+    
+    // Дополнительные переменные для компонентов
+    --colabsys-radius: 10px;
+    --success-color: #10b981;
+    --warning-color: #f59e0b;
+    --destructive-color: #ef4444;
+
+  }
+
+  
+  
+  // CSS переменные для темной темы
+  body.dark-theme {
+    --black-white: white;
+    --bg-primary: #02021226;
+    --background-primary-section: #020212;
+
+   --background-primary-yellow:  #1518d40b;
+
+    --background-primary-red:  #d4151511;
+    --bg-primary-opacity: rgba(8, 8, 43, 0.2);
+    --bg-primary-opacity-sec: rgba(8, 8, 43, 0.4);
+    --bg-secondary: #0404218b;
+    --bg-thirdly: #040421bb;
+    --bg-fourthly: #56aafe12;
+    --text-primary: #ffffff;
+    --text-secondary: #caafd1;
+    --text-thirdly: #adb5bd8b;
+    --primary-color: #56aafe;
+    --primary-color-red: #ff0000;
+    --accent-color: #56aafe25;
+    --accent-color-red: #321919;
+    --border-color: #1d2631a8;
+    --border-color-accent: #1E4765;
+    --box-shadow-primary: 0px 0px 3px 0.5px #223c50da;
+    --text-shadow-primary: #223c5055;
+  }
+  

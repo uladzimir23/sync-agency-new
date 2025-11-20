@@ -1,0 +1,255 @@
+@use '@app/styles/abstracts' as vars;
+
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: transparent;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0;
+  //box-shadow: inset 0px 0px 5px var(--border-color-accent);
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  border-radius: 24px;
+  position: fixed;
+  width: calc(100% - 20px);
+  top: 10px;
+  left: 10px;
+  right: 10px;
+  z-index: 1000;
+  overflow: hidden; // Меняем на visible чтобы контент меню был виден
+  min-height: 60px;
+
+
+
+  // Стиль для расширенного состояния (когда меню открыто)
+  &.headerExpanded {
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 60px; // увеличиваем высоту при открытом меню
+    background: var(--background-primary-yellow);
+    
+    .blur {
+      backdrop-filter: blur(10px);
+    }
+
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(86, 156, 254, 0.1),
+      transparent
+    );
+    transition: left 1.2s ease;
+  }
+  
+  &:hover {
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    box-shadow: var(--box-shadow-primary), inset 0px 0px 5px var(--border-color-accent);
+    background: var(--background-primary-yellow);
+
+    &::before {
+      left: 100%;
+    }
+  }
+}
+
+.blur {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backdrop-filter: blur(10px);
+  top: 0;
+  z-index: -1;
+  border-radius: 24px;
+  transition: backdrop-filter 0.3s ease;
+
+  .header:hover & {
+    box-shadow: var(--box-shadow-primary);
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  //flex-direction: column;
+  justify-content: center;
+  gap: 10px !important;
+  justify-content: space-between;
+  padding: vars.spacing(3) vars.spacing(3);
+  gap: vars.spacing(8);
+  transition: padding 0.3s ease;
+  min-height: 60px;
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+
+
+
+  @media (max-width: vars.breakpoint(lg)) {
+    padding: vars.spacing(3) vars.spacing(4);
+  }
+  
+  @media (max-width: vars.breakpoint(sm)) {
+    padding: vars.spacing(2) vars.spacing(3);
+  }
+
+  // Стили для ButtonStack внутри контейнера
+  :global(.colabsys-btn-stack-item) {
+    backdrop-filter: blur(1px);
+    padding: 0.5rem 1rem;
+  }
+}
+
+// Логотип
+.logo {
+  margin-left: 10px;
+  flex-shrink: 0;
+  cursor: pointer;
+}
+
+.logoPlaceholder {
+  display: flex;
+  align-items: center;
+  font-family: 'TASA Orbiter';
+  font-weight: 700;
+  font-size: vars.text-size(lg);
+  color: var(--primary-color);
+  padding: vars.spacing(2) vars.spacing(4);
+  border-radius: var(--colabsys-radius);
+  background: transparent;
+  border: 0px solid var(--border-color-accent);
+  
+  @media (max-width: vars.breakpoint(sm)) {
+    padding: vars.spacing(1) vars.spacing(3);
+    font-size: vars.text-size(md);
+  }
+
+  h3 {
+    background: linear-gradient(135deg, var(--primary-color), #ffffff);
+    font-weight: 700;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: -1px;
+  }
+}
+
+// Действия
+.actions {
+  margin-right: 20px;
+  flex-shrink: 0;
+  border: none;
+  
+  @media (max-width: vars.breakpoint(sm)) {
+    display: none;
+  }
+}
+
+.actionItems {
+  border: none;
+  display: flex;
+  align-items: center;
+  gap: vars.spacing(2);
+}
+
+// Мобильная кнопка меню (иконка)
+.mobileToggle {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  position: relative;
+  width: 2rem;
+  height: 2rem;
+  -webkit-tap-highlight-color: transparent;
+
+  &:hover {
+    transition: all 0.3s ease;
+    background: var(--bg-primary);
+    scale: 0.95;
+    border-radius: 12px;
+
+  }
+  
+  @media (max-width: vars.breakpoint(md)) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+.menuIcon {
+  transition: all 0.3s ease;
+  opacity: 1;
+  transform: rotate(90deg); // Поворачиваем на 90 градусов
+  
+  &.menuIconHidden {
+    opacity: 0;
+    transform: rotate(90deg) scale(0.3); // Сохраняем поворот при скрытии
+  }
+}
+
+.closeIcon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.3);
+  opacity: 0;
+  transition: all 0.3s ease;
+  
+  &.closeIconVisible {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+// Адаптивные стили
+@media (max-width: vars.breakpoint(lg)) {
+  .container {
+    gap: vars.spacing(4);
+  }
+}
+
+@media (max-width: vars.breakpoint(md)) {
+  .mobileToggle {
+    display: flex;
+  }
+}
+
+@media (max-width: vars.breakpoint(sm)) {
+  .logoPlaceholder {
+    font-size: 1rem;
+    padding: vars.spacing(1) vars.spacing(2);
+  }
+}
+
+// Анимации для header
+// Для мобильных устройств
+@media (max-width: 768px) {
+  .header {
+    transition: height 0.4s ease;
+    overflow: hidden;
+    
+    // Расширенное состояние
+    &.headerExpanded {
+      height: auto; // Автоматическая высота для всего контента
+    }
+  }
+}

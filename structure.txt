@@ -1,0 +1,232 @@
+.
+├── .vscode
+│   └── settings.json
+├── public
+│   ├── favicon.ico
+│   ├── index.html
+│   ├── logo192.png
+│   ├── logo512.png
+│   ├── manifest.json
+│   └── robots.txt
+├── src
+│   ├── app
+│   │   ├── styles
+│   │   │   ├── abstracts
+│   │   │   │   ├── animations.scss
+│   │   │   │   ├── index.scss
+│   │   │   │   ├── mixins.scss
+│   │   │   │   └── variables.scss
+│   │   │   ├── _index.scss
+│   │   │   ├── fonts.scss
+│   │   │   └── main.scss
+│   │   ├── App.module.scss
+│   │   ├── App.tsx
+│   │   └── main.tsx
+│   ├── features
+│   ├── pages
+│   │   ├── About
+│   │   │   ├── AboutPage.scss
+│   │   │   ├── AboutPage.tsx
+│   │   │   └── index.ts
+│   │   ├── AnalyticsAndOptimization
+│   │   │   ├── AnalyticsAndOptimizationPage.scss
+│   │   │   ├── AnalyticsAndOptimizationPage.tsx
+│   │   │   └── index.ts
+│   │   ├── AutomationAndInfrastructure
+│   │   │   ├── AutomationAndInfrastructurePage.scss
+│   │   │   ├── AutomationAndInfrastructurePage.tsx
+│   │   │   └── index.ts
+│   │   ├── BrandingAndIdentity
+│   │   │   ├── BrandingAndIdentityPage.scss
+│   │   │   ├── BrandingAndIdentityPage.tsx
+│   │   │   └── index.ts
+│   │   ├── Cases
+│   │   │   ├── CasesPage.scss
+│   │   │   ├── CasesPage.tsx
+│   │   │   └── index.ts
+│   │   ├── Contact
+│   │   │   ├── ContactPage.scss
+│   │   │   ├── ContactPage.tsx
+│   │   │   └── index.ts
+│   │   ├── Home
+│   │   │   ├── HomePage.scss
+│   │   │   ├── HomePage.tsx
+│   │   │   ├── index.ts
+│   │   │   └── text
+│   │   ├── MarketingStrategy
+│   │   │   ├── MarketingStrategyPage.scss
+│   │   │   ├── MarketingStrategyPage.tsx
+│   │   │   └── index.ts
+│   │   └── ProductDevelopment
+│   │       ├── ProductDevelopmentPage copy.scss
+│   │       ├── ProductDevelopmentPage copy.tsx
+│   │       ├── ProductDevelopmentPage.scss
+│   │       ├── ProductDevelopmentPage.tsx
+│   │       └── index.ts
+│   ├── shared
+│   │   ├── api
+│   │   ├── assets
+│   │   │   ├── fonts
+│   │   │   │   ├── manrope
+│   │   │   │   │   └── manrope.scss
+│   │   │   │   └── tasa-orbiter
+│   │   │   │       ├── static
+│   │   │   │       │   ├── TASAOrbiter-Bold.ttf
+│   │   │   │       │   ├── TASAOrbiter-ExtraBold.ttf
+│   │   │   │       │   ├── TASAOrbiter-Medium.ttf
+│   │   │   │       │   ├── TASAOrbiter-Regular.ttf
+│   │   │   │       │   └── TASAOrbiter-SemiBold.ttf
+│   │   │   │       └── TASAOrbiter-VariableFont_wght.ttf
+│   │   │   ├── img
+│   │   │   └── svg
+│   │   │       └── Iconly
+│   │   │           └── Glass
+│   │   │               ├── Calendar.svg
+│   │   │               ├── Gallery.svg
+│   │   │               ├── Heart.svg
+│   │   │               ├── Show.svg
+│   │   │               ├── Star.svg
+│   │   │               └── Video.svg
+│   │   ├── constants
+│   │   │   └── routes.ts
+│   │   ├── hooks
+│   │   │   ├── index.ts
+│   │   │   ├── useAnimation.ts
+│   │   │   ├── useCalendar.ts
+│   │   │   ├── useDateFormatters.ts
+│   │   │   ├── useDeviceType.ts
+│   │   │   ├── useNavigation.ts
+│   │   │   ├── useTheme.ts
+│   │   │   └── useToday.ts
+│   │   ├── layout
+│   │   ├── lib
+│   │   │   └── data
+│   │   │       └── faqData.ts
+│   │   ├── sections
+│   │   │   ├── CTASection
+│   │   │   │   ├── CTASection.scss
+│   │   │   │   ├── CTASection.tsx
+│   │   │   │   └── index.ts
+│   │   │   ├── CalendarSection
+│   │   │   │   ├── .CalendarSection.tsx.swp
+│   │   │   │   ├── CalendarSection.scss
+│   │   │   │   └── CalendarSection.tsx
+│   │   │   ├── CasesPreview
+│   │   │   │   ├── CasesPreview.tsx
+│   │   │   │   └── index.ts
+│   │   │   ├── DashboardHeader
+│   │   │   │   ├── DashboardHeader.scss
+│   │   │   │   ├── DashboardHeader.tsx
+│   │   │   │   └── index.ts
+│   │   │   ├── FAQSection
+│   │   │   │   ├── FAQSection.scss
+│   │   │   │   ├── FAQSection.tsx
+│   │   │   │   └── index.ts
+│   │   │   ├── FeaturesSection
+│   │   │   │   ├── FeaturesSection.scss
+│   │   │   │   └── FeaturesSection.tsx
+│   │   │   ├── HeaderSection
+│   │   │   │   ├── HeaderSection.scss
+│   │   │   │   └── HeaderSection.tsx
+│   │   │   ├── ProcessTimeline
+│   │   │   │   ├── ProcessTimeline.scss
+│   │   │   │   ├── ProcessTimeline.tsx
+│   │   │   │   └── index.ts
+│   │   │   ├── ProductHeroSection
+│   │   │   │   ├── ProductHeroSection.scss
+│   │   │   │   ├── ProductHeroSection.tsx
+│   │   │   │   └── index.ts
+│   │   │   ├── ServiceFeatures
+│   │   │   │   ├── ServiceFeatures.scss
+│   │   │   │   ├── ServiceFeatures.tsx
+│   │   │   │   └── index.ts
+│   │   │   └── index.ts
+│   │   ├── theme
+│   │   │   └── ThemeToggle.tsx
+│   │   ├── ui
+│   │   │   ├── AnimatedGradient
+│   │   │   │   ├── AnimatedGradient.scss
+│   │   │   │   └── AnimatedGradient.tsx
+│   │   │   ├── AppointmentDetails
+│   │   │   │   ├── AppointmentDetails.scss
+│   │   │   │   ├── AppointmentDetails.tsx
+│   │   │   │   └── index.ts
+│   │   │   ├── AvailableTimes
+│   │   │   │   ├── AvailableTimes.scss
+│   │   │   │   ├── AvailableTimes.tsx
+│   │   │   │   └── index.ts
+│   │   │   ├── SelectDate
+│   │   │   │   ├── SelectDate.scss
+│   │   │   │   ├── SelectDate.tsx
+│   │   │   │   └── index.ts
+│   │   │   ├── SelectMonth
+│   │   │   │   ├── SelectMonth.scss
+│   │   │   │   ├── SelectMonth.tsx
+│   │   │   │   └── index.ts
+│   │   │   ├── button
+│   │   │   │   ├── README.md
+│   │   │   │   ├── button.tsx
+│   │   │   │   ├── button.types.ts
+│   │   │   │   └── index.ts
+│   │   │   ├── button-stack
+│   │   │   │   ├── button-stack-item.tsx
+│   │   │   │   ├── button-stack.scss
+│   │   │   │   ├── button-stack.tsx
+│   │   │   │   ├── button-stack.types.ts
+│   │   │   │   └── index.ts
+│   │   │   ├── cursor-follower
+│   │   │   │   ├── cursor-follower.scss
+│   │   │   │   ├── cursor-follower.tsx
+│   │   │   │   └── index.ts
+│   │   │   ├── curved-loop
+│   │   │   │   ├── CurvedLoop.scss
+│   │   │   │   ├── CurvedLoop.tsx
+│   │   │   │   └── index.ts
+│   │   │   ├── floating-contact-button
+│   │   │   │   ├── FloatingContactButton.scss
+│   │   │   │   ├── FloatingContactButton.tsx
+│   │   │   │   └── index.ts
+│   │   │   ├── icon
+│   │   │   │   ├── icon.tsx
+│   │   │   │   └── index.ts
+│   │   │   ├── shadcn-io
+│   │   │   │   ├── circular-text
+│   │   │   │   │   └── index.tsx
+│   │   │   │   ├── curved-loop
+│   │   │   │   │   └── index.tsx
+│   │   │   │   └── wavy-background
+│   │   │   │       └── index.tsx
+│   │   │   └── wavy-background
+│   │   │       ├── WavyBackground.scss
+│   │   │       ├── WavyBackground.tsx
+│   │   │       └── index.ts
+│   │   └── utils
+│   │       └── utils.ts
+│   ├── widgets
+│   │   ├── footer
+│   │   └── header
+│   │       ├── header.module.scss
+│   │       ├── header.tsx
+│   │       ├── header.types.ts
+│   │       ├── index.scss
+│   │       ├── index.ts
+│   │       ├── mobile-menu.module.scss
+│   │       └── mobile-menu.tsx
+│   ├── App.test.tsx
+│   ├── index.css
+│   ├── index.tsx
+│   ├── react-app-env.d.ts
+│   └── setupTests.ts
+├── .gitignore
+├── Notes.md
+├── README.md
+├── components.json
+├── index.html
+├── package-lock.json
+├── package.json
+├── structure.txt
+├── tsconfig.json
+├── tsconfig.node.json
+└── vite.config.ts
+
+67 directories, 163 files
