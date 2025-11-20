@@ -42,5 +42,5 @@ git push origin gh-pages --force
 git checkout main
 
 echo "✅ gh-pages deployment completed!"
-echo "🌐 Your site will be available at: https://uladzimir23.github.io/fenix"
+echo "🌐 Your site will be available at: https://uladzimir23.github.io/sync-agency-new"
 echo "🔄 It may take 1-5 minutes for changes to propagate."
