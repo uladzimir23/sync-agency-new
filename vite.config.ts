@@ -32,7 +32,9 @@ export default defineConfig({
     outDir: 'dist',
     assetsDir: 'assets'
   },
-  base: './',
+  base: process.env.NODE_ENV === 'production' 
+    ? '/sync-agency-new/'  // Имя вашего репозитория
+    : './',
   css: {
     modules: {
       localsConvention: 'camelCase',
