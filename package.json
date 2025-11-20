@@ -3,14 +3,25 @@
   "homepage": "https://github.io/uladzimir23/sync-agency-new",
   "version": "0.1.0",
   "type": "module",
-  "scripts": {
+"scripts": {
     "dev": "vite",
-    "start": "npm run dev",
     "build": "vite build",
-    "build:lib": "tsup src/index.ts --format esm,cjs --dts --external react",
     "preview": "vite preview",
+    "test": "vitest",
+    "test:ui": "vitest --ui",
+    "test:run": "vitest run",
+    "lint": "eslint . --ext js,jsx,ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "lint:fix": "eslint . --ext js,jsx,ts,tsx --fix",
     "typecheck": "tsc --noEmit",
-    "deploy": "npm run build && git add dist -f && git commit -m 'Deploy to GH Pages' && git subtree push --prefix dist origin gh-pages"
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist",
+    "deploy:force": "gh-pages -d dist --force",
+    "deploy:ci": "npm run build && npm run test:run && npm run lint && gh-pages -d dist",
+    "deploy:safe": "git branch backup/deploy-$(date +%Y%m%d-%H%M%S) && npm run deploy",
+    "deploy:auto": "npm run build && git add . && git commit -m 'Auto-deploy preparation' && git push origin main && npm run deploy",
+    "build:analyze": "npm run build && npx serve dist",
+    "clean:build": "rm -rf dist && npm run build",
+    "size-check": "npm run build && npx bundlewatch"
   },
   "dependencies": {
     "@tabler/icons-react": "^3.35.0",
