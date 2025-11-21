@@ -1,7 +1,9 @@
 import React from 'react'
 import { cn } from '@/shared/utils/utils'
-import { Service } from '../../header.types' // Исправленный путь
-import styles from './mobile-menu.mobile.module.scss'
+import { Service } from '../../header.types'
+// Исправленные импорты
+import mobileStyles from './mobile-menu.mobile.module.scss'
+import tabletStyles from '../tablet/mobile-menu.tablet.module.scss'
 
 interface MobileMenuItemProps {
   service: Service
@@ -22,13 +24,12 @@ export const MobileMenuItem: React.FC<MobileMenuItemProps> = ({
   totalItems,
   variant = 'mobile'
 }) => {
-  // Обратная задержка для закрытия: последний элемент скрывается первым
+  const styles = variant === 'tablet' ? tabletStyles : mobileStyles
+
   const getDelay = () => {
     if (isOpen) {
-      // При открытии: первый элемент появляется первым
       return `${index * 60}ms`
     } else {
-      // При закрытии: последний элемент исчезает первым
       return `${(totalItems - 1 - index) * 60}ms`
     }
   }

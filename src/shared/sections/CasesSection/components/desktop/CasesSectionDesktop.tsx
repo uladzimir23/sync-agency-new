@@ -21,16 +21,8 @@ export const CasesSectionDesktop: React.FC = () => {
 
   return (
     <div className={styles.casesSectionDesktop}>
-      <CasesFilter 
-        filters={filters}
-        onFiltersChange={updateFilters}
-        className={styles.filter}
-      />
-      
       <div className={styles.resultsInfo}>
-        <span className={styles.resultsCount}>
-          {filteredCases.length} case{filteredCases.length !== 1 ? 's' : ''} found
-        </span>
+
         {(filters.categories?.length || filters.companies?.length) && (
           <button 
             onClick={clearFilters}

@@ -90,6 +90,7 @@
 │   │   │   ├── index.ts
 │   │   │   ├── useAnimation.ts
 │   │   │   ├── useCalendar.ts
+│   │   │   ├── useCases.ts
 │   │   │   ├── useDateFormatters.ts
 │   │   │   ├── useDeviceType.ts
 │   │   │   ├── useNavigation.ts
@@ -97,6 +98,7 @@
 │   │   │   └── useToday.ts
 │   │   ├── lib
 │   │   │   └── data
+│   │   │       ├── casesData.ts
 │   │   │       └── faqData.ts
 │   │   ├── sections
 │   │   │   ├── CTASection
@@ -109,6 +111,19 @@
 │   │   │   │   └── CalendarSection.tsx
 │   │   │   ├── CasesPreview
 │   │   │   │   ├── CasesPreview.tsx
+│   │   │   │   └── index.ts
+│   │   │   ├── CasesSection
+│   │   │   │   ├── components
+│   │   │   │   │   ├── desktop
+│   │   │   │   │   │   ├── CasesSectionDesktop.tsx
+│   │   │   │   │   │   └── cases-section-desktop.module.scss
+│   │   │   │   │   ├── mobile
+│   │   │   │   │   │   ├── CasesSectionMobile.tsx
+│   │   │   │   │   │   └── cases-section-mobile.module.scss
+│   │   │   │   │   └── tablet
+│   │   │   │   │       ├── CasesSectionTablet.tsx
+│   │   │   │   │       └── cases-section-tablet.module.scss
+│   │   │   │   ├── CasesSection.tsx
 │   │   │   │   └── index.ts
 │   │   │   ├── DashboardHeader
 │   │   │   │   ├── DashboardHeader.scss
@@ -140,6 +155,8 @@
 │   │   ├── theme
 │   │   │   ├── ThemeToggle.module.scss
 │   │   │   └── ThemeToggle.tsx
+│   │   ├── types
+│   │   │   └── case.types.ts
 │   │   ├── ui
 │   │   │   ├── AnimatedGradient
 │   │   │   │   ├── AnimatedGradient.scss
@@ -171,6 +188,36 @@
 │   │   │   │   ├── button-stack.scss
 │   │   │   │   ├── button-stack.tsx
 │   │   │   │   ├── button-stack.types.ts
+│   │   │   │   └── index.ts
+│   │   │   ├── case-card
+│   │   │   │   ├── CaseCard.tsx
+│   │   │   │   ├── case-card.module.scss
+│   │   │   │   └── index.ts
+│   │   │   ├── case-carousel
+│   │   │   │   ├── CaseCarousel.module.scss
+│   │   │   │   ├── CaseCarousel.tsx
+│   │   │   │   └── index.ts
+│   │   │   ├── case-category
+│   │   │   │   ├── CaseCategory.tsx
+│   │   │   │   ├── case-category.module.scss
+│   │   │   │   └── index.ts
+│   │   │   ├── cases-filter
+│   │   │   │   ├── components
+│   │   │   │   │   ├── mobile
+│   │   │   │   │   │   ├── CasesFilterMobile.tsx
+│   │   │   │   │   │   └── cases-filter-mobile.module.scss
+│   │   │   │   │   └── tablet
+│   │   │   │   │       ├── components
+│   │   │   │   │       │   ├── FilterAccordion.tsx
+│   │   │   │   │       │   └── filter-accordion.module.scss
+│   │   │   │   │       ├── CasesFilterTablet.tsx
+│   │   │   │   │       └── cases-filter-tablet.module.scss
+│   │   │   │   ├── CasesFilter.tsx
+│   │   │   │   ├── cases-filter.module.scss
+│   │   │   │   └── index.ts
+│   │   │   ├── cases-grid
+│   │   │   │   ├── CasesGrid.tsx
+│   │   │   │   ├── cases-grid.module.scss
 │   │   │   │   └── index.ts
 │   │   │   ├── cursor-follower
 │   │   │   │   ├── cursor-follower.scss
@@ -266,4 +313,4 @@
 ├── tsconfig.node.json
 └── vite.config.ts
 
-69 directories, 198 files
+84 directories, 230 files

@@ -20,6 +20,8 @@
   z-index: 1000;
   overflow: hidden; // Меняем на visible чтобы контент меню был виден
   min-height: 60px;
+  box-shadow: var(--box-shadow-primary);
+
 
 
 
@@ -35,6 +37,7 @@
     
     .blur {
       backdrop-filter: blur(10px);
+      box-shadow: var(--box-shadow-primary);
     }
 
   }
@@ -74,6 +77,8 @@
   z-index: -1;
   border-radius: 24px;
   transition: backdrop-filter 0.3s ease;
+  box-shadow: var(--box-shadow-primary);
+
 
   .header:hover & {
     box-shadow: var(--box-shadow-primary);

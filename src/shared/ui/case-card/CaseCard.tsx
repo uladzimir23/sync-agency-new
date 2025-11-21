@@ -49,6 +49,10 @@ export const CaseCard: React.FC<CaseCardProps> = ({
             size={layout === 'minimal' ? 'small' : 'medium'}
           />
         </div>
+        
+        <h3 className={styles.caseTitle}>{caseItem.title}</h3>
+        <p className={styles.caseDescription}>{caseItem.description}</p>
+        
         <div className={styles.caseTags}>
           {caseItem.tags.map((tag, index) => (
             <span key={index} className={styles.tag}>
@@ -56,11 +60,10 @@ export const CaseCard: React.FC<CaseCardProps> = ({
             </span>
           ))}
         </div>
-        
-        <h3 className={styles.caseTitle}>{caseItem.title}</h3>
-        <p className={styles.caseDescription}>{caseItem.description}</p>
-        
+        <button className={styles.viewCaseText}>View Case Study</button>
+
       </div>
+
       <div className={styles.caseMedia}>
         <CaseCarousel 
           images={caseItem.images}
@@ -68,11 +71,8 @@ export const CaseCard: React.FC<CaseCardProps> = ({
           autoPlay={autoPlayCarousel}
           autoPlayInterval={4000}
         />
-
       </div>
       
-
-
     </div>
   )
 }
