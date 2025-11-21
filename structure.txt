@@ -202,6 +202,23 @@
 │   │       └── utils.ts
 │   ├── widgets
 │   │   └── header
+│   │       ├── components
+│   │       │   ├── desktop
+│   │       │   │   ├── HeaderDesktop.tsx
+│   │       │   │   └── header-desktop.module.scss
+│   │       │   ├── mobile
+│   │       │   │   ├── HeaderMobile.tsx
+│   │       │   │   ├── MobileMenu.tsx
+│   │       │   │   ├── MobileMenuContent.tsx
+│   │       │   │   ├── header-mobile.module.scss
+│   │       │   │   ├── mobile-menu-content.tsx
+│   │       │   │   ├── mobile-menu-item.tsx
+│   │       │   │   └── mobile-menu.mobile.module.scss
+│   │       │   └── tablet
+│   │       │       ├── HeaderTablet copy.tsx
+│   │       │       ├── HeaderTablet.tsx
+│   │       │       ├── header-tablet.module.scss
+│   │       │       └── mobile-menu.tablet.module.scss
 │   │       ├── header.module.scss
 │   │       ├── header.tsx
 │   │       ├── header.types.ts
@@ -249,4 +266,4 @@
 ├── tsconfig.node.json
 └── vite.config.ts
 
-65 directories, 185 files
+69 directories, 198 files

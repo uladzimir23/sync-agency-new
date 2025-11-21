@@ -1,0 +1,50 @@
+import React from 'react'
+import { CasesGrid } from '../../../../ui/cases-grid/CasesGrid'
+import { CasesFilterMobile } from '../../../../ui/cases-filter/components/mobile/CasesFilterMobile'
+import { useCases } from '../../../../hooks/useCases'
+import styles from './cases-section-mobile.module.scss'
+
+export const CasesSectionMobile: React.FC = () => {
+  const { 
+    filteredCases, 
+    filters, 
+    updateFilters, 
+    selectCase,
+    clearFilters 
+  } = useCases()
+
+  const handleCaseClick = (caseItem: any) => {
+    selectCase(caseItem)
+  }
+
+  return (
+    <div className={styles.casesSectionMobile}>
+      <div className={styles.filterContainer}>
+        <CasesFilterMobile 
+          filters={filters}
+          onFiltersChange={updateFilters}
+        />
+      </div>
+      
+      <div className={styles.resultsInfo}>
+        <span className={styles.resultsCount}>
+          {filteredCases.length} case{filteredCases.length !== 1 ? 's' : ''} found
+        </span>
+        {(filters.categories?.length || filters.companies?.length) && (
+          <button 
+            onClick={clearFilters}
+            className={styles.clearFilters}
+          >
+            Clear filters
+          </button>
+        )}
+      </div>
+
+      <CasesGrid 
+        cases={filteredCases} 
+        layout="compact"
+        onCaseClick={handleCaseClick}
+      />
+    </div>
+  )
+}

@@ -1,0 +1,36 @@
+.casesSectionMobile {
+    padding: 1rem 0;
+  }
+  
+  .filterContainer {
+    margin-bottom: 1.5rem;
+  }
+  
+  .resultsInfo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    padding: 0 0.5rem;
+  }
+  
+  .resultsCount {
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+  }
+  
+  .clearFilters {
+    background: transparent;
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary);
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    font-size: 0.875rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    
+    &:hover {
+      border-color: var(--primary-color);
+      color: var(--primary-color);
+    }
+  }

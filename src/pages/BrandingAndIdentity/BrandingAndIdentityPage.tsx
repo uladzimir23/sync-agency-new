@@ -120,10 +120,7 @@ export const BrandingAndIdentityPage: React.FC = () => {
         />
       </div>
 
-        <div className="appointment-details__placeholder-icon">
-            <Icon name="calendar" size={102} alt="Calendar icon" />
-        </div>
-        
+
       <ProductHeroSection
         title="Branding & Identity"
         subtitle="Memorable Brand Experiences"

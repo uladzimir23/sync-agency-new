@@ -1,0 +1,43 @@
+.casesGrid {
+    display: grid;
+    //gap: 2rem;
+  
+    &.detailed {
+      grid-template-columns: repeat(1, 1fr);
+      
+      @media (max-width: 968px) {
+        grid-template-columns: 1fr;
+      }
+      @media (max-width: 768px) {
+        grid-template-columns: 1fr;
+      }
+
+      
+    }
+  
+    &.compact {
+      grid-template-columns: repeat(2, 1fr);
+      //gap: 1.5rem;
+      
+      @media (max-width: 968px) {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      
+      @media (max-width: 768px) {
+        grid-template-columns: 1fr;
+      }
+    }
+  
+    &.minimal {
+      grid-template-columns: repeat(4, 1fr);
+      //gap: 1rem;
+      
+      @media (max-width: 968px) {
+        grid-template-columns: repeat(3, 1fr);
+      }
+      
+      @media (max-width: 768px) {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+  }

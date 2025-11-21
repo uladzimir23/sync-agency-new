@@ -1,0 +1,54 @@
+.casesSectionTablet {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    //gap: 2rem;
+    //padding: 2rem 0;
+    
+    @media (max-width: 968px) {
+      grid-template-columns: 1fr;
+      //gap: 1.5rem;
+    }
+  }
+  
+  .sidebar {
+    position: sticky;
+    top: 2rem;
+    height: fit-content;
+    
+    @media (max-width: 968px) {
+      position: static;
+    }
+  }
+  
+  .content {
+    min-width: 0; // Для правильного отображения grid
+  }
+  
+  .resultsInfo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    padding: 0 1rem;
+  }
+  
+  .resultsCount {
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+  }
+  
+  .clearFilters {
+    background: transparent;
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary);
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    font-size: 0.875rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    
+    &:hover {
+      border-color: var(--primary-color);
+      color: var(--primary-color);
+    }
+  }
