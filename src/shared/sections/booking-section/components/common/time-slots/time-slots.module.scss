@@ -1,0 +1,74 @@
+.timeSlots {
+    width: 100%;
+    
+    .title {
+      font-size: 24px;
+      font-weight: 600;
+      margin-bottom: 25px;
+      color: var(--text-primary);
+    }
+  
+    .container {
+      width: 100%;
+      position: relative;
+      overflow-x: auto;
+      overflow-y: hidden;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+      
+      &::-webkit-scrollbar {
+        display: none;
+      }
+    }
+  
+    .stack {
+      width: max-content;
+      min-width: 100%;
+      
+      :global(.btnStackItem) {
+        min-width: 70px;
+        padding: 8px 12px;
+        flex-shrink: 0;
+        
+        &.unavailable {
+          opacity: 0.4;
+          pointer-events: none;
+        }
+        
+        .slot {
+          font-size: 16px;
+          font-weight: 500;
+        }
+      }
+    }
+  }
+  
+  // Стили для скролла при необходимости показать его
+  .scrollable {
+    .container {
+      &::-webkit-scrollbar {
+        display: block;
+        height: 4px;
+      }
+      
+      &::-webkit-scrollbar-track {
+        background: var(--bg-secondary);
+      }
+      
+      &::-webkit-scrollbar-thumb {
+        background: var(--border-color);
+        border-radius: 2px;
+      }
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .timeSlots {
+      .stack {
+        :global(.btnStack__container) {
+          flex-wrap: nowrap;
+          justify-content: flex-start;
+        }
+      }
+    }
+  }

@@ -1,0 +1,143 @@
+@use '../../../app/styles/abstracts' as vars;
+
+.btnStack {
+  display: flex;
+  position: relative;
+  
+  &--row {
+    flex-direction: row;
+    
+    .btnStack__container {
+      flex-direction: row;
+      gap: 3px;
+    }
+  }
+  
+  &--column {
+    grid-column: auto !important;
+    justify-content: end;
+    width: fit-content;
+  
+    .btnStack__container {
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    span {
+      justify-content: right;
+    }
+  }
+
+  &--grid {
+    // Исправление: добавляем grid стили
+    .btnStack__container {
+      display: grid !important;
+      position: relative !important;
+      grid-template-columns: repeat(7, 1fr) !important;
+      gap: 4px !important;
+      width: 100% !important;
+    }
+  }
+  
+  &__container {
+    position: relative;
+    display: flex;
+    gap: var(--spacing, 0px);
+    width: min-content;
+  }
+  
+  &__slider {
+    position: absolute;
+    background: var(--accent-color);
+    border-radius: 12px;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.8;
+    transform-origin: center;
+    will-change: transform, width, height, border-radius;
+    width: min-content;
+    
+    transition: 
+      width 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+      height 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+      border-radius 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+      opacity 0.2s ease;
+  }
+
+  &__activeSlider {
+    position: absolute;
+    pointer-events: none;
+    z-index: 2;
+    opacity: 1;
+    transform-origin: center;
+    will-change: transform, width, height;
+    
+    border: 1px solid;
+    border-color: rgba(36, 115, 212, 0.49);
+    box-shadow: inset 0px 0px 3px var(--border-color-accent);
+    border-radius: 12px;
+
+    &::before {
+      content: '';
+      position: absolute;
+      inset: -1px;
+      border-radius: 12px;
+      padding: 1px;
+      background: linear-gradient(
+        135deg,
+        var(--primary-color) 0%,
+        var(--border-color-accent) 50%,
+        var(--text-secondary) 100%
+      );
+      mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      mask-composite: exclude;
+      opacity: 1;
+      transition: all 0.3s ease;
+    }
+    
+    transition: 
+      width 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+      height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+}
+
+// Оптимизация для мобильных устройств
+@media (max-width: vars.breakpoint(sm)) {
+  .btnStack__activeSlider {
+    border-width: 1px;
+    border-radius: 10px;
+
+    &::before {
+      inset: -1px;
+      border-radius: 10px;
+      padding: 1px;
+      opacity: 0.3;
+    }
+  }
+}
+
+// Улучшение производительности
+@media (prefers-reduced-motion: reduce) {
+  .btnStack__slider,
+  .btnStack__activeSlider {
+    transition: none;
+  }
+}
+
+// Стили для ButtonStack внутри скроллируемых контейнеров
+.btnStack--scrollable {
+  .btnStack__container {
+    width: max-content;
+    min-width: 100%;
+  }
+}
+
+// Гарантируем правильное позиционирование слайдеров в скроллируемом контейнере
+.btnStack__container {
+  position: relative;
+  
+  .btnStack__slider,
+  .btnStack__activeSlider {
+    position: absolute;
+  }
+}

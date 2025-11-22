@@ -208,12 +208,16 @@
   transition: all 0.3s ease;
   opacity: 1;
   transform: rotate(90deg); // Поворачиваем на 90 градусов
+
   
   &.menuIconHidden {
     opacity: 0;
     transform: rotate(90deg) scale(0.3); // Сохраняем поворот при скрытии
   }
+
+  
 }
+
 
 .closeIcon {
   position: absolute;

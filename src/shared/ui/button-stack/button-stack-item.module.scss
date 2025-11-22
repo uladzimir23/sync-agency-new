@@ -1,0 +1,113 @@
+@use '../../../app/styles/abstracts' as vars;
+
+.btnStackItem {
+  position: relative;
+  z-index: 1;
+  background: transparent;
+  border: none;
+  padding: vars.spacing(2) vars.spacing(4);
+  font-family: 'TASA Orbiter';
+  font-size: vars.text-size(sm);
+  color: var(--text-primary);
+  cursor: pointer !important;
+  transition: all 0.15s ease;
+  border-radius: var(--radius);
+  will-change: transform;
+  width: fit-content;
+
+  span {
+    transition: scale 0.4s ease;
+    scale: 1;
+
+    &::before {
+      filter: blur(2px);
+      scale: 1.3;
+    }
+  }
+  
+  &:hover {
+    color: var(--primary-color);
+    transform: translateY(0px);
+    border-radius: 10px !important;
+  }
+  
+  &[data-active="true"] {
+    color: var(--primary-color);
+    font-weight: 500;
+
+    span {
+      transition: scale 0.4s ease;
+      scale: 1.05;
+    }
+  }
+  
+  &[data-hovered="true"] {
+    .btnStackItem__content {
+      color: var(--primary-color);
+    }
+  }
+  
+  &--today {
+    position: relative;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 7px;
+      right: 7px;
+      width: 6px;
+      height: 6px;
+      background: var(--primary-color);
+      border-radius: 50%;
+      z-index: 3;
+    }
+    
+    .btnStackItem__content {
+      color: var(--primary-color);
+      font-weight: 600;
+    }
+  }
+  
+  &__content {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
+    transition: color 0.2s ease;
+  }
+  
+  &:active {
+    transform: translateY(0px);
+    transition-duration: 0.05s;
+  }
+}
+
+// Оптимизация для мобильных устройств
+@media (max-width: vars.breakpoint(sm)) {
+  .btnStackItem {
+    padding: vars.spacing(2) vars.spacing(3);
+    font-size: vars.text-size(xs);
+    
+    &--today {
+      &::before {
+        top: 3px;
+        right: 3px;
+        width: 4px;
+        height: 4px;
+      }
+    }
+  }
+}
+
+// Улучшение производительности
+@media (prefers-reduced-motion: reduce) {
+  .btnStackItem {
+    transition: none;
+    
+    &:hover {
+      transform: none;
+    }
+  }
+}

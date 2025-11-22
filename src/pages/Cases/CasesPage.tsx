@@ -39,8 +39,8 @@ export const CasesPage: React.FC = () => {
       
       <div className="page-container">
       <ProductHeroSection
-        title="Cases"
-        subtitle="Focus on Problem-Solving & Partnership"
+        title="Case Studies"
+        subtitle="Focused on Results & Impact"
         description="Dive into the challenges we've tackled and the solutions we've built. Each case is a story of collaboration, innovation, and the tangible business value we create alongside our partners."
         ctaText="Discover the Proof"
         onCtaClick={handleCtaClick}

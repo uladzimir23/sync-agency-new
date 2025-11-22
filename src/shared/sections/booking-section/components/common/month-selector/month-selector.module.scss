@@ -1,0 +1,72 @@
+.monthSelector {
+    margin-bottom: 24px;
+    width: 100%;
+    position: relative;
+    
+    .title {
+      font-size: 24px;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin: 0 0 25px 0;
+    }
+  
+    .container {
+      width: 100%;
+      position: relative;
+      overflow-x: auto;
+      overflow-y: hidden;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+      
+      &::-webkit-scrollbar {
+        display: none;
+      }
+    }
+    
+    .stack {
+      width: max-content;
+      min-width: 100%;
+      
+      :global(.btnStackItem) {
+        min-width: 120px;
+        font-size: 14px;
+        flex-shrink: 0;
+  
+        &:hover {
+          span {
+            scale: 1.02;
+          }
+        }
+      }
+    }
+  }
+  
+  .scrollable {
+    .container {
+      &::-webkit-scrollbar {
+        display: block;
+        height: 4px;
+      }
+      
+      &::-webkit-scrollbar-track {
+        background: var(--bg-secondary);
+      }
+      
+      &::-webkit-scrollbar-thumb {
+        background: var(--border-color);
+        border-radius: 2px;
+      }
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .monthSelector {
+      .stack {
+        :global(.btnStackItem) {
+          min-width: 100px;
+          font-size: 12px;
+          padding: 8px 12px;
+        }
+      }
+    }
+  }

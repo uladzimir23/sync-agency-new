@@ -6,15 +6,18 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 38px;
-  height: 38px;
+  width: 40px;
+  height: 40px;
   border: none;
   border-radius: 40%;
-  background: var(--bg-primary-opacity);
-  backdrop-filter: blur(3px);
+  background: transparent;
+  backdrop-filter: blur(20px);
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   color: var(--text-primary);
+  box-shadow: var(--box-shadow-primary), inset 0px 0px 1px var(--border-color-accent);
+
+
   
   // Градиентная обводка
   &::before {
@@ -38,7 +41,7 @@
   }
 
   &:hover {
-    background: var(--bg-primary-opacity-sec);
+    //background: var(--bg-primary-opacity-sec);
     transform: translateY(0px);
     box-shadow: 
       0 4px 12px rgba(0, 0, 0, 0.15),
@@ -77,7 +80,7 @@
 
   // Специфичные стили для светлой темы
   :root & {
-    background: var(--bg-primary-opacity);
+    background: transparent;
     
     &:hover {
       background: var(--accent-color);
@@ -86,7 +89,7 @@
 
   // Специфичные стили для темной темы
   .dark-theme & {
-    background: var(--bg-primary-opacity);
+    //background: var(--bg-primary-opacity);
     
     &:hover {
       background: var(--accent-color);
@@ -99,12 +102,11 @@
   // Стили для размещения в хедере
   &.colabsys-header__theme-toggle {
     flex-shrink: 0;
-    margin: 0 0.5rem;
     
     @media (max-width: 768px) {
       width: 40px;
       height: 40px;
-      margin: 0 0.25rem;
+      margin-left: 0.25rem;
     }
   }
 
@@ -144,8 +146,9 @@
 // Адаптивность
 @media (max-width: 480px) {
   .theme-toggle {
-    width: 30px;
-    height: 30px;
+    width: 40px;
+    height: 40px;
+    //background: transparent !important;
 
       
   // Градиентная обводка

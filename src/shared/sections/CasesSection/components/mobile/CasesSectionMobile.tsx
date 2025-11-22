@@ -19,26 +19,6 @@ export const CasesSectionMobile: React.FC = () => {
 
   return (
     <div className={styles.casesSectionMobile}>
-      <div className={styles.filterContainer}>
-        <CasesFilterMobile 
-          filters={filters}
-          onFiltersChange={updateFilters}
-        />
-      </div>
-      
-      <div className={styles.resultsInfo}>
-        <span className={styles.resultsCount}>
-          {filteredCases.length} case{filteredCases.length !== 1 ? 's' : ''} found
-        </span>
-        {(filters.categories?.length || filters.companies?.length) && (
-          <button 
-            onClick={clearFilters}
-            className={styles.clearFilters}
-          >
-            Clear filters
-          </button>
-        )}
-      </div>
 
       <CasesGrid 
         cases={filteredCases} 

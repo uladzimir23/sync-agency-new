@@ -1,0 +1,82 @@
+.tabletLayout {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+  }
+  
+  .selectionContent {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+  
+  .confirmationSection {
+    backdrop-filter: blur(50px);
+    border-radius: 30px;
+    padding: 30px;
+    border: 1px solid var(--border-color);
+    width: 100%;
+    transition: all 0.3s ease;
+  
+    &:hover {
+      box-shadow: inset 0px 0px 3px var(--border-color-accent);
+      border-radius: 25px;
+      background: var(--bg-secondary);
+    }
+  }
+  
+  // Специфичные стили для компонентов внутри tablet
+  .tabletLayout {
+    :global(.month-selector-module__monthSelector) {
+      margin-bottom: 0;
+    }
+    
+    :global(.date-picker-module__datePicker) {
+      margin-bottom: 0;
+    }
+    
+    :global(.time-slots-module__timeSlots) {
+      width: 100%;
+      margin-bottom: 0;
+    }
+  
+    :global(.booking-form-module__bookingForm) {
+      border: none;
+      padding: 0;
+      border-radius: 0;
+      background: transparent;
+      
+      &:hover {
+        box-shadow: none;
+        background: transparent;
+      }
+    }
+  }
+  
+  // Адаптивность для планшетов
+  @media (max-width: 1024px) {
+    .tabletLayout {
+      gap: 16px;
+    }
+    
+    .confirmationSection {
+      padding: 24px;
+      border-radius: 24px;
+    }
+    
+    .selectionContent {
+      gap: 20px;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .confirmationSection {
+      padding: 20px;
+      border-radius: 20px;
+    }
+    
+    .selectionContent {
+      gap: 16px;
+    }
+  }

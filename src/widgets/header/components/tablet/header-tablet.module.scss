@@ -18,6 +18,9 @@
   z-index: 1000;
   overflow: visible;
   min-height: 60px;
+  box-shadow: inset 0px 0px 7px var(--border-color-accent);
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+
 
   &::before {
     content: '';
@@ -124,7 +127,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--bg-primary-opacity);
+  background: transparent;
   cursor: pointer;
   padding: 0.5rem;
   border-radius: 8px;
@@ -136,6 +139,7 @@
   -webkit-tap-highlight-color: transparent;
   backdrop-filter: blur(3px);
   border-radius: 40%;
+  box-shadow: var(--box-shadow-primary), inset 0px 0px 1px var(--border-color-accent);
 
   &:before {
     content: "";
@@ -205,15 +209,4 @@
   display: none;
 }
 
-// Скрываем на других устройствах
-@media (max-width: vars.breakpoint(md)) {
-  .header {
-    display: none;
-  }
-}
 
-@media (min-width: vars.breakpoint(lg)) {
-  .header {
-    display: none;
-  }
-}

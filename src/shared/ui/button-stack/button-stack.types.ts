@@ -1,21 +1,14 @@
 import { ReactNode } from 'react'
 
-export interface MagneticConfig {
-  strength?: number    // Сила притяжения (0-1)
-  maxPull?: number     // Максимальное смещение в пикселях
-  lerp?: number        // Плавность следования
-}
-
 export interface ButtonStackProps {
   children: ReactNode
   direction?: 'row' | 'column' | 'grid'
   spacing?: number
   className?: string
-  activeIndex: number // Теперь обязательный пропс
+  activeIndex: number
   scale?: number
-  onActiveChange: (index: number) => void // Теперь обязательный пропс
+  onActiveChange: (index: number) => void
   interactionMode?: 'hover' | 'click'
-  magnetic?: boolean | MagneticConfig
   enableActiveSlider?: boolean
   rememberActive?: boolean
 }

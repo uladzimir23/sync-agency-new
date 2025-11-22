@@ -6,7 +6,7 @@ import { FloatingContactButton } from '@/shared/ui/floating-contact-button'
 
 
 import { DashboardHeader } from '@shared/sections/DashboardHeader'
-import { CalendarSection } from '@shared/sections/CalendarSection/CalendarSection'
+import { BookingSection } from '@shared/sections/booking-section'
 import { ProductHeroSection } from '@shared/sections/ProductHeroSection'
 
 
@@ -98,6 +98,9 @@ export const HomePage: React.FC = () => {
                 />
                 </div>
             </div>
+
+            <BookingSection />
+
             <div className='product-hero-sections-wrapper'>
             <ProductHeroSection
                 title="Branding & Identity"
@@ -136,7 +139,6 @@ export const HomePage: React.FC = () => {
             />
             </div>
             
-          <CalendarSection />
 
         </div>
       </div>

@@ -106,12 +106,8 @@
 │   │   │   │   ├── CTASection.tsx
 │   │   │   │   └── index.ts
 │   │   │   ├── CalendarSection
-│   │   │   │   ├── .CalendarSection.tsx.swp
 │   │   │   │   ├── CalendarSection.scss
 │   │   │   │   └── CalendarSection.tsx
-│   │   │   ├── CasesPreview
-│   │   │   │   ├── CasesPreview.tsx
-│   │   │   │   └── index.ts
 │   │   │   ├── CasesSection
 │   │   │   │   ├── components
 │   │   │   │   │   ├── desktop
@@ -184,8 +180,9 @@
 │   │   │   │   ├── button.types.ts
 │   │   │   │   └── index.ts
 │   │   │   ├── button-stack
+│   │   │   │   ├── button-stack-item.module.scss
 │   │   │   │   ├── button-stack-item.tsx
-│   │   │   │   ├── button-stack.scss
+│   │   │   │   ├── button-stack.module.scss
 │   │   │   │   ├── button-stack.tsx
 │   │   │   │   ├── button-stack.types.ts
 │   │   │   │   └── index.ts
@@ -248,6 +245,7 @@
 │   │   └── utils
 │   │       └── utils.ts
 │   ├── widgets
+│   │   ├── footer
 │   │   └── header
 │   │       ├── components
 │   │       │   ├── desktop
@@ -269,12 +267,7 @@
 │   │       ├── header.module.scss
 │   │       ├── header.tsx
 │   │       ├── header.types.ts
-│   │       ├── index.ts
-│   │       ├── mobile-menu-content.tsx
-│   │       ├── mobile-menu-item.tsx
-│   │       ├── mobile-menu.desktop.module.scss
-│   │       ├── mobile-menu.mobile.module.scss
-│   │       └── mobile-menu.tsx
+│   │       └── index.ts
 │   ├── App.test.tsx
 │   ├── index.css
 │   ├── index.tsx
@@ -313,4 +306,4 @@
 ├── tsconfig.node.json
 └── vite.config.ts
 
-84 directories, 230 files
+84 directories, 223 files

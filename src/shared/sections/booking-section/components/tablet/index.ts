@@ -1,0 +1,1 @@
+export { BookingTablet } from './booking-tablet'

@@ -1,0 +1,80 @@
+.bookingSection {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 160px;
+    gap: 40px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+    opacity: 1;
+  
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(86, 156, 254, 0.1),
+        transparent
+      );
+      transition: left 0.5s ease;
+    }
+    
+    &:hover {
+      transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      opacity: 1;
+      background: var(--background-primary-yellow);
+  
+      &::before {
+        left: 100%;
+      }
+    }
+  }
+  
+  .header {
+    width: 100%;
+  }
+  
+  .title {
+    font-size: 48px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 16px;
+  }
+  
+  .subtitle {
+    font-size: 18px;
+    color: var(--text-secondary);
+    margin: 0;
+  }
+  
+  // Адаптивность
+  @media (max-width: 1024px) {
+    .bookingSection {
+      padding: 80px 60px;
+    }
+    
+    .title {
+      font-size: 36px;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .bookingSection {
+      padding: 40px 20px;
+      gap: 24px;
+    }
+    
+    .title {
+      font-size: 28px;
+    }
+    
+    .subtitle {
+      font-size: 16px;
+    }
+  }

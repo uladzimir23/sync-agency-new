@@ -28,7 +28,7 @@
     }
     
     &:hover {
-      background: var(--background-primary-yellow);
+      //background: var(--background-primary-yellow);
       //border-radius: 16px;
       //border: 1px solid var(--border-color);
       box-shadow: var(--box-shadow-primary);
@@ -78,7 +78,7 @@
   
     &.compact {
         padding: 5px;
-        backdrop-filter: blur(5px);
+        //backdrop-filter: blur(5px);
 
       .caseMedia {
         height: 200px;
@@ -128,39 +128,55 @@
     opacity: 1;
     color: var(--text-primary);
     font-weight: 300;
-    font-size: 1.1rem;
+    font-size: 1rem;
     padding: 0.5rem 1rem;
     border: 1px solid var(--accent-color);
     border-radius: 12px;
     //background: var(--background-primary-yellow);
     background: var(--accent-color);
     backdrop-filter: blur(50px);
-
-    //backdrop-filter: blur(10px);
     transition: all 0.3s ease;
     //margin-bottom: 10px;
     box-shadow: var(--box-shadow-primary);
 
     &::before {
-        content: "";
+        content: '';
         position: absolute;
         inset: -1px;
         border-radius: 12px;
         padding: 1px;
-        background: linear-gradient(135deg, var(--primary-color) 0%, var(--border-color-accent) 50%, var(--text-secondary) 100%);
+        background: linear-gradient(
+        135deg,
+        var(--primary-color) 0%,
+        var(--border-color-accent) 50%,
+        var(--text-secondary) 100%
+        );
         mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
         mask-composite: exclude;
-        opacity: 1;
+        opacity: 0.3;
         transition: all 0.3s ease;
     }
 
     &:hover {
-        transition: all 0.3s ease;
-
+        background-color: var(--accent-color);
+        //border: 1px solid var(--primary-color);
+        border-radius: 14px;
+        scale: 0.99;
         color: var(--primary-color);
+
+        &::before {
+        opacity: 1;
+        transform: scale(0.99);
+        border-radius: 14px;
+
+        }
+        
+    
     }
 
   }
+
+  
   
   .caseContent {
     .caseMeta {
@@ -266,6 +282,7 @@
             .caseMedia {
                 height: 100%;
                 aspect-ratio: 1;
+                
             }
       
             .caseContent {
@@ -288,7 +305,7 @@
     .caseCard {
         padding:10px;
         grid-template-columns: 1fr;
-        box-shadow: var(--box-shadow-primary);
+        //box-shadow: var(--box-shadow-primary);
         margin-bottom: 15px;
         border-radius: 35px;
         gap: 15px;
@@ -306,11 +323,18 @@
           backdrop-filter: blur(50px);
           box-shadow: var(--box-shadow-primary);
 
+          .viewCaseText {
+            //position: absolute;
+            
+          }
+
         }
       }
   
       &.compact {
+        box-shadow: none;
         .caseMedia {
+            //display: none;
             height: 100%;
             aspect-ratio: 1;
         }
@@ -322,7 +346,8 @@
           box-shadow: var(--box-shadow-primary);
 
           .viewCaseText {
-            width: 100% !important;
+            width: 100%;
+           
           }
 
         }

@@ -19,6 +19,7 @@
   z-index: 1000;
   overflow: hidden;
   min-height: 60px;
+  
 
 
   // Стиль для расширенного состояния (когда меню открыто)
@@ -86,13 +87,13 @@
   align-items: center;
   justify-content: space-between;
   gap: 10px !important;
-  padding: vars.spacing(3) vars.spacing(3);
+  padding: vars.spacing(4) vars.spacing(4);
   transition: padding 0.3s ease;
   min-height: 60px;
 }
 
 .logo {
-  margin-left: 10px;
+  margin-left: 5px;
   flex-shrink: 0;
   cursor: pointer;
 }
@@ -122,7 +123,7 @@
 .actionsSection {
   display: flex;
   align-items: center;
-  gap: vars.spacing(2);
+  gap: 5px;
   margin-right: 10px;
 }
 
@@ -142,7 +143,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--bg-primary-opacity);  
+  background: transparent;  
   cursor: pointer;
   padding: 0.5rem;
   border-radius: 8px;
@@ -152,8 +153,10 @@
   width: 40px;
   height: 40px;
   -webkit-tap-highlight-color: transparent;
-  backdrop-filter: blur(3px);
+  backdrop-filter: blur(20px);
   border-radius: 40%;
+  box-shadow: var(--box-shadow-primary), inset 0px 0px 1px var(--border-color-accent);
+
 
 
   &:before {
@@ -171,7 +174,7 @@
   }
 
   &:hover {
-    background: var(--bg-primary-opacity-sec);
+    background: var(--accent-color);
     transform: translateY(0px);
     box-shadow: 
       0 4px 12px rgba(0, 0, 0, 0.15),
@@ -229,7 +232,7 @@
   }
   
   .actionsSection {
-    gap: vars.spacing(1);
+    gap: 7px;
   }
   
   .container {

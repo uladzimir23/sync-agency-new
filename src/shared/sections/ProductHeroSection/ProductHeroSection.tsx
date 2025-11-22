@@ -27,12 +27,21 @@ export const ProductHeroSection: React.FC<ProductHeroSectionProps> = ({
             <span className="product-hero-subtitle">{subtitle}</span>
             <h1 className="product-hero-title">{title}</h1>
             <p className="product-hero-description">{description}</p>
+
+            <div className='cta-acrions-wrapper'>
             <button 
               className="product-hero-cta"
               onClick={onCtaClick}
             >
               {ctaText}
             </button>
+            <button 
+              className="product-hero-cta"
+              onClick={onCtaClick}
+            >
+              {ctaText}
+            </button>
+            </div>
           </div>
           
           {image && (

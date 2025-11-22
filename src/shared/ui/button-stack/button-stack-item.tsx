@@ -1,6 +1,7 @@
 import React from 'react'
 import { cn } from '@/shared/utils/utils'
 import { ButtonStackItemProps } from './button-stack.types'
+import styles from './button-stack-item.module.scss'
 
 const ButtonStackItem = React.forwardRef<HTMLButtonElement, ButtonStackItemProps>(
   ({ 
@@ -17,18 +18,19 @@ const ButtonStackItem = React.forwardRef<HTMLButtonElement, ButtonStackItemProps
       <button
         ref={ref}
         className={cn(
-          'colabsys-btn-stack-item',
+          styles.btnStackItem,
           {
-            'colabsys-btn-stack-item--active': isActive,
-            'colabsys-btn-stack-item--today': isToday,
-            'colabsys-btn-stack-item--hovered': isHovered,
+            [styles.btnStackItemToday]: isToday,
+            [styles.btnStackItemActive]: isActive,
+            [styles.btnStackItemHovered]: isHovered,
           },
           className
         )}
         onClick={onClick}
+        data-active={isActive}
         {...props}
       >
-        <span className="colabsys-btn-stack-item__content">
+        <span className={styles.btnStackItem__content}>
           {children}
         </span>
       </button>

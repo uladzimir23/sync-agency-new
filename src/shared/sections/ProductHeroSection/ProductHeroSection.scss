@@ -7,6 +7,11 @@
   .product-hero-container {
     padding: 100px 160px;
   }
+
+  .cta-acrions-wrapper {
+    display: flex;
+    gap: 10px;
+  }
   
   .product-hero-content {
     display: grid;
@@ -51,8 +56,9 @@
     }
   
     .product-hero-cta {
-        width: fit-content;
-      background: transparent;
+      position: relative;
+      width: fit-content;
+      background: var(--accent-color);
       color: var(--text-primary);
       border: none;
       padding: 1rem 2rem;
@@ -62,13 +68,44 @@
       cursor: pointer;
       transition: all 0.3s ease;
       box-shadow: var(--box-shadow-primary);
-      backdrop-filter: blur(10px);
-  
-      &:hover {
-        color: var(--primary-color);
-        box-shadow: var(--box-shadow-accent);
-        border-radius: 10px;
+      //backdrop-filter: blur(10px);
+
+
+          // Градиентная обводка
+      &::before {
+        content: '';
+        position: absolute;
+        inset: -1px;
+        border-radius: 12px;
+        padding: 1px;
+        background: linear-gradient(
+        135deg,
+        var(--primary-color) 0%,
+        var(--border-color-accent) 50%,
+        var(--text-secondary) 100%
+        );
+        mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+        mask-composite: exclude;
+        opacity: 0.3;
+        transition: all 0.3s ease;
       }
+
+      &:hover {
+        background-color: var(--accent-color);
+        //border: 1px solid var(--primary-color);
+        border-radius: 14px;
+        scale: 0.99;
+        color: var(--primary-color);
+
+        &::before {
+        opacity: 1;
+        transform: scale(0.99);
+        border-radius: 14px;
+
+        }
+        
+      }
+
     }
   }
   
@@ -108,7 +145,7 @@
     .product-hero-content {
       grid-template-columns: 1fr;
       gap: 3rem;
-      text-align: center;
+      //text-align: center;
     }
   
     .product-hero-gradient {
@@ -155,8 +192,23 @@
   }
   
   @media (max-width: 480px) {
+    .product-hero-section {
+      margin-bottom: 2rem;
+        }
+  
+
     .product-hero-container {
-      padding: 1.5rem;
+      padding: 2rem;
+
+      .cta-acrions-wrapper {
+        flex-direction: column;        
+        gap: 10px;
+
+        .product-hero-cta {
+          width: 100%;
+        }
+      }
+      
     }
   
     .product-hero-gradient {

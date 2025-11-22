@@ -8,7 +8,7 @@ export const ThemeToggle: React.FC = () => {
 
   return (
     <button 
-      className={`${styles['theme-toggle']} ${styles['fade-in-scale']} ${styles['colabsys-header__theme-toggle']}`}
+      className={`${styles['theme-toggle']} ${styles['fade-in-scale']} ${styles['header__theme-toggle']}`}
       onClick={toggleTheme}
       aria-label={`Switch to ${isDark ? 'light' : 'dark'} theme`}
       title={`Switch to ${isDark ? 'light' : 'dark'} theme`}

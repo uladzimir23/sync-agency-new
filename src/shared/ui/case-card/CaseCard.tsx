@@ -60,6 +60,7 @@ export const CaseCard: React.FC<CaseCardProps> = ({
             </span>
           ))}
         </div>
+
         <button className={styles.viewCaseText}>View Case Study</button>
 
       </div>
@@ -71,6 +72,7 @@ export const CaseCard: React.FC<CaseCardProps> = ({
           autoPlay={autoPlayCarousel}
           autoPlayInterval={4000}
         />
+
       </div>
       
     </div>
