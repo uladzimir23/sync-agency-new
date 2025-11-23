@@ -1,206 +1,182 @@
 .datePicker {
+  border-radius: 18px;
+  padding: 30px;
+  border: 1px solid var(--border-color);
+  margin-bottom: 20px;
+  width: 100%;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  background: var(--bg-primary-opacity-sec);
+
+
+  &:hover {
+    box-shadow: var(--box-shadow-primary);
     border-radius: 20px;
-    padding: 30px;
-    border: 1px solid var(--border-color);
-    //margin-bottom: 20px;
-    width: 100%;
-    overflow: hidden;
-    transition: all 0.3s ease;
     background: var(--bg-primary-opacity-sec);
-  
-    &:hover {
-      box-shadow: var(--box-shadow-primary);
-      border-radius: 22px;
-      background: var(--bg-primary-opacity-sec);
+  }
+
+  :global(.btnStack__slider) {
+    box-shadow: var(--box-shadow-primary);
+  }
+
+  .title {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin: 0 0 16px 0;
+  }
+
+  .weekDays {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 4px;
+    margin-bottom: 12px;
+    text-align: center;
+  }
+
+  .weekDay {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    padding: 8px 4px;
+    
+    &.weekend {
+      color: #ef4444;
     }
-  
-    :global(.btnStack__slider) {
-      box-shadow: var(--box-shadow-primary);
+  }
+
+  .stack {
+    width: 100%;
+    
+    
+    // Исправление: одинаковый размер для всех ячеек
+    :global(.btnStack__container) {
+      display: grid !important;
+      grid-template-columns: repeat(7, 1fr) !important;
+      gap: 4px !important;
+      width: 100% !important;
     }
-  
-    .title {
-      font-size: 16px;
-      font-weight: 600;
-      color: var(--text-primary);
-      margin: 0 0 16px 0;
-    }
-  
-    .weekDays {
-      display: grid;
-      grid-template-columns: repeat(7, 1fr);
-      gap: 4px;
-      margin-bottom: 12px;
-      text-align: center;
-    }
-  
-    .weekDay {
-      font-size: 12px;
-      font-weight: 600;
-      color: var(--text-secondary);
-      padding: 8px 4px;
+    
+    // Исправление: глобальные стили для кнопок
+    :global(.button-stack-item-module__btnStackItem) {
+      min-width: auto !important;
+      width: 100% !important;
+      aspect-ratio: 1 !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      padding: 0 !important;
+
+      &.past {
+        opacity: 0.4;
+        pointer-events: none;
+        
+        .itemNumber {
+          color: var(--text-secondary) !important;
+        }
+      }
+
       
       &.weekend {
-        color: #ef4444;
+        .itemNumber {
+          color: #ef4444 !important;
+        }
       }
-    }
-  
-    .stack {
-      width: 100%;
       
-      // Исправление: добавляем grid стили для контейнера
-      :global(.btnStack__container) {
-        display: grid !important;
-        grid-template-columns: repeat(7, 1fr) !important;
-        gap: 4px !important;
-        width: 100% !important;
+      &.today {
         position: relative !important;
+        
+        &::before {
+          content: '';
+          position: absolute;
+          top: 15px;
+          right: 15px;
+          width: 6px;
+          height: 6px;
+          background: var(--primary-color);
+          border-radius: 50%;
+          z-index: 3;
+        }
+        
+        .itemNumber {
+          color: var(--primary-color) !important;
+          font-weight: 700 !important;
+        }
       }
-      
-      :global(.btnStackItem) {
-        min-width: auto !important;
-        padding: 12px 8px !important;
-        border-radius: 12px !important;
-        width: 100% !important;
-        aspect-ratio: 1 !important;
-        display: flex !important;
-        align-items: center !important;
-        justify-content: center !important;
 
-        &.past {
-          opacity: 0.4 !important;
-          
-          &:hover {
-            cursor: not-allowed !important;
-            
-            // Отключаем ховер эффекты для прошедших дат
-            span {
-              scale: 1 !important;
-            }
-            
-            .itemNumber {
-              color: var(--text-primary) !important;
-            }
-          }
-          
-          &[data-active="true"] {
-            // Прошедшие даты не могут быть активными
-            background: transparent !important;
-            
-            .itemNumber {
-              color: var(--text-primary) !important;
-            }
-          }
-        }
-        
-        &.weekend {
-          .itemNumber {
-            color: #ef4444 !important;
-          }
-        }
-        
-        &.today {
-          position: relative !important;
-          
-          &::before {
-            content: '';
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            width: 6px;
-            height: 6px;
-            background: var(--primary-color);
-            border-radius: 50%;
-            z-index: 3;
-          }
-          
-          .itemNumber {
-            color: var(--primary-color) !important;
-            font-weight: 700 !important;
-          }
-        }
-  
-        &:hover {
-          :global(.btnStackItem__content) {
-            scale: 1.15 !important;
-          }
-        }
-        
-        &[data-active="true"] {
-          .itemNumber {
-            color: var(--primary-color) !important;
-          }
-        }
-      }
-    }
-  
-    .item {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      width: 100%;
-      height: 100%;
-      justify-content: center;
-      
-      &Number {
-        font-size: 14px;
-        font-weight: 600;
-        color: var(--text-primary);
-      }
-    }
-  }
-  
-  // Стили для ховера на датах
-  .stack {
-    :global(.btnStackItem):hover {
-      .itemNumber {
-        color: var(--primary-color);
-      }
-    }
-  }
-  
-  // Адаптивность
-  @media (max-width: 768px) {
-    .datePicker {
-      border-radius: 12px;
-      padding: 12px;
-      background: var(--bg-primary-opacity-sec);
 
       &:hover {
-        border-radius: 14px;
-        background: var(--bg-primary-opacity-sec);
+        :global(.button-stack-item-module__btnStackItem__content) {
+          scale: 1.15 !important;
+        }
       }
       
-      .stack {
-        :global(.btnStackItem) {
-          padding: 8px 4px !important;
-          
-          .itemNumber {
-            font-size: 12px !important;
-          }
+      &[data-active="true"] {
+        .itemNumber {
+          color: var(--primary-color) !important;
         }
       }
     }
   }
-  
-  // Для очень маленьких экранов - уменьшаем размер ячеек
-  @media (max-width: 480px) {
-    .datePicker {
-      .weekDays {
-        gap: 2px;
-      }
-      
-      .stack {
-        :global(.btnStack__container) {
-          gap: 2px !important;
-        }
-        
-        :global(.btnStackItem) {
-          padding: 6px 2px !important;
-          
-          .itemNumber {
-            font-size: 11px !important;
-          }
+
+  .item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    
+    &Number {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+  }
+}
+
+// Стили для ховера на датах
+.stack {
+  :global(.button-stack-item-module__btnStackItem):hover {
+    .itemNumber {
+      color: var(--primary-color);
+    }
+  }
+}
+
+// Адаптивность
+@media (max-width: 768px) {
+  .datePicker {
+    border-radius: 12px;
+    padding: 12px;
+    
+    .stack {
+      :global(.button-stack-item-module__btnStackItem) {
+        .itemNumber {
+          font-size: 12px !important;
         }
       }
     }
   }
+}
+
+// Для очень маленьких экранов - уменьшаем размер ячеек
+@media (max-width: 480px) {
+  .datePicker {
+    .weekDays {
+      gap: 2px;
+    }
+    
+    .stack {
+      :global(.btnStack__container) {
+        gap: 2px !important;
+      }
+      
+      :global(.button-stack-item-module__btnStackItem) {
+        .itemNumber {
+          font-size: 11px !important;
+        }
+      }
+    }
+  }
+}

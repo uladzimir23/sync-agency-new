@@ -105,9 +105,6 @@
 │   │   │   │   ├── CTASection.scss
 │   │   │   │   ├── CTASection.tsx
 │   │   │   │   └── index.ts
-│   │   │   ├── CalendarSection
-│   │   │   │   ├── CalendarSection.scss
-│   │   │   │   └── CalendarSection.tsx
 │   │   │   ├── CasesSection
 │   │   │   │   ├── components
 │   │   │   │   │   ├── desktop
@@ -147,7 +144,52 @@
 │   │   │   │   ├── ServiceFeatures.scss
 │   │   │   │   ├── ServiceFeatures.tsx
 │   │   │   │   └── index.ts
+│   │   │   ├── booking-section
+│   │   │   │   ├── components
+│   │   │   │   │   ├── common
+│   │   │   │   │   │   ├── appointment-details
+│   │   │   │   │   │   │   ├── appointment-details.module.scss
+│   │   │   │   │   │   │   └── appointment-details.tsx
+│   │   │   │   │   │   ├── booking-form
+│   │   │   │   │   │   │   ├── booking-form.module.scss
+│   │   │   │   │   │   │   └── booking-form.tsx
+│   │   │   │   │   │   ├── collapsed-selection
+│   │   │   │   │   │   │   ├── collapsed-selection.module.scss
+│   │   │   │   │   │   │   └── collapsed-selection.tsx
+│   │   │   │   │   │   ├── date-picker
+│   │   │   │   │   │   │   ├── date-picker.module.scss
+│   │   │   │   │   │   │   └── date-picker.tsx
+│   │   │   │   │   │   ├── month-selector
+│   │   │   │   │   │   │   ├── month-selector.module.scss
+│   │   │   │   │   │   │   └── month-selector.tsx
+│   │   │   │   │   │   ├── time-slots
+│   │   │   │   │   │   │   ├── time-slots.module.scss
+│   │   │   │   │   │   │   └── time-slots.tsx
+│   │   │   │   │   │   └── index.ts
+│   │   │   │   │   ├── desktop
+│   │   │   │   │   │   ├── booking-desktop.module.scss
+│   │   │   │   │   │   ├── booking-desktop.tsx
+│   │   │   │   │   │   └── index.ts
+│   │   │   │   │   ├── mobile
+│   │   │   │   │   │   ├── booking-mobile.module.scss
+│   │   │   │   │   │   ├── booking-mobile.tsx
+│   │   │   │   │   │   └── index.ts
+│   │   │   │   │   └── tablet
+│   │   │   │   │       ├── booking-tablet.module.scss
+│   │   │   │   │       ├── booking-tablet.tsx
+│   │   │   │   │       └── index.ts
+│   │   │   │   ├── hooks
+│   │   │   │   │   ├── index.ts
+│   │   │   │   │   ├── use-booking.ts
+│   │   │   │   │   ├── use-date-formatters.ts
+│   │   │   │   │   └── useToday.ts
+│   │   │   │   ├── booking-section.module.scss
+│   │   │   │   ├── booking-section.tsx
+│   │   │   │   ├── index.ts
+│   │   │   │   └── types.ts
 │   │   │   └── index.ts
+│   │   ├── services
+│   │   │   └── telegram-service.ts
 │   │   ├── theme
 │   │   │   ├── ThemeToggle.module.scss
 │   │   │   └── ThemeToggle.tsx
@@ -157,22 +199,6 @@
 │   │   │   ├── AnimatedGradient
 │   │   │   │   ├── AnimatedGradient.scss
 │   │   │   │   └── AnimatedGradient.tsx
-│   │   │   ├── AppointmentDetails
-│   │   │   │   ├── AppointmentDetails.scss
-│   │   │   │   ├── AppointmentDetails.tsx
-│   │   │   │   └── index.ts
-│   │   │   ├── AvailableTimes
-│   │   │   │   ├── AvailableTimes.scss
-│   │   │   │   ├── AvailableTimes.tsx
-│   │   │   │   └── index.ts
-│   │   │   ├── SelectDate
-│   │   │   │   ├── SelectDate.scss
-│   │   │   │   ├── SelectDate.tsx
-│   │   │   │   └── index.ts
-│   │   │   ├── SelectMonth
-│   │   │   │   ├── SelectMonth.scss
-│   │   │   │   ├── SelectMonth.tsx
-│   │   │   │   └── index.ts
 │   │   │   ├── button
 │   │   │   │   ├── README.md
 │   │   │   │   ├── button.module.scss
@@ -245,7 +271,6 @@
 │   │   └── utils
 │   │       └── utils.ts
 │   ├── widgets
-│   │   ├── footer
 │   │   └── header
 │   │       ├── components
 │   │       │   ├── desktop
@@ -293,6 +318,7 @@
 │   └── robots.txt
 ├── workflows
 │   └── deploy.yml
+├── .env
 ├── .gitignore
 ├── Notes.md
 ├── README.md
@@ -306,4 +332,4 @@
 ├── tsconfig.node.json
 └── vite.config.ts
 
-84 directories, 223 files
+92 directories, 241 files

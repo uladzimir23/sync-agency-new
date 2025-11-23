@@ -9,30 +9,12 @@
     overflow: hidden;
     opacity: 1;
   
-    &::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(
-        90deg,
-        transparent,
-        rgba(86, 156, 254, 0.1),
-        transparent
-      );
-      transition: left 0.5s ease;
-    }
-    
+
     &:hover {
       transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
       opacity: 1;
       background: var(--background-primary-yellow);
-  
-      &::before {
-        left: 100%;
-      }
+
     }
   }
   

@@ -9,6 +9,17 @@ export const AppointmentDetails: React.FC<AppointmentDetailsProps> = ({
   onNewBooking,
   formatDateFull,
 }) => {
+  // Функция для форматирования метода связи
+  const formatCommunicationMethod = (method: string) => {
+    switch (method) {
+      case 'telegram': return 'Telegram'
+      case 'whatsapp': return 'WhatsApp'
+      case 'viber': return 'Viber'
+      case 'other': return 'Other'
+      default: return method
+    }
+  }
+
   return (
     <div className={styles.appointmentDetails}>
       <div className={styles.successIcon}>✅</div>
@@ -40,8 +51,12 @@ export const AppointmentDetails: React.FC<AppointmentDetailsProps> = ({
         <div className={styles.successItem}>
           <span className={styles.successLabel}>Communication:</span>
           <span className={styles.successValue}>
-            {formData.communicationMethod.charAt(0).toUpperCase() + formData.communicationMethod.slice(1)}
+            {formatCommunicationMethod(formData.communicationMethod)}
           </span>
+        </div>
+        <div className={styles.successItem}>
+          <span className={styles.successLabel}>Contact ID:</span>
+          <span className={styles.successValue}>{formData.contactId}</span>
         </div>
       </div>
       

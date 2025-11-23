@@ -1,27 +1,35 @@
 import { useState, useMemo, useEffect } from 'react'
 import { BookingState, BookingFormData, BookingDate, TimeSlot } from '../types'
+import { TelegramService } from '@/shared/services/telegram-service'
+
+console.log('Env variables:', {
+  botToken: import.meta.env.VITE_TELEGRAM_BOT_TOKEN,
+  chatId: import.meta.env.VITE_TELEGRAM_CHAT_ID
+})
 
 export const useBooking = () => {
   const [bookingState, setBookingState] = useState<BookingState>({
     selectedMonth: 0,
-    selectedDate: -1, // Начинаем с -1, чтобы не было активной даты по умолчанию
+    selectedDate: -1,
     selectedTime: -1,
     isConfirmed: false,
     formData: {
       name: '',
       email: '',
       communicationMethod: 'telegram',
-      message: ''
+      contactId: ''
     },
     step: 'selection'
   })
+
+  
 
   // Generate months for the next 6 months
   const months = useMemo((): Date[] => {
     const monthsList: Date[] = []
     const today = new Date()
     
-    for (let i = 0; i < 6; i++) {
+    for (let i = 0; i < 2; i++) {
       const month = new Date(today.getFullYear(), today.getMonth() + i, 1)
       monthsList.push(month)
     }
@@ -39,8 +47,6 @@ export const useBooking = () => {
     const year = currentMonth.getFullYear()
     const month = currentMonth.getMonth()
     const daysInMonth = new Date(year, month + 1, 0).getDate()
-    
-    // Сегодняшняя дата для сравнения
     const today = new Date()
     today.setHours(0, 0, 0, 0)
     
@@ -48,10 +54,8 @@ export const useBooking = () => {
       const date = new Date(year, month, i)
       date.setHours(0, 0, 0, 0)
       
-      // Проверяем, является ли дата прошедшей
       const isPast = date < today
       
-      // Generate time slots
       const timeSlots: TimeSlot[] = [
         { id: `morning-${i}`, time: '09:00', available: !isPast && Math.random() > 0.3 },
         { id: `morning2-${i}`, time: '10:30', available: !isPast && Math.random() > 0.3 },
@@ -72,7 +76,6 @@ export const useBooking = () => {
       const today = new Date()
       today.setHours(0, 0, 0, 0)
       
-      // Ищем первую непрошедшую дату
       const firstAvailableIndex = bookingDates.findIndex(bookingDate => {
         const date = new Date(bookingDate.date)
         date.setHours(0, 0, 0, 0)
@@ -85,7 +88,6 @@ export const useBooking = () => {
           selectedDate: firstAvailableIndex
         }))
       } else if (bookingDates.length > 0) {
-        // Если все даты прошли, выбираем первую
         setBookingState(prev => ({
           ...prev,
           selectedDate: 0
@@ -98,14 +100,13 @@ export const useBooking = () => {
     setBookingState(prev => ({
       ...prev,
       selectedMonth: index,
-      selectedDate: -1, // Сбрасываем выбранную дату при смене месяца
+      selectedDate: -1,
       selectedTime: -1,
       step: 'selection'
     }))
   }
 
   const handleDateSelect = (index: number) => {
-    // Проверяем, не является ли дата прошедшей
     const selectedDateObj = bookingDates[index]
     if (selectedDateObj) {
       const today = new Date()
@@ -150,14 +151,60 @@ export const useBooking = () => {
       }))
     }
   }
-
-  const handleFormSubmit = (formData: BookingFormData) => {
-    setBookingState(prev => ({
-      ...prev,
-      formData,
-      step: 'confirmation',
-      isConfirmed: true
-    }))
+  const handleFormSubmit = async (formData: BookingFormData) => {
+    try {
+      // Получаем данные о выбранной дате и времени
+      const selectedDateObj = bookingDates[bookingState.selectedDate]
+      const selectedTimeObj = bookingState.selectedTime >= 0 
+        ? selectedDateObj?.timeSlots[bookingState.selectedTime] 
+        : null
+  
+      // ВРЕМЕННО: пропускаем проверку Telegram конфигурации
+      // const configCheck = TelegramService.checkConfig()
+      // if (!configCheck.isValid) {
+      //   console.warn('Telegram not configured properly:', configCheck.issues)
+      // } else {
+        // Отправляем уведомление в Telegram
+        if (selectedDateObj && selectedTimeObj) {
+          const telegramMessage = {
+            name: formData.name,
+            email: formData.email,
+            communicationMethod: formData.communicationMethod,
+            contactId: formData.contactId,
+            date: selectedDateObj.date.toLocaleDateString('en-US', {
+              weekday: 'long',
+              year: 'numeric',
+              month: 'long',
+              day: 'numeric'
+            }),
+            time: selectedTimeObj.time
+          }
+  
+          const telegramSuccess = await TelegramService.sendBookingNotification(telegramMessage)
+          
+          if (!telegramSuccess) {
+            console.warn('Telegram notification failed, but booking will be confirmed')
+          }
+        }
+      // }
+  
+      // Обновляем состояние
+      setBookingState(prev => ({
+        ...prev,
+        formData,
+        step: 'confirmation',
+        isConfirmed: true
+      }))
+  
+    } catch (error) {
+      console.error('Error in booking process:', error)
+      setBookingState(prev => ({
+        ...prev,
+        formData,
+        step: 'confirmation', 
+        isConfirmed: true
+      }))
+    }
   }
 
   const handleFormBack = () => {
@@ -177,19 +224,16 @@ export const useBooking = () => {
         name: '',
         email: '',
         communicationMethod: 'telegram',
-        message: ''
+        contactId: ''
       },
       step: 'selection'
     })
   }
 
   return {
-    // State
     bookingState,
     months,
     bookingDates,
-    
-    // Handlers
     handleMonthSelect,
     handleDateSelect,
     handleTimeSelect,

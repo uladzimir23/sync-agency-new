@@ -13,7 +13,7 @@ export interface TimeSlot {
     name: string
     email: string
     communicationMethod: 'telegram' | 'whatsapp' | 'viber' | 'other'
-    message?: string
+    contactId: string // Новое поле для ID/номера контакта
   }
   
   export interface BookingState {
@@ -51,18 +51,18 @@ export interface TimeSlot {
   export interface BookingFormProps {
     formData: BookingFormData
     onFormDataChange: (data: BookingFormData) => void
-    onSubmit: (formData: BookingFormData) => void  // Изменено: теперь принимает данные
+    onSubmit: (formData: BookingFormData) => void
     onBack: () => void
   }
   
   export interface AppointmentDetailsProps {
     selectedDateObj: BookingDate | undefined
     selectedTimeObj: TimeSlot | null
-    formData: BookingFormData
+    formData: BookingFormData // Обновлено с новыми полями
     onNewBooking: () => void
     formatDateFull: (date: Date) => string
   }
-
+  
   // ... существующие типы ...
 
 export interface BookingDesktopProps {

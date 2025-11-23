@@ -83,6 +83,7 @@ export const BookingDesktop: React.FC<BookingDesktopProps> = ({
               scrollable={true}
             />
           )}
+          
         </div>
       </CollapsedSelection>
 
