@@ -1,71 +1,81 @@
 .mobileLayout {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+}
+
+.selectionContent {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.confirmationSection {
+  backdrop-filter: blur(50px);
+  border-radius: 20px;
+  padding: 20px;
+  border: 1px solid var(--border-color);
+  width: 100%;
+  transition: all 0.3s ease;
+
+  &:hover {
+    box-shadow: inset 0px 0px 3px var(--border-color-accent);
+    border-radius: 16px;
+    background: var(--bg-secondary);
+  }
+}
+
+// Специфичные стили для компонентов внутри mobile
+.mobileLayout {
+  :global(.month-selector-module__monthSelector) {
+    margin-bottom: 0;
+    
+    // Убираем заголовок месяца
+    :global(.month-selector-module__title) {
+      display: none;
+    }
   }
   
-  .selectionContent {
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
+  :global(.date-picker-module__datePicker) {
+    margin-bottom: 0;
+  }
+  
+  :global(.time-slots-module__timeSlots) {
+    width: 100%;
+    margin-bottom: 0;
+  }
+
+  :global(.booking-form-module__bookingForm) {
+    border: none;
+    padding: 0;
+    border-radius: 0;
+    background: transparent;
+    
+    // Убираем заголовок формы
+    :global(.booking-form-module__title) {
+      display: none;
+    }
+    
+    &:hover {
+      box-shadow: none;
+      background: transparent;
+    }
+  }
+}
+
+// Улучшенные стили для мобильных
+@media (max-width: 480px) {
+  .mobileLayout {
+    gap: 12px;
   }
   
   .confirmationSection {
-    backdrop-filter: blur(50px);
-    border-radius: 20px;
-    padding: 20px;
-    border: 1px solid var(--border-color);
-    width: 100%;
-    transition: all 0.3s ease;
-  
-    &:hover {
-      box-shadow: inset 0px 0px 3px var(--border-color-accent);
-      border-radius: 16px;
-      background: var(--bg-secondary);
-    }
+    padding: 16px;
+    border-radius: 16px;
   }
   
-  // Специфичные стили для компонентов внутри mobile
-  .mobileLayout {
-    :global(.month-selector-module__monthSelector) {
-      margin-bottom: 0;
-    }
-    
-    :global(.date-picker-module__datePicker) {
-      margin-bottom: 0;
-    }
-    
-    :global(.time-slots-module__timeSlots) {
-      width: 100%;
-      margin-bottom: 0;
-    }
-  
-    :global(.booking-form-module__bookingForm) {
-      border: none;
-      padding: 0;
-      border-radius: 0;
-      background: transparent;
-      
-      &:hover {
-        box-shadow: none;
-        background: transparent;
-      }
-    }
+  .selectionContent {
+    gap: 16px;
   }
-  
-  // Улучшенные стили для мобильных
-  @media (max-width: 480px) {
-    .mobileLayout {
-      gap: 12px;
-    }
-    
-    .confirmationSection {
-      padding: 16px;
-      border-radius: 16px;
-    }
-    
-    .selectionContent {
-      gap: 16px;
-    }
-  }
+}

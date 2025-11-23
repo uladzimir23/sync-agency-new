@@ -1,4 +1,5 @@
 import React from 'react'
+import { FaChevronDown } from 'react-icons/fa'; // Импортируем иконку
 import { BookingDate, TimeSlot } from '../../../types'
 import styles from './collapsed-selection.module.scss'
 
@@ -13,7 +14,7 @@ interface CollapsedSelectionProps {
   isExpanded?: boolean
   isDisabled?: boolean
   title?: string
-  icon?: string
+  forceTitle?: boolean
 }
 
 export const CollapsedSelection: React.FC<CollapsedSelectionProps> = ({
@@ -26,8 +27,8 @@ export const CollapsedSelection: React.FC<CollapsedSelectionProps> = ({
   children,
   isExpanded = false,
   isDisabled = false,
-  title = 'Date & Time Selection',
-  icon = '📅'
+  title = 'Select Date & Time',
+  forceTitle = false
 }) => {
   const handleClick = () => {
     if (!isDisabled) {
@@ -40,38 +41,29 @@ export const CollapsedSelection: React.FC<CollapsedSelectionProps> = ({
       className={`${styles.collapsedSelection} ${isExpanded ? styles.expanded : ''} ${isDisabled ? styles.disabled : ''}`}
     >
       <div className={styles.header} onClick={handleClick}>
-        <div className={styles.icon}>{icon}</div>
         <div className={styles.details}>
           <div className={styles.summary}>
-            {selectedTime ? (
-              // Показываем выбранное время и дату
+            {forceTitle ? (
+              <span>{title}</span>
+            ) : selectedTime ? (
               <>
                 <span className={styles.date}>{formatDate(selectedDate?.date || new Date())}</span>
                 <span className={styles.separator}>•</span>
                 <span className={styles.time}>{selectedTime.time}</span>
               </>
             ) : selectedDate ? (
-              // Показываем выбранную дату
               <>
                 <span className={styles.month}>{formatMonth(selectedMonth)}</span>
                 <span className={styles.separator}>•</span>
                 <span className={styles.date}>{formatDate(selectedDate.date)}</span>
               </>
             ) : (
-              // Показываем заголовок по умолчанию
               <span>{title}</span>
             )}
           </div>
-          <div className={styles.hint}>
-            {isDisabled 
-              ? 'Select time to continue' 
-              : isExpanded 
-                ? 'Tap to collapse' 
-                : 'Tap to expand'
-            }
-          </div>
         </div>
-        <div className={styles.arrow}>▼</div>
+        {/* Заменяем стрелку на иконку из react-icons */}
+        <FaChevronDown className={`${styles.arrow} ${isExpanded ? styles.expanded : ''}`} />
       </div>
       
       <div className={`${styles.content} ${isExpanded ? styles.expanded : ''}`}>

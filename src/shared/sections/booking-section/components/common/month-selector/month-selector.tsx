@@ -12,7 +12,6 @@ export const MonthSelector: React.FC<MonthSelectorProps> = ({
 }) => {
   return (
     <div className={`${styles.monthSelector} ${scrollable ? styles.scrollable : ''}`}>
-      <h3 className={styles.title}>Select Month</h3>
       <div className={styles.container}>
         <ButtonStack 
           direction="row" 

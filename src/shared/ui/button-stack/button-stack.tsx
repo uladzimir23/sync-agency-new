@@ -44,6 +44,13 @@ const ButtonStack = React.forwardRef<HTMLDivElement, ButtonStackProps>(
       if (index < 0 || index >= children.length - 1) return
 
       const targetElement = children[index] as HTMLElement
+
+            // Проверяем, не является ли элемент прошедшей датой
+      if (targetElement.classList.contains('past')) {
+        // Не обновляем слайдер для прошедших дат
+        return
+      }
+      
       const targetRect = targetElement.getBoundingClientRect()
       const containerRect = container.getBoundingClientRect()
 
@@ -105,6 +112,12 @@ const ButtonStack = React.forwardRef<HTMLDivElement, ButtonStackProps>(
       if (index < 0 || index >= children.length - 1) return
 
       const targetElement = children[index] as HTMLElement
+
+            // Проверяем, не является ли элемент прошедшей датой
+      if (targetElement.classList.contains('past')) {
+        // Не обновляем слайдер для прошедших дат
+        return
+      }
       const targetRect = targetElement.getBoundingClientRect()
       const containerRect = container.getBoundingClientRect()
 

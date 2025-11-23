@@ -1,15 +1,16 @@
 .datePicker {
-    border-radius: 30px;
+    border-radius: 20px;
     padding: 30px;
     border: 1px solid var(--border-color);
-    margin-bottom: 20px;
+    //margin-bottom: 20px;
     width: 100%;
     overflow: hidden;
     transition: all 0.3s ease;
+    background: var(--bg-primary-opacity-sec);
   
     &:hover {
       box-shadow: var(--box-shadow-primary);
-      border-radius: 30px;
+      border-radius: 22px;
       background: var(--bg-primary-opacity-sec);
     }
   
@@ -64,6 +65,32 @@
         display: flex !important;
         align-items: center !important;
         justify-content: center !important;
+
+        &.past {
+          opacity: 0.4 !important;
+          
+          &:hover {
+            cursor: not-allowed !important;
+            
+            // Отключаем ховер эффекты для прошедших дат
+            span {
+              scale: 1 !important;
+            }
+            
+            .itemNumber {
+              color: var(--text-primary) !important;
+            }
+          }
+          
+          &[data-active="true"] {
+            // Прошедшие даты не могут быть активными
+            background: transparent !important;
+            
+            .itemNumber {
+              color: var(--text-primary) !important;
+            }
+          }
+        }
         
         &.weekend {
           .itemNumber {
@@ -136,6 +163,12 @@
     .datePicker {
       border-radius: 12px;
       padding: 12px;
+      background: var(--bg-primary-opacity-sec);
+
+      &:hover {
+        border-radius: 14px;
+        background: var(--bg-primary-opacity-sec);
+      }
       
       .stack {
         :global(.btnStackItem) {

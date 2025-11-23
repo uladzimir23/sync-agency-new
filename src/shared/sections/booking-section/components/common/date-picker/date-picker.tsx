@@ -12,11 +12,18 @@ export const DatePicker: React.FC<DatePickerProps> = ({
   const weekDays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
   const { isToday } = useToday()
 
+  // Проверяем, является ли дата прошедшей
+  const isPastDate = (date: Date): boolean => {
+    const today = new Date()
+    today.setHours(0, 0, 0, 0)
+    const checkDate = new Date(date)
+    checkDate.setHours(0, 0, 0, 0)
+    return checkDate < today
+  }
+
   return (
     <div className={styles.datePicker}>
       <div className={styles.calendar}>
-        <h3 className={styles.title}>Select Date</h3>
-        
         <div className={styles.weekDays}>
           {weekDays.map((day, index) => (
             <div 
@@ -38,15 +45,17 @@ export const DatePicker: React.FC<DatePickerProps> = ({
           className={styles.stack}
           interactionMode="click"
           rememberActive={true}
+          enableActiveSlider={true}
         >
           {bookingDates.map((bookingDate, index) => {
             const isWeekend = bookingDate.date.getDay() === 0 || bookingDate.date.getDay() === 6
             const today = isToday(bookingDate.date)
+            const past = isPastDate(bookingDate.date)
             
             return (
               <ButtonStackItem 
                 key={index}
-                className={`${isWeekend ? styles.weekend : ''} ${today ? styles.today : ''}`}
+                className={`${isWeekend ? styles.weekend : ''} ${today ? styles.today : ''} ${past ? styles.past : ''}`}
                 isToday={today}
               >
                 <div className={styles.item}>

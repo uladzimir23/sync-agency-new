@@ -11,7 +11,7 @@ interface BookingTabletProps {
   onDateSelect: (index: number) => void
   onTimeSelect: (index: number) => void
   onFormDataChange: (formData: any) => void
-  onFormOpen: () => void // Новый пропс
+  onFormOpen: () => void
   onFormSubmit: (formData: any) => void
   onFormBack: () => void
   onNewBooking: () => void
@@ -28,7 +28,7 @@ export const BookingTablet: React.FC<BookingTabletProps> = ({
   onDateSelect,
   onTimeSelect,
   onFormDataChange,
-  onFormOpen, // Новый пропс
+  onFormOpen,
   onFormSubmit,
   onFormBack,
   onNewBooking,
@@ -54,7 +54,6 @@ export const BookingTablet: React.FC<BookingTabletProps> = ({
         formatMonth={formatMonth}
         formatDate={formatDate}
         onExpand={() => {
-          // Переходим обратно к выбору, если мы на форме
           if (step === 'form') {
             onFormBack()
           }
@@ -62,7 +61,6 @@ export const BookingTablet: React.FC<BookingTabletProps> = ({
         isExpanded={isSelectionExpanded}
         isDisabled={false}
         title="Select Date & Time"
-        icon="📅"
       >
         <div className={styles.selectionContent}>
           <MonthSelector
@@ -100,20 +98,19 @@ export const BookingTablet: React.FC<BookingTabletProps> = ({
         formatMonth={formatMonth}
         formatDate={formatDate}
         onExpand={() => {
-          // Открываем форму (без подтверждения!), если время выбрано
           if (selectedTime >= 0) {
-            onFormOpen() // Используем новый обработчик
+            onFormOpen()
           }
         }}
         isExpanded={isFormExpanded}
         isDisabled={selectedTime < 0}
-        title="Contact Information"
-        icon="👤"
+        title="Contact Details"
+        forceTitle={true}
       >
         <BookingForm
           formData={formData}
           onFormDataChange={onFormDataChange}
-          onSubmit={onFormSubmit} // Этот обработчик вызывается только при нажатии кнопки Confirm
+          onSubmit={onFormSubmit}
           onBack={onFormBack}
         />
       </CollapsedSelection>
