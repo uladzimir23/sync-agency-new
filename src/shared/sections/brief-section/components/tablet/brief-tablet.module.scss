@@ -1,0 +1,37 @@
+.tabletLayout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    width: 100%;
+  }
+  
+  .column {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .tabletContent {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+  
+  .section {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  
+  .sectionTitle {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin: 0;
+  }
+  
+  @media (max-width: 768px) {
+    .tabletLayout {
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+  }

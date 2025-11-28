@@ -10,6 +10,9 @@
 │   └── robots.txt
 ├── src
 │   ├── app
+│   │   ├── providers
+│   │   │   ├── ThemeProvider.tsx
+│   │   │   └── index.ts
 │   │   ├── styles
 │   │   │   ├── abstracts
 │   │   │   │   ├── animations.scss
@@ -57,8 +60,6 @@
 │   │   │   ├── MarketingStrategyPage.tsx
 │   │   │   └── index.ts
 │   │   └── ProductDevelopment
-│   │       ├── ProductDevelopmentPage copy.scss
-│   │       ├── ProductDevelopmentPage copy.tsx
 │   │       ├── ProductDevelopmentPage.scss
 │   │       ├── ProductDevelopmentPage.tsx
 │   │       └── index.ts
@@ -99,7 +100,13 @@
 │   │   ├── lib
 │   │   │   └── data
 │   │   │       ├── casesData.ts
-│   │   │       └── faqData.ts
+│   │   │       ├── faqData copy.txt
+│   │   │       ├── faqData.ts
+│   │   │       ├── featuresData copy.txt
+│   │   │       ├── featuresData.ts
+│   │   │       ├── index.ts
+│   │   │       ├── processStepsData copy.txt
+│   │   │       └── processStepsData.ts
 │   │   ├── sections
 │   │   │   ├── CTASection
 │   │   │   │   ├── CTASection.scss
@@ -185,6 +192,36 @@
 │   │   │   │   │   └── useToday.ts
 │   │   │   │   ├── booking-section.module.scss
 │   │   │   │   ├── booking-section.tsx
+│   │   │   │   ├── index.ts
+│   │   │   │   └── types.ts
+│   │   │   ├── brief-section
+│   │   │   │   ├── components
+│   │   │   │   │   ├── common
+│   │   │   │   │   │   ├── budget-timeline-selection.module.scss
+│   │   │   │   │   │   ├── budget-timeline-selection.tsx
+│   │   │   │   │   │   ├── features-grid.module.scss
+│   │   │   │   │   │   ├── features-grid.tsx
+│   │   │   │   │   │   ├── file-upload.module.scss
+│   │   │   │   │   │   ├── file-upload.tsx
+│   │   │   │   │   │   ├── index copy.ts
+│   │   │   │   │   │   ├── index.ts
+│   │   │   │   │   │   ├── project-description.module.scss
+│   │   │   │   │   │   ├── project-description.tsx
+│   │   │   │   │   │   ├── service-feature-tooltip.module.scss
+│   │   │   │   │   │   └── service-feature-tooltip.tsx
+│   │   │   │   │   ├── desktop
+│   │   │   │   │   │   ├── brief-desktop.module.scss
+│   │   │   │   │   │   └── brief-desktop.tsx
+│   │   │   │   │   ├── hooks
+│   │   │   │   │   │   └── use-brief.ts
+│   │   │   │   │   ├── mobile
+│   │   │   │   │   │   ├── brief-mobile.module.scss
+│   │   │   │   │   │   └── brief-mobile.tsx
+│   │   │   │   │   ├── tablet
+│   │   │   │   │   │   ├── brief-tablet.module.scss
+│   │   │   │   │   │   └── brief-tablet.tsx
+│   │   │   │   │   ├── brief-section.module.scss
+│   │   │   │   │   └── brief-section.tsx
 │   │   │   │   ├── index.ts
 │   │   │   │   └── types.ts
 │   │   │   └── index.ts
@@ -332,4 +369,4 @@
 ├── tsconfig.node.json
 └── vite.config.ts
 
-92 directories, 241 files
+100 directories, 270 files

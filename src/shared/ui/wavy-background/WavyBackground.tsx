@@ -13,6 +13,7 @@ export interface WavyBackgroundProps {
   blur?: number
   speed?: 'slow' | 'fast'
   waveOpacity?: number
+  fixed?: boolean // Новый пропс для фиксированного позиционирования
   [key: string]: any
 }
 
@@ -26,6 +27,7 @@ export const WavyBackground: React.FC<WavyBackgroundProps> = ({
   blur = 10,
   speed = 'fast',
   waveOpacity = 0.5,
+  fixed = false, // По умолчанию не фиксированный
   ...props
 }) => {
   const [isSafari, setIsSafari] = useState(false)
@@ -181,6 +183,7 @@ export const WavyBackground: React.FC<WavyBackgroundProps> = ({
     <div
       className={cn(
         'wavy-background-container',
+        fixed && 'fixed-background', // Добавляем класс для фиксированного позиционирования
         containerClassName
       )}
     >

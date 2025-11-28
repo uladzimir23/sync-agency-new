@@ -2,7 +2,7 @@
   border-radius: 18px;
   padding: 30px;
   border: 1px solid var(--border-color);
-  margin-bottom: 20px;
+  //margin-bottom: 20px;
   width: 100%;
   overflow: hidden;
   transition: all 0.3s ease;
@@ -11,8 +11,8 @@
 
   &:hover {
     box-shadow: var(--box-shadow-primary);
-    border-radius: 20px;
-    background: var(--bg-primary-opacity-sec);
+    border-radius: 18px;
+    background: var(--bg-primary);
   }
 
   :global(.btnStack__slider) {

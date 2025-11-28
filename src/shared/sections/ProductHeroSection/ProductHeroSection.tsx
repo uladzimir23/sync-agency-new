@@ -35,12 +35,6 @@ export const ProductHeroSection: React.FC<ProductHeroSectionProps> = ({
             >
               {ctaText}
             </button>
-            <button 
-              className="product-hero-cta"
-              onClick={onCtaClick}
-            >
-              {ctaText}
-            </button>
             </div>
           </div>
           

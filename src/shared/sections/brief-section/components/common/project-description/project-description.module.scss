@@ -1,0 +1,60 @@
+.projectDescription {
+    width: 100%;
+    .sectionTitle{
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 16px;
+    }
+
+  }
+  
+  .textareaContainer {
+    position: relative;
+  }
+  
+  .textarea {
+    width: 100%;
+    padding: 16px;
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    font-size: 0.875rem;
+    line-height: 1.5;
+    resize: vertical;
+    transition: all 0.3s ease;
+    font-family: inherit;
+    min-height:120px;
+
+    &:hover {
+      background: var(--background-primary-yellow);
+      box-shadow: var(--box-shadow-primary);
+    }
+  
+    &:focus {
+      outline: none;
+      border-color: var(--border-color-accent);
+      box-shadow: var(--box-shadow-primary), inset 0px 0px 3px var(--border-color-accent);
+    }
+  
+    &::placeholder {
+      color: var(--text-secondary);
+    }
+  }
+  
+  .counter {
+    position: absolute;
+    bottom: 14px;
+    right: 8px;
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    background: var(--bg-primary);
+    padding: 2px 6px;
+    border-radius: 4px;
+  }
+  
+  .warning {
+    color: #f44336;
+    font-weight: 500;
+  }

@@ -4,6 +4,7 @@
   position: relative;
   overflow: hidden;
   border-radius: 45px;
+  //backdrop-filter: blur(50px);
   
   &.placeholder {
     background: var(--accent-color);

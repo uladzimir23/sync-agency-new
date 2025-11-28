@@ -45,7 +45,7 @@ export const casesData: Case[] = [
     id: '3',
     company: 'EQT',
     category: 'Corporate Websites',
-    title: 'Launchpad for Luxury: 4 Custom Dubai Property Project Landing Pages',
+    title: 'Launchpad for Luxury:<br> 4 Custom Dubai Property Project Landing Pages',
     description: 'Engineered dedicated launch platforms for four exclusive Dubai real estate developments. Crafted tailored user experiences, persuasive content, and conversion-optimized designs for each project',
     images: [
       {
@@ -100,13 +100,8 @@ export const casesData: Case[] = [
     images: [
       {
         id: 'garden-design-1',
-        url: 'https://static.tildacdn.com/tild6663-3937-4534-b066-356431326435/photo_2025-02-13_172.jpeg',
+        url: 'https://static.tildacdn.com/tild3739-3961-4631-b339-363338616535/photo.png',
         alt: 'Garden Product Design - Main product visualization'
-      },
-      {
-        id: 'garden-design-2',
-        url: 'https://static.tildacdn.com/tild6663-3937-4534-b066-356431326435/photo_2025-02-13_172.jpeg',
-        alt: 'Garden Product Design - AI control interface'
       }
     ],
     tags: ['IoT', 'AI', 'Smart Home', 'Product Design']

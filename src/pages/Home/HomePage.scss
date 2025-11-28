@@ -8,7 +8,61 @@
     @media (max-width: 480px) {
 
       .product-hero-sections-wrapper {
-        grid-template-columns: 1fr !important;
+        grid-template-columns: 1fr!important;
+        gap: 10px;
+        margin-top: 50px;
+
+        .product-hero-section {
+          margin: 10px ;
+          border-radius: 25px;
+          box-shadow: var(--box-shadow-primary);
+          display: flex;
+          justify-content: center;
+          align-items: center;
+
+  
+          .product-hero-container{
+            display: flex;
+            justify-content: center;
+            padding: 20px 10px;
+            border-radius: 25px;
+
+            .product-hero-content {
+              grid-template-columns: 1fr;
+              display: flex;
+  
+              .product-hero-text{
+                display: flex;
+                flex-direction: column;
+                align-content: center;
+                align-items: center;    
+
+                .product-hero-cta {
+                  display: none;
+                }
+
+                span {
+                  font-size: 0.7rem !important;
+                }
+                
+                h1 {
+                  font-size: 1rem;
+                  margin-bottom: 1rem;
+                }
+
+                .product-hero-description {
+                  //display: none;
+                  text-align: center !important;
+                  padding: 0px 20px;
+                  margin-bottom: 0rem;
+                }   
+              }
+  
+            }
+
+          }
+        }
+
       }
   
     }

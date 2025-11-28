@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-import { WavyBackground } from '@/shared/ui/wavy-background'
+//import { WavyBackground } from '@/shared/ui/wavy-background'
 import { CurvedLoop } from '@/shared/ui/curved-loop'
 import { FloatingContactButton } from '@/shared/ui/floating-contact-button'
 
@@ -47,28 +47,8 @@ export const HomePage: React.FC = () => {
     <div className="home-page">
       {/* Фиксированный волновой фон */}
       <div className="home-page-background">
-      <WavyBackground
-        backgroundFill={getBackgroundFill()}
-        colors={["#38bdf8", "#818cf8", "#c084fc", "#e879f9"]}
-        waveWidth={20}
-        blur={10}
-        speed="fast"
-        waveOpacity={0.5}
-        containerClassName="home-page-wavy-bg"
-      />
+
       </div>
-
-      {/* Плавающая кнопка контактов */}
-      <FloatingContactButton 
-        circularText="Get in touch • Contact us • Let's talk • "
-        spinDuration={15}
-        onHover="slowDown"
-        onClick={handleContactClick}
-        radius={85}
-        fontSize={12}
-        className="floating-contact-button--custom"
-      />
-
 
       {/* Основной контент */}
       <div className="home-page-content">

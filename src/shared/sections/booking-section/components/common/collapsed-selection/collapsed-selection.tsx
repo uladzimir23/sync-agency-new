@@ -63,8 +63,12 @@ export const CollapsedSelection: React.FC<CollapsedSelectionProps> = ({
           </div>
         </div>
         {/* Заменяем стрелку на иконку из react-icons */}
-        <FaChevronDown className={`${styles.arrow} ${isExpanded ? styles.expanded : ''}`} />
-      </div>
+
+      < div className={styles.arrowWrapper}>
+       <FaChevronDown className={`${styles.arrow} ${isExpanded ? styles.expanded : ''}`} />
+       </div>
+
+    </div>
       
       <div className={`${styles.content} ${isExpanded ? styles.expanded : ''}`}>
         {children}

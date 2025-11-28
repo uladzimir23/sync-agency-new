@@ -8,7 +8,8 @@ export interface CaseImage {
     id: string;
     company: string;
     category: string;
-    title: string;
+    //title: string;
+    title: string | React.ReactNode; // изменяем тип
     description: string;
     images: CaseImage[];
     tags: string[];

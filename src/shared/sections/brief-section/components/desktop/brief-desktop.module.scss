@@ -1,0 +1,39 @@
+.desktopLayout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    width: 100%;
+    transition: all 0.3s ease;
+
+  }
+  .leftColumn,
+  .rightColumn {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-height: auto;
+    transition: all 0.3s ease;
+  }
+  .rightColumn {
+    .arrowWrapper {
+        display: none;
+    }
+  }
+  
+  .contactFormWrapper {
+    // Стили для скрытия кнопок в форме контактов, если нужно
+    :global(.booking-form-module__actions) {
+      display: none;
+    }
+  }
+  
+  @media (max-width: 1024px) {
+    .desktopLayout {
+      gap: 16px;
+    }
+    
+    .leftColumn,
+    .rightColumn {
+      gap: 16px;
+    }
+  }

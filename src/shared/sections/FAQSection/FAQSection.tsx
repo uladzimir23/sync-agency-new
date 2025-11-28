@@ -58,15 +58,17 @@ export const FAQSection: React.FC<FAQSectionProps> = ({
 
     // Анимация иконки
     gsap.to(icon, {
-      backgroundColor: 'var(--primary-color)',
-      borderColor: 'var(--primary-color)',
+      //backgroundColor: 'var(--primary-color)',
+      //borderColor: 'var(--primary-color)',
+      boxShadow: 'var( --box-shadow-primary)',
+      color: 'var(--primary-color)',
       duration: 0.3,
       ease: "power2.out"
     })
 
     gsap.to(icon.querySelector('svg'), {
       rotation: 90,
-      fill: 'white',
+      fill: 'var(--primary-color)',
       duration: 0.4,
       ease: "back.out(1.7)"
     })
@@ -132,7 +134,7 @@ export const FAQSection: React.FC<FAQSectionProps> = ({
       const icon = itemRefs.current[index]?.querySelector('.faq-icon') as HTMLElement
       if (icon) {
         gsap.to(icon, {
-          backgroundColor: 'var(--primary-color)',
+          //backgroundColor: 'var(--primary-color)',
           borderColor: 'var(--primary-color)',
           duration: 0.2,
           ease: "power2.out"
@@ -181,7 +183,7 @@ export const FAQSection: React.FC<FAQSectionProps> = ({
             <div 
               className="faq-header"
               onClick={() => handleItemClick(index)}
-              onMouseEnter={() => handleMouseEnter(index)}
+              onMouseEnter={() => handleMouseEnter(index)} 
               onMouseLeave={() => handleMouseLeave(index)}
             >
               <div className="faq-icon">

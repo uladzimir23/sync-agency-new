@@ -9,6 +9,9 @@
     display: grid;
     padding: 160px;
     grid-template-columns: 1fr 1fr;
+    //border-radius: 50px;
+    //backdrop-filter: blur(50px);
+    box-shadow: var(--box-shadow-primary);
 
   
     &::before {
@@ -31,7 +34,9 @@
       //background: var(--background-primary-yellow);
       //border-radius: 16px;
       //border: 1px solid var(--border-color);
-      box-shadow: var(--box-shadow-primary);
+      //box-shadow: var(--box-shadow-primary);
+      box-shadow: var(--box-shadow-primary), inset 0px 0px 35px var(--border-color-accent);
+
       //transform: translateY(-2px);
       //backdrop-filter: blur(10px);
   
@@ -69,9 +74,9 @@
       .caseContent {
         padding: 4rem;
         //border: 1px solid var(--border-color-accent);
-        border-radius: 50px;
-        backdrop-filter: blur(50px);
-        box-shadow: var(--box-shadow-primary);
+        //border-radius: 50px;
+        //backdrop-filter: blur(50px);
+        //box-shadow: var(--box-shadow-primary);
 
       }
     }
@@ -133,11 +138,14 @@
     border: 1px solid var(--accent-color);
     border-radius: 12px;
     //background: var(--background-primary-yellow);
-    background: var(--accent-color);
+    background: transparent;
+
+    //background: var(--accent-color);
     backdrop-filter: blur(50px);
     transition: all 0.3s ease;
     //margin-bottom: 10px;
     box-shadow: var(--box-shadow-primary);
+    display: none;
 
     &::before {
         content: '';

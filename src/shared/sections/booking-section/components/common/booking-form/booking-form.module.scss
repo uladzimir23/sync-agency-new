@@ -37,12 +37,17 @@
     font-size: 14px;
     transition: all 0.3s ease;
 
+    &:hover {
+      background: var(--background-primary-yellow);
+      box-shadow: var(--box-shadow-primary);
+    }
+  
     &:focus {
       outline: none;
-      border-color: var(--primary-color);
-      box-shadow: 0 0 0 2px rgba(86, 156, 254, 0.1);
+      border-color: var(--border-color-accent);
+      box-shadow: var(--box-shadow-primary), inset 0px 0px 3px var(--border-color-accent);
     }
-
+  
     &::placeholder {
       color: var(--text-secondary);
     }
@@ -154,12 +159,12 @@
     }
     
     .actions {
-      flex-direction: column;
+      flex-direction: row;
     }
     
     .backButton,
     .submitButton {
-      flex: none;
+      //flex: none;
     }
   }
 }

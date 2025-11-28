@@ -2,12 +2,17 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+    justify-content: flex-start;
+
+    //display: grid;
+
     padding: 160px;
     gap: 40px;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
     overflow: hidden;
     opacity: 1;
+    //height: 100vh;
   
 
     &:hover {
@@ -20,13 +25,16 @@
   
   .header {
     width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
   }
   
   .title {
     font-size: 48px;
     font-weight: 700;
     color: var(--text-primary);
-    margin-bottom: 16px;
+    //margin-bottom: 16px;
   }
   
   .subtitle {
@@ -49,7 +57,7 @@
   @media (max-width: 768px) {
     .bookingSection {
       padding: 40px 10px;
-      gap: 24px;
+      gap: 1rem;
 
       .header {
         padding: 1rem;
@@ -58,7 +66,7 @@
     }
     
     .title {
-      font-size: 28px;
+      font-size: 2rem;
     }
     
     .subtitle {

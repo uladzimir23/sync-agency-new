@@ -101,10 +101,34 @@
     .appointmentDetails {
       padding: 20px;
       border-radius: 20px;
+
+      .instructions {
+        text-align: left;
+        margin-bottom: 20px;
+        
+        h4 {
+          font-size: 1.2rem;
+          font-weight: 600;
+          margin-bottom: 8px;
+          color: var(--text-primary);
+
+          ul {
+            padding-left: 16px;
+            margin: 0;
+            
+            li {
+              font-size: 14px;
+              color: var(--text-secondary);
+              margin-bottom: 4px;
+              line-height: 1.4;
+            }
+          }
+        }
+      }  
       
       .successDetails {
         .successItem {
-          flex-direction: column;
+          flex-direction: row;
           gap: 4px;
           
           .successValue {

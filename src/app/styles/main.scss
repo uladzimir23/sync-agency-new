@@ -73,17 +73,20 @@
   // CSS переменные для темной темы
   body.dark-theme {
     --black-white: white;
-    --bg-primary: #02021226;
-    --background-primary-section: #020212;
+    --bg-primary: #151517;
+    --bg-secondary: #18181c;
+    --bg-thirdly: #040421bb;
+    --bg-fourthly: #56aafe12;
 
-   --background-primary-yellow:  #1518d40b;
+
+    --background-primary-section: #191919;
+
+   --background-primary-yellow:  #18181C;
 
     --background-primary-red:  #d4151511;
     --bg-primary-opacity: rgba(8, 8, 43, 0.2);
-    --bg-primary-opacity-sec: rgba(8, 8, 43, 0.4);
-    --bg-secondary: #0404218b;
-    --bg-thirdly: #040421bb;
-    --bg-fourthly: #56aafe12;
+    --bg-primary-opacity-sec: #08082b16;
+
     --text-primary: #ffffff;
     --text-secondary: #caafd1;
     --text-thirdly: #adb5bd8b;

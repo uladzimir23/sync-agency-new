@@ -3,75 +3,13 @@ import { ProductHeroSection } from '../../shared/sections/ProductHeroSection'
 import { ServiceFeatures } from '../../shared/sections/ServiceFeatures'
 import { ProcessTimeline } from '../../shared/sections/ProcessTimeline'
 import { CTASection } from '../../shared/sections/CTASection'
+import { FAQSection } from '../../shared/sections/FAQSection'
+import { featuresData } from '../../shared/lib/data/featuresData'
+import { processStepsData } from '../../shared/lib/data/processStepsData'
+import { faqData } from '../../shared/lib/data/faqData'
 import './AutomationAndInfrastructurePage.scss'
 
 export const AutomationAndInfrastructurePage: React.FC = () => {
-  const features = [
-    {
-      title: 'CI/CD Pipelines',
-      description: 'Automated deployment workflows for rapid, reliable, and consistent software releases.'
-    },
-    {
-      title: 'Cloud Infrastructure',
-      description: 'Scalable cloud solutions optimized for performance, security, and cost-efficiency.'
-    },
-    {
-      title: 'Infrastructure as Code',
-      description: 'Manage and provision infrastructure through code for reproducibility and version control.'
-    },
-    {
-      title: 'Monitoring & Alerting',
-      description: 'Real-time system monitoring and proactive alerting to ensure optimal performance.'
-    },
-    {
-      title: 'Security Automation',
-      description: 'Automated security scanning and compliance checks to protect your systems.'
-    },
-    {
-      title: 'Database Management',
-      description: 'Optimized database solutions with automated backups, scaling, and performance tuning.'
-    }
-  ]
-
-  const processSteps = [
-    {
-      step: 1,
-      title: 'Infrastructure Assessment',
-      description: 'Comprehensive analysis of your current infrastructure and automation needs.',
-      duration: '1-2 weeks'
-    },
-    {
-      step: 2,
-      title: 'Architecture Design',
-      description: 'Design scalable and secure infrastructure architecture tailored to your requirements.',
-      duration: '2-3 weeks'
-    },
-    {
-      step: 3,
-      title: 'Implementation',
-      description: 'Setup and configuration of infrastructure using infrastructure as code practices.',
-      duration: '3-6 weeks'
-    },
-    {
-      step: 4,
-      title: 'Automation Setup',
-      description: 'Implementation of CI/CD pipelines and automation workflows for efficient operations.',
-      duration: '2-4 weeks'
-    },
-    {
-      step: 5,
-      title: 'Testing & Optimization',
-      description: 'Rigorous testing and performance optimization of the implemented solutions.',
-      duration: '1-2 weeks'
-    },
-    {
-      step: 6,
-      title: 'Training & Handover',
-      description: 'Comprehensive training and documentation for your team to manage the infrastructure.',
-      duration: '1 week'
-    }
-  ]
-
   const handleCtaClick = () => {
     console.log('CTA clicked - discuss automation')
   }
@@ -85,26 +23,31 @@ export const AutomationAndInfrastructurePage: React.FC = () => {
       <ProductHeroSection
         title="Automation & Infrastructure"
         subtitle="Streamlined Operations & Scalable Systems"
-        description="We build robust, automated infrastructure that scales with your business. Our solutions eliminate manual processes, reduce errors, and ensure your systems run smoothly 24/7."
+        description="We build robust, automated infrastructure that scales with your business. Our solutions eliminate manual processes, reduce errors, and ensure your systems run smoothly 24/7 while optimizing costs and enhancing security across your entire technology stack."
         ctaText="Optimize Your Infrastructure"
         onCtaClick={handleCtaClick}
       />
 
       <ServiceFeatures
-        title="Our Infrastructure Services"
-        subtitle="Comprehensive automation and infrastructure solutions for modern businesses"
-        features={features}
+        title="Infrastructure Excellence Suite"
+        subtitle="End-to-end automation and infrastructure solutions that transform your operational efficiency"
+        features={featuresData['automation-and-infrastructure']}
+      />
+
+      <FAQSection
+        title={faqData['automation-and-infrastructure'].title}
+        items={faqData['automation-and-infrastructure'].items}
       />
 
       <ProcessTimeline
-        title="Our Implementation Process"
-        subtitle="A systematic approach to building reliable and scalable infrastructure solutions"
-        steps={processSteps}
+        title="Infrastructure Implementation Process"
+        subtitle="A systematic approach to building reliable, secure, and scalable infrastructure solutions"
+        steps={processStepsData['automation-and-infrastructure']}
       />
 
       <CTASection
-        title="Ready to Streamline Your Operations?"
-        description="Let's build an automated infrastructure that scales with your business and reduces operational overhead."
+        title="Ready to Transform Your Infrastructure?"
+        description="Let's build an automated, scalable infrastructure that reduces operational overhead and accelerates your business growth with enterprise-grade reliability."
         ctaText="Discuss Infrastructure Needs"
         secondaryCtaText="View Case Studies"
         onCtaClick={handleCtaClick}

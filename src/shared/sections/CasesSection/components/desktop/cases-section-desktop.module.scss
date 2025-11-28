@@ -1,5 +1,7 @@
 .casesSectionDesktop {
     padding: 0;
+    display: grid;
+    //grid-template-columns: 1fr 1fr;
     
     @media (max-width: 1200px) {
       //padding: 2rem;

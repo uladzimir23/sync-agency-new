@@ -1,0 +1,129 @@
+.featuresGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 5px;
+    width: 100%;
+
+    .sectionTitle {
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 11px;
+    }
+
+    @media (max-width: 768px) {
+      grid-template-columns: 1fr;
+
+    }
+    
+  }
+  
+  .featureCard {
+    position: relative;
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 16px;
+    //background: var(--bg-primary);
+    background: transparent;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    //min-height: 120px;
+    max-height: 100%;
+
+    .selectedBadge {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: var(--primary-color);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      transition: all 0.3s ease;
+      scale: 0;
+      transition-delay: 0.1s;
+    }
+
+    .featureTitle {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin: 0 0 8px 0;
+      transition: all 0.3s ease;
+
+    }
+    
+  
+    &:hover {
+      //border-color: var(--primary-color);
+      //transform: translateY(-2px);
+      transition: all 0.3s ease;
+
+      background: var(--background-primary-yellow);
+      box-shadow: var(--box-shadow-primary);
+
+      .featureTitle {
+        color: var(--primary-color);
+        transition: all 0.3s ease;
+
+      }
+
+
+    }
+  
+    &.active {
+      border-color: var(--border-color-accent);
+      background: var(--background-primary-yellow);
+      box-shadow: var(--box-shadow-primary), inset 0px 0px 2px var(--border-color-accent);
+      scale: 0.99;
+
+        .selectedBadge {
+          scale: 1;
+          transition: all 0.3s ease;
+
+        }
+
+        .featureTitle {
+          color: var(--primary-color);
+        }
+
+        .featureDescription {
+           color: var(--text-primary);
+        }
+    }
+  }
+  
+  .featureIcon {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+  }
+  
+  .tooltipIcon {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    cursor: help;
+  }
+  
+  .featureContent {
+    margin-right: 30px;
+  }
+  
+  .featureDescription {
+    font-size: 1rem !important;
+    color: var(--text-secondary);
+    margin: 0 !important;
+    line-height: 1.2;
+  }
+  
