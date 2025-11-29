@@ -58,11 +58,13 @@ export const HomePage: React.FC = () => {
               <>
                 Unified system where <br />
                 brand, strategy, technology and data <br />
-                work together in perfect harmony
+                work together in sync
               </>
             }
             subtitle="Creating exceptional digital experiences through integrated solutions and innovative approaches"
           />
+
+          
             <div className="curved-loop-section">
                 <div className="curved-loop__container">
                 <CurvedLoop 

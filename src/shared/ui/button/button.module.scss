@@ -48,8 +48,10 @@
     border: 1px solid var(--border-color);
     
     &:hover:not(.sync-btn--loading):not(:disabled) {
-      background-color: var(--bg-thirdly);
+      background-color: var(--background-primary-yellow);
       border-color: var(--border-color-accent);
+      color: var(--primary-color);
+
     }
   }
 
@@ -62,6 +64,7 @@
     backdrop-filter: blur(50px);
     //box-shadow: var(--box-shadow-primary);
     box-shadow: var(--box-shadow-primary), inset 0px 0px 1px var(--border-color-accent);
+    font-weight: 500;
 
 
 
@@ -89,8 +92,10 @@
         background-color: var(--accent-color);
         //border: 1px solid var(--primary-color);
         border-radius: 14px;
-        scale: 0.99;
+        scale: 1;
         color: var(--primary-color);
+        font-weight: 700;
+
 
         &::before {
         opacity: 1;

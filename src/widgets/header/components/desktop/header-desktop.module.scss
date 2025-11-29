@@ -86,21 +86,35 @@
   display: flex;
   align-items: center;
   font-family: 'TASA Orbiter';
-  font-weight: 700;
+  font-weight: 600;
   font-size: vars.text-size(lg);
-  color: var(--primary-color);
-  padding: vars.spacing(2) vars.spacing(4);
+  //color: var(--primary-color);
+  padding: vars.spacing(0) vars.spacing(4);
   border-radius: var(--colabsys-radius);
   background: transparent;
   border: 0px solid var(--border-color-accent);
+  
+  &:hover {
+    h3 {
+      font-weight: 900;
+      background: linear-gradient(45deg, #ff9b3e, #e773f4, #43e8f4);
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: gradientShift 3s ease infinite;
+      transition: all 0.3s ease !important;
+    }
+  }
 
   h3 {
-    background: linear-gradient(135deg, var(--primary-color), #ffffff);
+    background: linear-gradient(45deg, #FEAC5E, #C779D0, #4BC0C8);
     font-weight: 700;
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     letter-spacing: -1px;
+    animation: gradientShift 3s ease infinite;
+    transition: all 0.3s ease !important;
   }
 }
 

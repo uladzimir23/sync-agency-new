@@ -33,7 +33,7 @@
     --black-white: black;
     --bg-primary: #f2f2ff6d;
     --bg-primary-opacity: rgba(255, 255, 255, 0.2);
-    --bg-primary-opacity-sec: rgba(255, 255, 255, 0.4);
+    --bg-primary-opacity-sec: rgba(255, 255, 255, 0.1);
     --background-primary-section: #e8e8f9;
 
     --background-primary-yellow:  #155ed40f;
@@ -51,13 +51,19 @@
     --primary-color-red: #ff0000;
     --accent-color: #56aafe25;
     --accent-color-red: #ff000020;
+
     --border-color: #dee2e6;
     --border-color-accent: #89bbf0;
+    --border-color-pink: #C779D0;
+
     --box-shadow-primary: 0px 0px 2px 1px #223c501a;
     --text-shadow-primary: #223c5015;
 
     --overlay-primary: rgba(25, 2, 43, 0.5);
 
+    --backdrop-blur: blur(20px);
+    --backdrop-bg-light: rgba(255, 255, 255, 0.1);
+    --backdrop-bg-dark: rgba(0, 0, 0, 0.2);
 
     
     // Дополнительные переменные для компонентов
@@ -68,12 +74,39 @@
 
   }
 
+  .gradientPrimary {
+    background: linear-gradient(45deg, #FEAC5E, #C779D0, #4BC0C8);
+    background-size: 200% 200%;
+    animation: gradientShift 3s ease infinite;
+  }
+  
+  .gradientText {
+    background: linear-gradient(45deg, #FEAC5E, #C779D0, #4BC0C8);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-size: 200% 200%;
+    animation: gradientShift 3s ease infinite;
+  }
+  
+  @keyframes gradientShift {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+
   
   
   // CSS переменные для темной темы
   body.dark-theme {
-    --black-white: white;
-    --bg-primary: #151517;
+    --black-white: rgb(0, 0, 0);
+    --bg-primary: #15151777;
     --bg-secondary: #18181c;
     --bg-thirdly: #040421bb;
     --bg-fourthly: #56aafe12;
@@ -85,7 +118,7 @@
 
     --background-primary-red:  #d4151511;
     --bg-primary-opacity: rgba(8, 8, 43, 0.2);
-    --bg-primary-opacity-sec: #08082b16;
+    --bg-primary-opacity-sec: rgba(8, 8, 43, 0.1);
 
     --text-primary: #ffffff;
     --text-secondary: #caafd1;
@@ -94,12 +127,18 @@
     --primary-color-red: #ff0000;
     --accent-color: #56aafe25;
     --accent-color-red: #321919;
+
     --border-color: #1d2631a8;
     --border-color-accent: #1E4765;
-    --box-shadow-primary: 0px 0px 3px 0.5px #223c50da;
+    --border-color-pink: #c779d079;
+
+
+    --box-shadow-primary: 0px 0px 1px 0.5px #223c50da;
     --text-shadow-primary: #223c5055;
 
     --overlay-primary: rgba(25, 2, 43, 0.5);
 
+    --backdrop-bg-light: rgba(255, 255, 255, 0.05);
+    --backdrop-bg-dark: rgba(0, 0, 0, 0.3);
   }
   

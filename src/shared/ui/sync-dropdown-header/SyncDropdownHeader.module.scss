@@ -1,0 +1,260 @@
+.syncDropdownHeader {
+  margin-bottom: 2rem;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+// Дропдаун стили
+.dropdownWrapper {
+  position: relative;
+  width: min-content;
+  display: flex;
+  justify-content: center;
+}
+
+.dropdownTrigger {
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  justify-content: center;
+}
+
+.soonSyncHeader {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  padding: 0.3rem;
+  background: linear-gradient(45deg, #feab5e0f, #c779d00f, #4bc0c80e);
+  border-radius: 50px;
+  border: 1px solid var(--border-color);
+  transition: all 0.3s ease;
+  position: relative;
+  z-index: 100;
+  width: fit-content;
+
+  &:hover {
+    box-shadow: var(--box-shadow-primary);
+    
+    .syncText {
+      background: linear-gradient(45deg, #fed35e, #d079c3, #4b85c8);
+      -webkit-background-clip: text;
+      font-weight: 700;
+    }
+
+    .arrow {
+      transform: rotate(45deg);
+      color: #f4a0ff;
+      box-shadow: var(--box-shadow-primary);
+      border: 1px solid var(--border-color);
+    }
+
+    .soon {
+      font-weight: 800;
+    }
+  }
+}
+
+.soon {
+  background: linear-gradient(45deg, #FEAC5E, #C779D0, #4BC0C8);
+  color: white;
+  padding: 0.4rem 0.8rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: -0.5px;
+  background-size: 200% 200%;
+  animation: gradientShift 3s ease infinite;
+  transition: all 0.3s ease;
+}
+
+.syncText {
+  display: flex;
+  width: max-content;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1rem;
+  font-weight: 500;
+  background: linear-gradient(45deg, #FEAC5E, #C779D0, #4BC0C8);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-size: 200% 200%;
+  animation: gradientShift 3s ease infinite;
+  transition: all 0.6s ease;
+}
+
+.arrow {
+  font-size: 1rem;
+  background: linear-gradient(45deg, #feab5e40, #c779d03b, #4bc0c838);
+  border-radius: 50px;
+  padding: 0.3rem;
+  width: 1.5rem;
+  height: 1.5rem;
+  margin-right: 0.3rem;
+  transition: all 0.3s ease;
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+
+  &.arrowRotated {
+    transform: rotate(90deg);
+  }
+}
+
+// Дропдаун контент - УПРОЩЕННЫЕ СТИЛИ
+.dropdownContent {
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  background: var(--bg-primary-opacity);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  padding: 0;
+  box-shadow: var(--box-shadow-primary);
+  z-index: 99;
+  overflow: hidden;
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  cursor: pointer;
+  
+  // Улучшенный фон для блюра
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--bg-primary-opacity-sec);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    z-index: -1;
+  }
+}
+
+.dropdownHeader {
+  display: flex;
+  gap: 12px;
+  width: 100%;
+  
+  .dropdownTextWrapper {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+  }
+}
+
+.dropdownItem {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+  transition: all 0.3s ease;
+  flex-direction: column;
+  position: relative;
+
+  &:hover {
+    background: var(--accent-color);
+  }
+}
+
+.telegramIcon {
+  font-size: 1.5rem;
+  color: #0088cc;
+  flex-shrink: 0;
+}
+
+.dropdownText {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  text-align: left;
+}
+
+.dropdownTitle {
+  font-weight: 600;
+  color: var(--text-primary);
+  font-size: 0.9rem;
+  line-height: 0.9rem;
+  
+}
+
+.dropdownSubtitle {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  margin-top: 2px;
+  text-align: left;
+}
+
+.subscribeBtn {
+  width: 100%;
+}
+
+// Анимация градиента
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+// Адаптивность для мобильных устройств
+@media (max-width: 768px) {
+  .dropdownContent {
+    // На мобильных используем абсолютное позиционирование
+    position: absolute;
+    top: calc(100% + 8px);
+    
+    // Для очень маленьких экранов ограничиваем максимальную ширину
+    max-width: 95vw;
+  }
+
+  // Гарантируем, что родительский контейнер не будет слишком широким
+  .dropdownWrapper {
+    max-width: 95vw;
+  }
+}
+
+@media (max-width: 480px) {
+  .soonSyncHeader {
+    flex-direction: row;
+    gap: 0.8rem;
+  }
+
+  .syncText {
+    font-size: 0.9rem;
+  }
+
+  .soon {
+    font-size: 0.7rem;
+    padding: 0.3rem 0.6rem;
+  }
+
+  .dropdownItem {
+    padding: 12px;
+  }
+
+  .telegramIcon {
+    font-size: 1.3rem;
+  }
+
+  .dropdownTitle {
+    font-size: 0.85rem;
+  }
+
+  .dropdownSubtitle {
+    font-size: 0.75rem;
+    text-align: left;
+  }
+
+  // На очень маленьких экранах немного уменьшаем отступы
+  .dropdownContent {
+    top: calc(100% + 6px);
+  }
+}

@@ -4,6 +4,10 @@
     width: 100%;
     overflow: hidden;
     justify-content: center;
+    //background: linear-gradient(45deg, #feab5e, #c779d0, #4bc0c8);
+    animation: gradientShift 3s ease infinite;
+
+
 
     @media (max-width: 480px) {
 

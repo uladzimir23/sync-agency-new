@@ -149,12 +149,17 @@
   }
 
   h3 {
-    background: linear-gradient(135deg, var(--primary-color), #ffffff);
     font-weight: 700;
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+
     letter-spacing: -1px;
+
+    background: linear-gradient(45deg, #FEAC5E, #C779D0, #4BC0C8);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    //background-size: 200% 200%;
+    animation: gradientShift 3s ease infinite;
+        transition: all 0.6s ease !important;
   }
 }
 
