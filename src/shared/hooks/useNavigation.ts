@@ -6,11 +6,11 @@ import { ROUTES } from '@/shared/constants/routes'
 export const services = [
   { name: 'Máin', path: ROUTES.HOME },
   { name: 'Cáses', path: ROUTES.CASES },
-  { name: 'Bránding & Idéntity', path: ROUTES.BRANDING_AND_IDENTITY },
+  { name: 'Bránd Idéntity', path: ROUTES.BRANDING_AND_IDENTITY },
   { name: 'Márketing Strátegy', path: ROUTES.MARKETING_STRATEGY },
   { name: 'Próduct Devélopment', path: ROUTES.PRODUCT_DEVELOPMENT },
-  { name: 'Analýtics & Òptimization', path: ROUTES.ANALYTICS_AND_OPTIMIZATION },
-  { name: 'Automátion & Ìnfrastructure', path: ROUTES.AUTOMATION_AND_INFRASTRUCTURE },
+  { name: 'Perfórmance Intélligence', path: ROUTES.ANALYTICS_AND_OPTIMIZATION },
+  { name: 'Ínfrastructure Automátion', path: ROUTES.AUTOMATION_AND_INFRASTRUCTURE },
 ] as const
 
 export const useNavigation = () => {

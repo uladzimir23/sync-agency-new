@@ -3,6 +3,7 @@ import { cn } from '@/shared/utils/utils'
 import { ButtonStack, ButtonStackItem } from '@/shared/ui/button-stack'
 import { Button } from '@/shared/ui/button'
 import { ThemeToggle } from '@/shared/theme/ThemeToggle'
+import { LanguageSwitcher } from '@/shared/localization'
 import { HeaderDeviceProps } from '../../header.types'
 import styles from './header-desktop.module.scss'
 
@@ -47,6 +48,7 @@ export const HeaderDesktop: React.FC<HeaderDeviceProps> = ({
         <div className={styles.actions}>
           <div className={styles.actionItems}>
             <Button variant="outline">Discuss</Button>
+            <LanguageSwitcher />
             <ThemeToggle />
           </div>
         </div>

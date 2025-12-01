@@ -7,7 +7,7 @@
   backdrop-filter: blur(20px);
   display: flex;
   flex-direction: column;
-  min-height: 75px;
+  //min-height: 75px;
   position: relative;
 
 
@@ -31,6 +31,11 @@
     &:hover {
       transition: all 0.2s ease;
       box-shadow: var(--box-shadow-primary);
+
+      .header {
+        //background: var(--bg-secondary);
+
+      }
 
     }
   }
@@ -147,20 +152,25 @@
     max-height: 0px;
     opacity: 0;
     overflow: hidden;
-    transition: max-height 0.4s ease, opacity 0.3s ease, padding 0.3s ease, background 0.3s ease, scale 0.3s ease;
+    transition: max-height 0.4s ease, opacity 0.5s ease, padding 0.3s ease, background 0.3s ease,box-shadow 0.3s ease, scale 0.3s ease;
     backdrop-filter: blur(20px);
     transform-origin: top;
     position: relative;
     
     * {
-      transition: all 0.3s ease;
+      transition: max-height 0.4s ease, opacity 0.5s ease, padding 0.3s ease, background 0.3s ease,box-shadow 0.3s ease, scale 0.3s ease;
       scale: 0;
+      //transform: scale(0);
+      //transform-origin: center center; /* Указывает центр трансформации внизу по центру */
+
     }
   
     
     &.expanded {
+      position: relative;
+
       //max-height: auto;
-      max-height: 1000px;
+      max-height: 475px;
       opacity: 1;
       padding: 25px 20px;
       margin: 0px 5px 5px 5px;
@@ -171,20 +181,24 @@
       border-radius: 16px;
       display: flex;
       flex-direction: column;
-      transition: max-height 0.7s ease, opacity 0.3s ease, padding 0.3s ease, background 0.3s ease,box-shadow 0.3s ease, scale 0.3s ease ;
-      transform-origin: bottom;
+      transition: max-height 0.4s ease, opacity 0.5s ease, padding 0.3s ease, background 0.3s ease,box-shadow 0.3s ease, scale 0.3s ease;
+      transform-origin: top;
+      overflow-y: auto; /* Показывает вертикальную прокрутку только если контент больше 300px */
+
 
       * {
-        transition: all 0.4s ease;
+        transition: max-height 0.4s ease, opacity 0.5s ease, padding 0.3s ease, background 0.3s ease,box-shadow 0.3s ease, scale 0.3s ease;
+        //transform: scale(1);
+        //transform-origin: center center; /* Указывает центр трансформации внизу по центру */
         scale: 1;
       }
     
 
       &:hover {
-          transition: all 0.3s ease;
-          background: var(--bg-primary);
-          box-shadow: var(--box-shadow-primary);
-          border: 1px solid var(--border-color);
+        transition: all 0.3s ease;
+        background: var(--bg-primary);
+        box-shadow: var(--box-shadow-primary);
+        border: 1px solid var(--border-color);
 
         
       }
@@ -192,10 +206,9 @@
 
       @media (min-width: 1400px) {
         
-        padding: 30px;
-        
+        //max-width: 430px;
+        padding: 20px;
         height: 100%;
-
 
       }
       

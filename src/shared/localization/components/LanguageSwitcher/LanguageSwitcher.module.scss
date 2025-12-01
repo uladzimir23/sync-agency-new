@@ -1,0 +1,118 @@
+.languageSwitcher {
+    position: relative;
+    z-index: 1000;
+  }
+  
+  .switcherButton {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--bg-primary-opacity);
+    border: 1px solid var(--border-color);
+    border-radius: 20px;
+    padding: 8px 16px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--text-primary);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  
+    &:hover {
+      background: var(--accent-color);
+      border-color: var(--border-color-accent);
+      box-shadow: var(--box-shadow-primary);
+    }
+  
+    &:focus {
+      outline: none;
+      box-shadow: 0 0 0 2px var(--primary-color);
+    }
+  }
+  
+  .globeIcon {
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+  }
+  
+  .currentLanguage {
+    font-weight: 600;
+    color: var(--text-primary);
+  }
+  
+  .dropdown {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    background: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    box-shadow: var(--box-shadow-primary);
+    min-width: 150px;
+    z-index: 1001;
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    overflow: hidden;
+  }
+  
+  .languageOption {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 12px 16px;
+    background: transparent;
+    border: none;
+    color: var(--text-primary);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-align: left;
+  
+    &:hover {
+      background: var(--accent-color);
+    }
+  
+    &.active {
+      background: var(--primary-color);
+      color: white;
+  
+      .languageCode, .languageName {
+        color: white;
+        font-weight: 600;
+      }
+    }
+  
+    &:not(:last-child) {
+      border-bottom: 1px solid var(--border-color);
+    }
+  }
+  
+  .languageCode {
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: var(--text-primary);
+  }
+  
+  .languageName {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    margin-left: 12px;
+  }
+  
+  // Адаптивность
+  @media (max-width: 768px) {
+    .switcherButton {
+      padding: 6px 12px;
+      font-size: 0.85rem;
+    }
+  
+    .dropdown {
+      min-width: 140px;
+      right: 0;
+    }
+  
+    .languageOption {
+      padding: 10px 12px;
+    }
+  }

@@ -1,7 +1,7 @@
 .dashboardHeader {
   text-align: center;
   margin-bottom: 4rem;
-  margin-top: 14rem;
+  margin-top: 10rem;
   
   .content {
     margin: 0 auto;
@@ -29,7 +29,7 @@
   }
 
   .subtitle {
-    font-size: 1.3rem;
+    font-size: 1rem;
     color: var(--text-secondary);
     line-height: 1.6;
     max-width: 600px;
@@ -43,11 +43,10 @@
     justify-content: center;
     margin-top: 3rem;
     animation: fadeInUp 0.8s ease-out 0.5s both;
+    position: relative !important;
   }
 
-  .button {
-    min-width: 140px;
-  }
+
 }
 
 // Анимация появления заголовка

@@ -26,6 +26,10 @@
     transition: all 0.3s ease;
     font-family: inherit;
     min-height:120px;
+    max-height: 240px;
+    height: 120px;
+
+
 
     &:hover {
       background: var(--background-primary-yellow);

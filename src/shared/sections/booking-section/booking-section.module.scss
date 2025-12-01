@@ -6,7 +6,7 @@
 
     //display: grid;
 
-    padding: 160px;
+    padding: 160px 0;
     gap: 40px;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
@@ -18,7 +18,7 @@
     &:hover {
       transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
       opacity: 1;
-      background: var(--background-primary-yellow);
+      //background: var(--background-primary-yellow);
 
     }
   }
@@ -27,18 +27,18 @@
     width: 100%;
     display: flex;
     flex-direction: column;
-    align-items: start;
-  }
+    align-items: center
+    }
   
   .title {
-    font-size: 48px;
+    font-size: 3rem;
     font-weight: 700;
     color: var(--text-primary);
     //margin-bottom: 16px;
   }
   
   .subtitle {
-    font-size: 18px;
+    font-size: 1.3rem;
     color: var(--text-secondary);
     margin: 0;
   }

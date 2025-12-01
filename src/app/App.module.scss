@@ -31,27 +31,26 @@ html, body {
   height: 100%;
 }
 
-
-// Стилизация скроллбара
+/* Задаем ширину вертикального скроллбара */
 ::-webkit-scrollbar {
-  background: var(--bg-secondary);
-  width: 2px;
+  width: 3px;
+  height: 10px; /* Или другую желаемую высоту */
 }
 
+/* Стилизуем дорожку */
 ::-webkit-scrollbar-track {
-  background: var(--bg-secondary);
-  width: 2px;
-
+  background: #f1f1f1;
 }
 
+/* Стилизуем сам ползунок */
 ::-webkit-scrollbar-thumb {
-  background: var(--primary-color);
-  width: 2px;
+  background: #888;
+  border-radius: 5px; /* Скругление углов */
 }
 
+/* Стилизуем ползунок при наведении */
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--primary-color);
-  opacity: 0.8;
+  background: #555;
 }
 
 // src/App.scss (добавьте эти стили)

@@ -18,10 +18,14 @@
   vertical-align: middle;
   line-height: 1;
   border-radius: 12px;
+  //backdrop-filter: blur(50px);
+  backdrop-filter: blur(50px) !important;
+
+
   
   // Базовые стили для всех кнопок
-  background-color: var(--primary-color);
-  color: white;
+  //background-color: var(--primary-color);
+  //color: white;
   border: 1px solid transparent;
 
   // Отключение дефолтного фокуса
@@ -33,6 +37,7 @@
   &--primary {
     background-color: var(--primary-color);
     color: white;
+
     
     &:hover:not(.sync-btn--loading):not(:disabled) {
       background-color: darken(#0C8CE9, 10%);
@@ -43,14 +48,46 @@
   }
 
   &--secondary {
-    background-color: var(--bg-secondary);
+    //background-color: var(--bg-secondary);
     color: var(--text-primary);
     border: 1px solid var(--border-color);
+    background-color: var(--background-primary-yellow);
+
+
+
+    // Градиентная обводка
+    &::before {
+      content: '';
+      position: absolute;
+      inset: -1px;
+      border-radius: 12px;
+      padding: 1px;
+      background: linear-gradient(
+      135deg,
+      var(--primary-color) 0%,
+      var(--border-color-accent) 50%,
+      var(--text-secondary) 100%
+      );
+      mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      mask-composite: exclude;
+      opacity: 0.3;
+      transition: all 0.3s ease;
+    }
+
     
     &:hover:not(.sync-btn--loading):not(:disabled) {
       background-color: var(--background-primary-yellow);
       border-color: var(--border-color-accent);
       color: var(--primary-color);
+      border-radius: 14px;
+
+
+      &::before {
+        opacity: 1;
+        transform: scale(0.99);
+        border-radius: 14px;
+
+      }
 
     }
   }
@@ -61,13 +98,9 @@
     //border: 1px solid var(--accent-color);
     color: var(--text-primary);
     //border: 1px solid var(--border-color);
-    backdrop-filter: blur(50px);
     //box-shadow: var(--box-shadow-primary);
     box-shadow: var(--box-shadow-primary), inset 0px 0px 1px var(--border-color-accent);
     font-weight: 500;
-
-
-
 
         // Градиентная обводка
     &::before {

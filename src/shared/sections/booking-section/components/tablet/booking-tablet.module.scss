@@ -68,6 +68,9 @@
 @media (max-width: 1024px) {
   .tabletLayout {
     gap: 16px;
+    display: grid;
+    justify-content: center;
+    grid-template-columns: 430px;
   }
   
   .confirmationSection {
@@ -85,7 +88,8 @@
 @media (min-width: 1024px) and (max-width: 1440px){
   .tabletLayout {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    justify-content: center;
+    grid-template-columns: 430px 430px;
   }
   
   .confirmationSection {

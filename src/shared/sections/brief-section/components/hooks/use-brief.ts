@@ -25,39 +25,39 @@ export const useBrief = () => {
   const projectFeatures: ProjectFeature[] = [
     {
       id: 'logo-design',
-      title: 'Logo Design',
-      description: 'Unique and memorable logos that capture your brand essence',
+      title: 'Signature Identity',
+      description: 'Distinctive logos that embody your brand’s core essence.',
       category: 'Branding'
     },
     {
       id: 'brand-guidelines',
-      title: 'Brand Guidelines',
-      description: 'Comprehensive brand standards for consistent application',
+      title: 'Brand Standards',
+        description: 'Comprehensive guidelines ensuring consistent brand representation.',
       category: 'Branding'
     },
     {
       id: 'visual-identity',
-      title: 'Visual Identity',
-      description: 'Cohesive visual systems including colors and typography',
+      title: 'Visual Language',
+      description: 'Cohesive visual systems that communicate with sophistication.',
       category: 'Branding'
     },
     {
       id: 'brand-strategy',
       title: 'Brand Strategy',
-      description: 'Strategic positioning that differentiates your brand',
-      category: 'Strategy'
+      description: 'Strategic positioning that defines your market presence.',
+      category: 'Branding'
     },
     {
       id: 'packaging-design',
       title: 'Packaging Design',
-      description: 'Eye-catching packaging that enhances customer experience',
-      category: 'Design'
+      description: 'Elegant packaging solutions that create memorable unboxing experiences.',
+      category: 'Branding'
     },
     {
       id: 'brand-assets',
       title: 'Brand Assets',
-      description: 'Complete set of digital and print assets',
-      category: 'Production'
+      description: 'Complete suite of meticulously crafted brand elements.',
+      category: 'Branding'
     }
   ]
 

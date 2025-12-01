@@ -107,6 +107,21 @@
 │   │   │       ├── index.ts
 │   │   │       ├── processStepsData copy.txt
 │   │   │       └── processStepsData.ts
+│   │   ├── localization
+│   │   │   ├── components
+│   │   │   │   └── LanguageSwitcher
+│   │   │   │       ├── LanguageSwitcher.module.scss
+│   │   │   │       └── LanguageSwitcher.tsx
+│   │   │   ├── contexts
+│   │   │   │   └── LanguageContext.tsx
+│   │   │   ├── hooks
+│   │   │   │   └── useTranslation.ts
+│   │   │   ├── translations
+│   │   │   │   ├── en.json
+│   │   │   │   └── ru.json
+│   │   │   ├── types
+│   │   │   │   └── index.ts
+│   │   │   └── index.ts
 │   │   ├── sections
 │   │   │   ├── CTASection
 │   │   │   │   ├── CTASection.scss
@@ -126,7 +141,7 @@
 │   │   │   │   ├── CasesSection.tsx
 │   │   │   │   └── index.ts
 │   │   │   ├── DashboardHeader
-│   │   │   │   ├── DashboardHeader.scss
+│   │   │   │   ├── DashboardHeader.module.scss
 │   │   │   │   ├── DashboardHeader.tsx
 │   │   │   │   └── index.ts
 │   │   │   ├── FAQSection
@@ -136,9 +151,6 @@
 │   │   │   ├── FeaturesSection
 │   │   │   │   ├── FeaturesSection.scss
 │   │   │   │   └── FeaturesSection.tsx
-│   │   │   ├── HeaderSection
-│   │   │   │   ├── HeaderSection.scss
-│   │   │   │   └── HeaderSection.tsx
 │   │   │   ├── ProcessTimeline
 │   │   │   │   ├── ProcessTimeline.scss
 │   │   │   │   ├── ProcessTimeline.tsx
@@ -197,18 +209,22 @@
 │   │   │   ├── brief-section
 │   │   │   │   ├── components
 │   │   │   │   │   ├── common
-│   │   │   │   │   │   ├── budget-timeline-selection.module.scss
-│   │   │   │   │   │   ├── budget-timeline-selection.tsx
-│   │   │   │   │   │   ├── features-grid.module.scss
-│   │   │   │   │   │   ├── features-grid.tsx
-│   │   │   │   │   │   ├── file-upload.module.scss
-│   │   │   │   │   │   ├── file-upload.tsx
-│   │   │   │   │   │   ├── index copy.ts
-│   │   │   │   │   │   ├── index.ts
-│   │   │   │   │   │   ├── project-description.module.scss
-│   │   │   │   │   │   ├── project-description.tsx
-│   │   │   │   │   │   ├── service-feature-tooltip.module.scss
-│   │   │   │   │   │   └── service-feature-tooltip.tsx
+│   │   │   │   │   │   ├── budget-timeline-selection
+│   │   │   │   │   │   │   ├── budget-timeline-selection.module.scss
+│   │   │   │   │   │   │   └── budget-timeline-selection.tsx
+│   │   │   │   │   │   ├── features-grid
+│   │   │   │   │   │   │   ├── features-grid.module.scss
+│   │   │   │   │   │   │   └── features-grid.tsx
+│   │   │   │   │   │   ├── file-upload
+│   │   │   │   │   │   │   ├── file-upload.module.scss
+│   │   │   │   │   │   │   └── file-upload.tsx
+│   │   │   │   │   │   ├── project-description
+│   │   │   │   │   │   │   ├── project-description.module.scss
+│   │   │   │   │   │   │   └── project-description.tsx
+│   │   │   │   │   │   ├── service-feature-tooltip
+│   │   │   │   │   │   │   ├── service-feature-tooltip.module.scss
+│   │   │   │   │   │   │   └── service-feature-tooltip.tsx
+│   │   │   │   │   │   └── index.ts
 │   │   │   │   │   ├── desktop
 │   │   │   │   │   │   ├── brief-desktop.module.scss
 │   │   │   │   │   │   └── brief-desktop.tsx
@@ -217,11 +233,11 @@
 │   │   │   │   │   ├── mobile
 │   │   │   │   │   │   ├── brief-mobile.module.scss
 │   │   │   │   │   │   └── brief-mobile.tsx
-│   │   │   │   │   ├── tablet
-│   │   │   │   │   │   ├── brief-tablet.module.scss
-│   │   │   │   │   │   └── brief-tablet.tsx
-│   │   │   │   │   ├── brief-section.module.scss
-│   │   │   │   │   └── brief-section.tsx
+│   │   │   │   │   └── tablet
+│   │   │   │   │       ├── brief-tablet.module.scss
+│   │   │   │   │       └── brief-tablet.tsx
+│   │   │   │   ├── brief-section.module.scss
+│   │   │   │   ├── brief-section.tsx
 │   │   │   │   ├── index.ts
 │   │   │   │   └── types.ts
 │   │   │   └── index.ts
@@ -301,6 +317,11 @@
 │   │   │   │   │   └── index.tsx
 │   │   │   │   └── wavy-background
 │   │   │   │       └── index.tsx
+│   │   │   ├── sync-dropdown-header
+│   │   │   │   ├── SyncDropdownHeader.module.scss
+│   │   │   │   ├── SyncDropdownHeader.tsx
+│   │   │   │   ├── animations.ts
+│   │   │   │   └── index.ts
 │   │   │   └── wavy-background
 │   │   │       ├── WavyBackground.scss
 │   │   │       ├── WavyBackground.tsx
@@ -369,4 +390,4 @@
 ├── tsconfig.node.json
 └── vite.config.ts
 
-100 directories, 270 files
+112 directories, 279 files

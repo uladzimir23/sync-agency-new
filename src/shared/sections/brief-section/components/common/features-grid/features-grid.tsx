@@ -48,7 +48,9 @@ export const FeaturesGrid: React.FC<FeaturesGridProps> = ({
   return (
     
     <div className={styles.featuresGrid}>
+      <div className={styles.headerSectionTitle}>
       <h4 className={styles.sectionTitle}>What needs to be done:</h4>
+      </div>
 
       {features.map(feature => (
         
@@ -65,6 +67,7 @@ export const FeaturesGrid: React.FC<FeaturesGridProps> = ({
           </div>
           <div className={styles.featureContent}>
             <h4 className={styles.featureTitle}>{feature.title}</h4>
+
             <p className={styles.featureDescription}>{feature.description}</p>
           </div>
           {isFeatureSelected(feature.id) && (

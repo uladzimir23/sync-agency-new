@@ -4,7 +4,7 @@
   background: transparent;
   border: none;
   padding: 0.5rem 0.75rem;
-  font-family: 'TASA Orbiter';
+  //font-family: 'TASA Orbiter';
   font-size: 0.9rem;
   color: var(--text-primary);
   cursor: pointer !important;
@@ -51,6 +51,7 @@
   &[data-hovered="true"] {
     .btnStackItem__content {
       color: var(--primary-color);
+      transition: all 0.3s ease;
     }
   }
 

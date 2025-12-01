@@ -6,6 +6,9 @@ import { Header } from '@/widgets/header'
 import { CursorFollower } from '@shared/ui/cursor-follower'
 import { ROUTES } from '@/shared/constants/routes'
 
+import { LanguageProvider } from '@/shared/localization/contexts/LanguageContext'
+
+
 // Импорты страниц
 import { HomePage } from '@pages/Home'
 import { CasesPage } from '@pages/Cases'
@@ -25,6 +28,7 @@ const AppContent: React.FC = () => {
   const handleServiceChange = (index: number) => {
     console.log('Selected service:', index)
   }
+  
 
   return (
     <>
@@ -50,11 +54,14 @@ const AppContent: React.FC = () => {
 // Главный компонент App с провайдерами
 function App() {
   return (
+    <LanguageProvider>
     <ThemeProvider>
       <Router>
         <AppContent />
       </Router>
     </ThemeProvider>
+    </LanguageProvider>
+
   )
 }
 

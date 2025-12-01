@@ -3,19 +3,38 @@
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: 5px;
     width: 100%;
+    position: relative;
+
+    .headerSectionTitle {
+      
+      //height: 50px;
+      display: flex;
+      align-items: flex-end;      
+      z-index: 99;
+      overflow: hidden;
+      //background: transparent;
+      //backdrop-filter: blur(50px) !important;
+
+    
+    }
 
     .sectionTitle {
+      position: relative; // Меняем fixed на relative
+      display: flex;
       font-size: 0.875rem;
       font-weight: 600;
       color: var(--text-primary);
       margin-bottom: 11px;
+      z-index: 1; // Поднимаем текст над блюром
+      width: 100%;
+      //background: var(--background-primary-yellow); // Добавлен полупрозрачный фон
+      //line-height: 30px;
+
     }
 
     @media (max-width: 768px) {
       grid-template-columns: 1fr;
-
     }
-    
   }
   
   .featureCard {
@@ -69,6 +88,7 @@
       .featureTitle {
         color: var(--primary-color);
         transition: all 0.3s ease;
+
 
       }
 

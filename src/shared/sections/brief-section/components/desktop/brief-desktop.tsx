@@ -82,7 +82,7 @@ export const BriefDesktop: React.FC<BriefDesktopProps> = ({
           formatDate={() => ''}
           onExpand={() => handleLeftSectionToggle('budget')}
           isExpanded={leftExpandedSections.budget}
-          title="Budget / Timeline"
+          title="Budget & Timeline"
           forceTitle={true}
         >
           <BudgetTimelineSelection

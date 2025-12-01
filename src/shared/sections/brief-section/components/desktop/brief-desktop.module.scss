@@ -1,6 +1,7 @@
 .desktopLayout {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(auto-fit, minmax(430px, 430px));
+    justify-content: center;
     gap: 20px;
     width: 100%;
     transition: all 0.3s ease;

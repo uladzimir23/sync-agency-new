@@ -1,0 +1,15 @@
+{
+    "header": {
+      "soon": "скоро",
+      "syncLibrary": "Sync UI Библиотека",
+      "bookCall": "заказать звонок",
+      "makeBrief": "создать бриф",
+      "joinTelegram": "Присоединяйтесь к нашему Telegram",
+      "getUpdates": "Получайте обновления и идеи",
+      "subscribe": "Подписаться"
+    },
+    "language": {
+      "en": "Английский",
+      "ru": "Русский"
+    }
+  }

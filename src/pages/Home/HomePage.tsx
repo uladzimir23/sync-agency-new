@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-//import { WavyBackground } from '@/shared/ui/wavy-background'
+import { WavyBackground } from '@/shared/ui/wavy-background'
 import { CurvedLoop } from '@/shared/ui/curved-loop'
 import { FloatingContactButton } from '@/shared/ui/floating-contact-button'
 
@@ -49,7 +49,6 @@ export const HomePage: React.FC = () => {
       <div className="home-page-background">
 
       </div>
-
       {/* Основной контент */}
       <div className="home-page-content">
         <div className="dashboard-section">
@@ -61,7 +60,7 @@ export const HomePage: React.FC = () => {
                 work together in sync
               </>
             }
-            subtitle="Creating exceptional digital experiences through integrated solutions and innovative approaches"
+            subtitle="Creating premium digital experiences with integrated solutions"
           />
 
           

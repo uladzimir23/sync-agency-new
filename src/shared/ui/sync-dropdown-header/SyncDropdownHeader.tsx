@@ -4,6 +4,8 @@ import { FaTelegram } from 'react-icons/fa'
 import { Button } from '@/shared/ui/button'
 import { dropdownAnimations } from './animations'
 import styles from './SyncDropdownHeader.module.scss'
+import { useTranslation } from '@/shared/localization/hooks/useTranslation'
+
 
 interface SyncDropdownHeaderProps {
   className?: string
@@ -20,6 +22,8 @@ export const SyncDropdownHeader: React.FC<SyncDropdownHeaderProps> = ({
   const dropdownContentRef = useRef<HTMLDivElement>(null)
   const soonSyncHeaderRef = useRef<HTMLDivElement>(null)
   const timeoutRef = useRef<NodeJS.Timeout>()
+  const { t } = useTranslation()
+
 
   // Определяем мобильное устройство
   useEffect(() => {
@@ -149,9 +153,9 @@ export const SyncDropdownHeader: React.FC<SyncDropdownHeaderProps> = ({
             ref={soonSyncHeaderRef}
             className={styles.soonSyncHeader}
           >
-            <span className={styles.soon}>soon</span>
+            <span className={styles.soon}>{t('header.soon')}</span>
             <div className={styles.syncText}>
-              <span>Sync UI Library</span>
+              <span>{t('header.syncLibrary')}</span>
               <FiArrowUpRight className={`${styles.arrow} ${isDropdownOpen ? styles.arrowRotated : ''}`} />
             </div>
           </div>
@@ -172,9 +176,9 @@ export const SyncDropdownHeader: React.FC<SyncDropdownHeaderProps> = ({
               <FaTelegram className={styles.telegramIcon} />
               <div className={styles.dropdownTextWrapper}>
                 <div className={styles.dropdownText}>
-                  <span className={styles.dropdownTitle}>Join our Telegram</span>
+                  <span className={styles.dropdownTitle}>{t('header.joinTelegram')}</span>
                 </div>
-                <span className={styles.dropdownSubtitle}>Get updates & insights</span>
+                <span className={styles.dropdownSubtitle}>{t('header.getUpdates')}</span>
               </div>
             </div>
             <Button 
@@ -183,7 +187,7 @@ export const SyncDropdownHeader: React.FC<SyncDropdownHeaderProps> = ({
               className={styles.subscribeBtn}
               onClick={handleSubscribeClick}
             >
-              Subscribe
+              {t('header.subscribe')}
             </Button>
           </div>
         </div>

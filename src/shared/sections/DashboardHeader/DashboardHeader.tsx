@@ -2,6 +2,8 @@ import React from 'react'
 import { Button } from '@/shared/ui/button'
 import { SyncDropdownHeader } from '@/shared/ui/sync-dropdown-header'
 import styles from './DashboardHeader.module.scss'
+import { useTranslation } from '@/shared/localization/hooks/useTranslation'
+
 
 interface DashboardHeaderProps {
   title: React.ReactNode
@@ -18,6 +20,8 @@ export const DashboardHeader: React.FC<DashboardHeaderProps> = ({
   onBookCall,
   onMakeBrief
 }) => {
+  const { t } = useTranslation()
+
   return (
     <div className={`${styles.dashboardHeader} ${className}`}>
       <div className={styles.content}>
@@ -37,7 +41,7 @@ export const DashboardHeader: React.FC<DashboardHeaderProps> = ({
             onClick={onBookCall}
             className={styles.button}
           >
-            book a call
+            {t('header.bookCall')}
           </Button>
           <Button 
             variant="secondary"
@@ -46,7 +50,7 @@ export const DashboardHeader: React.FC<DashboardHeaderProps> = ({
             onClick={onMakeBrief}
             className={styles.button}
           >
-            make a brief
+            {t('header.makeBrief')}
           </Button>
         </div>
       </div>
