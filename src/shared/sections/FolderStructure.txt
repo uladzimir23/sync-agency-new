@@ -1,0 +1,1979 @@
+АНАЛИЗ ПАПКИ: /Users/vladimirmazyrec/sync-agency-new/src/shared/sections/brief-section
+Дата создания отчета: 3.12.4
+================================================================================
+
+СТРУКТУРА ПАПОК (полные пути):
+--------------------------------------------------------------------------------
+
+brief-section
+    ├── components
+    │   ├── components/common
+    │   │   ├── components/common/budget-timeline-selection
+    │   │   │   ├── components/common/budget-timeline-selection/budget-timeline-selection.module.scss
+    │   │   │   └── components/common/budget-timeline-selection/budget-timeline-selection.tsx
+    │   │   ├── components/common/features-grid
+    │   │   │   ├── components/common/features-grid/features-grid.module.scss
+    │   │   │   └── components/common/features-grid/features-grid.tsx
+    │   │   ├── components/common/file-upload
+    │   │   │   ├── components/common/file-upload/file-upload.module.scss
+    │   │   │   └── components/common/file-upload/file-upload.tsx
+    │   │   ├── components/common/project-description
+    │   │   │   ├── components/common/project-description/project-description.module.scss
+    │   │   │   └── components/common/project-description/project-description.tsx
+    │   │   ├── components/common/service-feature-tooltip
+    │   │   │   ├── components/common/service-feature-tooltip/service-feature-tooltip.module.scss
+    │   │   │   └── components/common/service-feature-tooltip/service-feature-tooltip.tsx
+    │   │   └── components/common/index.ts
+    │   ├── components/desktop
+    │   │   ├── components/desktop/brief-desktop.module.scss
+    │   │   └── components/desktop/brief-desktop.tsx
+    │   ├── components/hooks
+    │   │   └── components/hooks/use-brief.ts
+    │   ├── components/mobile
+    │   │   ├── components/mobile/brief-mobile.module.scss
+    │   │   └── components/mobile/brief-mobile.tsx
+    │   └── components/tablet
+    │       ├── components/tablet/brief-tablet.module.scss
+    │       └── components/tablet/brief-tablet.tsx
+    ├── brief-section.module.scss
+    ├── brief-section.tsx
+    ├── index.ts
+    └── types.ts
+
+
+================================================================================
+СОДЕРЖАНИЕ ФАЙЛОВ:
+================================================================================
+
+АБСОЛЮТНЫЙ ПУТЬ: /Users/vladimirmazyrec/sync-agency-new/src/shared/sections/brief-section/brief-section.module.scss
+название файла: brief-section/brief-section.module.scss
+
+СОДЕРЖИМОЕ ФАЙЛА:
+----------------------------------------
+.briefSection {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding: 160px 160px;
+    gap: 40px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+    //height: 100Vh;
+  
+    &:hover {
+      transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      //background: var(--background-primary-yellow);
+    }
+  }
+
+  
+  
+  .header {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+  }
+  
+  .title {
+    font-size: 3rem;    
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0 !important;
+
+  }
+  
+  .subtitle {
+    font-size: 18px;
+    color: var(--text-secondary);
+    margin: 0 !important;
+  }
+  
+  .submitButton {
+    position: absolute;
+    right: 250px;
+    top: 0;
+    background: #56aafe1f;
+    color: #56aafe8c;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  
+    &:hover:not(:disabled) {
+      background: #56aafe54;
+      color: #56aafe;
+      box-shadow: 0px 0px 3px var(--border-color-accent);
+    }
+  
+    &:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+  }
+  
+  @media (max-width: 1024px) {
+    .briefSection {
+      padding: 80px 60px;
+    }
+    
+    .title {
+      font-size: 36px;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .briefSection {
+      padding: 40px 20px;
+      gap: 1rem;
+    }
+    
+    .title {
+      font-size: 1.8rem;
+    }
+    
+    .subtitle {
+      font-size: 16px;
+    }
+  
+    .submitButton {
+      position: relative;
+      margin-top: 16px;
+      align-self: flex-start;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .briefSection {
+      padding: 40px 0.5rem;
+      gap: 1rem;
+    }
+    
+    .title {
+      font-size: 1.8rem;
+    }
+    
+    .subtitle {
+      font-size: 16px;
+    }
+  
+    .submitButton {
+      position: relative;
+      margin-top: 16px;
+      align-self: flex-start;
+    }
+  }
+
+________________________________________________________________________________
+
+АБСОЛЮТНЫЙ ПУТЬ: /Users/vladimirmazyrec/sync-agency-new/src/shared/sections/brief-section/brief-section.tsx
+название файла: brief-section/brief-section.tsx
+
+СОДЕРЖИМОЕ ФАЙЛА:
+----------------------------------------
+import React from 'react'
+import { useDeviceType } from '@/shared/hooks/useDeviceType'
+import { useBrief } from './components/hooks/use-brief'
+import { BriefDesktop } from './components/desktop/brief-desktop'
+import { BriefTablet } from './components/tablet/brief-tablet'
+import { BriefMobile } from './components/mobile/brief-mobile'
+import styles from './brief-section.module.scss'
+
+export const BriefSection: React.FC = () => {
+  const deviceType = useDeviceType()
+  const {
+    briefState,
+    projectFeatures,
+    budgetOptions,
+    timelineOptions,
+    handleFeatureToggle,
+    handleBudgetSelect,
+    handleTimelineSelect,
+    handleProjectDescriptionChange,
+    handleFilesUpload,
+    handleBriefSubmit,
+    isFormValid
+  } = useBrief()
+
+  const commonProps = {
+    briefState,
+    projectFeatures,
+    budgetOptions,
+    timelineOptions,
+    onFeatureToggle: handleFeatureToggle,
+    onBudgetSelect: handleBudgetSelect,
+    onTimelineSelect: handleTimelineSelect,
+    onProjectDescriptionChange: handleProjectDescriptionChange,
+    onFilesUpload: handleFilesUpload,
+    onBriefSubmit: handleBriefSubmit,
+    isFormValid
+  }
+
+  const renderContent = () => {
+    switch (deviceType) {
+      case 'desktop':
+        return <BriefDesktop {...commonProps} />
+      case 'tablet':
+        return <BriefTablet {...commonProps} />
+      case 'mobile':
+        return <BriefMobile {...commonProps} />
+      default:
+        return <BriefDesktop {...commonProps} />
+    }
+  }
+
+  return (
+    <section className={styles.briefSection}>
+      <div className={styles.header}>
+        <h1 className={styles.title}>Project Brief</h1>
+        <p className={styles.subtitle}>
+          Provide details about your project to get started
+        </p>
+        <button 
+          className={styles.submitButton}
+          onClick={handleBriefSubmit}
+          disabled={!isFormValid}
+        >
+          Submit Brief
+        </button>
+      </div>
+      
+      {renderContent()}
+    </section>
+  )
+}
+
+________________________________________________________________________________
+
+АБСОЛЮТНЫЙ ПУТЬ: /Users/vladimirmazyrec/sync-agency-new/src/shared/sections/brief-section/components/common/budget-timeline-selection/budget-timeline-selection.module.scss
+название файла: brief-section/components/common/budget-timeline-selection/budget-timeline-selection.module.scss
+
+СОДЕРЖИМОЕ ФАЙЛА:
+----------------------------------------
+.budgetTimelineSelection {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    position: relative;
+
+  }
+  
+  .section {
+    position: relative;
+
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    //padding: 20px 20px;
+  }
+
+  .sectionTitleBlur {
+    position: absolute;
+    height: 50px;
+    transform: translateY(-50px);
+    //backdrop-filter: blur(50px); // Размывает фон под элементом
+
+    
+  }
+  .sectionTitleWrapper {
+
+    z-index: 99 ;
+    //backdrop-filter: blur(50px); // Размывает фон под элементом
+
+  }
+  
+  .sectionTitle {
+    position: relative;
+    
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin: 0;
+    z-index: 99 !important;
+    //text-shadow: 0px 0px 1px var(--background-primary-section); 
+    //background: var(--background-primary-yellow);    
+    //backdrop-filter: blur(10px);
+  }
+  
+  .optionsGrid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 8px;
+    //transform: translateY(-20px);
+
+  }
+  
+  .option {
+    padding: 12px 16px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    background:transparent;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+  
+    &:hover {
+      //border-color: var(--primary-color);
+      //transform: translateY(-2px);
+      transition: all 0.3s ease;
+
+      background: var(--background-primary-yellow);
+      box-shadow: var(--box-shadow-primary);
+
+      .optionLabel {
+        color: var(--primary-color);
+        transition: all 0.3s ease;
+
+      }
+
+    }
+  
+    &.selected {
+      border-color: var(--border-color-accent);
+      background: var(--background-primary-yellow);
+      box-shadow: var(--box-shadow-primary), inset 0px 0px 2px var(--border-color-accent);
+      scale: 0.99;
+
+      .optionLabel {
+        color: var(--primary-color);
+        transition: all 0.3s ease;
+
+      }
+    }
+  }
+  
+  .optionLabel {
+    font-size: 0.875rem;
+    font-weight: 500;
+    overflow-wrap: break-word;
+    transition: all 0.3s ease;
+
+    }
+  
+  .divider {
+    height: 1px;
+    background: var(--border-color);
+    margin: 8px 0;
+  }
+  
+  @media (min-width: 768px) {
+    .optionsGrid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 5px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .optionsGrid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 5px;
+    }
+  }
+
+________________________________________________________________________________
+
+АБСОЛЮТНЫЙ ПУТЬ: /Users/vladimirmazyrec/sync-agency-new/src/shared/sections/brief-section/components/common/budget-timeline-selection/budget-timeline-selection.tsx
+название файла: brief-section/components/common/budget-timeline-selection/budget-timeline-selection.tsx
+
+СОДЕРЖИМОЕ ФАЙЛА:
+----------------------------------------
+import React from 'react'
+import { BudgetOption, TimelineOption } from '../../../types'
+import styles from './budget-timeline-selection.module.scss'
+
+interface BudgetTimelineSelectionProps {
+  budgetOptions: BudgetOption[]
+  timelineOptions: TimelineOption[]
+  selectedBudget: string | null
+  selectedTimeline: string | null
+  onBudgetSelect: (budgetValue: string) => void
+  onTimelineSelect: (timelineValue: string) => void
+}
+
+export const BudgetTimelineSelection: React.FC<BudgetTimelineSelectionProps> = ({
+  budgetOptions,
+  timelineOptions,
+  selectedBudget,
+  selectedTimeline,
+  onBudgetSelect,
+  onTimelineSelect
+}) => {
+  return (
+    <div className={styles.budgetTimelineSelection}>
+      <div className={styles.section}>
+        
+      <div className={styles.sectionTitleWrapper}>
+        <div className={styles.blurBackground}></div> {/* Новый div для блюра */}
+        <h4 className={styles.sectionTitle}>Budget of your project:</h4>
+      </div>
+
+        <div className={styles.optionsGrid}>
+          {budgetOptions.map(option => (
+            <div
+              key={option.id}
+              className={`${styles.option} ${selectedBudget === option.value ? styles.selected : ''}`}
+              onClick={() => onBudgetSelect(option.value)}
+            >
+              <span className={styles.optionLabel}>{option.label}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+
+
+      <div className={styles.section}>
+        <h4 className={styles.sectionTitle}>Timeline of your project:</h4>
+        <div className={styles.optionsGrid}>
+          {timelineOptions.map(option => (
+            <div
+              key={option.id}
+              className={`${styles.option} ${selectedTimeline === option.value ? styles.selected : ''}`}
+              onClick={() => onTimelineSelect(option.value)}
+            >
+              <span className={styles.optionLabel}>{option.label}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div className={styles.section}>
+        <h4 className={styles.sectionTitle}>Budget of your project:</h4>
+        <div className={styles.optionsGrid}>
+          {budgetOptions.map(option => (
+            <div
+              key={option.id}
+              className={`${styles.option} ${selectedBudget === option.value ? styles.selected : ''}`}
+              onClick={() => onBudgetSelect(option.value)}
+            >
+              <span className={styles.optionLabel}>{option.label}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+
+    </div>
+  )
+}
+
+________________________________________________________________________________
+
+АБСОЛЮТНЫЙ ПУТЬ: /Users/vladimirmazyrec/sync-agency-new/src/shared/sections/brief-section/components/common/features-grid/features-grid.module.scss
+название файла: brief-section/components/common/features-grid/features-grid.module.scss
+
+СОДЕРЖИМОЕ ФАЙЛА:
+----------------------------------------
+.featuresGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 5px;
+    width: 100%;
+    position: relative;
+
+    .headerSectionTitle {
+      
+      //height: 50px;
+      display: flex;
+      align-items: flex-end;      
+      z-index: 99;
+      overflow: hidden;
+      //background: transparent;
+      //backdrop-filter: blur(50px) !important;
+
+    
+    }
+
+    .sectionTitle {
+      position: relative; // Меняем fixed на relative
+      display: flex;
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 11px;
+      z-index: 1; // Поднимаем текст над блюром
+      width: 100%;
+      //background: var(--background-primary-yellow); // Добавлен полупрозрачный фон
+      //line-height: 30px;
+
+    }
+
+    @media (max-width: 768px) {
+      grid-template-columns: 1fr;
+    }
+  }
+  
+  .featureCard {
+    position: relative;
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 16px;
+    //background: var(--bg-primary);
+    background: transparent;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    //min-height: 120px;
+    max-height: 100%;
+
+    .selectedBadge {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: var(--primary-color);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      transition: all 0.3s ease;
+      scale: 0;
+      transition-delay: 0.1s;
+    }
+
+    .featureTitle {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin: 0 0 8px 0;
+      transition: all 0.3s ease;
+
+    }
+    
+  
+    &:hover {
+      //border-color: var(--primary-color);
+      //transform: translateY(-2px);
+      transition: all 0.3s ease;
+
+      background: var(--background-primary-yellow);
+      box-shadow: var(--box-shadow-primary);
+
+      .featureTitle {
+        color: var(--primary-color);
+        transition: all 0.3s ease;
+
+
+      }
+
+
+    }
+  
+    &.active {
+      border-color: var(--border-color-accent);
+      background: var(--background-primary-yellow);
+      box-shadow: var(--box-shadow-primary), inset 0px 0px 2px var(--border-color-accent);
+      scale: 0.99;
+
+        .selectedBadge {
+          scale: 1;
+          transition: all 0.3s ease;
+
+        }
+
+        .featureTitle {
+          color: var(--primary-color);
+        }
+
+        .featureDescription {
+           color: var(--text-primary);
+        }
+    }
+  }
+  
+  .featureIcon {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+  }
+  
+  .tooltipIcon {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    cursor: help;
+  }
+  
+  .featureContent {
+    margin-right: 30px;
+  }
+  
+  .featureDescription {
+    font-size: 1rem !important;
+    color: var(--text-secondary);
+    margin: 0 !important;
+    line-height: 1.2;
+  }
+  
+
+
+________________________________________________________________________________
+
+АБСОЛЮТНЫЙ ПУТЬ: /Users/vladimirmazyrec/sync-agency-new/src/shared/sections/brief-section/components/common/features-grid/features-grid.tsx
+название файла: brief-section/components/common/features-grid/features-grid.tsx
+
+СОДЕРЖИМОЕ ФАЙЛА:
+----------------------------------------
+import React, { useState, useRef } from 'react'
+import { ProjectFeature } from '../../../types'
+import { ServiceFeatureTooltip } from '../service-feature-tooltip/service-feature-tooltip'
+import styles from './features-grid.module.scss'
+
+interface FeaturesGridProps {
+  features: ProjectFeature[]
+  selectedFeatures: string[]
+  onFeatureToggle: (featureId: string) => void
+}
+
+export const FeaturesGrid: React.FC<FeaturesGridProps> = ({
+  features,
+  selectedFeatures,
+  onFeatureToggle
+}) => {
+  const [tooltipState, setTooltipState] = useState<{
+    isVisible: boolean
+    feature: ProjectFeature | null
+    position: { top: number; left: number }
+  }>({
+    isVisible: false,
+    feature: null,
+    position: { top: 0, left: 0 }
+  })
+
+  const featureRefs = useRef<{ [key: string]: HTMLDivElement | null }>({})
+
+  const handleFeatureMouseEnter = (feature: ProjectFeature, event: React.MouseEvent) => {
+    const rect = event.currentTarget.getBoundingClientRect()
+    setTooltipState({
+      isVisible: true,
+      feature,
+      position: {
+        top: rect.top - 10,
+        left: rect.right + 10
+      }
+    })
+  }
+
+  const handleFeatureMouseLeave = () => {
+    setTooltipState(prev => ({ ...prev, isVisible: false }))
+  }
+
+  const isFeatureSelected = (featureId: string) => 
+    selectedFeatures.includes(featureId)
+
+  return (
+    
+    <div className={styles.featuresGrid}>
+      <div className={styles.headerSectionTitle}>
+      <h4 className={styles.sectionTitle}>What needs to be done:</h4>
+      </div>
+
+      {features.map(feature => (
+        
+        <div
+          key={feature.id}
+          ref={el => featureRefs.current[feature.id] = el}
+          className={`${styles.featureCard} ${isFeatureSelected(feature.id) ? styles.active : ''}`}
+          onMouseEnter={(e) => handleFeatureMouseEnter(feature, e)}
+          onMouseLeave={handleFeatureMouseLeave}
+          onClick={() => onFeatureToggle(feature.id)}
+        >
+          <div className={styles.featureIcon}>
+            {/* Иконка будет абсолютно позиционирована */}
+          </div>
+          <div className={styles.featureContent}>
+            <h4 className={styles.featureTitle}>{feature.title}</h4>
+
+            <p className={styles.featureDescription}>{feature.description}</p>
+          </div>
+          {isFeatureSelected(feature.id) && (
+            <div className={styles.selectedBadge}>✓</div>
+          )}
+        </div>
+      ))}
+    </div>
+  )
+}
+
+________________________________________________________________________________
+
+АБСОЛЮТНЫЙ ПУТЬ: /Users/vladimirmazyrec/sync-agency-new/src/shared/sections/brief-section/components/common/file-upload/file-upload.module.scss
+название файла: brief-section/components/common/file-upload/file-upload.module.scss
+
+СОДЕРЖИМОЕ ФАЙЛА:
+----------------------------------------
+.fileUpload {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+
+    .sectionTitle{
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      //margin-bottom: 16px;
+    }
+
+    @media (max-width: 768px) {
+      grid-template-columns: 1fr;
+
+    }
+  }
+  
+  .dropZone {
+    border: 2px dashed var(--border-color);
+    border-radius: 12px;
+    padding: 40px 20px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: var(--bg-primary);
+  
+    &:hover {
+      border-color: var(--primary-color);
+      background: var(--bg-secondary);
+    }
+  }
+  
+  .dropZoneContent {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  }
+  
+  .uploadIcon {
+    font-size: 2rem;
+    opacity: 0.7;
+  }
+  
+  .dropZoneText {
+    font-size: 0.8rem !important;
+    font-weight: 500;
+    color: var(--text-primary);
+    margin: 0 !important;
+  }
+  
+  .dropZoneSubtext {
+    font-size: 0.6rem !important;
+    color: var(--text-secondary);
+    margin: 0 !important;
+  }
+  
+  .fileInput {
+    display: none;
+  }
+  
+  .fileList {
+    margin-top: 20px;
+  }
+  
+  .fileListTitle {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin: 0 0 12px 0;
+  }
+  
+  .fileItem {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 12px;
+    background: var(--bg-secondary);
+    border-radius: 8px;
+    margin-bottom: 8px;
+  }
+  
+  .fileName {
+    font-size: 0.75rem;
+    color: var(--text-primary);
+    flex: 1;
+  }
+  
+  .removeButton {
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    cursor: pointer;
+    font-size: 1rem;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  
+    &:hover {
+      background: var(--bg-primary);
+      color: var(--text-primary);
+    }
+  }
+
+________________________________________________________________________________
+
+АБСОЛЮТНЫЙ ПУТЬ: /Users/vladimirmazyrec/sync-agency-new/src/shared/sections/brief-section/components/common/file-upload/file-upload.tsx
+название файла: brief-section/components/common/file-upload/file-upload.tsx
+
+СОДЕРЖИМОЕ ФАЙЛА:
+----------------------------------------
+import React, { useRef } from 'react'
+import styles from './file-upload.module.scss'
+
+interface FileUploadProps {
+  uploadedFiles: File[]
+  onFilesUpload: (files: File[]) => void
+}
+
+export const FileUpload: React.FC<FileUploadProps> = ({
+  uploadedFiles,
+  onFilesUpload
+}) => {
+  const fileInputRef = useRef<HTMLInputElement>(null)
+
+  const handleFileSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const files = Array.from(event.target.files || [])
+    onFilesUpload([...uploadedFiles, ...files])
+  }
+
+  const handleDrop = (event: React.DragEvent<HTMLDivElement>) => {
+    event.preventDefault()
+    const files = Array.from(event.dataTransfer.files)
+    onFilesUpload([...uploadedFiles, ...files])
+  }
+
+  const handleDragOver = (event: React.DragEvent<HTMLDivElement>) => {
+    event.preventDefault()
+  }
+
+  const removeFile = (index: number) => {
+    const newFiles = uploadedFiles.filter((_, i) => i !== index)
+    onFilesUpload(newFiles)
+  }
+
+  return (
+    <div className={styles.fileUpload}>
+            <h4 className={styles.sectionTitle}>Project files:</h4>
+
+      <div
+        className={styles.dropZone}
+        onDrop={handleDrop}
+        onDragOver={handleDragOver}
+        onClick={() => fileInputRef.current?.click()}
+      >
+        <div className={styles.dropZoneContent}>
+          <div className={styles.uploadIcon}>📎</div>
+          <p className={styles.dropZoneText}>
+            Drag & drop files here or click to browse
+          </p>
+          <p className={styles.dropZoneSubtext}>
+            Supported formats: PDF, DOC, DOCX, images
+          </p>
+        </div>
+        <input
+          ref={fileInputRef}
+          type="file"
+          multiple
+          onChange={handleFileSelect}
+          className={styles.fileInput}
+          accept=".pdf,.doc,.docx,image/*"
+        />
+      </div>
+
+      {uploadedFiles.length > 0 && (
+        <div className={styles.fileList}>
+          <h4 className={styles.fileListTitle}>Uploaded Files</h4>
+          {uploadedFiles.map((file, index) => (
+            <div key={index} className={styles.fileItem}>
+              <span className={styles.fileName}>{file.name}</span>
+              <button
+                onClick={() => removeFile(index)}
+                className={styles.removeButton}
+              >
+                ×
+              </button>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  )
+}
+
+________________________________________________________________________________
+
+АБСОЛЮТНЫЙ ПУТЬ: /Users/vladimirmazyrec/sync-agency-new/src/shared/sections/brief-section/components/common/index.ts
+название файла: brief-section/components/common/index.ts
+
+СОДЕРЖИМОЕ ФАЙЛА:
+----------------------------------------
+export { ServiceFeatureTooltip } from './service-feature-tooltip/service-feature-tooltip'
+export { FeaturesGrid } from './features-grid/features-grid'
+export { FileUpload } from './file-upload/file-upload'
+export { BudgetTimelineSelection } from './budget-timeline-selection/budget-timeline-selection'
+export { ProjectDescription } from './project-description/project-description'
+
+________________________________________________________________________________
+
+АБСОЛЮТНЫЙ ПУТЬ: /Users/vladimirmazyrec/sync-agency-new/src/shared/sections/brief-section/components/common/project-description/project-description.module.scss
+название файла: brief-section/components/common/project-description/project-description.module.scss
+
+СОДЕРЖИМОЕ ФАЙЛА:
+----------------------------------------
+.projectDescription {
+    width: 100%;
+    .sectionTitle{
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 16px;
+    }
+
+  }
+  
+  .textareaContainer {
+    position: relative;
+  }
+  
+  .textarea {
+    width: 100%;
+    padding: 16px;
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    font-size: 0.875rem;
+    line-height: 1.5;
+    resize: vertical;
+    transition: all 0.3s ease;
+    font-family: inherit;
+    min-height:120px;
+    max-height: 240px;
+    height: 120px;
+
+
+
+    &:hover {
+      background: var(--background-primary-yellow);
+      box-shadow: var(--box-shadow-primary);
+    }
+  
+    &:focus {
+      outline: none;
+      border-color: var(--border-color-accent);
+      box-shadow: var(--box-shadow-primary), inset 0px 0px 3px var(--border-color-accent);
+    }
+  
+    &::placeholder {
+      color: var(--text-secondary);
+    }
+  }
+  
+  .counter {
+    position: absolute;
+    bottom: 14px;
+    right: 8px;
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    background: var(--bg-primary);
+    padding: 2px 6px;
+    border-radius: 4px;
+  }
+  
+  .warning {
+    color: #f44336;
+    font-weight: 500;
+  }
+
+________________________________________________________________________________
+
+АБСОЛЮТНЫЙ ПУТЬ: /Users/vladimirmazyrec/sync-agency-new/src/shared/sections/brief-section/components/common/project-description/project-description.tsx
+название файла: brief-section/components/common/project-description/project-description.tsx
+
+СОДЕРЖИМОЕ ФАЙЛА:
+----------------------------------------
+import React from 'react'
+import styles from './project-description.module.scss'
+
+interface ProjectDescriptionProps {
+  description: string
+  onDescriptionChange: (description: string) => void
+}
+
+export const ProjectDescription: React.FC<ProjectDescriptionProps> = ({
+  description,
+  onDescriptionChange
+}) => {
+  const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    onDescriptionChange(e.target.value)
+  }
+
+  const wordCount = description.trim().split(/\s+/).filter(word => word.length > 0).length
+  const maxWords = 500
+
+  return (
+    <div className={styles.projectDescription}>
+      <h4 className={styles.sectionTitle}>Project describtion:</h4>
+
+      <div className={styles.textareaContainer}>
+        <textarea
+          className={styles.textarea}
+          value={description}
+          onChange={handleChange}
+          placeholder="Describe your project in detail... What are your goals, target audience, specific requirements, and any other relevant information?"
+          rows={8}
+          maxLength={3000}
+        />
+        <div className={styles.counter}>
+          {wordCount} / {maxWords} words
+          {wordCount > maxWords && (
+            <span className={styles.warning}> (Exceeded limit)</span>
+          )}
+        </div>
+      </div>
+    </div>
+  )
+}
+
+________________________________________________________________________________
+
+АБСОЛЮТНЫЙ ПУТЬ: /Users/vladimirmazyrec/sync-agency-new/src/shared/sections/brief-section/components/common/service-feature-tooltip/service-feature-tooltip.module.scss
+название файла: brief-section/components/common/service-feature-tooltip/service-feature-tooltip.module.scss
+
+СОДЕРЖИМОЕ ФАЙЛА:
+----------------------------------------
+.tooltip {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    background: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: var(--box-shadow-primary);
+    backdrop-filter: blur(20px);
+    max-width: 300px;
+    animation: fadeIn 0.2s ease-in-out;
+  
+    &::before {
+      content: '';
+      position: absolute;
+      top: -6px;
+      right: 20px;
+      width: 12px;
+      height: 12px;
+      background: var(--bg-primary);
+      border-left: 1px solid var(--border-color);
+      border-top: 1px solid var(--border-color);
+      transform: rotate(45deg);
+    }
+  }
+  
+  .tooltipContent {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .tooltipTitle {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin: 0;
+  }
+  
+  .tooltipDescription {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    margin: 0;
+    line-height: 1.4;
+  }
+  
+  .tooltipMeta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 8px;
+  }
+  
+  .category {
+    font-size: 0.7rem;
+    font-weight: 500;
+    padding: 4px 8px;
+    border-radius: 50px;
+    background-color: rgba(33, 150, 243, 0.1);
+    color: #1976d2;
+    border: 1px solid rgba(33, 150, 243, 0.3);
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+________________________________________________________________________________
+
+АБСОЛЮТНЫЙ ПУТЬ: /Users/vladimirmazyrec/sync-agency-new/src/shared/sections/brief-section/components/common/service-feature-tooltip/service-feature-tooltip.tsx
+название файла: brief-section/components/common/service-feature-tooltip/service-feature-tooltip.tsx
+
+СОДЕРЖИМОЕ ФАЙЛА:
+----------------------------------------
+import React from 'react'
+import { ProjectFeature } from '../../../types'
+import styles from './service-feature-tooltip.module.scss'
+
+interface ServiceFeatureTooltipProps {
+  feature: ProjectFeature
+  isVisible: boolean
+  position: { top: number; left: number }
+}
+
+export const ServiceFeatureTooltip: React.FC<ServiceFeatureTooltipProps> = ({
+  feature,
+  isVisible,
+  position
+}) => {
+  if (!isVisible) return null
+
+  return (
+    <div 
+      className={styles.tooltip}
+      style={{
+        top: position.top,
+        left: position.left
+      }}
+    >
+      <div className={styles.tooltipContent}>
+        <h4 className={styles.tooltipTitle}>{feature.title}</h4>
+        <p className={styles.tooltipDescription}>{feature.description}</p>
+        <div className={styles.tooltipMeta}>
+          <span className={styles.category}>{feature.category}</span>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+________________________________________________________________________________
+
+АБСОЛЮТНЫЙ ПУТЬ: /Users/vladimirmazyrec/sync-agency-new/src/shared/sections/brief-section/components/desktop/brief-desktop.module.scss
+название файла: brief-section/components/desktop/brief-desktop.module.scss
+
+СОДЕРЖИМОЕ ФАЙЛА:
+----------------------------------------
+.desktopLayout {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(430px, 430px));
+    justify-content: center;
+    gap: 20px;
+    width: 100%;
+    transition: all 0.3s ease;
+
+  }
+  .leftColumn,
+  .rightColumn {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-height: auto;
+    transition: all 0.3s ease;
+  }
+  .rightColumn {
+    .arrowWrapper {
+        display: none;
+    }
+  }
+  
+  .contactFormWrapper {
+    // Стили для скрытия кнопок в форме контактов, если нужно
+    :global(.booking-form-module__actions) {
+      display: none;
+    }
+  }
+  
+  @media (max-width: 1024px) {
+    .desktopLayout {
+      gap: 16px;
+    }
+    
+    .leftColumn,
+    .rightColumn {
+      gap: 16px;
+    }
+  }
+
+________________________________________________________________________________
+
+АБСОЛЮТНЫЙ ПУТЬ: /Users/vladimirmazyrec/sync-agency-new/src/shared/sections/brief-section/components/desktop/brief-desktop.tsx
+название файла: brief-section/components/desktop/brief-desktop.tsx
+
+СОДЕРЖИМОЕ ФАЙЛА:
+----------------------------------------
+import React, { useState } from 'react'
+import { CollapsedSelection } from '../../../booking-section/components/common'
+import { BookingForm } from '../../../booking-section/components/common'
+import { FeaturesGrid } from '../common/features-grid/features-grid'
+import { FileUpload } from '../common/file-upload/file-upload'
+import { BudgetTimelineSelection } from '../common/budget-timeline-selection/budget-timeline-selection'
+import { ProjectDescription } from '../common/project-description/project-description'
+import { BriefDesktopProps } from '../../types'
+import styles from './brief-desktop.module.scss'
+
+export const BriefDesktop: React.FC<BriefDesktopProps> = ({
+  briefState,
+  projectFeatures,
+  budgetOptions,
+  timelineOptions,
+  onFeatureToggle,
+  onBudgetSelect,
+  onTimelineSelect,
+  onProjectDescriptionChange,
+  onFilesUpload,
+  onBriefSubmit,
+  isFormValid
+}) => {
+  const { formData } = briefState
+  
+  // Состояние для управления открытыми секциями в левой колонке
+  const [leftExpandedSections, setLeftExpandedSections] = useState({
+    features: true,     // Первая секция открыта по умолчанию
+    budget: false,
+    description: false
+  })
+
+  // Функция для переключения секций (аккордеон)
+  const handleLeftSectionToggle = (section: keyof typeof leftExpandedSections) => {
+    setLeftExpandedSections(prev => {
+      const newState = { ...prev }
+      
+      // Если секция уже открыта - закрываем её
+      if (newState[section]) {
+        newState[section] = false
+      } else {
+        // Закрываем все секции и открываем только выбранную
+        Object.keys(newState).forEach(key => {
+          newState[key as keyof typeof leftExpandedSections] = false
+        })
+        newState[section] = true
+      }
+      
+      return newState
+    })
+  }
+
+  return (
+    <div className={styles.desktopLayout}>
+      {/* Левая колонка - с аккордеоном */}
+      <div className={styles.leftColumn}>
+        {/* Service Features */}
+        <CollapsedSelection
+          selectedMonth={new Date()}
+          selectedDate={undefined}
+          selectedTime={null}
+          formatMonth={() => ''}
+          formatDate={() => ''}
+          onExpand={() => handleLeftSectionToggle('features')}
+          isExpanded={leftExpandedSections.features}
+          title="Service Features"
+          forceTitle={true}
+        >
+          <FeaturesGrid
+            features={projectFeatures}
+            selectedFeatures={formData.selectedFeatures}
+            onFeatureToggle={onFeatureToggle}
+          />
+        </CollapsedSelection>
+
+        {/* Budget / Timeline */}
+        <CollapsedSelection
+          selectedMonth={new Date()}
+          selectedDate={undefined}
+          selectedTime={null}
+          formatMonth={() => ''}
+          formatDate={() => ''}
+          onExpand={() => handleLeftSectionToggle('budget')}
+          isExpanded={leftExpandedSections.budget}
+          title="Budget & Timeline"
+          forceTitle={true}
+        >
+          <BudgetTimelineSelection
+            budgetOptions={budgetOptions}
+            timelineOptions={timelineOptions}
+            selectedBudget={formData.selectedBudget}
+            selectedTimeline={formData.selectedTimeline}
+            onBudgetSelect={onBudgetSelect}
+            onTimelineSelect={onTimelineSelect}
+          />
+        </CollapsedSelection>
+
+        {/* Project Description */}
+        <CollapsedSelection
+          selectedMonth={new Date()}
+          selectedDate={undefined}
+          selectedTime={null}
+          formatMonth={() => ''}
+          formatDate={() => ''}
+          onExpand={() => handleLeftSectionToggle('description')}
+          isExpanded={leftExpandedSections.description}
+          title="Project Description"
+          forceTitle={true}
+        >
+          <ProjectDescription
+            description={formData.projectDescription}
+            onDescriptionChange={onProjectDescriptionChange}
+          />
+          <FileUpload
+            uploadedFiles={formData.uploadedFiles}
+            onFilesUpload={onFilesUpload}
+          />
+        </CollapsedSelection>
+      </div>
+
+      {/* Правая колонка - всегда открытая */}
+      <div className={styles.rightColumn}>
+        <CollapsedSelection
+          selectedMonth={new Date()}
+          selectedDate={undefined}
+          selectedTime={null}
+          formatMonth={() => ''}
+          formatDate={() => ''}
+          onExpand={() => {}} // Пустая функция - нельзя закрыть
+          isExpanded={true} // Всегда открыт
+          isDisabled={false}
+          title="Contact Details"
+          forceTitle={true}
+        >
+          <div className={styles.contactFormWrapper}>
+            <BookingForm
+              formData={{
+                name: '',
+                email: '',
+                communicationMethod: 'telegram',
+                contactId: ''
+              }}
+              onFormDataChange={() => {}} // Заглушка
+              onSubmit={() => {}} // Заглушка
+              onBack={() => {}} // Заглушка
+            />
+          </div>
+        </CollapsedSelection>
+      </div>
+    </div>
+  )
+}
+
+________________________________________________________________________________
+
+АБСОЛЮТНЫЙ ПУТЬ: /Users/vladimirmazyrec/sync-agency-new/src/shared/sections/brief-section/components/hooks/use-brief.ts
+название файла: brief-section/components/hooks/use-brief.ts
+
+СОДЕРЖИМОЕ ФАЙЛА:
+----------------------------------------
+import { useState, useCallback, useMemo } from 'react'
+import { 
+  BriefState, 
+  BriefFormData, 
+  ProjectFeature, 
+  BudgetOption, 
+  TimelineOption 
+} from '../../types'
+
+const initialFormData: BriefFormData = {
+  projectDescription: '',
+  selectedFeatures: [],
+  selectedBudget: null,
+  selectedTimeline: null,
+  uploadedFiles: []
+}
+
+export const useBrief = () => {
+  const [briefState, setBriefState] = useState<BriefState>({
+    formData: initialFormData,
+    isSubmitted: false
+  })
+
+  // Mock data
+  const projectFeatures: ProjectFeature[] = [
+    {
+      id: 'logo-design',
+      title: 'Signature Identity',
+      description: 'Distinctive logos that embody your brand’s core essence.',
+      category: 'Branding'
+    },
+    {
+      id: 'brand-guidelines',
+      title: 'Brand Standards',
+        description: 'Comprehensive guidelines ensuring consistent brand representation.',
+      category: 'Branding'
+    },
+    {
+      id: 'visual-identity',
+      title: 'Visual Language',
+      description: 'Cohesive visual systems that communicate with sophistication.',
+      category: 'Branding'
+    },
+    {
+      id: 'brand-strategy',
+      title: 'Brand Strategy',
+      description: 'Strategic positioning that defines your market presence.',
+      category: 'Branding'
+    },
+    {
+      id: 'packaging-design',
+      title: 'Packaging Design',
+      description: 'Elegant packaging solutions that create memorable unboxing experiences.',
+      category: 'Branding'
+    },
+    {
+      id: 'brand-assets',
+      title: 'Brand Assets',
+      description: 'Complete suite of meticulously crafted brand elements.',
+      category: 'Branding'
+    }
+  ]
+
+  const budgetOptions: BudgetOption[] = [
+    { id: 'up-to-500', label: 'up to $500', value: 'up_to_500' },
+    { id: '500-1500', label: '$500 - $1,500', value: '500_1500' },
+    { id: '1500-5000', label: '$1,500 - $5,000', value: '1500_5000' },
+    { id: '5000-15000', label: '$5,000 - $15,000', value: '5000_15000' },
+    { id: '15000-30000', label: '$15,000 - $30,000', value: '15000_30000' },
+    { id: '30000-plus', label: '$30,000+', value: '30000_plus' },
+    { id: 'not-sure', label: 'Not sure yet', value: 'not_sure' }
+  ]
+
+  const timelineOptions: TimelineOption[] = [
+    { id: 'urgent', label: 'Urgent (1-3 months)', value: 'urgent' },
+    { id: 'standard', label: 'Standard (3-6 months)', value: 'standard' },
+    { id: 'long-term', label: 'Long-term (6+ months)', value: 'long_term' },
+    { id: 'planning', label: 'Still planning', value: 'planning' }
+  ]
+
+  const handleFeatureToggle = useCallback((featureId: string) => {
+    setBriefState(prev => {
+      const currentFeatures = prev.formData.selectedFeatures
+      const newFeatures = currentFeatures.includes(featureId)
+        ? currentFeatures.filter(id => id !== featureId)
+        : [...currentFeatures, featureId]
+
+      return {
+        ...prev,
+        formData: {
+          ...prev.formData,
+          selectedFeatures: newFeatures
+        }
+      }
+    })
+  }, [])
+
+  const handleBudgetSelect = useCallback((budgetValue: string) => {
+    setBriefState(prev => ({
+      ...prev,
+      formData: {
+        ...prev.formData,
+        selectedBudget: budgetValue
+      }
+    }))
+  }, [])
+
+  const handleTimelineSelect = useCallback((timelineValue: string) => {
+    setBriefState(prev => ({
+      ...prev,
+      formData: {
+        ...prev.formData,
+        selectedTimeline: timelineValue
+      }
+    }))
+  }, [])
+
+  const handleProjectDescriptionChange = useCallback((description: string) => {
+    setBriefState(prev => ({
+      ...prev,
+      formData: {
+        ...prev.formData,
+        projectDescription: description
+      }
+    }))
+  }, [])
+
+  const handleFilesUpload = useCallback((files: File[]) => {
+    setBriefState(prev => ({
+      ...prev,
+      formData: {
+        ...prev.formData,
+        uploadedFiles: files
+      }
+    }))
+  }, [])
+
+  const isFormValid = useMemo(() => 
+    briefState.formData.projectDescription.trim().length > 0 &&
+    briefState.formData.selectedFeatures.length > 0 &&
+    briefState.formData.selectedBudget !== null &&
+    briefState.formData.selectedTimeline !== null,
+    [briefState.formData]
+  )
+
+  const handleBriefSubmit = useCallback(() => {
+    if (isFormValid) {
+      setBriefState(prev => ({
+        ...prev,
+        isSubmitted: true
+      }))
+      console.log('Submitting brief:', briefState.formData)
+    }
+  }, [briefState.formData, isFormValid])
+
+  return {
+    briefState,
+    projectFeatures,
+    budgetOptions,
+    timelineOptions,
+    handleFeatureToggle,
+    handleBudgetSelect,
+    handleTimelineSelect,
+    handleProjectDescriptionChange,
+    handleFilesUpload,
+    handleBriefSubmit,
+    isFormValid
+  }
+}
+
+________________________________________________________________________________
+
+АБСОЛЮТНЫЙ ПУТЬ: /Users/vladimirmazyrec/sync-agency-new/src/shared/sections/brief-section/components/mobile/brief-mobile.module.scss
+название файла: brief-section/components/mobile/brief-mobile.module.scss
+
+СОДЕРЖИМОЕ ФАЙЛА:
+----------------------------------------
+.mobileLayout {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    width: 100%;
+  }
+
+________________________________________________________________________________
+
+АБСОЛЮТНЫЙ ПУТЬ: /Users/vladimirmazyrec/sync-agency-new/src/shared/sections/brief-section/components/mobile/brief-mobile.tsx
+название файла: brief-section/components/mobile/brief-mobile.tsx
+
+СОДЕРЖИМОЕ ФАЙЛА:
+----------------------------------------
+import React, { useState } from 'react'
+import { CollapsedSelection } from '../../../booking-section/components/common'
+import { BookingForm } from '../../../booking-section/components/common'
+
+import { FeaturesGrid } from '../common/features-grid/features-grid'
+import { FileUpload } from '../common/file-upload/file-upload'
+import { BudgetTimelineSelection } from '../common/budget-timeline-selection/budget-timeline-selection'
+import { ProjectDescription } from '../common/project-description/project-description'
+import { BriefMobileProps } from '../../types'
+import styles from './brief-mobile.module.scss'
+
+export const BriefMobile: React.FC<BriefMobileProps> = ({
+  briefState,
+  projectFeatures,
+  budgetOptions,
+  timelineOptions,
+  onFeatureToggle,
+  onBudgetSelect,
+  onTimelineSelect,
+  onProjectDescriptionChange,
+  onFilesUpload
+}) => {
+  const { formData } = briefState
+  const [expandedSection, setExpandedSection] = useState<string | null>('features')
+
+  const handleSectionToggle = (section: string) => {
+    setExpandedSection(expandedSection === section ? null : section)
+  }
+
+  return (
+    <div className={styles.mobileLayout}>
+      {/* Service Features */}
+      <CollapsedSelection
+        selectedMonth={new Date()}
+        selectedDate={undefined}
+        selectedTime={null}
+        formatMonth={() => ''}
+        formatDate={() => ''}
+        onExpand={() => handleSectionToggle('features')}
+        isExpanded={expandedSection === 'features'}
+        title="Service Features"
+        forceTitle={true}
+      >
+        <FeaturesGrid
+          features={projectFeatures}
+          selectedFeatures={formData.selectedFeatures}
+          onFeatureToggle={onFeatureToggle}
+        />
+      </CollapsedSelection>
+
+      {/* Budget / Timeline */}
+      <CollapsedSelection
+        selectedMonth={new Date()}
+        selectedDate={undefined}
+        selectedTime={null}
+        formatMonth={() => ''}
+        formatDate={() => ''}
+        onExpand={() => handleSectionToggle('budget')}
+        isExpanded={expandedSection === 'budget'}
+        title="Budget / Timeline"
+        forceTitle={true}
+      >
+        <BudgetTimelineSelection
+          budgetOptions={budgetOptions}
+          timelineOptions={timelineOptions}
+          selectedBudget={formData.selectedBudget}
+          selectedTimeline={formData.selectedTimeline}
+          onBudgetSelect={onBudgetSelect}
+          onTimelineSelect={onTimelineSelect}
+        />
+      </CollapsedSelection>
+
+      {/* Project Description */}
+      <CollapsedSelection
+        selectedMonth={new Date()}
+        selectedDate={undefined}
+        selectedTime={null}
+        formatMonth={() => ''}
+        formatDate={() => ''}
+        onExpand={() => handleSectionToggle('description')}
+        isExpanded={expandedSection === 'description'}
+        title="Project Description"
+        forceTitle={true}
+      >
+
+        <ProjectDescription
+          description={formData.projectDescription}
+          onDescriptionChange={onProjectDescriptionChange}
+        />
+
+        <FileUpload
+          uploadedFiles={formData.uploadedFiles}
+          onFilesUpload={onFilesUpload}
+        />
+      </CollapsedSelection>
+
+      <CollapsedSelection
+          selectedMonth={new Date()}
+          selectedDate={undefined}
+          selectedTime={null}
+          formatMonth={() => ''}
+          formatDate={() => ''}
+          onExpand={() => handleSectionToggle('details')}
+          isExpanded={expandedSection === 'details'}
+          isDisabled={false}
+          title="Contact Details"
+          forceTitle={true}
+        >
+          <div className={styles.contactFormWrapper}>
+            <BookingForm
+              formData={{
+                name: '',
+                email: '',
+                communicationMethod: 'telegram',
+                contactId: ''
+              }}
+              onFormDataChange={() => {}} // Заглушка
+              onSubmit={() => {}} // Заглушка
+              onBack={() => {}} // Заглушка
+            />
+          </div>
+        </CollapsedSelection>
+    </div>
+  )
+}
+
+________________________________________________________________________________
+
+АБСОЛЮТНЫЙ ПУТЬ: /Users/vladimirmazyrec/sync-agency-new/src/shared/sections/brief-section/components/tablet/brief-tablet.module.scss
+название файла: brief-section/components/tablet/brief-tablet.module.scss
+
+СОДЕРЖИМОЕ ФАЙЛА:
+----------------------------------------
+.tabletLayout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    width: 100%;
+  }
+  
+  .column {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .tabletContent {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+  
+  .section {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  
+  .sectionTitle {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin: 0;
+  }
+  
+  @media (max-width: 768px) {
+    .tabletLayout {
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+  }
+
+________________________________________________________________________________
+
+АБСОЛЮТНЫЙ ПУТЬ: /Users/vladimirmazyrec/sync-agency-new/src/shared/sections/brief-section/components/tablet/brief-tablet.tsx
+название файла: brief-section/components/tablet/brief-tablet.tsx
+
+СОДЕРЖИМОЕ ФАЙЛА:
+----------------------------------------
+import React, { useState } from 'react'
+import { CollapsedSelection } from '../../../booking-section/components/common'
+import { FeaturesGrid } from '../common/features-grid/features-grid'
+import { FileUpload } from '../common/file-upload/file-upload'
+import { BudgetTimelineSelection } from '../common/budget-timeline-selection/budget-timeline-selection'
+import { ProjectDescription } from '../common/project-description/project-description'
+import { BriefTabletProps } from '../../types'
+import styles from './brief-tablet.module.scss'
+
+export const BriefTablet: React.FC<BriefTabletProps> = ({
+  briefState,
+  projectFeatures,
+  budgetOptions,
+  timelineOptions,
+  onFeatureToggle,
+  onBudgetSelect,
+  onTimelineSelect,
+  onProjectDescriptionChange,
+  onFilesUpload
+}) => {
+  const { formData } = briefState
+  const [leftExpanded, setLeftExpanded] = useState(true)
+  const [rightExpanded, setRightExpanded] = useState(true)
+
+  return (
+    <div className={styles.tabletLayout}>
+      {/* Левая колонка */}
+      <div className={styles.column}>
+        <CollapsedSelection
+          selectedMonth={new Date()}
+          selectedDate={undefined}
+          selectedTime={null}
+          formatMonth={() => ''}
+          formatDate={() => ''}
+          onExpand={() => setLeftExpanded(!leftExpanded)}
+          isExpanded={leftExpanded}
+          title="Project Details"
+          forceTitle={true}
+        >
+          <div className={styles.tabletContent}>
+            <div className={styles.section}>
+              <h4 className={styles.sectionTitle}>Service Features</h4>
+              <FeaturesGrid
+                features={projectFeatures}
+                selectedFeatures={formData.selectedFeatures}
+                onFeatureToggle={onFeatureToggle}
+              />
+            </div>
+
+            <div className={styles.section}>
+              <h4 className={styles.sectionTitle}>Project Description</h4>
+              <ProjectDescription
+                description={formData.projectDescription}
+                onDescriptionChange={onProjectDescriptionChange}
+              />
+            </div>
+          </div>
+        </CollapsedSelection>
+      </div>
+
+      {/* Правая колонка */}
+      <div className={styles.column}>
+        <CollapsedSelection
+          selectedMonth={new Date()}
+          selectedDate={undefined}
+          selectedTime={null}
+          formatMonth={() => ''}
+          formatDate={() => ''}
+          onExpand={() => setRightExpanded(!rightExpanded)}
+          isExpanded={rightExpanded}
+          title="Budget & Files"
+          forceTitle={true}
+        >
+          <div className={styles.tabletContent}>
+            <div className={styles.section}>
+              <BudgetTimelineSelection
+                budgetOptions={budgetOptions}
+                timelineOptions={timelineOptions}
+                selectedBudget={formData.selectedBudget}
+                selectedTimeline={formData.selectedTimeline}
+                onBudgetSelect={onBudgetSelect}
+                onTimelineSelect={onTimelineSelect}
+              />
+            </div>
+
+            <div className={styles.section}>
+              <h4 className={styles.sectionTitle}>Attachments</h4>
+              <FileUpload
+                uploadedFiles={formData.uploadedFiles}
+                onFilesUpload={onFilesUpload}
+              />
+            </div>
+          </div>
+        </CollapsedSelection>
+      </div>
+    </div>
+  )
+}
+
+________________________________________________________________________________
+
+АБСОЛЮТНЫЙ ПУТЬ: /Users/vladimirmazyrec/sync-agency-new/src/shared/sections/brief-section/index.ts
+название файла: brief-section/index.ts
+
+СОДЕРЖИМОЕ ФАЙЛА:
+----------------------------------------
+export { BriefSection } from './brief-section'
+export type { 
+  BriefState, 
+  BriefFormData, 
+  ProjectFeature, 
+  BudgetOption, 
+  TimelineOption,
+  ServiceFeatureTooltipProps,
+  FeaturesGridProps,
+  FileUploadProps,
+  BudgetTimelineSelectionProps,
+  ProjectDescriptionProps,
+  BriefDesktopProps,
+  BriefTabletProps,
+  BriefMobileProps
+} from './types'
+
+________________________________________________________________________________
+
+АБСОЛЮТНЫЙ ПУТЬ: /Users/vladimirmazyrec/sync-agency-new/src/shared/sections/brief-section/types.ts
+название файла: brief-section/types.ts
+
+СОДЕРЖИМОЕ ФАЙЛА:
+----------------------------------------
+export interface ProjectFeature {
+    id: string
+    title: string
+    description: string
+    category: string
+  }
+  
+  export interface BudgetOption {
+    id: string
+    label: string
+    value: string
+  }
+  
+  export interface TimelineOption {
+    id: string
+    label: string
+    value: string
+  }
+  
+  export interface BriefFormData {
+    projectDescription: string
+    selectedFeatures: string[]
+    selectedBudget: string | null
+    selectedTimeline: string | null
+    uploadedFiles: File[]
+  }
+  
+  export interface BriefState {
+    formData: BriefFormData
+    isSubmitted: boolean
+  }
+  
+  export interface ServiceFeatureTooltipProps {
+    feature: ProjectFeature
+    isVisible: boolean
+    position: { top: number; left: number }
+  }
+  
+  export interface FeaturesGridProps {
+    features: ProjectFeature[]
+    selectedFeatures: string[]
+    onFeatureToggle: (featureId: string) => void
+  }
+  
+  export interface FileUploadProps {
+    uploadedFiles: File[]
+    onFilesUpload: (files: File[]) => void
+  }
+  
+  export interface BudgetTimelineSelectionProps {
+    budgetOptions: BudgetOption[]
+    timelineOptions: TimelineOption[]
+    selectedBudget: string | null
+    selectedTimeline: string | null
+    onBudgetSelect: (budgetValue: string) => void
+    onTimelineSelect: (timelineValue: string) => void
+  }
+  
+  export interface ProjectDescriptionProps {
+    description: string
+    onDescriptionChange: (description: string) => void
+  }
+  
+  // Common props for all device types
+  export interface BriefCommonProps {
+    briefState: BriefState
+    projectFeatures: ProjectFeature[]
+    budgetOptions: BudgetOption[]
+    timelineOptions: TimelineOption[]
+    onFeatureToggle: (featureId: string) => void
+    onBudgetSelect: (budgetValue: string) => void
+    onTimelineSelect: (timelineValue: string) => void
+    onProjectDescriptionChange: (description: string) => void
+    onFilesUpload: (files: File[]) => void
+    onBriefSubmit: () => void
+    isFormValid: boolean
+  }
+  
+  export interface BriefDesktopProps extends BriefCommonProps {}
+  export interface BriefTabletProps extends BriefCommonProps {}
+  export interface BriefMobileProps extends BriefCommonProps {}
+
+================================================================================
+
+СТАТИСТИКА:
+----------------------------------------
+Обработано файлов: 22
+Общий размер папки: 46,003 байт
+Дата создания отчета: 2025-12-02 01:01:45

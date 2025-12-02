@@ -57,13 +57,12 @@ export const useBooking = () => {
       const isPast = date < today
       
       const timeSlots: TimeSlot[] = [
-        { id: `morning-${i}`, time: '09:00', available: !isPast && Math.random() > 0.3 },
-        { id: `morning2-${i}`, time: '10:30', available: !isPast && Math.random() > 0.3 },
-        { id: `afternoon-${i}`, time: '14:00', available: !isPast && Math.random() > 0.3 },
-        { id: `afternoon2-${i}`, time: '15:30', available: !isPast && Math.random() > 0.3 },
-        { id: `evening-${i}`, time: '17:00', available: !isPast && Math.random() > 0.3 },
+        { id: `morning-${i}`, time: '09:00', available: !isPast },
+        { id: `morning2-${i}`, time: '10:30', available: !isPast },
+        { id: `afternoon-${i}`, time: '14:00', available: !isPast },
+        { id: `afternoon2-${i}`, time: '15:30', available: !isPast },
+        { id: `evening-${i}`, time: '17:00', available: !isPast },
       ]
-
       dates.push({ date, timeSlots })
     }
     

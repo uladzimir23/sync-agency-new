@@ -34,7 +34,9 @@ export const FileUpload: React.FC<FileUploadProps> = ({
 
   return (
     <div className={styles.fileUpload}>
-            <h4 className={styles.sectionTitle}>Project files:</h4>
+
+      <h4 className={styles.sectionTitle}>Project files:</h4>
+      <div className={styles.fileUploadWrapper}>
 
       <div
         className={styles.dropZone}
@@ -60,7 +62,7 @@ export const FileUpload: React.FC<FileUploadProps> = ({
           accept=".pdf,.doc,.docx,image/*"
         />
       </div>
-
+      
       {uploadedFiles.length > 0 && (
         <div className={styles.fileList}>
           <h4 className={styles.fileListTitle}>Uploaded Files</h4>
@@ -77,6 +79,8 @@ export const FileUpload: React.FC<FileUploadProps> = ({
           ))}
         </div>
       )}
+      </div>
+
     </div>
   )
 }

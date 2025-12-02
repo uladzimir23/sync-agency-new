@@ -2,17 +2,26 @@
 import os
 import sys
 
-def get_tree_structure(start_path, prefix="", is_last=True, exclude_file=None):
+def get_tree_structure(start_path, prefix="", is_last=True, exclude_file=None, base_path=None):
     """
     Рекурсивно генерирует древовидную структуру папок и файлов
+    с полными путями
     """
     if not os.path.exists(start_path):
         return ""
     
-    name = os.path.basename(start_path)
+    if base_path is None:
+        base_path = start_path
+    
+    # Получаем относительный путь от базовой директории
+    rel_path = os.path.relpath(start_path, base_path)
+    if rel_path == ".":
+        name = os.path.basename(start_path) if os.path.basename(start_path) else start_path
+    else:
+        name = rel_path.replace(os.sep, '/')  # Используем / для консистентности
     
     # Пропускаем файл вывода
-    if name == exclude_file:
+    if os.path.basename(start_path) == exclude_file:
         return ""
     
     result = ""
@@ -41,20 +50,28 @@ def get_tree_structure(start_path, prefix="", is_last=True, exclude_file=None):
                 item_path, 
                 prefix + extension, 
                 is_last_item,
-                exclude_file
+                exclude_file,
+                base_path
             )
     
     return result
 
-def get_file_contents(start_path, extensions=None, exclude_file=None):
+def get_file_contents(start_path, extensions=None, exclude_file=None, base_path=None):
     """
     Собирает содержимое всех файлов с указанными расширениями
+    с полными путями
     """
+    if base_path is None:
+        base_path = start_path
+    
     if extensions is None:
         extensions = ['.ts', '.tsx', '.js', '.jsx', '.json', 
                      '.scss', '.css', '.txt', '.md', '.yml', 
                      '.yaml', '.xml', '.html', '.htm', '.py', 
-                     '.java', '.cpp', '.c', '.h', '.cs']
+                     '.java', '.cpp', '.c', '.h', '.cs', '.go',
+                     '.rb', '.php', '.swift', '.kt', '.rs', 
+                     '.sh', '.bash', '.zsh', '.ps1', '.bat',
+                     '.ini', '.cfg', '.conf', '.toml']
     
     results = []
     
@@ -74,7 +91,11 @@ def get_file_contents(start_path, extensions=None, exclude_file=None):
             
             # Проверяем расширение
             if any(file.endswith(ext) for ext in extensions):
-                rel_path = os.path.relpath(file_path, start=os.path.dirname(start_path))
+                # Получаем полный абсолютный путь
+                abs_path = os.path.abspath(file_path)
+                # И относительный путь от базовой директории
+                rel_path = os.path.relpath(file_path, os.path.dirname(base_path))
+                rel_path = rel_path.replace(os.sep, '/')  # Используем / для консистентности
                 
                 try:
                     with open(file_path, 'r', encoding='utf-8') as f:
@@ -89,9 +110,13 @@ def get_file_contents(start_path, extensions=None, exclude_file=None):
                     content = f"[Error reading file: {str(e)}]"
                 
                 results.append({
-                    'path': rel_path,
+                    'abs_path': abs_path,  # Абсолютный путь
+                    'rel_path': rel_path,   # Относительный путь
                     'content': content
                 })
+    
+    # Сортируем по пути для консистентности
+    results.sort(key=lambda x: x['rel_path'].lower())
     
     return results
 
@@ -112,23 +137,29 @@ def main():
         return
     
     output_file = "FolderStructure.txt"
+    output_path = os.path.join(os.path.dirname(target_folder), output_file)
     
     print(f"Сканируем папку: {target_folder}")
-    print(f"Результат будет сохранен в: {output_file}")
+    print(f"Результат будет сохранен в: {output_path}")
     
-    # Получаем структуру папок
+    # Получаем структуру папок с полными путями
     print("Генерируем древовидную структуру...")
-    tree_structure = get_tree_structure(target_folder, exclude_file=output_file)
+    tree_structure = get_tree_structure(target_folder, exclude_file=output_file, base_path=target_folder)
     
-    # Получаем содержимое файлов
+    # Получаем содержимое файлов с полными путями
     print("Читаем содержимое файлов...")
-    file_contents = get_file_contents(target_folder, exclude_file=output_file)
+    file_contents = get_file_contents(target_folder, exclude_file=output_file, base_path=target_folder)
     
     # Записываем всё в файл
-    with open(output_file, 'w', encoding='utf-8') as f:
-        # Записываем структуру
-        f.write("СТРУКТУРА ПАПОК:\n")
+    with open(output_path, 'w', encoding='utf-8') as f:
+        # Записываем заголовок с информацией о папке
+        f.write(f"АНАЛИЗ ПАПКИ: {target_folder}\n")
+        f.write(f"Дата создания отчета: {sys.version_info[0]}.{sys.version_info[1]}.{sys.version_info[2]}\n")
         f.write("=" * 80 + "\n\n")
+        
+        # Записываем структуру
+        f.write("СТРУКТУРА ПАПОК (полные пути):\n")
+        f.write("-" * 80 + "\n\n")
         f.write(tree_structure)
         
         # Записываем содержимое файлов
@@ -138,14 +169,42 @@ def main():
             f.write("=" * 80 + "\n\n")
             
             for i, item in enumerate(file_contents):
-                f.write(f"название файла {item['path']}\n\n")
+                # Выводим абсолютный путь
+                f.write(f"АБСОЛЮТНЫЙ ПУТЬ: {item['abs_path']}\n")
+                # Выводим относительный путь (как в вашем примере)
+                f.write(f"название файла: {item['rel_path']}\n\n")
+                
+                # Записываем содержимое файла
+                f.write("СОДЕРЖИМОЕ ФАЙЛА:\n")
+                f.write("-" * 40 + "\n")
                 f.write(item['content'])
                 
                 if i < len(file_contents) - 1:
-                    f.write("\n\n" + "_" * 40 + "\n\n")
-    
-    print(f"Готово! Файл '{output_file}' создан.")
-    print(f"Обработано файлов: {len(file_contents)}")
+                    f.write("\n\n" + "_" * 80 + "\n\n")
+                else:
+                    f.write("\n\n" + "=" * 80 + "\n")
+        
+        # Добавляем статистику в конец
+        f.write(f"\nСТАТИСТИКА:\n")
+        f.write(f"-" * 40 + "\n")
+        f.write(f"Обработано файлов: {len(file_contents)}\n")
+        f.write(f"Общий размер папки: {get_folder_size(target_folder):,.0f} байт\n")
+        f.write(f"Дата создания отчета: {get_current_time()}\n")
+
+def get_folder_size(folder_path):
+    """Вычисляет общий размер папки в байтах"""
+    total_size = 0
+    for dirpath, dirnames, filenames in os.walk(folder_path):
+        for filename in filenames:
+            filepath = os.path.join(dirpath, filename)
+            if os.path.isfile(filepath):
+                total_size += os.path.getsize(filepath)
+    return total_size
+
+def get_current_time():
+    """Возвращает текущее время в формате строки"""
+    from datetime import datetime
+    return datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
 if __name__ == "__main__":
     main()

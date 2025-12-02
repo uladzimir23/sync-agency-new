@@ -98,15 +98,13 @@
 │   │   │   ├── useTheme.ts
 │   │   │   └── useToday.ts
 │   │   ├── lib
-│   │   │   └── data
-│   │   │       ├── casesData.ts
-│   │   │       ├── faqData copy.txt
-│   │   │       ├── faqData.ts
-│   │   │       ├── featuresData copy.txt
-│   │   │       ├── featuresData.ts
-│   │   │       ├── index.ts
-│   │   │       ├── processStepsData copy.txt
-│   │   │       └── processStepsData.ts
+│   │   │   ├── data
+│   │   │   │   ├── casesData.ts
+│   │   │   │   ├── faqData.ts
+│   │   │   │   ├── featuresData.ts
+│   │   │   │   ├── index.ts
+│   │   │   │   └── processStepsData.ts
+│   │   │   └── FolderStructure.txt
 │   │   ├── localization
 │   │   │   ├── components
 │   │   │   │   └── LanguageSwitcher
@@ -240,6 +238,7 @@
 │   │   │   │   ├── brief-section.tsx
 │   │   │   │   ├── index.ts
 │   │   │   │   └── types.ts
+│   │   │   ├── FolderStructure.txt
 │   │   │   └── index.ts
 │   │   ├── services
 │   │   │   └── telegram-service.ts
@@ -326,8 +325,9 @@
 │   │   │       ├── WavyBackground.scss
 │   │   │       ├── WavyBackground.tsx
 │   │   │       └── index.ts
-│   │   └── utils
-│   │       └── utils.ts
+│   │   ├── utils
+│   │   │   └── utils.ts
+│   │   └── .DS_Store
 │   ├── widgets
 │   │   └── header
 │   │       ├── components
@@ -351,6 +351,7 @@
 │   │       ├── header.tsx
 │   │       ├── header.types.ts
 │   │       └── index.ts
+│   ├── .DS_Store
 │   ├── App.test.tsx
 │   ├── index.css
 │   ├── index.tsx
@@ -376,12 +377,15 @@
 │   └── robots.txt
 ├── workflows
 │   └── deploy.yml
+├── .DS_Store
 ├── .env
 ├── .gitignore
+├── FolderStructure.txt
 ├── Notes.md
 ├── README.md
 ├── components.json
 ├── deploy-gh-pages.sh
+├── folder_structure.py
 ├── index.html
 ├── package-lock.json
 ├── package.json
@@ -390,4 +394,4 @@
 ├── tsconfig.node.json
 └── vite.config.ts
 
-112 directories, 279 files
+112 directories, 283 files

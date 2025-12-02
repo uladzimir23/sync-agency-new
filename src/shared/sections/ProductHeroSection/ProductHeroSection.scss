@@ -14,15 +14,20 @@
   }
   
   .product-hero-content {
-    display: grid;
-    grid-template-columns: 2fr 1fr;
+    display: flex;
+    //grid-template-columns: 2fr 1fr;
+    flex-direction: column;
+    //align-items: center;
     gap: 2rem;
     align-items: center;
+
   }
   
   .product-hero-text {
     display: flex;
     flex-direction: column;
+    align-items: center;
+
 
     .product-hero-subtitle {
       display: inline-block;
@@ -48,11 +53,13 @@
   
     .product-hero-description {
       letter-spacing: -1px;
-      font-size: 1.5rem;
+      font-size: 1.2rem;
       line-height: 1.2;
       color: var(--text-secondary);
       margin-bottom: 2.5rem;
       font-weight: 300;
+      text-align: center;
+      max-width: 600px;
     }
   
     .product-hero-cta {

@@ -33,9 +33,7 @@ export const LanguageSwitcher: React.FC = () => {
         aria-label="Change language"
       >
         <FiGlobe className={styles.globeIcon} />
-        <span className={styles.currentLanguage}>
-          {currentLanguage?.code.toUpperCase()}
-        </span>
+
       </button>
 
       {isOpen && (

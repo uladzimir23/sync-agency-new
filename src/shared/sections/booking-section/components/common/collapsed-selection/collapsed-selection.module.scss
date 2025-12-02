@@ -17,7 +17,7 @@
 
   }
 
-  
+
 
   &.expanded {
     background: var(--bg-secondary);
@@ -26,6 +26,9 @@
     flex-direction: column;
     border-radius: 20px;
     transition: all 1s ease;
+    position: relative;
+
+
 
 
     &:hover {
@@ -39,6 +42,7 @@
 
     }
   }
+
 
   .header {
     position: relative;
@@ -184,6 +188,7 @@
       transition: max-height 0.4s ease, opacity 0.5s ease, padding 0.3s ease, background 0.3s ease,box-shadow 0.3s ease, scale 0.3s ease;
       transform-origin: top;
       overflow-y: auto; /* Показывает вертикальную прокрутку только если контент больше 300px */
+
 
 
       * {

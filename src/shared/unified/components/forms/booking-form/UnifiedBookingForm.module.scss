@@ -1,0 +1,176 @@
+.unifiedBookingForm {
+    border: none;
+    padding: 0;
+    border-radius: 0;
+    background: transparent;
+    height: 100%;
+    
+    &.disabled {
+      opacity: 0.6;
+      pointer-events: none;
+    }
+  
+    .form {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+  
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+  
+    .label {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text-primary);
+    }
+  
+    .input {
+      padding: 12px 16px;
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      font-size: 14px;
+      transition: all 0.3s ease;
+  
+      &:hover {
+        background: var(--background-primary-yellow);
+        box-shadow: var(--box-shadow-primary);
+      }
+    
+      &:focus {
+        outline: none;
+        border-color: var(--border-color-accent);
+        box-shadow: var(--box-shadow-primary), inset 0px 0px 3px var(--border-color-accent);
+      }
+    
+      &::placeholder {
+        color: var(--text-secondary);
+      }
+  
+      &:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+      }
+    }
+  
+    .communicationStack {
+      width: 100%;
+    }
+  
+    .communicationButtons {
+      width: 100%;
+      
+      :global(.btnStack__container) {
+        display: grid !important;
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 8px !important;
+        width: 100% !important;
+      }
+      
+      :global(.btnStackItem) {
+        min-width: auto !important;
+        padding: 10px 12px !important;
+        font-size: 14px !important;
+        text-align: center;
+      }
+    }
+  
+    .actions {
+      display: flex;
+      gap: 12px;
+      margin-top: 16px;
+    }
+  
+    .backButton {
+      flex: 1;
+      background: transparent;
+      color: var(--text-secondary);
+      border: 1px solid var(--border-color);
+      padding: 12px 16px;
+      border-radius: 12px;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s ease;
+  
+      &:hover:not(:disabled) {
+        background: var(--bg-secondary);
+        color: var(--text-primary);
+      }
+  
+      &:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+      }
+    }
+  
+    .submitButton {
+      flex: 2;
+      background: #56aafe1f;
+      color: #56aafe8c;
+      border: none;
+      padding: 12px 16px;
+      border-radius: 12px;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s ease;
+  
+      &:hover:not(:disabled) {
+        background: var(--primary-color);
+        box-shadow: 0px 0px 3px var(--border-color-accent);
+        background: #56aafe54;
+        color: #56aafe;
+      }
+  
+      &:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+      }
+    }
+  
+    .errorMessage {
+      background: rgba(239, 68, 68, 0.1);
+      border: 1px solid rgba(239, 68, 68, 0.3);
+      color: #ef4444;
+      padding: 12px 16px;
+      border-radius: 12px;
+      font-size: 14px;
+      margin-bottom: 16px;
+    }
+  }
+  
+  // Адаптивность
+  @media (max-width: 768px) {
+    .unifiedBookingForm {
+      .communicationButtons {
+        :global(.btnStack__container) {
+          grid-template-columns: 1fr !important;
+        }
+      }
+      
+      .actions {
+        flex-direction: row;
+      }
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .unifiedBookingForm {
+      .form {
+        gap: 16px;
+      }
+      
+      .communicationButtons {
+        :global(.btnStackItem) {
+          padding: 8px 12px !important;
+          font-size: 13px !important;
+        }
+      }
+    }
+  }

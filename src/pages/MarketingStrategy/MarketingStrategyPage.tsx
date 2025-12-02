@@ -9,6 +9,9 @@ import { processStepsData } from '../../shared/lib/data/processStepsData'
 import { faqData } from '../../shared/lib/data/faqData'
 import './MarketingStrategyPage.scss'
 
+import { UnifiedBookingSection } from '@/shared/unified'
+
+
 export const MarketingStrategyPage: React.FC = () => {
   const handleCtaClick = () => {
     console.log('CTA clicked - discuss strategy')
@@ -26,6 +29,15 @@ export const MarketingStrategyPage: React.FC = () => {
         description="We develop comprehensive, results-oriented marketing strategies that drive measurable growth and sustainable competitive advantages. Our integrated approach combines data intelligence with creative excellence to build brand authority and accelerate revenue growth across all channels."
         ctaText="Discuss Your Strategy"
         onCtaClick={handleCtaClick}
+      />
+
+      <UnifiedBookingSection 
+        title="Let's finally get in touch."
+        subtitle="Schedule a consultation with our project manager"
+        onBookingSubmit={async (data) => {
+          // Отправка данных в Telegram или другой сервис
+          console.log('Booking submitted:', data)
+        }}
       />
 
       <ServiceFeatures

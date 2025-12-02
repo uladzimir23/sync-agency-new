@@ -9,7 +9,7 @@ export const DatePicker: React.FC<DatePickerProps> = ({
   selectedDate,
   onDateSelect,
 }) => {
-  const weekDays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
+  const weekDays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat','Sun']
   const { isToday } = useToday()
 
   // Проверяем, является ли дата прошедшей
@@ -29,7 +29,7 @@ export const DatePicker: React.FC<DatePickerProps> = ({
             <div 
               key={day} 
               className={`${styles.weekDay} ${
-                index === 0 || index === 6 ? styles.weekend : ''
+                index === 5 || index === 6 ? styles.weekend : ''
               }`}
             >
               {day}

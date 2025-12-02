@@ -127,7 +127,7 @@
         border-radius: 14px;
         scale: 1;
         color: var(--primary-color);
-        font-weight: 700;
+        //font-weight: 700;
 
 
         &::before {
@@ -192,21 +192,21 @@
 
   // Размеры кнопок
   &--sm {
-    padding: 0.7rem 1.2rem;
-    font-size: 0.875rem;
+    padding: 0.6rem 1.2rem;
+    font-size: 0.8rem;
     min-height: 2rem;
   }
 
   &--md {
     padding: 0.7rem 1.5rem;
-    font-size: 1rem;
+    font-size: 0.9rem;
     min-height: 2.5rem;
   }
 
   &--lg {
-    padding: 1rem 2rem;
-    font-size: 1.125rem;
-    min-height: 3rem;
+    padding: 0.8rem 2rem;
+    font-size: 1rem;
+    min-height: 2rem;
   }
 
   &--xl {
