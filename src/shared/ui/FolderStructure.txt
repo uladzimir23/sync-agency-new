@@ -1,0 +1,574 @@
+АНАЛИЗ ПАПКИ: /Users/vladimirmazyrec/sync-agency-new/src/shared/ui/sync-dropdown-header
+Дата создания отчета: 3.12.4
+================================================================================
+
+СТРУКТУРА ПАПОК (полные пути):
+--------------------------------------------------------------------------------
+
+sync-dropdown-header
+    ├── animations.ts
+    ├── index.ts
+    ├── SyncDropdownHeader.module.scss
+    └── SyncDropdownHeader.tsx
+
+
+================================================================================
+СОДЕРЖАНИЕ ФАЙЛОВ:
+================================================================================
+
+АБСОЛЮТНЫЙ ПУТЬ: /Users/vladimirmazyrec/sync-agency-new/src/shared/ui/sync-dropdown-header/animations.ts
+название файла: sync-dropdown-header/animations.ts
+
+СОДЕРЖИМОЕ ФАЙЛА:
+----------------------------------------
+import { gsap } from 'gsap'
+
+export const dropdownAnimations = {
+  open: (element: HTMLElement, isMobile: boolean = false) => {
+    const tl = gsap.timeline()
+    
+    tl.set(element, {
+      display: 'block',
+      opacity: 0,
+      y: -10,
+      scale: 0.95
+    })
+    
+    tl.to(element, {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      duration: 0.3,
+      ease: "back.out(1.2)"
+    })
+    
+    return tl
+  },
+  
+  close: (element: HTMLElement, isMobile: boolean = false) => {
+    const tl = gsap.timeline()
+    
+    tl.to(element, {
+      opacity: 0,
+      y: -10,
+      scale: 0.95,
+      duration: 0.2,
+      ease: "power2.in"
+    })
+    
+    tl.set(element, {
+      display: 'none'
+    })
+    
+    return tl
+  },
+  
+  blurIn: (element: HTMLElement) => {
+    return gsap.to(element, {
+      backdropFilter: 'blur(15px)',
+      WebkitBackdropFilter: 'blur(15px)',
+      duration: 0.4,
+      ease: "power2.out"
+    })
+  },
+  
+  blurOut: (element: HTMLElement) => {
+    return gsap.to(element, {
+      backdropFilter: 'blur(0px)',
+      WebkitBackdropFilter: 'blur(0px)',
+      duration: 0.3,
+      ease: "power2.in"
+    })
+  }
+}
+
+________________________________________________________________________________
+
+АБСОЛЮТНЫЙ ПУТЬ: /Users/vladimirmazyrec/sync-agency-new/src/shared/ui/sync-dropdown-header/index.ts
+название файла: sync-dropdown-header/index.ts
+
+СОДЕРЖИМОЕ ФАЙЛА:
+----------------------------------------
+export { SyncDropdownHeader } from './SyncDropdownHeader'
+export type { SyncDropdownHeaderProps } from './SyncDropdownHeader'
+
+________________________________________________________________________________
+
+АБСОЛЮТНЫЙ ПУТЬ: /Users/vladimirmazyrec/sync-agency-new/src/shared/ui/sync-dropdown-header/SyncDropdownHeader.module.scss
+название файла: sync-dropdown-header/SyncDropdownHeader.module.scss
+
+СОДЕРЖИМОЕ ФАЙЛА:
+----------------------------------------
+.syncDropdownHeader {
+  margin-bottom: 2rem;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+// Дропдаун стили
+.dropdownWrapper {
+  position: relative;
+  width: min-content;
+  display: flex;
+  justify-content: center;
+}
+
+.dropdownTrigger {
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  justify-content: center;
+}
+
+.soonSyncHeader {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  padding: 0.3rem;
+  background: linear-gradient(45deg, #feab5e0f, #c779d00f, #4bc0c80e);
+  border-radius: 50px;
+  border: 1px solid var(--border-color);
+  transition: all 0.3s ease;
+  position: relative;
+  z-index: 100;
+  width: fit-content;
+
+  &:hover {
+    box-shadow: var(--box-shadow-primary);
+    
+    .syncText {
+      background: linear-gradient(45deg, #fed35e, #d079c3, #4b85c8);
+      -webkit-background-clip: text;
+      //font-weight: 700;
+    }
+
+    .arrow {
+      transform: rotate(45deg);
+      color: #f4a0ff;
+      box-shadow: var(--box-shadow-primary);
+      border: 1px solid var(--border-color);
+    }
+
+    .soon {
+      font-weight: 800;
+    }
+  }
+}
+
+.soon {
+  background: linear-gradient(45deg, #FEAC5E, #C779D0, #4BC0C8);
+  color: white;
+  padding: 0.4rem 0.8rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: -0.5px;
+  background-size: 200% 200%;
+  animation: gradientShift 3s ease infinite;
+  transition: all 0.3s ease;
+}
+
+.syncText {
+  display: flex;
+  width: max-content;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1rem;
+  font-weight: 500;
+  background: linear-gradient(45deg, #FEAC5E, #C779D0, #4BC0C8);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-size: 200% 200%;
+  animation: gradientShift 3s ease infinite;
+  transition: all 0.6s ease;
+}
+
+.arrow {
+  font-size: 1rem;
+  background: linear-gradient(45deg, #feab5e40, #c779d03b, #4bc0c838);
+  border-radius: 50px;
+  padding: 0.3rem;
+  width: 1.5rem;
+  height: 1.5rem;
+  margin-right: 0.3rem;
+  transition: all 0.3s ease;
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+
+  &.arrowRotated {
+    transform: rotate(90deg);
+  }
+}
+
+// Дропдаун контент - УПРОЩЕННЫЕ СТИЛИ
+.dropdownContent {
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  background: var(--bg-primary-opacity);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  padding: 0;
+  box-shadow: var(--box-shadow-primary);
+  z-index: 99;
+  overflow: hidden;
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  cursor: pointer;
+  
+  // Улучшенный фон для блюра
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--bg-primary-opacity-sec);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    z-index: -1;
+  }
+}
+
+.dropdownHeader {
+  display: flex;
+  gap: 12px;
+  width: 100%;
+  
+  .dropdownTextWrapper {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+  }
+}
+
+.dropdownItem {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+  transition: all 0.3s ease;
+  flex-direction: column;
+  position: relative;
+
+  &:hover {
+    background: var(--accent-color);
+  }
+}
+
+.telegramIcon {
+  font-size: 1.5rem;
+  color: #0088cc;
+  flex-shrink: 0;
+}
+
+.dropdownText {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  text-align: left;
+}
+
+.dropdownTitle {
+  font-weight: 600;
+  color: var(--text-primary);
+  font-size: 0.9rem;
+  line-height: 0.9rem;
+  
+}
+
+.dropdownSubtitle {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  margin-top: 2px;
+  text-align: left;
+}
+
+.subscribeBtn {
+  width: 100%;
+}
+
+// Анимация градиента
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+// Адаптивность для мобильных устройств
+@media (max-width: 768px) {
+  .dropdownContent {
+    // На мобильных используем абсолютное позиционирование
+    position: absolute;
+    top: calc(100% + 8px);
+    
+    // Для очень маленьких экранов ограничиваем максимальную ширину
+    max-width: 95vw;
+  }
+
+  // Гарантируем, что родительский контейнер не будет слишком широким
+  .dropdownWrapper {
+    max-width: 95vw;
+  }
+}
+
+@media (max-width: 480px) {
+  .soonSyncHeader {
+    flex-direction: row;
+    gap: 0.8rem;
+  }
+
+  .syncText {
+    font-size: 0.9rem;
+  }
+
+  .soon {
+    font-size: 0.7rem;
+    padding: 0.3rem 0.6rem;
+  }
+
+  .dropdownItem {
+    padding: 12px;
+  }
+
+  .telegramIcon {
+    font-size: 1.3rem;
+  }
+
+  .dropdownTitle {
+    font-size: 0.85rem;
+  }
+
+  .dropdownSubtitle {
+    font-size: 0.75rem;
+    text-align: left;
+  }
+
+  // На очень маленьких экранах немного уменьшаем отступы
+  .dropdownContent {
+    top: calc(100% + 6px);
+  }
+}
+
+________________________________________________________________________________
+
+АБСОЛЮТНЫЙ ПУТЬ: /Users/vladimirmazyrec/sync-agency-new/src/shared/ui/sync-dropdown-header/SyncDropdownHeader.tsx
+название файла: sync-dropdown-header/SyncDropdownHeader.tsx
+
+СОДЕРЖИМОЕ ФАЙЛА:
+----------------------------------------
+import React, { useState, useRef, useEffect } from 'react'
+import { FiArrowUpRight } from 'react-icons/fi'
+import { FaTelegram } from 'react-icons/fa'
+import { Button } from '@/shared/ui/button'
+import { dropdownAnimations } from './animations'
+import styles from './SyncDropdownHeader.module.scss'
+import { useTranslation } from '@/shared/localization/hooks/useTranslation'
+
+
+interface SyncDropdownHeaderProps {
+  className?: string
+}
+
+export const SyncDropdownHeader: React.FC<SyncDropdownHeaderProps> = ({ 
+  className = ''
+}) => {
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false)
+  const [isMobile, setIsMobile] = useState(false)
+  const [dropdownStyles, setDropdownStyles] = useState({ width: 0, left: 0 })
+  
+  const dropdownRef = useRef<HTMLDivElement>(null)
+  const dropdownContentRef = useRef<HTMLDivElement>(null)
+  const soonSyncHeaderRef = useRef<HTMLDivElement>(null)
+  const timeoutRef = useRef<NodeJS.Timeout>()
+  const { t } = useTranslation()
+
+
+  // Определяем мобильное устройство
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768)
+    }
+    
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    
+    return () => {
+      window.removeEventListener('resize', checkMobile)
+    }
+  }, [])
+
+  // Вычисляем ширину и позицию дропдауна
+  const updateDropdownPosition = () => {
+    if (soonSyncHeaderRef.current && dropdownContentRef.current) {
+      const triggerRect = soonSyncHeaderRef.current.getBoundingClientRect()
+      const wrapperRect = dropdownRef.current?.getBoundingClientRect()
+      
+      if (wrapperRect) {
+        setDropdownStyles({
+          width: triggerRect.width,
+          left: 0 // Позиционируем относительно родителя
+        })
+      }
+    }
+  }
+
+  // Обновляем позицию при открытии и изменении размера окна
+  useEffect(() => {
+    if (isDropdownOpen) {
+      updateDropdownPosition()
+      window.addEventListener('resize', updateDropdownPosition)
+    } else {
+      window.removeEventListener('resize', updateDropdownPosition)
+    }
+
+    return () => {
+      window.removeEventListener('resize', updateDropdownPosition)
+    }
+  }, [isDropdownOpen])
+
+  const handleMouseEnter = () => {
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current)
+    }
+    if (!isMobile) {
+      setIsDropdownOpen(true)
+    }
+  }
+
+  const handleMouseLeave = () => {
+    if (!isMobile) {
+      timeoutRef.current = setTimeout(() => {
+        setIsDropdownOpen(false)
+      }, 200)
+    }
+  }
+
+  const handleClick = () => {
+    if (isMobile) {
+      setIsDropdownOpen(!isDropdownOpen)
+    }
+  }
+
+  // Обработчик для кнопки Subscribe
+  const handleSubscribeClick = () => {
+    window.open('https://t.me/sync_agency', '_blank', 'noopener,noreferrer')
+  }
+
+  // GSAP анимации для дропдауна
+  useEffect(() => {
+    const dropdownContent = dropdownContentRef.current
+    if (!dropdownContent) return
+
+    if (isDropdownOpen) {
+      // Применяем вычисленные стили перед анимацией
+      if (dropdownStyles.width > 0) {
+        dropdownContent.style.width = `${dropdownStyles.width}px`
+        dropdownContent.style.left = `${dropdownStyles.left}px`
+      }
+      
+      dropdownAnimations.open(dropdownContent, isMobile)
+      dropdownAnimations.blurIn(dropdownContent)
+    } else {
+      dropdownAnimations.close(dropdownContent, isMobile)
+      dropdownAnimations.blurOut(dropdownContent)
+    }
+  }, [isDropdownOpen, isMobile, dropdownStyles])
+
+  // Закрытие дропдауна при клике вне его области
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setIsDropdownOpen(false)
+      }
+    }
+
+    document.addEventListener('mousedown', handleClickOutside)
+    
+    // Для мобильных устройств также добавляем обработчик тача
+    document.addEventListener('touchstart', handleClickOutside as any)
+    
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside)
+      document.removeEventListener('touchstart', handleClickOutside as any)
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current)
+      }
+    }
+  }, [])
+
+  return (
+    <div className={`${styles.syncDropdownHeader} ${className}`}>
+      {/* Дропдаун секция */}
+      <div 
+        ref={dropdownRef}
+        className={styles.dropdownWrapper}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+        onClick={handleClick}
+      >
+        <div className={styles.dropdownTrigger}>
+          <div 
+            ref={soonSyncHeaderRef}
+            className={styles.soonSyncHeader}
+          >
+            <span className={styles.soon}>{t('header.soon')}</span>
+            <div className={styles.syncText}>
+              <span>{t('header.syncLibrary')}</span>
+              <FiArrowUpRight className={`${styles.arrow} ${isDropdownOpen ? styles.arrowRotated : ''}`} />
+            </div>
+          </div>
+        </div>
+
+        {/* Дропдаун контент с GSAP анимацией */}
+        <div 
+          ref={dropdownContentRef}
+          className={styles.dropdownContent}
+          style={{ 
+            display: 'none',
+            width: dropdownStyles.width > 0 ? `${dropdownStyles.width}px` : 'auto',
+            left: `${dropdownStyles.left}px`
+          }}
+        >
+          <div className={styles.dropdownItem}>
+            <div className={styles.dropdownHeader}>
+              <FaTelegram className={styles.telegramIcon} />
+              <div className={styles.dropdownTextWrapper}>
+                <div className={styles.dropdownText}>
+                  <span className={styles.dropdownTitle}>{t('header.joinTelegram')}</span>
+                </div>
+                <span className={styles.dropdownSubtitle}>{t('header.getUpdates')}</span>
+              </div>
+            </div>
+            <Button 
+              variant="outline" 
+              size="sm"
+              className={styles.subscribeBtn}
+              onClick={handleSubscribeClick}
+            >
+              {t('header.subscribe')}
+            </Button>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+================================================================================
+
+СТАТИСТИКА:
+----------------------------------------
+Обработано файлов: 4
+Общий размер папки: 12,908 байт
+Дата создания отчета: 2025-12-03 02:39:51

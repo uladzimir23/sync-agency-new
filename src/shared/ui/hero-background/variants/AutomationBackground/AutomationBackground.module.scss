@@ -1,0 +1,61 @@
+.automationContainer {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+  }
+  
+  .circuitPath {
+    position: absolute;
+    border: 1px solid rgba(86, 156, 254, 0.3);
+    overflow: hidden;
+    
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      border-radius: inherit;
+      background: linear-gradient(
+        135deg,
+        rgba(86, 156, 254, 0.1) 0%,
+        transparent 50%,
+        rgba(86, 156, 254, 0.1) 100%
+      );
+    }
+  }
+  
+  .lightFlow {
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 30%;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(86, 156, 254, 0.6),
+      transparent
+    );
+    filter: blur(5px);
+    transform: skewX(-20deg);
+  }
+  
+  .circuitNode {
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: radial-gradient(
+      circle,
+      rgba(86, 156, 254, 1) 0%,
+      rgba(128, 90, 213, 0.8) 100%
+    );
+    transform: translate(-50%, -50%);
+    filter: blur(1px);
+    box-shadow: 
+      0 0 20px rgba(86, 156, 254, 0.8),
+      0 0 40px rgba(86, 156, 254, 0.4);
+  }

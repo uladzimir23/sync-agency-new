@@ -1,64 +1,106 @@
 .languageSwitcher {
     position: relative;
     z-index: 1000;
+    display: flex;
+    justify-content: center;
+    //width: 100%;
   }
   
-  .switcherButton {
+  // Дропдаун стили
+  .dropdownWrapper {
+    position: relative;
+    width: min-content;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .dropdownTrigger {
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .languageTrigger {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 8px;
-    background: var(--bg-primary-opacity);
-    border: none;
-    box-shadow: var(--box-shadow-primary), inset 0px 0px 1px var(--border-color-accent);
-    //border-radius: 20px;
-    //padding: 8px 16px;
-    width: 40px;
-    height: 40px;
-    font-size: 0.9rem;
-    font-weight: 500;
-    color: var(--text-primary);
-    cursor: pointer;
+    gap: 0.8rem;
+    padding: 0.6rem 1.2rem;
+    background: linear-gradient(45deg, #feab5e0f, #c779d00f, #4bc0c80e);
+    border-radius: 50px;
+    border: 1px solid var(--border-color);
     transition: all 0.3s ease;
+    position: relative;
+    z-index: 100;
+    width: fit-content;
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
-    border-radius: 40%;
   
     &:hover {
       background: var(--accent-color);
-      //border-color: var(--border-color-accent);
+      border-color: var(--border-color-accent);
       box-shadow: var(--box-shadow-primary);
-    }
-  
-    &:focus {
-      outline: none;
-      box-shadow: 0 0 0 2px var(--primary-color);
+      
+      .globeIcon {
+        transform: rotate(15deg);
+        color: var(--primary-color);
+      }
+      
+      .currentLanguage {
+        background: linear-gradient(45deg, #FEAC5E, #C779D0, #4BC0C8);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-size: 200% 200%;
+        animation: gradientShift 3s ease infinite;
+      }
     }
   }
   
   .globeIcon {
-    font-size: 20px;
+    font-size: 1.1rem;
     color: var(--text-secondary);
+    transition: all 0.3s ease;
   }
   
   .currentLanguage {
     font-weight: 600;
+    font-size: 0.95rem;
     color: var(--text-primary);
+    transition: all 0.3s ease;
+    
+    &.languageChanged {
+      animation: languageChange 0.3s ease;
+    }
   }
   
-  .dropdown {
+  // Дропдаун контент
+  .dropdownContent {
     position: absolute;
-    top: calc(100% + 8px);
-    right: 0;
-    background: var(--bg-primary);
+    top: calc(100% + 0.5rem);
+    background: var(--bg-primary-opacity);
     border: 1px solid var(--border-color);
-    border-radius: 12px;
+    border-radius: 16px;
+    padding: 0.5rem 0;
     box-shadow: var(--box-shadow-primary);
-    min-width: 150px;
-    z-index: 1001;
+    z-index: 99;
+    overflow: hidden;
     backdrop-filter: blur(15px);
     -webkit-backdrop-filter: blur(15px);
-    overflow: hidden;
+    
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: var(--bg-primary-opacity-sec);
+      backdrop-filter: blur(15px);
+      -webkit-backdrop-filter: blur(15px);
+      z-index: -1;
+    }
   }
   
   .languageOption {
@@ -66,25 +108,37 @@
     align-items: center;
     justify-content: space-between;
     width: 100%;
-    padding: 12px 16px;
+    padding: 0.8rem 1.2rem;
     background: transparent;
     border: none;
     color: var(--text-primary);
     cursor: pointer;
     transition: all 0.2s ease;
     text-align: left;
+    gap: 0.8rem;
+    //min-width: 160px;
   
     &:hover {
       background: var(--accent-color);
+      
+      .languageName {
+        color: var(--text-primary);
+      }
+      
+      .languageCode {
+        font-weight: 700;
+      }
     }
   
     &.active {
-      background: var(--primary-color);
+      //background: var(--primary-color);
       color: white;
-  
-      .languageCode, .languageName {
+      
+      .languageName,
+      .languageCode,
+      .languageFlag,
+      .checkIcon {
         color: white;
-        font-weight: 600;
       }
     }
   
@@ -93,31 +147,115 @@
     }
   }
   
-  .languageCode {
-    font-weight: 600;
-    font-size: 0.9rem;
-    color: var(--text-primary);
+  .languageInfo {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    flex-grow: 1;
+  }
+  
+  .languageFlag {
+    font-size: 1.2rem;
+    width: 1.5rem;
+    text-align: center;
   }
   
   .languageName {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+    transition: color 0.2s ease;
+  }
+  
+  .languageCode {
+    font-weight: 600;
     font-size: 0.85rem;
     color: var(--text-secondary);
-    margin-left: 12px;
+    opacity: 0.8;
+    transition: all 0.2s ease;
+  }
+  
+  .checkIcon {
+    font-size: 1rem;
+    color: var(--primary-color);
+    flex-shrink: 0;
+    
+    .active & {
+      color: white;
+    }
+  }
+  
+  // Анимации
+  @keyframes gradientShift {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+  
+  @keyframes languageChange {
+    0% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.1);
+    }
+    100% {
+      transform: scale(1);
+    }
   }
   
   // Адаптивность
   @media (max-width: 768px) {
-    .switcherButton {
-      padding: 6px 12px;
+    .dropdownContent {
+      position: absolute;
+      top: calc(100% + 8px);
+      max-width: 95vw;
+    }
+  
+    .dropdownWrapper {
+      max-width: 95vw;
+    }
+    
+    .languageTrigger {
+      padding: 0.5rem 1rem;
+      gap: 0.6rem;
+    }
+    
+    .globeIcon {
+      font-size: 1rem;
+    }
+    
+    .currentLanguage {
+      font-size: 0.9rem;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .languageTrigger {
+      padding: 0.4rem 0.8rem;
+      gap: 0.5rem;
+    }
+    
+    .languageOption {
+      padding: 0.7rem 1rem;
+      min-width: 140px;
+    }
+    
+    .languageFlag {
+      font-size: 1.1rem;
+    }
+    
+    .languageName {
       font-size: 0.85rem;
     }
-  
-    .dropdown {
-      min-width: 140px;
-      right: 0;
-    }
-  
-    .languageOption {
-      padding: 10px 12px;
+    
+    .languageCode {
+      font-size: 0.8rem;
     }
   }

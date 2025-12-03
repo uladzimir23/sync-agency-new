@@ -15,3 +15,20 @@ Unified system where <br />
 brand, strategy, technology and data <br />
 work together in sync
 </>
+
+
+<div className={styles.curvedLoopSection}>
+  <div className={styles.curvedLoopContainer}>
+    <CurvedLoop 
+      marqueeText="in developing ✦ "
+      speed={1}
+      curveAmount={250}
+      direction="left"
+      interactive={true}
+      textColor="var(--text-primary)"
+      fontSize={20}
+      height={80}
+      className="curved-loop--interactive"
+    />
+  </div>
+</div>

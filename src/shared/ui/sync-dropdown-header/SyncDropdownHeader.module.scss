@@ -3,11 +3,14 @@
   display: flex;
   justify-content: center;
   width: 100%;
+  position: relative;
 }
 
 // Дропдаун стили
 .dropdownWrapper {
-  position: relative;
+  position: sticky;
+  top: 50px;
+
   width: min-content;
   display: flex;
   justify-content: center;

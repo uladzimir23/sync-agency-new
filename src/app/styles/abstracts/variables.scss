@@ -1,6 +1,61 @@
 // Современный Sass с использованием CSS переменных и map functions
 @use 'sass:map';
 
+// Цветовые схемы для категорий
+:root {
+  // Синяя схема (Brand Identity)
+  --color-scheme-blue-bg: rgba(33, 150, 243, 0.1);
+  --color-scheme-blue-text: #1976d2;
+  --color-scheme-blue-border: rgba(33, 150, 243, 0.3);
+  
+  // Красная схема (Marketing Strategy)
+  --color-scheme-red-bg: rgba(244, 67, 54, 0.1);
+  --color-scheme-red-text: #d32f2f;
+  --color-scheme-red-border: rgba(244, 67, 54, 0.3);
+  
+  // Зеленая схема (Product Development)
+  --color-scheme-green-bg: rgba(76, 175, 80, 0.1);
+  --color-scheme-green-text: #388e3c;
+  --color-scheme-green-border: rgba(76, 175, 80, 0.3);
+  
+  // Голубая схема (Performance Intelligence)
+  --color-scheme-cyan-bg: rgba(0, 188, 212, 0.1);
+  --color-scheme-cyan-text: #0097a7;
+  --color-scheme-cyan-border: rgba(0, 188, 212, 0.3);
+  
+  // Фиолетовая схема (Infrastructure Automation)
+  --color-scheme-purple-bg: rgba(156, 39, 176, 0.1);
+  --color-scheme-purple-text: #7b1fa2;
+  --color-scheme-purple-border: rgba(156, 39, 176, 0.3);
+}
+
+.dark-theme {
+  // Синяя схема (Brand Identity)
+  --color-scheme-blue-bg: rgba(33, 150, 243, 0.15);
+  --color-scheme-blue-text: #64b5f6;
+  --color-scheme-blue-border: rgba(33, 150, 243, 0.4);
+  
+  // Красная схема (Marketing Strategy)
+  --color-scheme-red-bg: rgba(244, 67, 54, 0.15);
+  --color-scheme-red-text: #ef5350;
+  --color-scheme-red-border: rgba(244, 67, 54, 0.4);
+  
+  // Зеленая схема (Product Development)
+  --color-scheme-green-bg: rgba(76, 175, 80, 0.15);
+  --color-scheme-green-text: #66bb6a;
+  --color-scheme-green-border: rgba(76, 175, 80, 0.4);
+  
+  // Голубая схема (Performance Intelligence)
+  --color-scheme-cyan-bg: rgba(0, 188, 212, 0.15);
+  --color-scheme-cyan-text: #4dd0e1;
+  --color-scheme-cyan-border: rgba(0, 188, 212, 0.4);
+  
+  // Фиолетовая схема (Infrastructure Automation)
+  --color-scheme-purple-bg: rgba(156, 39, 176, 0.15);
+  --color-scheme-purple-text: #ba68c8;
+  --color-scheme-purple-border: rgba(156, 39, 176, 0.4);
+}
+
 // Spacing system
 $spacing-unit: 0.25rem;
 $spacing-scale: (

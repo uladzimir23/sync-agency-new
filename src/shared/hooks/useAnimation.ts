@@ -1,6 +1,57 @@
 import { useEffect, useRef } from 'react'
 import { gsap } from 'gsap'
 
+
+export const useBlobAnimation = (
+  speed: number = 1,
+  intensity: number = 1,
+  count: number = 3
+) => {
+  const blobsRef = useRef<HTMLDivElement[]>([]);
+
+  useEffect(() => {
+    const tl = gsap.timeline({ repeat: -1, yoyo: true });
+
+    blobsRef.current.forEach((blob, index) => {
+      tl.to(blob, {
+        duration: 4 / speed,
+        scale: 1 + (index * 0.1 * intensity),
+        x: `+=${30 * intensity}`,
+        y: `+=${15 * intensity}`,
+        rotation: 360,
+        opacity: 0.3 + (index * 0.15 * intensity),
+        ease: "sine.inOut",
+      }, index * 0.5);
+    });
+
+    return () => tl.kill();
+  }, [speed, intensity]);
+
+  return blobsRef;
+};
+
+export const useFlowAnimation = (
+  selector: string,
+  speed: number = 1,
+  delay: number = 0.2
+) => {
+  useEffect(() => {
+    const elements = document.querySelectorAll(selector);
+    const tl = gsap.timeline({ repeat: -1 });
+
+    elements.forEach((el, i) => {
+      tl.to(el, {
+        duration: 3 / speed,
+        strokeDashoffset: -1000,
+        ease: "none",
+      }, i * delay);
+    });
+
+    return () => tl.kill();
+  }, [selector, speed, delay]);
+};
+
+
 // Типы для анимаций
 export type AnimationType = 'fadeIn' | 'slideIn' | 'scaleIn' | 'bounceIn'
 export type AnimationDirection = 'up' | 'down' | 'left' | 'right'

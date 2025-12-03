@@ -14,4 +14,5 @@ export { CTASection } from './CTASection'
 
 // Existing sections
 export { DashboardHeader } from './DashboardHeader'
-// ... другие существующие экспорты
+// Добавляем к остальным экспортам
+export { ProductHeroGrid } from './ProductHeroGrid';
