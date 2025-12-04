@@ -5,22 +5,28 @@ import styles from './BrandBackground.module.scss';
 
 export const BrandBackground: React.FC<BaseBackgroundProps> = ({
   speed = 1,
-  intensity = 0.5
+  intensity = 0.5,
+  isHovered = false,
+  isActive = false,
+  isScrolled = false
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const shapesRef = useRef<HTMLDivElement[]>([]);
   const glowRef = useRef<HTMLDivElement>(null);
+  const timelineRef = useRef<gsap.core.Timeline | null>(null);
 
   useEffect(() => {
     if (!containerRef.current) return;
 
-    const ctx = gsap.context(() => {
+    // Создаем анимацию один раз при монтировании
+    if (!timelineRef.current) {
+      const tl = gsap.timeline({ repeat: -1, yoyo: true });
+      
       // Основная форма - мягкое пульсирование
       shapesRef.current.forEach((shape, index) => {
         const delay = index * 0.3;
         
-        // Медленное дыхание формы
-        gsap.to(shape, {
+        tl.to(shape, {
           duration: 8 / speed,
           scale: 1 + (0.05 * intensity),
           opacity: 0.4 + (0.2 * intensity),
@@ -28,19 +34,19 @@ export const BrandBackground: React.FC<BaseBackgroundProps> = ({
           yoyo: true,
           ease: "sine.inOut",
           delay,
-        });
+        }, 0);
 
         // Легкое вращение по часовой стрелке
-        gsap.to(shape, {
+        tl.to(shape, {
           duration: 20 / speed,
           rotation: 360,
           repeat: -1,
           ease: "none",
           delay,
-        });
+        }, 0);
 
         // Медленный дрейф
-        gsap.to(shape, {
+        tl.to(shape, {
           duration: 15 / speed,
           x: `+=${20 * intensity}`,
           y: `+=${10 * intensity}`,
@@ -48,32 +54,47 @@ export const BrandBackground: React.FC<BaseBackgroundProps> = ({
           yoyo: true,
           ease: "sine.inOut",
           delay,
-        });
+        }, 0);
       });
 
       // Свечение фона - очень мягкое
       if (glowRef.current) {
-        gsap.to(glowRef.current, {
+        tl.to(glowRef.current, {
           duration: 6 / speed,
           opacity: 0.15 * intensity,
           repeat: -1,
           yoyo: true,
           ease: "sine.inOut",
-        });
+        }, 0);
       }
 
       // Общая легкая вибрация всего фона
-      gsap.to(containerRef.current, {
+      tl.to(containerRef.current, {
         duration: 10 / speed,
         opacity: 0.95,
         repeat: -1,
         yoyo: true,
         ease: "sine.inOut",
-      });
-    }, containerRef);
+      }, 0);
 
-    return () => ctx.revert();
+      timelineRef.current = tl;
+    }
+
+    return () => {
+      if (timelineRef.current) {
+        timelineRef.current.kill();
+        timelineRef.current = null;
+      }
+    };
   }, [speed, intensity]);
+
+  useEffect(() => {
+    // Управляем скоростью анимации
+    if (timelineRef.current) {
+      const shouldSpeedUp = isHovered || isActive || isScrolled;
+      timelineRef.current.timeScale(shouldSpeedUp ? 1.5 : 1);
+    }
+  }, [isHovered, isActive, isScrolled]);
 
   const addToShapes = (el: HTMLDivElement | null) => {
     if (el && !shapesRef.current.includes(el)) {
@@ -82,7 +103,13 @@ export const BrandBackground: React.FC<BaseBackgroundProps> = ({
   };
 
   return (
-    <div ref={containerRef} className={styles.brandContainer}>
+    <div 
+      ref={containerRef} 
+      className={styles.brandContainer}
+      data-hovered={isHovered}
+      data-active={isActive}
+      data-scrolled={isScrolled}
+    >
       {/* Основная форма - абстрактный бренд */}
       <div 
         ref={addToShapes}

@@ -3,7 +3,7 @@
   border-radius: 25px;
   padding: 2.5rem;
   background: var(--bg-primary-opacity);
-  backdrop-filter: blur(20px);
+  //backdrop-filter: blur(20px);
   border: 1px solid var(--border-color);
   transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
   overflow: hidden;
@@ -13,20 +13,24 @@
   height: 100%;
   transform-style: preserve-3d;
   perspective: 1000px;
+
   
-  &:hover {
-    transform: translateY(0px) scale(1);
+  &:hover, &[data-active="true"] {
+    //transform: translateY(0px) scale(1);
    //box-shadow: var(--box-shadow-primary);
     background: var(--bg-primary-opacity-sec);
     box-shadow: var(--box-shadow-primary), inset 0px 0px 50px var(--background-primary-yellow-100);
     border-radius: 30px;
+    
 
 
 
     .backgroundWrapper {
       scale: 1.05;
-      filter: blur(px);
+      //filter: blur(0px);
       transition: all 0.4s ease;
+
+
     }
     
 
@@ -51,8 +55,12 @@
       background: var(--background-primary);
       border: 1px solid var(--border-color);
       box-shadow: var(--background-primary);
-      backdrop-filter: blur(50px);
+      //backdrop-filter: blur(50px);
       transition: all 0.3s ease;
+      z-index: 99;
+
+      
+
     }
   }
 
@@ -72,7 +80,7 @@
     transition: left 0.7s ease;
   }
 
-  &:hover::before {
+  &:hover::before, &[data-active="true"]::before  {
     left: 100%;
   }
 }
@@ -107,12 +115,59 @@
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
-  position: relative;
+  position: static;
+  //background: var(--bg-primary);
+
+
 }
+
+// Контейнер для стрелки с более плавной анимацией
+.arrowContainer {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  z-index: 3;
+  opacity: 0;
+  //transform: scale(0.8) translate(-10px, 10px);
+  transform: scale(0.5) rotate(0deg) translate(-6px, 6px);
+
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s;
+  
+  &.arrowVisible {
+    opacity: 1;
+    transform: scale(1) translate(0, 0) rotate(0deg);
+  }
+}
+
+.arrow {
+  font-size: 0.8rem;
+  background: linear-gradient(45deg, #feab5e40, #c779d03b, #4bc0c838);
+  border-radius: 50px;
+  padding: 0.4rem;
+  width: 2rem;
+  height: 2rem;
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  // Анимация при ховере на саму иконку
+  &:hover {
+    transform: scale(1.1) rotate(0deg);
+    background: linear-gradient(45deg, #feab5e60, #c779d055, #4bc0c850);
+    //border-color: var(--primary-color);
+    //color: var(--primary-color);
+  }
+}
+
 
 // Базовые стили для subtitle (по умолчанию - нейтральный желтый)
 .subtitle {
+  //position: relative;
   position: relative;
+
   font-size: 0.875rem;
   font-weight: 500;
   color: var(--text-secondary);
@@ -120,12 +175,16 @@
   text-transform: uppercase;
   width: fit-content;
   display: inline-block;
-  background: var(--background-primary-yellow);
+  background: var(--background-primary-yellow-100);
   border: 1px solid var(--border-color);
   padding: 5px 10px;
   border-radius: 50px;
-  backdrop-filter: blur(50px);
+  backdrop-filter: blur(50px) saturate(180%);
+  //filter: blur(3px);
   transition: all 0.3s ease;
+  overflow: hidden;
+  
+
   
   // Размеры
   &.small {
@@ -151,21 +210,22 @@
   border-color: rgba(33, 150, 243, 0.3) !important;
   
   :global(.dark-theme) & {
-    background-color: rgba(33, 150, 243, 0.15) !important;
+    background-color: rgba(33, 150, 243, 0.05) !important;
     color: #64b5f6 !important;
-    border-color: rgba(33, 150, 243, 0.4) !important;
+    border-color: rgba(33, 150, 243, 0.2) !important;
+
   }
 }
 
 .redColor {
-  background-color: rgba(244, 67, 54, 0.1) !important;
+  background-color: rgba(244, 67, 54, 0.05) !important;
   color: #d32f2f !important;
-  border-color: rgba(244, 67, 54, 0.3) !important;
+  border-color: rgba(244, 67, 54, 0.05) !important;
   
   :global(.dark-theme) & {
-    background-color: rgba(244, 67, 54, 0.15) !important;
+    background-color: rgba(244, 67, 54, 0.05) !important;
     color: #ef5350 !important;
-    border-color: rgba(244, 67, 54, 0.4) !important;
+    border-color: rgba(244, 67, 54, 0.2) !important;
   }
 }
 
@@ -175,9 +235,9 @@
   border-color: rgba(76, 175, 80, 0.3) !important;
   
   :global(.dark-theme) & {
-    background-color: rgba(76, 175, 80, 0.15) !important;
+    background-color: rgba(76, 175, 80, 0.05) !important;
     color: #66bb6a !important;
-    border-color: rgba(76, 175, 80, 0.4) !important;
+    border-color: rgba(76, 175, 80, 0.2) !important;
   }
 }
 
@@ -187,9 +247,9 @@
   border-color: rgba(0, 188, 212, 0.3) !important;
   
   :global(.dark-theme) & {
-    background-color: rgba(0, 188, 212, 0.15) !important;
+    background-color: rgba(0, 188, 212, 0.05) !important;
     color: #4dd0e1 !important;
-    border-color: rgba(0, 188, 212, 0.4) !important;
+    border-color: rgba(0, 188, 212, 0.2) !important;
   }
 }
 
@@ -199,9 +259,10 @@
   border-color: rgba(156, 39, 176, 0.3) !important;
   
   :global(.dark-theme) & {
-    background-color: rgba(156, 39, 176, 0.15) !important;
+    background-color: rgba(156, 39, 176, 0.05) !important;
     color: #ba68c8 !important;
-    border-color: rgba(156, 39, 176, 0.4) !important;
+    border-color: rgba(156, 39, 176, 0.2) !important;
+
   }
 }
 
@@ -216,18 +277,18 @@
 .description {
   opacity: 0;
   font-size: 1rem;
-  line-height: 1.6;
+  line-height: 1.4;
   color: var(--text-secondary);
   transform: translateY(10px);
   height: 0;
   overflow: hidden;
-  transition: all 1s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
   display: flex;
   align-items: flex-end;
   
   &.descriptionVisible {
     color: var(--text-primary);
-    transition: all 1s cubic-bezier(0.34, 1.56, 0.64, 1);
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
 
     opacity: 1;
     transform: translateY(0);
@@ -259,25 +320,10 @@
 }
 
 // Адаптивные стили
-@media (max-width: 1024px) {
+@media (max-width: 1440px) {
   .container {
     min-height: 280px;
     padding: 2rem;
-  }
-  
-  .title {
-    font-size: 1.5rem;
-  }
-  
-  .description {
-    font-size: 0.95rem;
-  }
-}
-
-@media (max-width: 768px) {
-  .container {
-    padding: 1.5rem;
-    min-height: 240px;
   }
   
   .title {
@@ -285,14 +331,40 @@
   }
   
   .description {
-    font-size: 0.9rem;
+    font-size: 0.8rem;
+  }
+
+  .subtitle {
+    font-size: 0.8rem;
+    
+    &.medium {
+      font-size: 0.7rem;
+      padding: 4px 8px;
+    }
+  }
+}
+
+@media (max-width: 1024px) {
+  .container {
+    padding: 1.5rem;
+    min-height: 240px;
+  }
+  
+  .title {
+    font-size: 1.1rem;
+  }
+  
+  .description {
+    font-size: 0.75rem;
+
+
   }
   
   .subtitle {
     font-size: 0.8rem;
     
     &.medium {
-      font-size: 0.8rem;
+      font-size: 0.6rem;
       padding: 4px 8px;
     }
   }
@@ -300,17 +372,17 @@
 
 @media (max-width: 480px) {
   .container {
-    padding: 1.25rem;
+    padding: 2rem;
     min-height: 220px;
-    border-radius: 20px;
+    border-radius: 25px;
     
     &:hover {
-      transform: translateY(-2px) scale(1.01);
+      transform: translateY(0px) scale(1);
     }
   }
   
   .title {
-    font-size: 1.2rem;
+    font-size: 1.5rem;
   }
   
   .subtitle {
@@ -321,7 +393,7 @@
   }
   
   .description {
-    font-size: 0.85rem;
+    font-size: 0.9rem;
     line-height: 1.5;
   }
   

@@ -8,9 +8,7 @@
 
 // Дропдаун стили
 .dropdownWrapper {
-  position: sticky;
-  top: 50px;
-
+  position: relative;
   width: min-content;
   display: flex;
   justify-content: center;
@@ -110,15 +108,15 @@
 .dropdownContent {
   position: absolute;
   top: calc(100% + 0.5rem);
-  background: var(--bg-primary-opacity);
+  background: var(--bg-primary);
   border: 1px solid var(--border-color);
   border-radius: 16px;
   padding: 0;
   box-shadow: var(--box-shadow-primary);
   z-index: 99;
   overflow: hidden;
-  backdrop-filter: blur(15px);
-  -webkit-backdrop-filter: blur(15px);
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(15px) !important;
   cursor: pointer;
   
   // Улучшенный фон для блюра
@@ -130,8 +128,8 @@
     right: 0;
     bottom: 0;
     background: var(--bg-primary-opacity-sec);
-    backdrop-filter: blur(15px);
-    -webkit-backdrop-filter: blur(15px);
+    backdrop-filter: blur(50px) !important;
+    -webkit-backdrop-filter: blur(15px) !important;
     z-index: -1;
   }
 }

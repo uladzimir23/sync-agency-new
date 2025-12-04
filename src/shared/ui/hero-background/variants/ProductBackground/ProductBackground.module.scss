@@ -10,17 +10,19 @@
   
   .layer {
     position: absolute;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    //border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(86, 156, 254, 0.3);
+
     border-radius: 15px;
     background: linear-gradient(
       135deg,
-      rgba(255, 255, 255, 0.05) 0%,
-      rgba(255, 255, 255, 0.02) 100%
+      rgba(255, 255, 255, 0.02) 0%,
+      rgba(255, 255, 255, 0.01) 100%
     );
-    backdrop-filter: blur(5px);
+    //backdrop-filter: blur(20px);
     box-shadow: 
       0 8px 32px rgba(0, 0, 0, 0.1),
-      inset 0 1px 0 rgba(255, 255, 255, 0.1);
+      inset 0 1px 0 rgba(255, 255, 255, 0.2);
     
     &::before {
       content: '';
@@ -32,9 +34,9 @@
       border-radius: 16px;
       background: linear-gradient(
         135deg,
-        rgba(86, 156, 254, 0.1),
-        rgba(128, 90, 213, 0.1),
-        rgba(86, 156, 254, 0.1)
+        rgba(148, 86, 254, 0.063),
+        rgba(90, 92, 213, 0.052),
+        rgba(86, 128, 254, 0.051)
       );
       z-index: -1;
       opacity: 0.5;

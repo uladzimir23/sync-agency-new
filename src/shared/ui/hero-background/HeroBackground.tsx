@@ -7,12 +7,16 @@ import { ProductBackground } from './variants/ProductBackground/ProductBackgroun
 import { DataBackground } from './variants/DataBackground/DataBackground';
 import { AutomationBackground } from './variants/AutomationBackground/AutomationBackground';
 import styles from './HeroBackground.module.scss';
+
+
 export const HeroBackground: React.FC<HeroBackgroundProps> = ({
     type,
     className = '',
     speed = 1,
     intensity = 1,
-    isHovered = false
+    isHovered = false,
+    isActive = false,
+    isScrolled = false
   }) => {
     const containerRef = useRef<HTMLDivElement>(null);
     const animationRef = useRef<gsap.core.Tween | null>(null);
@@ -34,20 +38,25 @@ export const HeroBackground: React.FC<HeroBackgroundProps> = ({
   
       // Управляем скоростью анимации
       if (animationRef.current) {
-        animationRef.current.timeScale(isHovered ? 1.5 : 1);
+        // Для мобильных: если активен (по скроллу), ускоряем
+        // Для десктопа: если наведен, ускоряем
+        const shouldSpeedUp = isHovered || isActive || isScrolled;
+        animationRef.current.timeScale(shouldSpeedUp ? 1.5 : 1);
       }
   
       return () => {
-        // Не убиваем анимацию при размонтировании, если это не нужно
+        // Не убиваем анимацию при размонтировании
         // Она будет убита автоматически при размонтировании компонента
       };
-    }, [isHovered]);
+    }, [isHovered, isActive, isScrolled]); // Добавляем все зависимости
   
     const renderBackground = () => {
       const commonProps = { 
         speed, 
         intensity,
-        isHovered 
+        isHovered,
+        isActive,
+        isScrolled 
       };
   
       switch (type) {
@@ -72,6 +81,8 @@ export const HeroBackground: React.FC<HeroBackgroundProps> = ({
         className={`${styles.container} ${className}`}
         data-type={type}
         data-hovered={isHovered}
+        data-active={isActive}
+        data-scrolled={isScrolled}
       >
         {renderBackground()}
       </div>

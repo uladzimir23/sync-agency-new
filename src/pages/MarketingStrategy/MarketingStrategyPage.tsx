@@ -29,6 +29,8 @@ export const MarketingStrategyPage: React.FC = () => {
         description="We develop comprehensive, results-oriented marketing strategies that drive measurable growth and sustainable competitive advantages. Our integrated approach combines data intelligence with creative excellence to build brand authority and accelerate revenue growth across all channels."
         ctaText="Discuss Your Strategy"
         onCtaClick={handleCtaClick}
+        backgroundType='marketing'
+
       />
 
       <UnifiedBookingSection 

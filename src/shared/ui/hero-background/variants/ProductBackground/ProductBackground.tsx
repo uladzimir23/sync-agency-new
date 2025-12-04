@@ -5,15 +5,24 @@ import styles from './ProductBackground.module.scss';
 
 export const ProductBackground: React.FC<BaseBackgroundProps> = ({
   speed = 1,
-  intensity = 1
+  intensity = 1,
+  isHovered = false,
+  isActive = false,
+  isScrolled = false
 }) => {
+  const containerRef = useRef<HTMLDivElement>(null);
   const layersRef = useRef<HTMLDivElement[]>([]);
+  const timelineRef = useRef<gsap.core.Timeline | null>(null);
 
   useEffect(() => {
-    const ctx = gsap.context(() => {
+    if (!containerRef.current) return;
+
+    if (!timelineRef.current) {
+      const tl = gsap.timeline({ repeat: -1 });
+      
       // Параллакс эффект для слоев
       layersRef.current.forEach((layer, index) => {
-        gsap.to(layer, {
+        tl.to(layer, {
           duration: 3 + index / speed,
           x: `${20 * (index + 1) * intensity}px`,
           y: `${10 * (index + 1) * intensity}px`,
@@ -22,12 +31,27 @@ export const ProductBackground: React.FC<BaseBackgroundProps> = ({
           yoyo: true,
           ease: "sine.inOut",
           delay: index * 0.3,
-        });
+        }, 0);
       });
-    });
 
-    return () => ctx.revert();
+      timelineRef.current = tl;
+    }
+
+    return () => {
+      if (timelineRef.current) {
+        timelineRef.current.kill();
+        timelineRef.current = null;
+      }
+    };
   }, [speed, intensity]);
+
+  useEffect(() => {
+    // Управляем скоростью анимации
+    if (timelineRef.current) {
+      const shouldSpeedUp = isHovered || isActive || isScrolled;
+      timelineRef.current.timeScale(shouldSpeedUp ? 1.5 : 1);
+    }
+  }, [isHovered, isActive, isScrolled]);
 
   const addToLayers = (el: HTMLDivElement | null) => {
     if (el && !layersRef.current.includes(el)) {
@@ -36,7 +60,13 @@ export const ProductBackground: React.FC<BaseBackgroundProps> = ({
   };
 
   return (
-    <div className={styles.productContainer}>
+    <div 
+      ref={containerRef} 
+      className={styles.productContainer}
+      data-hovered={isHovered}
+      data-active={isActive}
+      data-scrolled={isScrolled}
+    >
       {[...Array(3)].map((_, i) => (
         <div
           key={i}

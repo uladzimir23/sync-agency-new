@@ -1,27 +1,29 @@
 import React, { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
+import { BaseBackgroundProps } from '../../HeroBackground.types';
 import styles from './DataBackground.module.scss';
 
-interface DataBackgroundProps {
-  speed?: number;
-  intensity?: number;
-}
-
-export const DataBackground: React.FC<DataBackgroundProps> = ({
+export const DataBackground: React.FC<BaseBackgroundProps> = ({
   speed = 1,
-  intensity = 1
+  intensity = 1,
+  isHovered = false,
+  isActive = false,
+  isScrolled = false
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const nodesRef = useRef<HTMLDivElement[]>([]);
   const connectionsRef = useRef<HTMLDivElement[]>([]);
+  const timelineRef = useRef<gsap.core.Timeline | null>(null);
 
   useEffect(() => {
     if (!containerRef.current) return;
 
-    const ctx = gsap.context(() => {
+    if (!timelineRef.current) {
+      const tl = gsap.timeline({ repeat: -1 });
+      
       // Анимация узлов (дрожание)
       nodesRef.current.forEach((node, index) => {
-        gsap.to(node, {
+        tl.to(node, {
           duration: 1 + Math.random() * 2 / speed,
           x: `+=${4 * intensity * (Math.random() - 0.5)}`,
           y: `+=${4 * intensity * (Math.random() - 0.5)}`,
@@ -29,10 +31,10 @@ export const DataBackground: React.FC<DataBackgroundProps> = ({
           yoyo: true,
           ease: "sine.inOut",
           delay: index * 0.1,
-        });
+        }, 0);
 
         // Пульсация свечения
-        gsap.to(node, {
+        tl.to(node, {
           duration: 2 / speed,
           scale: 1 + (0.3 * intensity),
           opacity: 0.8,
@@ -40,24 +42,39 @@ export const DataBackground: React.FC<DataBackgroundProps> = ({
           yoyo: true,
           ease: "sine.inOut",
           delay: index * 0.05,
-        });
+        }, 0);
       });
 
       // Анимация соединений (появление/исчезновение)
       connectionsRef.current.forEach((connection, index) => {
-        gsap.to(connection, {
+        tl.to(connection, {
           duration: 3 / speed,
           opacity: 0.3 + (Math.random() * 0.4),
           repeat: -1,
           yoyo: true,
           ease: "sine.inOut",
           delay: index * 0.15,
-        });
+        }, 0);
       });
-    }, containerRef);
 
-    return () => ctx.revert();
+      timelineRef.current = tl;
+    }
+
+    return () => {
+      if (timelineRef.current) {
+        timelineRef.current.kill();
+        timelineRef.current = null;
+      }
+    };
   }, [speed, intensity]);
+
+  useEffect(() => {
+    // Управляем скоростью анимации
+    if (timelineRef.current) {
+      const shouldSpeedUp = isHovered || isActive || isScrolled;
+      timelineRef.current.timeScale(shouldSpeedUp ? 1.5 : 1);
+    }
+  }, [isHovered, isActive, isScrolled]);
 
   const addToNodes = (el: HTMLDivElement | null) => {
     if (el && !nodesRef.current.includes(el)) {
@@ -82,7 +99,13 @@ export const DataBackground: React.FC<DataBackgroundProps> = ({
   const nodePositions = generatePositions(12);
 
   return (
-    <div ref={containerRef} className={styles.dataContainer}>
+    <div 
+      ref={containerRef} 
+      className={styles.dataContainer}
+      data-hovered={isHovered}
+      data-active={isActive}
+      data-scrolled={isScrolled}
+    >
       {/* Соединения между узлами */}
       {nodePositions.slice(0, 8).map((pos, i) => (
         <div

@@ -22,6 +22,11 @@ import { AnalyticsAndOptimizationPage } from '@pages/AnalyticsAndOptimization'
 
 import './App.module.scss'
 
+import { gsap } from 'gsap';
+import { CSSPlugin } from 'gsap/CSSPlugin';
+
+gsap.registerPlugin(CSSPlugin);
+
 // Компонент приложения с темой
 const AppContent: React.FC = () => {
 

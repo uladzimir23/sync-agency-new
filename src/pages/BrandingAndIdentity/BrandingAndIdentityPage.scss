@@ -5,7 +5,10 @@
     .product-hero-section {
         z-index: 0;
         //height: 50vh;
+      .container {
+        margin: 0.5rem !important;
 
+      }
         .product-hero-cta {
             background-color: #cd37d829;
 

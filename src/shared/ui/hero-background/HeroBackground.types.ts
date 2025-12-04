@@ -10,11 +10,15 @@ export interface HeroBackgroundProps {
   className?: string;
   speed?: number;
   intensity?: number;
-  isHovered?: boolean; // Добавляем пропс для состояния ховера
+  isHovered?: boolean;
+  isActive?: boolean; // Добавляем для мобильных
+  isScrolled?: boolean; // Добавляем для мобильных
 }
 
 export interface BaseBackgroundProps {
   speed?: number;
   intensity?: number;
-  isHovered?: boolean; // Добавляем пропс для состояния ховера
+  isHovered?: boolean;
+  isActive?: boolean; // Добавляем для мобильных
+  isScrolled?: boolean; // Добавляем для мобильных
 }

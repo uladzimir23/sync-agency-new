@@ -47,6 +47,9 @@ export const BrandingAndIdentityPage: React.FC = () => {
         description="Craft distinctive brand identities that tell compelling stories and build lasting connections with your audience. Your brand is more than a logo—it's the soul of your business."
         ctaText="Create Your Brand"
         onCtaClick={handleCtaClick}
+        backgroundType='brand'
+        
+
       />
       <BriefSection />
     </div>

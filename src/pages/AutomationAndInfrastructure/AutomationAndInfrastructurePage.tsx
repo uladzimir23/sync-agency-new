@@ -26,6 +26,8 @@ export const AutomationAndInfrastructurePage: React.FC = () => {
         description="We build robust, automated infrastructure that scales with your business. Our solutions eliminate manual processes, reduce errors, and ensure your systems run smoothly 24/7 while optimizing costs and enhancing security across your entire technology stack."
         ctaText="Optimize Your Infrastructure"
         onCtaClick={handleCtaClick}
+        backgroundType='automation'
+
       />
 
       <ServiceFeatures

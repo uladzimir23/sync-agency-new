@@ -20,9 +20,9 @@
       border-radius: inherit;
       background: linear-gradient(
         135deg,
-        rgba(86, 156, 254, 0.1) 0%,
+        rgba(86, 156, 254, 0.05) 0%,
         transparent 50%,
-        rgba(86, 156, 254, 0.1) 100%
+        rgba(86, 156, 254, 0.052) 100%
       );
     }
   }
@@ -36,11 +36,11 @@
     background: linear-gradient(
       90deg,
       transparent,
-      rgba(86, 156, 254, 0.6),
+      rgba(86, 156, 254, 0.3),
       transparent
     );
     filter: blur(5px);
-    transform: skewX(-20deg);
+    transform: skewX(-40deg);
   }
   
   .circuitNode {
@@ -50,12 +50,12 @@
     border-radius: 50%;
     background: radial-gradient(
       circle,
-      rgba(86, 156, 254, 1) 0%,
-      rgba(128, 90, 213, 0.8) 100%
+      rgb(86, 254, 89) 0%,
+      rgba(92, 213, 90, 0.8) 100%
     );
     transform: translate(-50%, -50%);
     filter: blur(1px);
     box-shadow: 
-      0 0 20px rgba(86, 156, 254, 0.8),
-      0 0 40px rgba(86, 156, 254, 0.4);
+      0 0 20px rgba(86, 220, 254, 0.8),
+      0 0 40px rgba(254, 254, 86, 0.787);
   }

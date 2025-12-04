@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { DashboardHeader } from '@shared/sections/DashboardHeader';
 import { BookingSection } from '@shared/sections/booking-section';
-import { ProductHeroGrid } from '@shared/sections/ProductHeroGrid';
+import { ServicesSection } from '@shared/sections/ServicesSection';
 import { CurvedLoop } from '@/shared/ui/curved-loop';
 import { FloatingContactButton } from '@/shared/ui/floating-contact-button';
 import { useTheme } from '@/shared/hooks/useTheme';
@@ -16,9 +16,26 @@ export const HomePage: React.FC = () => {
     console.log('Opening contact modal...');
   };
 
-  const handleProductClick = (id: string) => {
-    console.log(`Product clicked: ${id}`);
-    // Здесь можно добавить навигацию или открытие модального окна
+  const handleServiceClick = (id: string) => {
+    console.log(`Service clicked: ${id}`);
+    // Можно добавить логику навигации или открытия модального окна
+    switch(id) {
+      case 'brand-identity':
+        // Навигация к странице Brand Identity
+        break;
+      case 'marketing-strategy':
+        // Навигация к странице Marketing Strategy
+        break;
+      case 'product-development':
+        // Навигация к странице Product Development
+        break;
+      case 'performance-intelligence':
+        // Навигация к странице Performance Intelligence
+        break;
+      case 'infrastructure-automation':
+        // Навигация к странице Infrastructure Automation
+        break;
+    }
   };
 
   const getBackgroundFill = () => {
@@ -27,8 +44,6 @@ export const HomePage: React.FC = () => {
 
   return (
     <div className={styles.homePage}>
-      <div className={styles.homePageBackground}></div>
-      
       <div className={styles.homePageContent}>
         <div className={styles.dashboardSection}>
           <DashboardHeader 
@@ -42,8 +57,7 @@ export const HomePage: React.FC = () => {
             subtitle="Creating premium digital experiences with integrated solutions"
           />
 
-
-          <ProductHeroGrid onItemClick={handleProductClick} />
+          <ServicesSection onServiceClick={handleServiceClick} />
 
           <BookingSection />
         </div>

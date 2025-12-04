@@ -2,7 +2,11 @@
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 0.5rem;
-    margin: 3rem 0;
+    width: 100%;
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    justify-content: center;
     
     @media (min-width: 1024px) {
       grid-template-columns: repeat(3, 1fr);
@@ -13,15 +17,16 @@
     }
     
     @media (max-width: 767px) {
-      grid-template-columns: 1fr;
+      grid-template-columns: 460px;
       gap: 1rem;
-      margin: 2rem 0;
+      padding: 0 1rem;
     }
   }
   
   .gridItem {
     display: flex;
     transition: transform 0.3s ease;
+    position: relative;
     
     &:hover {
       z-index: 10;
@@ -37,9 +42,10 @@
     animation: fadeInUp 0.6s ease-out forwards;
     opacity: 0;
     
+    
     @for $i from 1 through 6 {
       &:nth-child(#{$i}) {
-        animation-delay: #{0.1s * $i};
+        animation-delay: #{0.1s + ($i * 0.1s)};
       }
     }
   }
@@ -60,10 +66,12 @@
     .gridContainer {
       grid-template-columns: 1fr !important;
       gap: 0.75rem;
-      margin-top: 2rem;
+      padding: 0;
     }
     
     .gridItem {
+        height: 320px;
+
       .product-hero-section {
         margin: 0 !important;
       }
