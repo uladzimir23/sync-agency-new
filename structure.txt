@@ -1,4 +1,8 @@
 .
+├── .vite
+│   └── deps
+│       ├── _metadata.json
+│       └── package.json
 ├── .vscode
 │   └── settings.json
 ├── public
@@ -51,7 +55,7 @@
 │   │   │   ├── ContactPage.tsx
 │   │   │   └── index.ts
 │   │   ├── Home
-│   │   │   ├── HomePage.scss
+│   │   │   ├── HomePage.module.scss
 │   │   │   ├── HomePage.tsx
 │   │   │   ├── index.ts
 │   │   │   └── text
@@ -95,6 +99,7 @@
 │   │   │   ├── useDateFormatters.ts
 │   │   │   ├── useDeviceType.ts
 │   │   │   ├── useNavigation.ts
+│   │   │   ├── useScrollTrigger.ts
 │   │   │   ├── useTheme.ts
 │   │   │   └── useToday.ts
 │   │   ├── lib
@@ -109,7 +114,9 @@
 │   │   │   ├── components
 │   │   │   │   └── LanguageSwitcher
 │   │   │   │       ├── LanguageSwitcher.module.scss
-│   │   │   │       └── LanguageSwitcher.tsx
+│   │   │   │       ├── LanguageSwitcher.tsx
+│   │   │   │       ├── animations.ts
+│   │   │   │       └── index.ts
 │   │   │   ├── contexts
 │   │   │   │   └── LanguageContext.tsx
 │   │   │   ├── hooks
@@ -153,13 +160,21 @@
 │   │   │   │   ├── ProcessTimeline.scss
 │   │   │   │   ├── ProcessTimeline.tsx
 │   │   │   │   └── index.ts
+│   │   │   ├── ProductHeroGrid
+│   │   │   │   ├── ProductHeroGrid.module.scss
+│   │   │   │   ├── ProductHeroGrid.tsx
+│   │   │   │   └── index.ts
 │   │   │   ├── ProductHeroSection
-│   │   │   │   ├── ProductHeroSection.scss
+│   │   │   │   ├── ProductHeroSection.module.scss
 │   │   │   │   ├── ProductHeroSection.tsx
 │   │   │   │   └── index.ts
 │   │   │   ├── ServiceFeatures
 │   │   │   │   ├── ServiceFeatures.scss
 │   │   │   │   ├── ServiceFeatures.tsx
+│   │   │   │   └── index.ts
+│   │   │   ├── ServicesSection
+│   │   │   │   ├── ServicesSection.module.scss
+│   │   │   │   ├── ServicesSection.tsx
 │   │   │   │   └── index.ts
 │   │   │   ├── booking-section
 │   │   │   │   ├── components
@@ -306,6 +321,28 @@
 │   │   │   │   ├── FloatingContactButton.scss
 │   │   │   │   ├── FloatingContactButton.tsx
 │   │   │   │   └── index.ts
+│   │   │   ├── hero-background
+│   │   │   │   ├── variants
+│   │   │   │   │   ├── AutomationBackground
+│   │   │   │   │   │   ├── AutomationBackground.module.scss
+│   │   │   │   │   │   └── AutomationBackground.tsx
+│   │   │   │   │   ├── BrandBackground
+│   │   │   │   │   │   ├── BrandBackground.module.scss
+│   │   │   │   │   │   └── BrandBackground.tsx
+│   │   │   │   │   ├── DataBackground
+│   │   │   │   │   │   ├── DataBackground.module.scss
+│   │   │   │   │   │   └── DataBackground.tsx
+│   │   │   │   │   ├── MarketingBackground
+│   │   │   │   │   │   ├── MarketingBackground.module.scss
+│   │   │   │   │   │   └── MarketingBackground.tsx
+│   │   │   │   │   ├── ProductBackground
+│   │   │   │   │   │   ├── ProductBackground.module.scss
+│   │   │   │   │   │   └── ProductBackground.tsx
+│   │   │   │   │   └── index.ts
+│   │   │   │   ├── HeroBackground.module.scss
+│   │   │   │   ├── HeroBackground.tsx
+│   │   │   │   ├── HeroBackground.types.ts
+│   │   │   │   └── index.ts
 │   │   │   ├── icon
 │   │   │   │   ├── icon.tsx
 │   │   │   │   └── index.ts
@@ -321,10 +358,33 @@
 │   │   │   │   ├── SyncDropdownHeader.tsx
 │   │   │   │   ├── animations.ts
 │   │   │   │   └── index.ts
-│   │   │   └── wavy-background
-│   │   │       ├── WavyBackground.scss
-│   │   │       ├── WavyBackground.tsx
-│   │   │       └── index.ts
+│   │   │   ├── wavy-background
+│   │   │   │   ├── WavyBackground.scss
+│   │   │   │   ├── WavyBackground.tsx
+│   │   │   │   └── index.ts
+│   │   │   └── FolderStructure.txt
+│   │   ├── unified
+│   │   │   ├── components
+│   │   │   │   └── forms
+│   │   │   │       ├── booking-form
+│   │   │   │       │   ├── UnifiedBookingForm.module.scss
+│   │   │   │       │   └── UnifiedBookingForm.tsx
+│   │   │   │       └── collapsed-section
+│   │   │   │           ├── CollapsedSection.module.scss
+│   │   │   │           └── CollapsedSection.tsx
+│   │   │   ├── hooks
+│   │   │   │   ├── use-responsive-layout.ts
+│   │   │   │   ├── use-unified-booking.ts
+│   │   │   │   └── use-unified-brief.ts
+│   │   │   ├── sections
+│   │   │   │   ├── UnifiedBookingSection.module.scss
+│   │   │   │   ├── UnifiedBookingSection.tsx
+│   │   │   │   └── UnifiedBriefSection.tsx
+│   │   │   ├── types
+│   │   │   │   ├── booking.ts
+│   │   │   │   ├── brief.ts
+│   │   │   │   └── forms.ts
+│   │   │   └── index.ts
 │   │   ├── utils
 │   │   │   └── utils.ts
 │   │   └── .DS_Store
@@ -394,4 +454,4 @@
 ├── tsconfig.node.json
 └── vite.config.ts
 
-112 directories, 283 files
+131 directories, 324 files

@@ -1,8 +1,6 @@
 #!/bin/bash
 #./deploy-gh-pages.sh
 
-
-
 set -e
 
 echo "🚀 Starting gh-pages deployment..."
@@ -22,26 +20,27 @@ echo "🔄 Switching to main branch..."
 git checkout main
 git pull origin main
 
-# Проверяем существование dist
-if [ ! -d "dist" ]; then
+# Проверяем существование temp-deploy (ваша фактическая папка сборки)
+BUILD_DIR="temp-deploy"
+if [ ! -d "$BUILD_DIR" ]; then
     echo "📦 Installing dependencies and building project..."
     npm ci
     npm run build
     
-    if [ ! -d "dist" ]; then
-        echo "❌ Error: dist directory still doesn't exist after build!"
+    if [ ! -d "$BUILD_DIR" ]; then
+        echo "❌ Error: $BUILD_DIR directory still doesn't exist after build!"
         exit 1
     fi
 fi
 
-# Проверяем содержимое dist
-echo "📁 Contents of dist:"
-ls -la dist/
-FILE_COUNT=$(find dist -type f | wc -l)
-echo "📊 Files count in dist: $FILE_COUNT"
+# Проверяем содержимое temp-deploy
+echo "📁 Contents of $BUILD_DIR:"
+ls -la $BUILD_DIR/
+FILE_COUNT=$(find $BUILD_DIR -type f | wc -l)
+echo "📊 Files count in $BUILD_DIR: $FILE_COUNT"
 
 if [ "$FILE_COUNT" -eq 0 ]; then
-    echo "❌ Error: dist directory is empty!"
+    echo "❌ Error: $BUILD_DIR directory is empty!"
     exit 1
 fi
 
@@ -65,13 +64,13 @@ echo "🧹 Cleaning branch..."
 git rm -rf . --quiet > /dev/null 2>&1 || true
 git clean -fd --quiet || true
 
-# Копируем содержимое dist безопасно
-echo "📤 Copying build files..."
-cp -r dist/* . > /dev/null 2>&1 || true
+# Копируем содержимое temp-deploy безопасно
+echo "📤 Copying build files from $BUILD_DIR..."
+cp -r $BUILD_DIR/* . > /dev/null 2>&1 || true
 
-# Копируем скрытые файлы из dist (кроме . и ..)
-if [ -d "dist" ]; then
-    find dist -maxdepth 1 -name ".*" ! -name "." ! -name ".." -exec cp -r {} . \; > /dev/null 2>&1 || true
+# Копируем скрытые файлы из temp-deploy (кроме . и ..)
+if [ -d "$BUILD_DIR" ]; then
+    find $BUILD_DIR -maxdepth 1 -name ".*" ! -name "." ! -name ".." -exec cp -r {} . \; > /dev/null 2>&1 || true
 fi
 
 # Создаем .nojekyll для GitHub Pages
