@@ -3,7 +3,8 @@ export type HeroBackgroundType =
   | 'marketing' 
   | 'product' 
   | 'data' 
-  | 'automation';
+  | 'automation'
+  | 'pixel';
 
 export interface HeroBackgroundProps {
   type: HeroBackgroundType;
@@ -11,14 +12,14 @@ export interface HeroBackgroundProps {
   speed?: number;
   intensity?: number;
   isHovered?: boolean;
-  isActive?: boolean; // Добавляем для мобильных
-  isScrolled?: boolean; // Добавляем для мобильных
+  isActive?: boolean;
+  isScrolled?: boolean;
 }
 
 export interface BaseBackgroundProps {
   speed?: number;
   intensity?: number;
   isHovered?: boolean;
-  isActive?: boolean; // Добавляем для мобильных
-  isScrolled?: boolean; // Добавляем для мобильных
+  isActive?: boolean;
+  isScrolled?: boolean;
 }

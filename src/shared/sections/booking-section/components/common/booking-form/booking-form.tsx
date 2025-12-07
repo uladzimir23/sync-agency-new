@@ -150,19 +150,11 @@ export const BookingForm: React.FC<BookingFormProps> = ({
 
         <div className={styles.actions}>
           <button 
-            type="button" 
-            onClick={onBack} 
-            className={styles.backButton}
-            disabled={isSubmitting}
-          >
-            Back
-          </button>
-          <button 
             type="submit" 
             className={styles.submitButton}
             disabled={isSubmitting}
           >
-            {isSubmitting ? 'Sending...' : 'Confirm Booking'}
+            {isSubmitting ? 'Sending...' : 'Confirm'}
           </button>
         </div>
       </form>

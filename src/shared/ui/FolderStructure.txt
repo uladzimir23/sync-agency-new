@@ -1,574 +1,1373 @@
-АНАЛИЗ ПАПКИ: /Users/vladimirmazyrec/sync-agency-new/src/shared/ui/sync-dropdown-header
+АНАЛИЗ ПАПКИ: /Users/vladimirmazyrec/sync-agency-new/src/shared/ui/hero-background
 Дата создания отчета: 3.12.4
 ================================================================================
 
 СТРУКТУРА ПАПОК (полные пути):
 --------------------------------------------------------------------------------
 
-sync-dropdown-header
-    ├── animations.ts
-    ├── index.ts
-    ├── SyncDropdownHeader.module.scss
-    └── SyncDropdownHeader.tsx
+hero-background
+    ├── variants
+    │   ├── variants/AutomationBackground
+    │   │   ├── variants/AutomationBackground/AutomationBackground.module.scss
+    │   │   └── variants/AutomationBackground/AutomationBackground.tsx
+    │   ├── variants/BrandBackground
+    │   │   ├── variants/BrandBackground/BrandBackground.module.scss
+    │   │   └── variants/BrandBackground/BrandBackground.tsx
+    │   ├── variants/DataBackground
+    │   │   ├── variants/DataBackground/DataBackground.module.scss
+    │   │   └── variants/DataBackground/DataBackground.tsx
+    │   ├── variants/MarketingBackground
+    │   │   ├── variants/MarketingBackground/MarketingBackground.module.scss
+    │   │   └── variants/MarketingBackground/MarketingBackground.tsx
+    │   ├── variants/ProductBackground
+    │   │   ├── variants/ProductBackground/ProductBackground.module.scss
+    │   │   └── variants/ProductBackground/ProductBackground.tsx
+    │   └── variants/index.ts
+    ├── HeroBackground.module.scss
+    ├── HeroBackground.tsx
+    ├── HeroBackground.types.ts
+    └── index.ts
 
 
 ================================================================================
 СОДЕРЖАНИЕ ФАЙЛОВ:
 ================================================================================
 
-АБСОЛЮТНЫЙ ПУТЬ: /Users/vladimirmazyrec/sync-agency-new/src/shared/ui/sync-dropdown-header/animations.ts
-название файла: sync-dropdown-header/animations.ts
+АБСОЛЮТНЫЙ ПУТЬ: /Users/vladimirmazyrec/sync-agency-new/src/shared/ui/hero-background/HeroBackground.module.scss
+название файла: hero-background/HeroBackground.module.scss
 
 СОДЕРЖИМОЕ ФАЙЛА:
 ----------------------------------------
-import { gsap } from 'gsap'
-
-export const dropdownAnimations = {
-  open: (element: HTMLElement, isMobile: boolean = false) => {
-    const tl = gsap.timeline()
-    
-    tl.set(element, {
-      display: 'block',
-      opacity: 0,
-      y: -10,
-      scale: 0.95
-    })
-    
-    tl.to(element, {
-      opacity: 1,
-      y: 0,
-      scale: 1,
-      duration: 0.3,
-      ease: "back.out(1.2)"
-    })
-    
-    return tl
-  },
-  
-  close: (element: HTMLElement, isMobile: boolean = false) => {
-    const tl = gsap.timeline()
-    
-    tl.to(element, {
-      opacity: 0,
-      y: -10,
-      scale: 0.95,
-      duration: 0.2,
-      ease: "power2.in"
-    })
-    
-    tl.set(element, {
-      display: 'none'
-    })
-    
-    return tl
-  },
-  
-  blurIn: (element: HTMLElement) => {
-    return gsap.to(element, {
-      backdropFilter: 'blur(15px)',
-      WebkitBackdropFilter: 'blur(15px)',
-      duration: 0.4,
-      ease: "power2.out"
-    })
-  },
-  
-  blurOut: (element: HTMLElement) => {
-    return gsap.to(element, {
-      backdropFilter: 'blur(0px)',
-      WebkitBackdropFilter: 'blur(0px)',
-      duration: 0.3,
-      ease: "power2.in"
-    })
-  }
-}
-
-________________________________________________________________________________
-
-АБСОЛЮТНЫЙ ПУТЬ: /Users/vladimirmazyrec/sync-agency-new/src/shared/ui/sync-dropdown-header/index.ts
-название файла: sync-dropdown-header/index.ts
-
-СОДЕРЖИМОЕ ФАЙЛА:
-----------------------------------------
-export { SyncDropdownHeader } from './SyncDropdownHeader'
-export type { SyncDropdownHeaderProps } from './SyncDropdownHeader'
-
-________________________________________________________________________________
-
-АБСОЛЮТНЫЙ ПУТЬ: /Users/vladimirmazyrec/sync-agency-new/src/shared/ui/sync-dropdown-header/SyncDropdownHeader.module.scss
-название файла: sync-dropdown-header/SyncDropdownHeader.module.scss
-
-СОДЕРЖИМОЕ ФАЙЛА:
-----------------------------------------
-.syncDropdownHeader {
-  margin-bottom: 2rem;
-  display: flex;
-  justify-content: center;
-  width: 100%;
-}
-
-// Дропдаун стили
-.dropdownWrapper {
-  position: relative;
-  width: min-content;
-  display: flex;
-  justify-content: center;
-}
-
-.dropdownTrigger {
-  cursor: pointer;
-  transition: all 0.3s ease;
-  display: flex;
-  justify-content: center;
-}
-
-.soonSyncHeader {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 1rem;
-  padding: 0.3rem;
-  background: linear-gradient(45deg, #feab5e0f, #c779d00f, #4bc0c80e);
-  border-radius: 50px;
-  border: 1px solid var(--border-color);
-  transition: all 0.3s ease;
-  position: relative;
-  z-index: 100;
-  width: fit-content;
-
-  &:hover {
-    box-shadow: var(--box-shadow-primary);
-    
-    .syncText {
-      background: linear-gradient(45deg, #fed35e, #d079c3, #4b85c8);
-      -webkit-background-clip: text;
-      //font-weight: 700;
-    }
-
-    .arrow {
-      transform: rotate(45deg);
-      color: #f4a0ff;
-      box-shadow: var(--box-shadow-primary);
-      border: 1px solid var(--border-color);
-    }
-
-    .soon {
-      font-weight: 800;
-    }
-  }
-}
-
-.soon {
-  background: linear-gradient(45deg, #FEAC5E, #C779D0, #4BC0C8);
-  color: white;
-  padding: 0.4rem 0.8rem;
-  border-radius: 20px;
-  font-size: 0.8rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: -0.5px;
-  background-size: 200% 200%;
-  animation: gradientShift 3s ease infinite;
-  transition: all 0.3s ease;
-}
-
-.syncText {
-  display: flex;
-  width: max-content;
-  align-items: center;
-  gap: 0.5rem;
-  font-size: 1rem;
-  font-weight: 500;
-  background: linear-gradient(45deg, #FEAC5E, #C779D0, #4BC0C8);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-size: 200% 200%;
-  animation: gradientShift 3s ease infinite;
-  transition: all 0.6s ease;
-}
-
-.arrow {
-  font-size: 1rem;
-  background: linear-gradient(45deg, #feab5e40, #c779d03b, #4bc0c838);
-  border-radius: 50px;
-  padding: 0.3rem;
-  width: 1.5rem;
-  height: 1.5rem;
-  margin-right: 0.3rem;
-  transition: all 0.3s ease;
-  color: var(--text-primary);
-  border: 1px solid var(--border-color);
-
-  &.arrowRotated {
-    transform: rotate(90deg);
-  }
-}
-
-// Дропдаун контент - УПРОЩЕННЫЕ СТИЛИ
-.dropdownContent {
-  position: absolute;
-  top: calc(100% + 0.5rem);
-  background: var(--bg-primary-opacity);
-  border: 1px solid var(--border-color);
-  border-radius: 16px;
-  padding: 0;
-  box-shadow: var(--box-shadow-primary);
-  z-index: 99;
-  overflow: hidden;
-  backdrop-filter: blur(15px);
-  -webkit-backdrop-filter: blur(15px);
-  cursor: pointer;
-  
-  // Улучшенный фон для блюра
-  &::before {
-    content: '';
+.container {
     position: absolute;
     top: 0;
     left: 0;
-    right: 0;
-    bottom: 0;
-    background: var(--bg-primary-opacity-sec);
-    backdrop-filter: blur(15px);
-    -webkit-backdrop-filter: blur(15px);
-    z-index: -1;
-  }
-}
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    border-radius: inherit;
+    pointer-events: none;
+    z-index: 1;
+    scale: 1;
 
-.dropdownHeader {
-  display: flex;
-  gap: 12px;
-  width: 100%;
-  
-  .dropdownTextWrapper {
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1;
-  }
-}
-
-.dropdownItem {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 16px;
-  transition: all 0.3s ease;
-  flex-direction: column;
-  position: relative;
-
-  &:hover {
-    background: var(--accent-color);
-  }
-}
-
-.telegramIcon {
-  font-size: 1.5rem;
-  color: #0088cc;
-  flex-shrink: 0;
-}
-
-.dropdownText {
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1;
-  text-align: left;
-}
-
-.dropdownTitle {
-  font-weight: 600;
-  color: var(--text-primary);
-  font-size: 0.9rem;
-  line-height: 0.9rem;
-  
-}
-
-.dropdownSubtitle {
-  font-size: 0.8rem;
-  color: var(--text-secondary);
-  margin-top: 2px;
-  text-align: left;
-}
-
-.subscribeBtn {
-  width: 100%;
-}
-
-// Анимация градиента
-@keyframes gradientShift {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
-}
-
-// Адаптивность для мобильных устройств
-@media (max-width: 768px) {
-  .dropdownContent {
-    // На мобильных используем абсолютное позиционирование
-    position: absolute;
-    top: calc(100% + 8px);
     
-    // Для очень маленьких экранов ограничиваем максимальную ширину
-    max-width: 95vw;
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(
+        to bottom,
+        transparent,
+        rgba(0, 0, 0, 0.3) 50%,
+        transparent
+      );
+      mix-blend-mode: overlay;
+      opacity: 0;
+      z-index: 2;
+    }
+  }
+  
+  // Общие стили для всех вариантов
+  .gradientLayer {
+    position: absolute;
+    border-radius: 50%;
+    //filter: blur(60px);
+    //mix-blend-mode: screen;
+    opacity: 0.6;
+  }
+  
+  .canvasLayer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
   }
 
-  // Гарантируем, что родительский контейнер не будет слишком широким
-  .dropdownWrapper {
-    max-width: 95vw;
+________________________________________________________________________________
+
+АБСОЛЮТНЫЙ ПУТЬ: /Users/vladimirmazyrec/sync-agency-new/src/shared/ui/hero-background/HeroBackground.tsx
+название файла: hero-background/HeroBackground.tsx
+
+СОДЕРЖИМОЕ ФАЙЛА:
+----------------------------------------
+import React, { useRef, useEffect } from 'react';
+import { gsap } from 'gsap';
+import { HeroBackgroundProps } from './HeroBackground.types';
+import { BrandBackground } from './variants/BrandBackground/BrandBackground';
+import { MarketingBackground } from './variants/MarketingBackground/MarketingBackground';
+import { ProductBackground } from './variants/ProductBackground/ProductBackground';
+import { DataBackground } from './variants/DataBackground/DataBackground';
+import { AutomationBackground } from './variants/AutomationBackground/AutomationBackground';
+import styles from './HeroBackground.module.scss';
+
+
+export const HeroBackground: React.FC<HeroBackgroundProps> = ({
+    type,
+    className = '',
+    speed = 1,
+    intensity = 1,
+    isHovered = false,
+    isActive = false,
+    isScrolled = false
+  }) => {
+    const containerRef = useRef<HTMLDivElement>(null);
+    const animationRef = useRef<gsap.core.Tween | null>(null);
+  
+    useEffect(() => {
+      if (!containerRef.current) return;
+  
+      // Создаем анимацию один раз при монтировании
+      if (!animationRef.current) {
+        animationRef.current = gsap.to(containerRef.current, {
+          duration: 4,
+          opacity: 0.9,
+          repeat: -1,
+          yoyo: true,
+          ease: "sine.inOut",
+          paused: false
+        });
+      }
+  
+      // Управляем скоростью анимации
+      if (animationRef.current) {
+        // Для мобильных: если активен (по скроллу), ускоряем
+        // Для десктопа: если наведен, ускоряем
+        const shouldSpeedUp = isHovered || isActive || isScrolled;
+        animationRef.current.timeScale(shouldSpeedUp ? 1.5 : 1);
+      }
+  
+      return () => {
+        // Не убиваем анимацию при размонтировании
+        // Она будет убита автоматически при размонтировании компонента
+      };
+    }, [isHovered, isActive, isScrolled]); // Добавляем все зависимости
+  
+    const renderBackground = () => {
+      const commonProps = { 
+        speed, 
+        intensity,
+        isHovered,
+        isActive,
+        isScrolled 
+      };
+  
+      switch (type) {
+        case 'brand':
+          return <BrandBackground {...commonProps} />;
+        case 'marketing':
+          return <MarketingBackground {...commonProps} />;
+        case 'product':
+          return <ProductBackground {...commonProps} />;
+        case 'data':
+          return <DataBackground {...commonProps} />;
+        case 'automation':
+          return <AutomationBackground {...commonProps} />;
+        default:
+          return <BrandBackground {...commonProps} />;
+      }
+    };
+  
+    return (
+      <div 
+        ref={containerRef} 
+        className={`${styles.container} ${className}`}
+        data-type={type}
+        data-hovered={isHovered}
+        data-active={isActive}
+        data-scrolled={isScrolled}
+      >
+        {renderBackground()}
+      </div>
+    );
+  };
+
+________________________________________________________________________________
+
+АБСОЛЮТНЫЙ ПУТЬ: /Users/vladimirmazyrec/sync-agency-new/src/shared/ui/hero-background/HeroBackground.types.ts
+название файла: hero-background/HeroBackground.types.ts
+
+СОДЕРЖИМОЕ ФАЙЛА:
+----------------------------------------
+export type HeroBackgroundType = 
+  | 'brand' 
+  | 'marketing' 
+  | 'product' 
+  | 'data' 
+  | 'automation';
+
+export interface HeroBackgroundProps {
+  type: HeroBackgroundType;
+  className?: string;
+  speed?: number;
+  intensity?: number;
+  isHovered?: boolean;
+  isActive?: boolean; // Добавляем для мобильных
+  isScrolled?: boolean; // Добавляем для мобильных
+}
+
+export interface BaseBackgroundProps {
+  speed?: number;
+  intensity?: number;
+  isHovered?: boolean;
+  isActive?: boolean; // Добавляем для мобильных
+  isScrolled?: boolean; // Добавляем для мобильных
+}
+
+________________________________________________________________________________
+
+АБСОЛЮТНЫЙ ПУТЬ: /Users/vladimirmazyrec/sync-agency-new/src/shared/ui/hero-background/index.ts
+название файла: hero-background/index.ts
+
+СОДЕРЖИМОЕ ФАЙЛА:
+----------------------------------------
+export { HeroBackground } from './HeroBackground';
+export type { HeroBackgroundType } from './HeroBackground.types';
+
+________________________________________________________________________________
+
+АБСОЛЮТНЫЙ ПУТЬ: /Users/vladimirmazyrec/sync-agency-new/src/shared/ui/hero-background/variants/AutomationBackground/AutomationBackground.module.scss
+название файла: hero-background/variants/AutomationBackground/AutomationBackground.module.scss
+
+СОДЕРЖИМОЕ ФАЙЛА:
+----------------------------------------
+.automationContainer {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+  }
+  
+  .circuitPath {
+    position: absolute;
+    border: 1px solid rgba(86, 156, 254, 0.3);
+    overflow: hidden;
+    
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      border-radius: inherit;
+      background: linear-gradient(
+        135deg,
+        rgba(86, 156, 254, 0.05) 0%,
+        transparent 50%,
+        rgba(86, 156, 254, 0.052) 100%
+      );
+    }
+  }
+  
+  .lightFlow {
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 30%;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(86, 156, 254, 0.3),
+      transparent
+    );
+    filter: blur(5px);
+    transform: skewX(-40deg);
+  }
+  
+  .circuitNode {
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: radial-gradient(
+      circle,
+      rgb(86, 254, 89) 0%,
+      rgba(92, 213, 90, 0.8) 100%
+    );
+    transform: translate(-50%, -50%);
+    filter: blur(1px);
+    box-shadow: 
+      0 0 20px rgba(86, 220, 254, 0.8),
+      0 0 40px rgba(254, 254, 86, 0.787);
+  }
+
+________________________________________________________________________________
+
+АБСОЛЮТНЫЙ ПУТЬ: /Users/vladimirmazyrec/sync-agency-new/src/shared/ui/hero-background/variants/AutomationBackground/AutomationBackground.tsx
+название файла: hero-background/variants/AutomationBackground/AutomationBackground.tsx
+
+СОДЕРЖИМОЕ ФАЙЛА:
+----------------------------------------
+import React, { useEffect, useRef } from 'react';
+import { gsap } from 'gsap';
+import { BaseBackgroundProps } from '../../HeroBackground.types';
+import styles from './AutomationBackground.module.scss';
+
+export const AutomationBackground: React.FC<BaseBackgroundProps> = ({
+  speed = 1,
+  intensity = 1,
+  isHovered = false,
+  isActive = false,
+  isScrolled = false
+}) => {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const pathsRef = useRef<HTMLDivElement[]>([]);
+  const nodesRef = useRef<HTMLDivElement[]>([]);
+  const timelineRef = useRef<gsap.core.Timeline | null>(null);
+
+  useEffect(() => {
+    if (!containerRef.current) return;
+
+    if (!timelineRef.current) {
+      const tl = gsap.timeline({ repeat: -1 });
+      
+      // Анимация бегущего света по контурам
+      pathsRef.current.forEach((path, index) => {
+        const light = path.querySelector(`.${styles.lightFlow}`) as HTMLElement;
+        if (light) {
+          tl.to(light, {
+            duration: 8 / speed,
+            left: '100%',
+            repeat: -1,
+            ease: "none",
+            delay: index * 3.5,
+          }, 0);
+        }
+
+        // Пульсация контуров
+        tl.to(path, {
+          duration: 3 / speed,
+          opacity: 0.4 + (0.3 * intensity),
+          repeat: -1,
+          yoyo: true,
+          ease: "sine.inOut",
+          delay: index * 0.2,
+        }, 0);
+      });
+
+      // Мигание узлов
+      nodesRef.current.forEach((node, index) => {
+        tl.to(node, {
+          duration: 1.5 / speed,
+          scale: 1.5,
+          opacity: 1,
+          repeat: -1,
+          yoyo: true,
+          ease: "sine.inOut",
+          delay: index * 0.3,
+        }, 0);
+      });
+
+      timelineRef.current = tl;
+    }
+
+    return () => {
+      if (timelineRef.current) {
+        timelineRef.current.kill();
+        timelineRef.current = null;
+      }
+    };
+  }, [speed, intensity]);
+
+  useEffect(() => {
+    // Управляем скоростью анимации
+    if (timelineRef.current) {
+      const shouldSpeedUp = isHovered || isActive || isScrolled;
+      timelineRef.current.timeScale(shouldSpeedUp ? 1.5 : 1);
+    }
+  }, [isHovered, isActive, isScrolled]);
+
+  const addToPaths = (el: HTMLDivElement | null) => {
+    if (el && !pathsRef.current.includes(el)) {
+      pathsRef.current.push(el);
+    }
+  };
+
+  const addToNodes = (el: HTMLDivElement | null) => {
+    if (el && !nodesRef.current.includes(el)) {
+      nodesRef.current.push(el);
+    }
+  };
+
+  const generatePathStyle = (index: number) => {
+    const size = 30 + index * 20;
+    const borderRadius = 15 + index * 5;
+    
+    return {
+      width: `${size}%`,
+      height: `${size}%`,
+      borderRadius: `${borderRadius}px`,
+      top: `${35 - index * 10}%`,
+      left: `${35 - index * 10}%`,
+      borderWidth: `${1 + index * 0.5}px`,
+    };
+  };
+
+  return (
+    <div 
+      ref={containerRef} 
+      className={styles.automationContainer}
+      data-hovered={isHovered}
+      data-active={isActive}
+      data-scrolled={isScrolled}
+    >
+      {[...Array(3)].map((_, i) => (
+        <div
+          key={`path-${i}`}
+          ref={addToPaths}
+          className={styles.circuitPath}
+          style={generatePathStyle(i)}
+        >
+          <div className={styles.lightFlow} />
+        </div>
+      ))}
+
+      {[...Array(5)].map((_, i) => (
+        <div
+          key={`node-${i}`}
+          ref={addToNodes}
+          className={styles.circuitNode}
+          style={{
+            top: `${20 + (i * 15)}%`,
+            left: `${20 + (i * 15)}%`,
+          }}
+        />
+      ))}
+    </div>
+  );
+};
+
+________________________________________________________________________________
+
+АБСОЛЮТНЫЙ ПУТЬ: /Users/vladimirmazyrec/sync-agency-new/src/shared/ui/hero-background/variants/BrandBackground/BrandBackground.module.scss
+название файла: hero-background/variants/BrandBackground/BrandBackground.module.scss
+
+СОДЕРЖИМОЕ ФАЙЛА:
+----------------------------------------
+.brandContainer {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  border-radius: inherit;
+  background: transparent;
+}
+
+// Базовые стили для всех форм
+.shape {
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0.3;
+  transition: all 0.5s ease;
+  filter: blur(40px);
+  mix-blend-mode: soft-light;
+}
+
+// Основная форма - большая и мягкая
+.mainShape {
+  width: 300px;
+  height: 300px;
+  top: 30%;
+  left: 20%;
+  background: rgba(86, 156, 254, 0.1);
+  border: 1px solid rgba(86, 156, 254, 0.5);
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 60%;
+    height: 60%;
+    transform: translate(-50%, -50%);
+    background: rgba(86, 156, 254, 0.1);
+    border-radius: 50%;
+    filter: blur(20px);
+  }
+  
+  &::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 30%;
+    height: 30%;
+    transform: translate(-50%, -50%);
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    filter: blur(10px);
+  }
+}
+
+// Вторичная форма - средняя, более прозрачная
+.secondaryShape {
+  width: 200px;
+  height: 200px;
+  bottom: 25%;
+  right: 15%;
+  background: rgba(128, 90, 213, 0.1);
+  border: 1px solid rgba(128, 90, 213, 0.4);
+  filter: blur(30px);
+}
+
+// Акцентная форма - маленькая, едва заметная
+.accentShape {
+  width: 120px;
+  height: 120px;
+  top: 15%;
+  right: 30%;
+  background: rgba(72, 187, 120, 1);
+  border: 1px solid rgba(72, 187, 120, 0.2);
+  filter: blur(25px);
+}
+
+// Очень мягкое свечение фона
+.backgroundGlow {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(
+    circle at 30% 40%,
+    rgba(86, 156, 254, 0.02) 0%,
+    transparent 50%
+  );
+  opacity: 0.1;
+  pointer-events: none;
+}
+
+// Тонкие направляющие линии
+.guideline {
+  position: absolute;
+  width: 1px;
+  height: 80%;
+  top: 10%;
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    rgba(86, 156, 254, 1),
+    transparent
+  );
+  opacity: 0.2;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: -2px;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: rgba(86, 156, 254, 0.3);
+    filter: blur(1px);
+  }
+  
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: -2px;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: rgba(86, 156, 254, 0.3);
+    filter: blur(1px);
+  }
+}
+
+// Эффекты при наведении
+.brandContainer:hover {
+  .mainShape {
+    filter: blur(45px);
+    opacity: 0.4;
+  }
+  
+  .secondaryShape {
+    filter: blur(35px);
+  }
+  
+  .guideline {
+    opacity: 0.3;
+    
+    &::before,
+    &::after {
+      opacity: 0.5;
+    }
+  }
+}
+
+________________________________________________________________________________
+
+АБСОЛЮТНЫЙ ПУТЬ: /Users/vladimirmazyrec/sync-agency-new/src/shared/ui/hero-background/variants/BrandBackground/BrandBackground.tsx
+название файла: hero-background/variants/BrandBackground/BrandBackground.tsx
+
+СОДЕРЖИМОЕ ФАЙЛА:
+----------------------------------------
+import React, { useEffect, useRef } from 'react';
+import { gsap } from 'gsap';
+import { BaseBackgroundProps } from '../../HeroBackground.types';
+import styles from './BrandBackground.module.scss';
+
+export const BrandBackground: React.FC<BaseBackgroundProps> = ({
+  speed = 1,
+  intensity = 0.5,
+  isHovered = false,
+  isActive = false,
+  isScrolled = false
+}) => {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const shapesRef = useRef<HTMLDivElement[]>([]);
+  const glowRef = useRef<HTMLDivElement>(null);
+  const timelineRef = useRef<gsap.core.Timeline | null>(null);
+
+  useEffect(() => {
+    if (!containerRef.current) return;
+
+    // Создаем анимацию один раз при монтировании
+    if (!timelineRef.current) {
+      const tl = gsap.timeline({ repeat: -1, yoyo: true });
+      
+      // Основная форма - мягкое пульсирование
+      shapesRef.current.forEach((shape, index) => {
+        const delay = index * 0.3;
+        
+        tl.to(shape, {
+          duration: 8 / speed,
+          scale: 1 + (0.05 * intensity),
+          opacity: 0.4 + (0.2 * intensity),
+          repeat: -1,
+          yoyo: true,
+          ease: "sine.inOut",
+          delay,
+        }, 0);
+
+        // Легкое вращение по часовой стрелке
+        tl.to(shape, {
+          duration: 20 / speed,
+          rotation: 360,
+          repeat: -1,
+          ease: "none",
+          delay,
+        }, 0);
+
+        // Медленный дрейф
+        tl.to(shape, {
+          duration: 15 / speed,
+          x: `+=${20 * intensity}`,
+          y: `+=${10 * intensity}`,
+          repeat: -1,
+          yoyo: true,
+          ease: "sine.inOut",
+          delay,
+        }, 0);
+      });
+
+      // Свечение фона - очень мягкое
+      if (glowRef.current) {
+        tl.to(glowRef.current, {
+          duration: 6 / speed,
+          opacity: 0.15 * intensity,
+          repeat: -1,
+          yoyo: true,
+          ease: "sine.inOut",
+        }, 0);
+      }
+
+      // Общая легкая вибрация всего фона
+      tl.to(containerRef.current, {
+        duration: 10 / speed,
+        opacity: 0.95,
+        repeat: -1,
+        yoyo: true,
+        ease: "sine.inOut",
+      }, 0);
+
+      timelineRef.current = tl;
+    }
+
+    return () => {
+      if (timelineRef.current) {
+        timelineRef.current.kill();
+        timelineRef.current = null;
+      }
+    };
+  }, [speed, intensity]);
+
+  useEffect(() => {
+    // Управляем скоростью анимации
+    if (timelineRef.current) {
+      const shouldSpeedUp = isHovered || isActive || isScrolled;
+      timelineRef.current.timeScale(shouldSpeedUp ? 1.5 : 1);
+    }
+  }, [isHovered, isActive, isScrolled]);
+
+  const addToShapes = (el: HTMLDivElement | null) => {
+    if (el && !shapesRef.current.includes(el)) {
+      shapesRef.current.push(el);
+    }
+  };
+
+  return (
+    <div 
+      ref={containerRef} 
+      className={styles.brandContainer}
+      data-hovered={isHovered}
+      data-active={isActive}
+      data-scrolled={isScrolled}
+    >
+      {/* Основная форма - абстрактный бренд */}
+      <div 
+        ref={addToShapes}
+        className={`${styles.shape} ${styles.mainShape}`}
+      />
+      
+      {/* Вторичная форма - мягкая тень */}
+      <div 
+        ref={addToShapes}
+        className={`${styles.shape} ${styles.secondaryShape}`}
+      />
+      
+      {/* Третичная форма - акцент */}
+      <div 
+        ref={addToShapes}
+        className={`${styles.shape} ${styles.accentShape}`}
+      />
+      
+      {/* Очень мягкое свечение фона */}
+      <div ref={glowRef} className={styles.backgroundGlow} />
+      
+      {/* Тонкие линии-направляющие */}
+      <div className={styles.guideline} style={{ left: '20%', transform: 'rotate(15deg)' }} />
+      <div className={styles.guideline} style={{ right: '20%', transform: 'rotate(-15deg)' }} />
+    </div>
+  );
+};
+
+________________________________________________________________________________
+
+АБСОЛЮТНЫЙ ПУТЬ: /Users/vladimirmazyrec/sync-agency-new/src/shared/ui/hero-background/variants/DataBackground/DataBackground.module.scss
+название файла: hero-background/variants/DataBackground/DataBackground.module.scss
+
+СОДЕРЖИМОЕ ФАЙЛА:
+----------------------------------------
+.dataContainer {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: transparent;
+  
+  &:hover {
+    .node {
+      filter: blur(2px) brightness(1.2);
+    }
+    
+    .connection {
+      opacity: 0.4 !important;
+    }
+  }
+}
+
+.node {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at 30% 30%,
+    rgba(86, 156, 254, 0.9) 0%,
+    rgba(128, 90, 213, 0.6) 50%,
+    rgba(86, 156, 254, 0.3) 100%
+  );
+  transform: translate(-50%, -50%) scale(1);
+  transform-origin: center;
+  filter: blur(1px);
+  box-shadow: 
+    0 0 10px rgba(86, 156, 254, 0.6),
+    0 0 20px rgba(86, 156, 254, 0.4),
+    inset 0 0 10px rgba(255, 255, 255, 0.2);
+  transition: all 0.3s ease;
+  z-index: 2;
+  
+  &::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 40%;
+    height: 40%;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    filter: blur(1px);
+    z-index: 3;
+  }
+  
+  // Эффект при активации (ховер или скролл)
+  .dataContainer[data-active="true"] &,
+  .dataContainer[data-hovered="true"] & {
+    box-shadow: 
+      0 0 15px rgba(86, 156, 254, 0.8),
+      0 0 30px rgba(86, 156, 254, 0.5),
+      inset 0 0 15px rgba(255, 255, 255, 0.3);
+    filter: blur(1.5px) brightness(1.2);
+  }
+}
+
+.connection {
+  position: absolute;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(86, 156, 254, 0.5) 20%,
+    rgba(128, 90, 213, 0.6) 50%,
+    rgba(86, 156, 254, 0.5) 80%,
+    transparent
+  );
+  transform-origin: left center;
+  filter: blur(0.5px);
+  opacity: 0.1;
+  z-index: 1;
+  transition: opacity 0.3s ease;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    background: rgba(86, 156, 254, 0.6);
+    filter: blur(1px);
+  }
+  
+  &::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    background: rgba(86, 156, 254, 0.6);
+    filter: blur(1px);
+  }
+  
+  // Эффект при активации
+  .dataContainer[data-active="true"] &,
+  .dataContainer[data-hovered="true"] & {
+    opacity: 0.25 !important;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(86, 156, 254, 0.7) 20%,
+      rgba(128, 90, 213, 0.8) 50%,
+      rgba(86, 156, 254, 0.7) 80%,
+      transparent
+    );
+  }
+}
+
+.dataGlow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 50%;
+  height: 50%;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(86, 156, 254, 0.05) 0%,
+    rgba(128, 90, 213, 0.03) 30%,
+    transparent 70%
+  );
+  filter: blur(20px);
+  opacity: 0.4;
+  z-index: 0;
+  
+  .dataContainer[data-active="true"] &,
+  .dataContainer[data-hovered="true"] & {
+    opacity: 0.6;
+    filter: blur(5px);
+  }
+}
+
+// Адаптивные стили для разных размеров экрана
+@media (max-width: 768px) {
+  .node {
+    width: 6px !important;
+    height: 6px !important;
+    filter: blur(0.8px);
+    box-shadow: 
+      0 0 8px rgba(86, 156, 254, 0.5),
+      0 0 15px rgba(86, 156, 254, 0.3),
+      inset 0 0 5px rgba(255, 255, 255, 0.1);
+  }
+  
+  .connection {
+    height: 0.8px;
+    filter: blur(0.3px);
   }
 }
 
 @media (max-width: 480px) {
-  .soonSyncHeader {
-    flex-direction: row;
-    gap: 0.8rem;
+  .node {
+    width: 5px !important;
+    height: 5px !important;
+    filter: blur(0.6px);
+    box-shadow: 
+      0 0 6px rgba(86, 156, 254, 0.4),
+      0 0 12px rgba(86, 156, 254, 0.2),
+      inset 0 0 3px rgba(255, 255, 255, 0.1);
   }
-
-  .syncText {
-    font-size: 0.9rem;
+  
+  .connection {
+    height: 0.6px;
+    filter: blur(0.2px);
   }
-
-  .soon {
-    font-size: 0.7rem;
-    padding: 0.3rem 0.6rem;
-  }
-
-  .dropdownItem {
-    padding: 12px;
-  }
-
-  .telegramIcon {
-    font-size: 1.3rem;
-  }
-
-  .dropdownTitle {
-    font-size: 0.85rem;
-  }
-
-  .dropdownSubtitle {
-    font-size: 0.75rem;
-    text-align: left;
-  }
-
-  // На очень маленьких экранах немного уменьшаем отступы
-  .dropdownContent {
-    top: calc(100% + 6px);
+  
+  .dataGlow {
+    filter: blur(5px);
   }
 }
 
 ________________________________________________________________________________
 
-АБСОЛЮТНЫЙ ПУТЬ: /Users/vladimirmazyrec/sync-agency-new/src/shared/ui/sync-dropdown-header/SyncDropdownHeader.tsx
-название файла: sync-dropdown-header/SyncDropdownHeader.tsx
+АБСОЛЮТНЫЙ ПУТЬ: /Users/vladimirmazyrec/sync-agency-new/src/shared/ui/hero-background/variants/DataBackground/DataBackground.tsx
+название файла: hero-background/variants/DataBackground/DataBackground.tsx
 
 СОДЕРЖИМОЕ ФАЙЛА:
 ----------------------------------------
-import React, { useState, useRef, useEffect } from 'react'
-import { FiArrowUpRight } from 'react-icons/fi'
-import { FaTelegram } from 'react-icons/fa'
-import { Button } from '@/shared/ui/button'
-import { dropdownAnimations } from './animations'
-import styles from './SyncDropdownHeader.module.scss'
-import { useTranslation } from '@/shared/localization/hooks/useTranslation'
+import React, { useEffect, useRef } from 'react';
+import { gsap } from 'gsap';
+import { BaseBackgroundProps } from '../../HeroBackground.types';
+import styles from './DataBackground.module.scss';
 
-
-interface SyncDropdownHeaderProps {
-  className?: string
-}
-
-export const SyncDropdownHeader: React.FC<SyncDropdownHeaderProps> = ({ 
-  className = ''
+export const DataBackground: React.FC<BaseBackgroundProps> = ({
+  speed = 1,
+  intensity = 1,
+  isHovered = false,
+  isActive = false,
+  isScrolled = false
 }) => {
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false)
-  const [isMobile, setIsMobile] = useState(false)
-  const [dropdownStyles, setDropdownStyles] = useState({ width: 0, left: 0 })
-  
-  const dropdownRef = useRef<HTMLDivElement>(null)
-  const dropdownContentRef = useRef<HTMLDivElement>(null)
-  const soonSyncHeaderRef = useRef<HTMLDivElement>(null)
-  const timeoutRef = useRef<NodeJS.Timeout>()
-  const { t } = useTranslation()
+  const containerRef = useRef<HTMLDivElement>(null);
+  const nodesRef = useRef<HTMLDivElement[]>([]);
+  const connectionsRef = useRef<HTMLDivElement[]>([]);
+  const timelineRef = useRef<gsap.core.Timeline | null>(null);
 
-
-  // Определяем мобильное устройство
   useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth <= 768)
-    }
-    
-    checkMobile()
-    window.addEventListener('resize', checkMobile)
-    
-    return () => {
-      window.removeEventListener('resize', checkMobile)
-    }
-  }, [])
+    if (!containerRef.current) return;
 
-  // Вычисляем ширину и позицию дропдауна
-  const updateDropdownPosition = () => {
-    if (soonSyncHeaderRef.current && dropdownContentRef.current) {
-      const triggerRect = soonSyncHeaderRef.current.getBoundingClientRect()
-      const wrapperRect = dropdownRef.current?.getBoundingClientRect()
+    if (!timelineRef.current) {
+      const tl = gsap.timeline({ repeat: -1 });
       
-      if (wrapperRect) {
-        setDropdownStyles({
-          width: triggerRect.width,
-          left: 0 // Позиционируем относительно родителя
-        })
-      }
-    }
-  }
+      // Анимация узлов (дрожание)
+      nodesRef.current.forEach((node, index) => {
+        tl.to(node, {
+          duration: 1 + Math.random() * 2 / speed,
+          x: `+=${4 * intensity * (Math.random() - 0.5)}`,
+          y: `+=${4 * intensity * (Math.random() - 0.5)}`,
+          repeat: -1,
+          yoyo: true,
+          ease: "sine.inOut",
+          delay: index * 0.1,
+        }, 0);
 
-  // Обновляем позицию при открытии и изменении размера окна
-  useEffect(() => {
-    if (isDropdownOpen) {
-      updateDropdownPosition()
-      window.addEventListener('resize', updateDropdownPosition)
-    } else {
-      window.removeEventListener('resize', updateDropdownPosition)
+        // Пульсация свечения
+        tl.to(node, {
+          duration: 2 / speed,
+          scale: 1 + (0.3 * intensity),
+          opacity: 0.8,
+          repeat: -1,
+          yoyo: true,
+          ease: "sine.inOut",
+          delay: index * 0.05,
+        }, 0);
+      });
+
+      // Анимация соединений (появление/исчезновение)
+      connectionsRef.current.forEach((connection, index) => {
+        tl.to(connection, {
+          duration: 3 / speed,
+          opacity: 0.3 + (Math.random() * 0.4),
+          repeat: -1,
+          yoyo: true,
+          ease: "sine.inOut",
+          delay: index * 0.15,
+        }, 0);
+      });
+
+      timelineRef.current = tl;
     }
 
     return () => {
-      window.removeEventListener('resize', updateDropdownPosition)
-    }
-  }, [isDropdownOpen])
+      if (timelineRef.current) {
+        timelineRef.current.kill();
+        timelineRef.current = null;
+      }
+    };
+  }, [speed, intensity]);
 
-  const handleMouseEnter = () => {
-    if (timeoutRef.current) {
-      clearTimeout(timeoutRef.current)
-    }
-    if (!isMobile) {
-      setIsDropdownOpen(true)
-    }
-  }
-
-  const handleMouseLeave = () => {
-    if (!isMobile) {
-      timeoutRef.current = setTimeout(() => {
-        setIsDropdownOpen(false)
-      }, 200)
-    }
-  }
-
-  const handleClick = () => {
-    if (isMobile) {
-      setIsDropdownOpen(!isDropdownOpen)
-    }
-  }
-
-  // Обработчик для кнопки Subscribe
-  const handleSubscribeClick = () => {
-    window.open('https://t.me/sync_agency', '_blank', 'noopener,noreferrer')
-  }
-
-  // GSAP анимации для дропдауна
   useEffect(() => {
-    const dropdownContent = dropdownContentRef.current
-    if (!dropdownContent) return
-
-    if (isDropdownOpen) {
-      // Применяем вычисленные стили перед анимацией
-      if (dropdownStyles.width > 0) {
-        dropdownContent.style.width = `${dropdownStyles.width}px`
-        dropdownContent.style.left = `${dropdownStyles.left}px`
-      }
-      
-      dropdownAnimations.open(dropdownContent, isMobile)
-      dropdownAnimations.blurIn(dropdownContent)
-    } else {
-      dropdownAnimations.close(dropdownContent, isMobile)
-      dropdownAnimations.blurOut(dropdownContent)
+    // Управляем скоростью анимации
+    if (timelineRef.current) {
+      const shouldSpeedUp = isHovered || isActive || isScrolled;
+      timelineRef.current.timeScale(shouldSpeedUp ? 1.5 : 1);
     }
-  }, [isDropdownOpen, isMobile, dropdownStyles])
+  }, [isHovered, isActive, isScrolled]);
 
-  // Закрытие дропдауна при клике вне его области
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-        setIsDropdownOpen(false)
-      }
+  const addToNodes = (el: HTMLDivElement | null) => {
+    if (el && !nodesRef.current.includes(el)) {
+      nodesRef.current.push(el);
     }
+  };
 
-    document.addEventListener('mousedown', handleClickOutside)
-    
-    // Для мобильных устройств также добавляем обработчик тача
-    document.addEventListener('touchstart', handleClickOutside as any)
-    
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside)
-      document.removeEventListener('touchstart', handleClickOutside as any)
-      if (timeoutRef.current) {
-        clearTimeout(timeoutRef.current)
-      }
+  const addToConnections = (el: HTMLDivElement | null) => {
+    if (el && !connectionsRef.current.includes(el)) {
+      connectionsRef.current.push(el);
     }
-  }, [])
+  };
+
+  // Генерация случайных позиций для узлов
+  const generatePositions = (count: number) => {
+    return Array.from({ length: count }, () => ({
+      x: Math.random() * 80 + 10,
+      y: Math.random() * 80 + 10,
+    }));
+  };
+
+  const nodePositions = generatePositions(12);
 
   return (
-    <div className={`${styles.syncDropdownHeader} ${className}`}>
-      {/* Дропдаун секция */}
-      <div 
-        ref={dropdownRef}
-        className={styles.dropdownWrapper}
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
-        onClick={handleClick}
-      >
-        <div className={styles.dropdownTrigger}>
-          <div 
-            ref={soonSyncHeaderRef}
-            className={styles.soonSyncHeader}
-          >
-            <span className={styles.soon}>{t('header.soon')}</span>
-            <div className={styles.syncText}>
-              <span>{t('header.syncLibrary')}</span>
-              <FiArrowUpRight className={`${styles.arrow} ${isDropdownOpen ? styles.arrowRotated : ''}`} />
-            </div>
-          </div>
-        </div>
-
-        {/* Дропдаун контент с GSAP анимацией */}
-        <div 
-          ref={dropdownContentRef}
-          className={styles.dropdownContent}
-          style={{ 
-            display: 'none',
-            width: dropdownStyles.width > 0 ? `${dropdownStyles.width}px` : 'auto',
-            left: `${dropdownStyles.left}px`
+    <div 
+      ref={containerRef} 
+      className={styles.dataContainer}
+      data-hovered={isHovered}
+      data-active={isActive}
+      data-scrolled={isScrolled}
+    >
+      {/* Соединения между узлами */}
+      {nodePositions.slice(0, 8).map((pos, i) => (
+        <div
+          key={`conn-${i}`}
+          ref={addToConnections}
+          className={styles.connection}
+          style={{
+            left: `${pos.x}%`,
+            top: `${pos.y}%`,
+            width: `${Math.random() * 100 + 50}px`,
+            transform: `rotate(${Math.random() * 360}deg)`,
           }}
-        >
-          <div className={styles.dropdownItem}>
-            <div className={styles.dropdownHeader}>
-              <FaTelegram className={styles.telegramIcon} />
-              <div className={styles.dropdownTextWrapper}>
-                <div className={styles.dropdownText}>
-                  <span className={styles.dropdownTitle}>{t('header.joinTelegram')}</span>
-                </div>
-                <span className={styles.dropdownSubtitle}>{t('header.getUpdates')}</span>
-              </div>
-            </div>
-            <Button 
-              variant="outline" 
-              size="sm"
-              className={styles.subscribeBtn}
-              onClick={handleSubscribeClick}
-            >
-              {t('header.subscribe')}
-            </Button>
-          </div>
-        </div>
-      </div>
+        />
+      ))}
+
+      {/* Узлы */}
+      {nodePositions.map((pos, i) => (
+        <div
+          key={`node-${i}`}
+          ref={addToNodes}
+          className={styles.node}
+          style={{
+            left: `${pos.x}%`,
+            top: `${pos.y}%`,
+            width: `${8 + (i % 3) * 4}px`,
+            height: `${8 + (i % 3) * 4}px`,
+          }}
+        />
+      ))}
     </div>
-  )
-}
+  );
+};
+
+________________________________________________________________________________
+
+АБСОЛЮТНЫЙ ПУТЬ: /Users/vladimirmazyrec/sync-agency-new/src/shared/ui/hero-background/variants/index.ts
+название файла: hero-background/variants/index.ts
+
+СОДЕРЖИМОЕ ФАЙЛА:
+----------------------------------------
+export { BrandBackground } from './BrandBackground/BrandBackground';
+export { MarketingBackground } from './MarketingBackground/MarketingBackground';
+export { ProductBackground } from './ProductBackground/ProductBackground';
+export { DataBackground } from './DataBackground/DataBackground';
+export { AutomationBackground } from './AutomationBackground/AutomationBackground';
+
+________________________________________________________________________________
+
+АБСОЛЮТНЫЙ ПУТЬ: /Users/vladimirmazyrec/sync-agency-new/src/shared/ui/hero-background/variants/MarketingBackground/MarketingBackground.module.scss
+название файла: hero-background/variants/MarketingBackground/MarketingBackground.module.scss
+
+СОДЕРЖИМОЕ ФАЙЛА:
+----------------------------------------
+.marketingContainer {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    border-radius: inherit;
+  }
+  
+  .flowLine {
+    position: absolute;
+    width: 2px;
+    height: 150%;
+    top: -25%;
+    background: linear-gradient(
+      to bottom,
+      transparent,
+      rgba(86, 156, 254, 0.6),
+      transparent
+    );
+    filter: blur(1px);
+    transform-origin: center;
+  }
+
+________________________________________________________________________________
+
+АБСОЛЮТНЫЙ ПУТЬ: /Users/vladimirmazyrec/sync-agency-new/src/shared/ui/hero-background/variants/MarketingBackground/MarketingBackground.tsx
+название файла: hero-background/variants/MarketingBackground/MarketingBackground.tsx
+
+СОДЕРЖИМОЕ ФАЙЛА:
+----------------------------------------
+import React, { useEffect, useRef } from 'react';
+import { gsap } from 'gsap';
+import { BaseBackgroundProps } from '../../HeroBackground.types';
+import styles from './MarketingBackground.module.scss';
+
+export const MarketingBackground: React.FC<BaseBackgroundProps> = ({
+  speed = 1,
+  intensity = 1,
+  isHovered = false,
+  isActive = false,
+  isScrolled = false
+}) => {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const linesRef = useRef<HTMLDivElement[]>([]);
+  const timelineRef = useRef<gsap.core.Timeline | null>(null);
+
+  useEffect(() => {
+    if (!containerRef.current) return;
+
+    if (!timelineRef.current) {
+      const tl = gsap.timeline({ repeat: -1 });
+      
+      // Анимация линий потока
+      linesRef.current.forEach((line, index) => {
+        tl.to(line, {
+          duration: 2 + (index * 0.5) / speed,
+          x: `${100 * intensity}px`,
+          repeat: -1,
+          yoyo: true,
+          ease: "sine.inOut",
+          delay: index * 0.2,
+        }, 0);
+      });
+
+      timelineRef.current = tl;
+    }
+
+    return () => {
+      if (timelineRef.current) {
+        timelineRef.current.kill();
+        timelineRef.current = null;
+      }
+    };
+  }, [speed, intensity]);
+
+  useEffect(() => {
+    // Управляем скоростью анимации
+    if (timelineRef.current) {
+      const shouldSpeedUp = isHovered || isActive || isScrolled;
+      timelineRef.current.timeScale(shouldSpeedUp ? 1.5 : 1);
+    }
+  }, [isHovered, isActive, isScrolled]);
+
+  const addToLines = (el: HTMLDivElement | null) => {
+    if (el && !linesRef.current.includes(el)) {
+      linesRef.current.push(el);
+    }
+  };
+
+  return (
+    <div 
+      ref={containerRef} 
+      className={styles.marketingContainer}
+      data-hovered={isHovered}
+      data-active={isActive}
+      data-scrolled={isScrolled}
+    >
+      {[...Array(8)].map((_, i) => (
+        <div
+          key={i}
+          ref={addToLines}
+          className={styles.flowLine}
+          style={{
+            left: `${i * 15}%`,
+            transform: `rotate(${45 + (i * 5)}deg)`,
+            opacity: 0.2 + (i * 0.1),
+          }}
+        />
+      ))}
+    </div>
+  );
+};
+
+________________________________________________________________________________
+
+АБСОЛЮТНЫЙ ПУТЬ: /Users/vladimirmazyrec/sync-agency-new/src/shared/ui/hero-background/variants/ProductBackground/ProductBackground.module.scss
+название файла: hero-background/variants/ProductBackground/ProductBackground.module.scss
+
+СОДЕРЖИМОЕ ФАЙЛА:
+----------------------------------------
+.productContainer {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    perspective: 500px;
+  }
+  
+  .layer {
+    position: absolute;
+    //border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(86, 156, 254, 0.3);
+
+    border-radius: 15px;
+    background: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.02) 0%,
+      rgba(255, 255, 255, 0.01) 100%
+    );
+    //backdrop-filter: blur(20px);
+    box-shadow: 
+      0 8px 32px rgba(0, 0, 0, 0.1),
+      inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    
+    &::before {
+      content: '';
+      position: absolute;
+      top: -1px;
+      left: -1px;
+      right: -1px;
+      bottom: -1px;
+      border-radius: 16px;
+      background: linear-gradient(
+        135deg,
+        rgba(148, 86, 254, 0.063),
+        rgba(90, 92, 213, 0.052),
+        rgba(86, 128, 254, 0.051)
+      );
+      z-index: -1;
+      opacity: 0.5;
+    }
+  }
+
+________________________________________________________________________________
+
+АБСОЛЮТНЫЙ ПУТЬ: /Users/vladimirmazyrec/sync-agency-new/src/shared/ui/hero-background/variants/ProductBackground/ProductBackground.tsx
+название файла: hero-background/variants/ProductBackground/ProductBackground.tsx
+
+СОДЕРЖИМОЕ ФАЙЛА:
+----------------------------------------
+import React, { useEffect, useRef } from 'react';
+import { gsap } from 'gsap';
+import { BaseBackgroundProps } from '../../HeroBackground.types';
+import styles from './ProductBackground.module.scss';
+
+export const ProductBackground: React.FC<BaseBackgroundProps> = ({
+  speed = 1,
+  intensity = 1,
+  isHovered = false,
+  isActive = false,
+  isScrolled = false
+}) => {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const layersRef = useRef<HTMLDivElement[]>([]);
+  const timelineRef = useRef<gsap.core.Timeline | null>(null);
+
+  useEffect(() => {
+    if (!containerRef.current) return;
+
+    if (!timelineRef.current) {
+      const tl = gsap.timeline({ repeat: -1 });
+      
+      // Параллакс эффект для слоев
+      layersRef.current.forEach((layer, index) => {
+        tl.to(layer, {
+          duration: 3 + index / speed,
+          x: `${20 * (index + 1) * intensity}px`,
+          y: `${10 * (index + 1) * intensity}px`,
+          rotation: (index % 2 === 0 ? 1 : -1) * intensity,
+          repeat: -1,
+          yoyo: true,
+          ease: "sine.inOut",
+          delay: index * 0.3,
+        }, 0);
+      });
+
+      timelineRef.current = tl;
+    }
+
+    return () => {
+      if (timelineRef.current) {
+        timelineRef.current.kill();
+        timelineRef.current = null;
+      }
+    };
+  }, [speed, intensity]);
+
+  useEffect(() => {
+    // Управляем скоростью анимации
+    if (timelineRef.current) {
+      const shouldSpeedUp = isHovered || isActive || isScrolled;
+      timelineRef.current.timeScale(shouldSpeedUp ? 1.5 : 1);
+    }
+  }, [isHovered, isActive, isScrolled]);
+
+  const addToLayers = (el: HTMLDivElement | null) => {
+    if (el && !layersRef.current.includes(el)) {
+      layersRef.current.push(el);
+    }
+  };
+
+  return (
+    <div 
+      ref={containerRef} 
+      className={styles.productContainer}
+      data-hovered={isHovered}
+      data-active={isActive}
+      data-scrolled={isScrolled}
+    >
+      {[...Array(3)].map((_, i) => (
+        <div
+          key={i}
+          ref={addToLayers}
+          className={styles.layer}
+          style={{
+            width: `${80 - (i * 15)}%`,
+            height: `${70 - (i * 15)}%`,
+            borderWidth: `${1 + i * 0.5}px`,
+          }}
+        />
+      ))}
+    </div>
+  );
+};
 
 ================================================================================
 
 СТАТИСТИКА:
 ----------------------------------------
-Обработано файлов: 4
-Общий размер папки: 12,908 байт
-Дата создания отчета: 2025-12-03 02:39:51
+Обработано файлов: 15
+Общий размер папки: 30,562 байт
+Дата создания отчета: 2025-12-06 23:53:51
+

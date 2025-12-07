@@ -34,13 +34,13 @@
     justify-content: center;
     min-height: 60px; // увеличиваем высоту при открытом меню
     background: var(--background-primary-yellow);
-    border-radius: 20px;
+    border-radius: 30px;
 
     
     .blur {
       backdrop-filter: blur(10px);
       box-shadow: var(--box-shadow-primary);
-      border-radius: 20px;
+      border-radius: 30px;
 
     }
 

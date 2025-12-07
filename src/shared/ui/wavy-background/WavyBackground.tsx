@@ -3,6 +3,7 @@ import { cn } from '@/shared/utils/utils'
 import { createNoise3D } from 'simplex-noise'
 import './WavyBackground.scss'
 
+
 export interface WavyBackgroundProps {
   children?: React.ReactNode
   className?: string

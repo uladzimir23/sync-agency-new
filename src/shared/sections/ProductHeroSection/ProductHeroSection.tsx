@@ -137,13 +137,16 @@ export const ProductHeroSection: React.FC<ProductHeroSectionProps> = ({
       </div>
 
       {/* Стрелка в правом верхнем углу */}
-      <div className={`${styles.arrowContainer} ${isActive ? styles.arrowVisible : ''}`}>
-        <FiArrowUpRight className={styles.arrow} />
-      </div>
 
       <div className={styles.content}>
         <div className={styles.header}>
-          <span className={subtitleClasses}>{subtitle}</span>
+          <div className={styles.headerTitle}>
+            <span className={subtitleClasses}>{subtitle}</span>
+              <div className={`${styles.arrowContainer} ${isActive ? styles.arrowVisible : ''}`}>
+              <FiArrowUpRight className={styles.arrow} />
+              </div>
+          </div>
+
           <h1 className={styles.title}>{title}</h1>
         </div>
         

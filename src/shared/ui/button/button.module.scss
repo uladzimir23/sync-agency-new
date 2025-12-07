@@ -19,7 +19,9 @@
   line-height: 1;
   border-radius: 12px;
   //backdrop-filter: blur(50px);
-  backdrop-filter: blur(50px) !important;
+  backdrop-filter: blur(15px) !important;
+  -webkit-backdrop-filter: blur(15px) !important;
+
 
 
   

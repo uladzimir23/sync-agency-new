@@ -6,8 +6,8 @@ import { MarketingBackground } from './variants/MarketingBackground/MarketingBac
 import { ProductBackground } from './variants/ProductBackground/ProductBackground';
 import { DataBackground } from './variants/DataBackground/DataBackground';
 import { AutomationBackground } from './variants/AutomationBackground/AutomationBackground';
+import { PixelBackground } from './variants/PixelBackground/PixelBackground'; // Добавили
 import styles from './HeroBackground.module.scss';
-
 
 export const HeroBackground: React.FC<HeroBackgroundProps> = ({
     type,
@@ -24,7 +24,6 @@ export const HeroBackground: React.FC<HeroBackgroundProps> = ({
     useEffect(() => {
       if (!containerRef.current) return;
   
-      // Создаем анимацию один раз при монтировании
       if (!animationRef.current) {
         animationRef.current = gsap.to(containerRef.current, {
           duration: 4,
@@ -36,19 +35,15 @@ export const HeroBackground: React.FC<HeroBackgroundProps> = ({
         });
       }
   
-      // Управляем скоростью анимации
       if (animationRef.current) {
-        // Для мобильных: если активен (по скроллу), ускоряем
-        // Для десктопа: если наведен, ускоряем
         const shouldSpeedUp = isHovered || isActive || isScrolled;
         animationRef.current.timeScale(shouldSpeedUp ? 1.5 : 1);
       }
   
       return () => {
-        // Не убиваем анимацию при размонтировании
-        // Она будет убита автоматически при размонтировании компонента
+        // Анимация будет убита при размонтировании
       };
-    }, [isHovered, isActive, isScrolled]); // Добавляем все зависимости
+    }, [isHovered, isActive, isScrolled]);
   
     const renderBackground = () => {
       const commonProps = { 
@@ -70,6 +65,8 @@ export const HeroBackground: React.FC<HeroBackgroundProps> = ({
           return <DataBackground {...commonProps} />;
         case 'automation':
           return <AutomationBackground {...commonProps} />;
+        case 'pixel': // Добавили новый вариант
+          return <PixelBackground {...commonProps} />;
         default:
           return <BrandBackground {...commonProps} />;
       }

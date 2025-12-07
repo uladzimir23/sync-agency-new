@@ -107,31 +107,19 @@
 // Дропдаун контент - УПРОЩЕННЫЕ СТИЛИ
 .dropdownContent {
   position: absolute;
-  top: calc(100% + 0.5rem);
-  background: var(--bg-primary);
+  top: calc(100% + 0.25rem);
+  background: var(--background-primary);
   border: 1px solid var(--border-color);
   border-radius: 16px;
   padding: 0;
   box-shadow: var(--box-shadow-primary);
   z-index: 99;
   overflow: hidden;
-  backdrop-filter: blur(20px) !important;
+  backdrop-filter: blur(15px) !important;
   -webkit-backdrop-filter: blur(15px) !important;
   cursor: pointer;
   
-  // Улучшенный фон для блюра
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: var(--bg-primary-opacity-sec);
-    backdrop-filter: blur(50px) !important;
-    -webkit-backdrop-filter: blur(15px) !important;
-    z-index: -1;
-  }
+
 }
 
 .dropdownHeader {
@@ -154,10 +142,9 @@
   transition: all 0.3s ease;
   flex-direction: column;
   position: relative;
+  
 
-  &:hover {
-    background: var(--accent-color);
-  }
+
 }
 
 .telegramIcon {
@@ -190,6 +177,7 @@
 
 .subscribeBtn {
   width: 100%;
+
 }
 
 // Анимация градиента

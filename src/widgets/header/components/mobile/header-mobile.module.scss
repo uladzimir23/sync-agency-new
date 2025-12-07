@@ -30,12 +30,12 @@
     justify-content: center;
     min-height: 60px;
     background: var(--background-primary-yellow);
-    border-radius: 20px;
+    border-radius: 30px;
 
     
     .blur {
       backdrop-filter: blur(10px);
-      border-radius: 20px;
+      border-radius: 30px;
 
     }
   }

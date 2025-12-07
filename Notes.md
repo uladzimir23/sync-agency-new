@@ -15,3 +15,4 @@ chmod +x deploy-gh-pages.sh
 ./deploy-gh-pages.sh
 
 VITE_TELEGRAM_GROUP_CHAT_ID=-4688441662
+

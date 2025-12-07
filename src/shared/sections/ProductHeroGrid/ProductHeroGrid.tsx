@@ -25,7 +25,7 @@ const DEFAULT_ITEMS: ProductHeroItem[] = [
     subtitle: '·Unique Brand Design·',
     description: 'We Build strong, strategic brand systems with expressive identity, naming, tone of voice, and visual language to amplify positioning and ensure recognition.',
     ctaText: 'Create Your Brand',
-    backgroundType: 'brand' as HeroBackgroundType
+    backgroundType: 'brand'
   },
   {
     id: 'marketing-strategy',
@@ -33,7 +33,7 @@ const DEFAULT_ITEMS: ProductHeroItem[] = [
     subtitle: '·Effective Growth Strategies·',
     description: 'We Create multi-stage marketing funnels and drive measurable business growth through conversion-driven, data-powered, and insight-led performance campaigns.',
     ctaText: 'Discuss Your Strategy',
-    backgroundType: 'marketing' as HeroBackgroundType
+    backgroundType: 'marketing'
   },
   {
     id: 'product-development',
@@ -41,7 +41,7 @@ const DEFAULT_ITEMS: ProductHeroItem[] = [
     subtitle: '·Reliable Digital Products·',
     description: 'We Design and build scalable digital products with reliable architecture and seamless integrations that support long-term growth and excellent user experience.',
     ctaText: 'Start Your Project',
-    backgroundType: 'product' as HeroBackgroundType
+    backgroundType: 'product'
   },
   {
     id: 'performance-intelligence',
@@ -49,7 +49,7 @@ const DEFAULT_ITEMS: ProductHeroItem[] = [
     subtitle: '·Data-Backed Decisions·',
     description: 'We Collect, analyze, and act on data across all stages of the funnel to ensure continuous performance improvement, optimization, and real-time decision-making.',
     ctaText: 'Optimize With Data',
-    backgroundType: 'data' as HeroBackgroundType
+    backgroundType: 'data'
   },
   {
     id: 'infrastructure-automation',
@@ -57,7 +57,15 @@ const DEFAULT_ITEMS: ProductHeroItem[] = [
     subtitle: '·Efficient Systems·',
     description: 'We Automate operations, connect internal and external systems, and streamline processes through custom logic, APIs, and scenario-based automation layers.',
     ctaText: 'Optimize Your Infrastructure',
-    backgroundType: 'automation' as HeroBackgroundType
+    backgroundType: 'automation'
+  },
+  {
+    id: 'digital-creativity',
+    title: 'Dígital Creatívity',
+    subtitle: '·Innovative Digital Solutions·',
+    description: 'We Craft unique digital experiences with creative coding, interactive visuals, and cutting-edge technology to bring your most innovative ideas to life.',
+    ctaText: 'Unleash Creativity',
+    backgroundType: 'pixel' // Используем новый пиксельный фон
   }
 ];
 

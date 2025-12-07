@@ -7,6 +7,9 @@ import { FloatingContactButton } from '@/shared/ui/floating-contact-button';
 import { useTheme } from '@/shared/hooks/useTheme';
 import styles from './HomePage.module.scss';
 
+import {WavyBackground} from '@shared/ui/wavy-background';
+
+
 export const HomePage: React.FC = () => {
   const [activeTab, setActiveTab] = useState(0);
   const [activeMenu, setActiveMenu] = useState(0);
@@ -44,6 +47,11 @@ export const HomePage: React.FC = () => {
 
   return (
     <div className={styles.homePage}>
+      <div className="home-page-background">
+
+
+      </div>
+
       <div className={styles.homePageContent}>
         <div className={styles.dashboardSection}>
           <DashboardHeader 

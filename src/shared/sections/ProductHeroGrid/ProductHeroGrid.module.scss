@@ -17,7 +17,8 @@
     }
     
     @media (max-width: 767px) {
-      grid-template-columns: 460px;
+      grid-template-columns: 1fr;
+      max-width: 460px;
       gap: 1rem;
       padding: 0 1rem;
     }
@@ -37,15 +38,14 @@
     }
   }
   
-  // Staggered animation for grid items
+  // Staggered animation for grid items (обновили для 6 элементов)
   .gridItem {
     animation: fadeInUp 0.6s ease-out forwards;
     opacity: 0;
     
-    
     @for $i from 1 through 6 {
       &:nth-child(#{$i}) {
-        animation-delay: #{0.1s + ($i * 0.1s)};
+        animation-delay: #{0.1s + ($i * 0.08s)};
       }
     }
   }
