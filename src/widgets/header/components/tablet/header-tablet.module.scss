@@ -140,6 +140,14 @@
   backdrop-filter: blur(3px);
   border-radius: 40%;
   box-shadow: var(--box-shadow-primary), inset 0px 0px 1px var(--border-color-accent);
+  -webkit-tap-highlight-color: transparent; // Убирает синюю подсветку
+  -webkit-user-select: none; // Предотвращает выделение текста
+  user-select: none;
+  
+  &:active, &:focus {
+    outline: none; // Убирает outline при фокусе
+    -webkit-tap-highlight-color: transparent;
+  }
 
   &:before {
     content: "";

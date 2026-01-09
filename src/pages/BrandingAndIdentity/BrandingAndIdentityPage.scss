@@ -2,25 +2,18 @@
     min-height: calc(100vh - 100px);
     padding-top: 60px;
 
-    .product-hero-section {
+    .ProductHeroSection {
         z-index: 0;
         //height: 50vh;
       .container {
-        margin: 0.5rem !important;
+        margin: 5rem !important;
+
 
       }
-        .product-hero-cta {
-            background-color: #cd37d829;
-
-            &:hover {
-                background-color: #cd37d8b1;
-                color: var(--text-primary);
-                box-shadow: var(--box-shadow-accent);
-                border-radius: 10px;
-              }
-        }
-
+ 
     }
+
+
 
     .service-features-section {
         //padding: 160px;

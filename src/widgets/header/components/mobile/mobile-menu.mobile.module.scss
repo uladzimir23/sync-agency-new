@@ -94,6 +94,15 @@
   
   // Анимация для элементов
   transition: all 0.25s ease;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-user-select: none;
+  user-select: none;
+  touch-action: manipulation; // Оптимизация для тач-устройств
+  
+  &:active, &:focus {
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
+  }
   
   &.itemHidden {
     opacity: 0;

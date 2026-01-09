@@ -1,11 +1,12 @@
 import React, { useState, useRef, useEffect } from 'react'
 import gsap from 'gsap'
-import './ServiceFeatures.scss'
+import styles from './ServiceFeatures.module.scss'
 
 interface Feature {
   title: string
   description: string
   detailedDescription: string
+  exampleDescription: string // Новое поле
   icon?: string
 }
 
@@ -29,7 +30,6 @@ export const ServiceFeatures: React.FC<ServiceFeaturesProps> = ({
       let isHovered = false
       let activeTween: gsap.core.Tween | null = null
       
-      // Оптимизированные настройки для мгновенного отклика
       const parallaxDepth = isDetail ? 6 : 4
       const maxTilt = isDetail ? 1.5 : 2
 
@@ -46,11 +46,9 @@ export const ServiceFeatures: React.FC<ServiceFeaturesProps> = ({
         const mouseX = e.clientX - rect.left
         const mouseY = e.clientY - rect.top
         
-        // Упрощенный расчет параллакса
         const posX = (mouseX - centerX) / centerX
         const posY = (mouseY - centerY) / centerY
         
-        // Мгновенное обновление без проверок
         if (activeTween) {
           activeTween.kill()
         }
@@ -60,8 +58,8 @@ export const ServiceFeatures: React.FC<ServiceFeaturesProps> = ({
           y: posY * parallaxDepth,
           rotationY: posX * maxTilt,
           rotationX: posY * -maxTilt,
-          duration: 0.1, // Очень короткая длительность для мгновенного отклика
-          ease: ' none', // Линейная для максимальной отзывчивости
+          duration: 0.1,
+          ease: 'none',
           overwrite: 'auto'
         })
       }
@@ -69,14 +67,12 @@ export const ServiceFeatures: React.FC<ServiceFeaturesProps> = ({
       const handleMouseLeave = () => {
         isHovered = false
         
-        // Быстрый сброс
         gsap.to(element, {
           x: 0,
           y: 0,
           rotationY: 0,
           rotationX: 0,
           duration: 0.08,
-
           ease: 'none'
         })
         
@@ -94,14 +90,12 @@ export const ServiceFeatures: React.FC<ServiceFeaturesProps> = ({
       }
     }
 
-    // Инициализируем параллакс для карточек
     cardRefs.current.forEach((card, index) => {
       if (card && index !== activeFeature) {
         initializeParallax(card)
       }
     })
 
-    // Инициализируем параллакс для детального блока
     if (detailRef.current) {
       initializeParallax(detailRef.current, true)
     }
@@ -112,36 +106,39 @@ export const ServiceFeatures: React.FC<ServiceFeaturesProps> = ({
   }
 
   return (
-    <section className="service-features-section">
-      <div className="service-features-container">
-        <div className="service-features-header">
-          <h2 className="service-features-title">{title}</h2>
-          <p className="service-features-subtitle">{subtitle}</p>
+    <section className={styles.serviceFeaturesSection}>
+      <div className={styles.serviceFeaturesContainer}>
+        <div className={styles.serviceFeaturesHeader}>
+          <h2 className={styles.serviceFeaturesTitle}>{title}</h2>
+          <p className={styles.serviceFeaturesSubtitle}>{subtitle}</p>
         </div>
 
-        <div className="service-features-content">
-          <div className="service-features-grid">
+        <div className={styles.serviceFeaturesContent}>
+          <div className={styles.serviceFeaturesGrid}>
             {features.map((feature, index) => (
               <div 
                 key={index} 
                 ref={el => cardRefs.current[index] = el}
-                className={`service-feature-card ${index === activeFeature ? 'active' : ''}`}
+                className={`${styles.serviceFeatureCard} ${index === activeFeature ? styles.active : ''}`}
                 onClick={() => handleCardClick(index)}
               >
-                <h3 className="service-feature-title">{feature.title}</h3>
-                <p className="service-feature-description">{feature.description}</p>
+                <h3 className={styles.serviceFeatureTitle}>{feature.title}</h3>
+                <p className={styles.serviceFeatureDescription}>{feature.description}</p>
               </div>
             ))}
           </div>
 
           <div 
             ref={detailRef}
-            className="service-features-detail"
+            className={styles.serviceFeaturesDetail}
           >
-            <div className="feature-detail-content">
-              <h3 className="detail-title">{features[activeFeature].description}</h3>
-              <p className="detail-description">
+            <div className={styles.featureDetailContent}>
+              <h3 className={styles.detailTitle}>{features[activeFeature].title}</h3>
+              <p className={styles.detailDescription}>
                 {features[activeFeature].detailedDescription}
+              </p>
+              <p className={styles.detailExample}>
+                {features[activeFeature].exampleDescription}
               </p>
             </div>
           </div>

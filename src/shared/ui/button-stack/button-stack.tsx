@@ -84,7 +84,7 @@ const ButtonStack = React.forwardRef<HTMLDivElement, ButtonStackProps>(
         height,
         scale: 0.93,
         borderRadius: 10,
-        duration: 0.1,
+        duration: 0.2,
         ease: "power2.out",
         onComplete: () => {
           animationRef.current = gsap.to(slider, {

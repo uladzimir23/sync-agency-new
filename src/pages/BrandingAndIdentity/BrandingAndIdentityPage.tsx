@@ -5,8 +5,12 @@ import { BriefSection } from '@/shared/sections/brief-section'
 import { useTheme } from '@/shared/hooks/useTheme'
 import { featuresData } from '@/shared/lib/data/featuresData'
 import './BrandingAndIdentityPage.scss'
-
+import { CTASection } from '../../shared/sections/CTASection'
+import { FAQSection } from '../../shared/sections/FAQSection'
 import { WavyBackground } from '@/shared/ui/wavy-background'
+import { ProcessTimeline } from '../../shared/sections/ProcessTimeline'
+import { processStepsData } from '../../shared/lib/data/processStepsData'
+import { faqData } from '../../shared/lib/data/faqData'
 
 
 
@@ -26,21 +30,6 @@ export const BrandingAndIdentityPage: React.FC = () => {
 
   return (
     <div className="branding-identity-page">
-      <div className="home-page-background">
-        {/* Background content */}
-
-        <WavyBackground
-          backgroundFill={getBackgroundFill()}
-          colors={["#38bdf8", "#818cf8", "#c084fc", "#e879f9"]}
-          waveWidth={20}
-          blur={10}
-          speed="fast"
-          waveOpacity={0.5}
-          containerClassName="home-page-wavy-bg"
-        />
-
-      </div>
-
       <ProductHeroSection
         title="Branding & Identity"
         subtitle="Memorable Brand Experiences"
@@ -48,9 +37,26 @@ export const BrandingAndIdentityPage: React.FC = () => {
         ctaText="Create Your Brand"
         onCtaClick={handleCtaClick}
         backgroundType='brand'
-        
-
       />
+
+            <ServiceFeatures
+              title="Full-Stack Development Excellence"
+              subtitle="Comprehensive digital product development engineered for performance, scalability, and user satisfaction"
+              features={featuresData['branding-and-identity']}
+            />
+      
+            <FAQSection
+              title={faqData['branding-and-identity'].title}
+              items={faqData['branding-and-identity'].items}
+            />
+      
+            <ProcessTimeline
+              title="Agile Development Lifecycle"
+              subtitle="A structured, transparent approach that ensures quality, innovation, and successful product delivery"
+              steps={processStepsData['branding-and-identity']}
+            />
+      
+      
       <BriefSection />
     </div>
   )

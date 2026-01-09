@@ -1,6 +1,7 @@
 //копирование струкруты проекта 
 tree -I 'node_modules|.git|dist|build' --dirsfirst -a > structure.txt
 
+python3 folder_structure.py "src/widgets"
 
 # Удалите старые файлы
 rm -rf dist temp-deploy
