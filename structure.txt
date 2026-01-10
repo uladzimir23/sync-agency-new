@@ -29,6 +29,7 @@
 │   │   ├── App.module.scss
 │   │   ├── App.tsx
 │   │   └── main.tsx
+
 │   ├── pages
 │   │   ├── About
 │   │   │   ├── AboutPage.scss
