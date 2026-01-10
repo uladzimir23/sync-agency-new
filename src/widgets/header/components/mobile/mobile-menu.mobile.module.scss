@@ -7,6 +7,8 @@
   backdrop-filter: blur(2px);
   background-color: var(--background-primary-yellow);
   //background-color: var(--background-primary-yellow);
+  -webkit-backdrop-filter: blur(2px);
+
 
   opacity: 0;
   visibility: hidden;
@@ -58,6 +60,7 @@
   display: flex;
   flex-direction: column;
   backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   border-radius: 25px;
   margin: 5px;
   background: var(--background-primary-yellow);
@@ -119,7 +122,6 @@
 
   &:hover {
     transition: all 0.25s ease;
-
     color: var(--primary-color);
     scale: 1.01;
   }
