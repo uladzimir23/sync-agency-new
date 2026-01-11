@@ -13,7 +13,7 @@
   body {
     // Используем оба шрифта для поддержки смешанного контента
     font-family: var(--font-english), var(--font-russian), -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    background: var(--bg-primary);
+    background: var(--black-white);
     color: var(--text-primary);
     line-height: 1.5;
     transition: all 0.3s ease;
@@ -131,7 +131,7 @@ html.ru body {
   
   // CSS переменные для темной темы
   body.dark-theme {
-    --black-white: #000000;
+    --black-white: #050505;
     --bg-primary: #00000077;
     --bg-primary-100:#111119dc;
     
