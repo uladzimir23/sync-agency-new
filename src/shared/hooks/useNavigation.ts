@@ -4,13 +4,13 @@ import { ROUTES } from '@/shared/constants/routes'
 
 // Массив сервисов для меню
 export const services = [
-  { name: 'Máin', path: ROUTES.HOME },
-  { name: 'Cáses', path: ROUTES.CASES },
-  { name: 'Bránd Idéntity', path: ROUTES.BRANDING_AND_IDENTITY },
-  { name: 'Márketing Strátegy', path: ROUTES.MARKETING_STRATEGY },
-  { name: 'Próduct Devélopment', path: ROUTES.PRODUCT_DEVELOPMENT },
-  { name: 'Perfórmance Intélligence', path: ROUTES.ANALYTICS_AND_OPTIMIZATION },
-  { name: 'Ínfrastructure Automátion', path: ROUTES.AUTOMATION_AND_INFRASTRUCTURE },
+  { name: 'Main', path: ROUTES.HOME },
+  { name: 'Cases', path: ROUTES.CASES },
+  { name: 'Brand Identity', path: ROUTES.BRANDING_AND_IDENTITY },
+  { name: 'Marketing Strategy', path: ROUTES.MARKETING_STRATEGY },
+  { name: 'Product Development', path: ROUTES.PRODUCT_DEVELOPMENT },
+  { name: 'Performance Intelligence', path: ROUTES.ANALYTICS_AND_OPTIMIZATION },
+  { name: 'Infrastructure Automation', path: ROUTES.AUTOMATION_AND_INFRASTRUCTURE },
 ] as const
 
 export const useNavigation = () => {

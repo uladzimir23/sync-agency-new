@@ -10,8 +10,8 @@ interface ServicesSectionProps {
 }
 
 export const ServicesSection: React.FC<ServicesSectionProps> = ({
-  title = 'Compréhensive Sérvices',
-  subtitle = 'That eleváte yóur bránd, márketing, and próducts',
+  title = 'Comprehensive Services',
+  subtitle = 'That elevate your brand, marketing, and products',
   onServiceClick,
   className = ''
 }) => {
