@@ -1,0 +1,328 @@
+.faqSection {
+  padding: 100px 160px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  
+  @media (max-width: 1024px) {
+    padding: 3rem 1.5rem;
+  }
+  
+  @media (max-width: 768px) {
+    padding: 2rem 1rem;
+  }
+  
+  @media (max-width: 480px) {
+    padding: 1.5rem 0rem;
+  }
+}
+
+.title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 3rem;
+  color: var(--text-primary);
+  text-align: left;
+  
+  @media (max-width: 1024px) {
+    font-size: 2.8rem;
+  }
+  
+  @media (max-width: 768px) {
+    font-size: 2.2rem;
+    margin-bottom: 2rem;
+  }
+  
+  @media (max-width: 480px) {
+    font-size: 1.8rem;
+  }
+}
+
+.items {
+  display: grid;
+  align-items: center;
+  justify-content: center;
+  grid-template-columns: 1fr;
+  max-width: 880px;
+  width: 100%;
+}
+
+.faqItem {
+  border-bottom: 1px solid var(--border-color);
+  padding: 1.5rem 0;
+  overflow: hidden;
+  position: relative;
+  
+  &:first-child {
+    border-top: 1px solid var(--border-color);
+  }
+  
+  &.active {
+    .header {
+      &:hover {
+        //background: var(--bg-secondary);
+      }
+    }
+    
+    .icon {
+      background: var(--bg-secondary);
+      box-shadow: var(--box-shadow-primary);
+      border-color: var(--border-color-accent);
+      
+      &::before {
+        opacity: 1;
+        transform: scale(0.98);
+      }
+      
+      svg {
+        fill: var(--primary-color);
+        transform: rotate(90deg);
+      }
+    }
+    
+    .question {
+      color: var(--primary-color);
+    }
+  }
+  
+  // Ховер на десктопах (только если ширина больше 1024px)
+  @media (min-width: 1025px) {
+    &:hover {
+      .answerContainer {
+        max-height: 2000px;
+        opacity: 1;
+        transform: translateY(0);
+        margin-top: 1.5rem;
+        transition: all 0.4s ease;
+        
+
+      }
+      
+      .answer {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      
+      .icon {
+        background: var(--bg-secondary);
+        box-shadow: var(--box-shadow-primary);
+        border-color: var(--border-color-accent);
+        
+        &::before {
+          opacity: 1;
+          transform: scale(0.98);
+        }
+        
+        svg {
+          fill: var(--primary-color);
+          transform: rotate(90deg);
+        }
+      }
+      
+      .question {
+        color: var(--primary-color);
+      }
+    }
+  }
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 12px;
+ // transition: background-color 0.3s ease;
+  margin-right: 0.5rem;
+  
+  &:hover {
+    //background: var(--bg-secondary);
+    
+    .icon {
+      border-color: var(--primary-color);
+      
+      &::before {
+        opacity: 1;
+        transform: scale(0.98);
+      }
+      
+      svg {
+        //fill: var(--text-primary);
+      }
+    }
+  }
+  
+  @media (max-width: 768px) {
+    gap: 1rem;
+  }
+  
+  @media (max-width: 480px) {
+    gap: 0.75rem;
+    margin: 0 10px;
+  }
+}
+
+.icon {
+  width: 4rem;
+  height: 4rem;
+  border: 1px solid var(--border-color);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  position: relative;
+  background: transparent;
+  backdrop-filter: blur(20px);
+  transition: all 0.3s ease;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    border-radius: 100%;
+    padding: 1px;
+    background: linear-gradient(
+      135deg,
+      var(--primary-color) 0%,
+      var(--border-color-accent) 50%,
+      var(--text-secondary) 100%
+    );
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask-composite: exclude;
+    opacity: 0;
+    transition: all 0.3s ease;
+    border-radius: 50%;
+  }
+  
+  svg {
+    width: 1.5rem;
+    height: 1.5rem;
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    transform-origin: center;
+    fill: var(--text-secondary);
+  }
+  
+  @media (max-width: 768px) {
+    width: 3rem;
+    height: 3rem;
+    
+    svg {
+      width: 1.25rem;
+      height: 1.25rem;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    width: 2.5rem;
+    height: 2.5rem;
+    
+    svg {
+      width: 1rem;
+      height: 1rem;
+    }
+  }
+}
+
+.question {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  transition: color 0.3s ease;
+  line-height: 1.3;
+  margin: 0;
+  flex: 1;
+  
+  @media (max-width: 1024px) {
+    font-size: 1.5rem;
+  }
+  
+  @media (max-width: 768px) {
+    font-size: 1.3rem;
+  }
+  
+  @media (max-width: 480px) {
+    font-size: 1.1rem;
+  }
+}
+
+.answerContainer {
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transform: translateY(-10px);
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+ // transition: all 0.3s ease;
+
+
+  will-change: max-height, opacity, transform;
+  
+  &.expanded {
+
+    max-height: 2000px;
+    opacity: 1;
+    transform: translateY(0);
+    margin-top: 1.5rem;
+  }
+}
+
+.answer {
+  padding-left: 5.5rem;
+  padding-right: 2rem;
+  padding-bottom: 0.5rem;
+  font-size: 1.2rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: all 0.3s ease;
+  
+  p {
+    margin: 0;
+  }
+  
+  &.expanded {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+  @media (max-width: 1024px) {
+    padding-left: 4rem;
+    font-size: 1.1rem;
+  }
+  
+  @media (max-width: 768px) {
+    padding-left: 3rem;
+    font-size: 1rem;
+  }
+  
+  @media (max-width: 480px) {
+    padding-left: 3.5rem;
+    padding-right: 3.5rem;
+    
+    p {
+      font-size: 0.9rem;
+    }
+  }
+}
+
+// Стили для активного состояния (клик на мобильных и планшетах)
+@media (max-width: 1024px) {
+  .faqItem.active {
+    max-height: 2000px;
+
+    .answerContainer {
+      max-height: 2000px;
+      opacity: 1;
+      transform: translateY(0);
+      margin-top: 1.5rem;
+    }
+    
+    .answer {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}

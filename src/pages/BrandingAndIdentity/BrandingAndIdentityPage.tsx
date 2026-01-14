@@ -12,9 +12,6 @@ import { ProcessTimeline } from '../../shared/sections/ProcessTimeline'
 import { processStepsData } from '../../shared/lib/data/processStepsData'
 import { faqData } from '../../shared/lib/data/faqData'
 
-
-
-
 export const BrandingAndIdentityPage: React.FC = () => {
   const handleCtaClick = () => {
     console.log('CTA clicked - start branding project')
@@ -22,41 +19,32 @@ export const BrandingAndIdentityPage: React.FC = () => {
 
   const { theme } = useTheme()
   
-    // Определяем цвета фона в зависимости от темы
   const getBackgroundFill = () => {
     return theme === 'dark' ? '#020212' : '#f2f2ff'
   }
 
-
   return (
     <div className="branding-identity-page">
-      <ProductHeroSection
-        title="Branding & Identity"
-        subtitle="Memorable Brand Experiences"
-        description="Craft distinctive brand identities that tell compelling stories and build lasting connections with your audience. Your brand is more than a logo—it's the soul of your business."
-        ctaText="Create Your Brand"
-        onCtaClick={handleCtaClick}
-        backgroundType='brand'
+
+      <ServiceFeatures
+        title="Full-Stack Development Excellence"
+        subtitle="Comprehensive digital product development engineered for performance, scalability, and user satisfaction"
+        features={featuresData['branding-and-identity']}
+      />
+      
+      {/* Обновленная ProcessTimeline с дизайном в стиле Apple */}
+      <ProcessTimeline
+        title="Agile Development Lifecycle"
+        subtitle="A structured, transparent approach that ensures quality, innovation, and successful product delivery"
+        steps={processStepsData['branding-and-identity']}
       />
 
-            <ServiceFeatures
-              title="Full-Stack Development Excellence"
-              subtitle="Comprehensive digital product development engineered for performance, scalability, and user satisfaction"
-              features={featuresData['branding-and-identity']}
-            />
-      
-            <FAQSection
-              title={faqData['branding-and-identity'].title}
-              items={faqData['branding-and-identity'].items}
-            />
-      
-            <ProcessTimeline
-              title="Agile Development Lifecycle"
-              subtitle="A structured, transparent approach that ensures quality, innovation, and successful product delivery"
-              steps={processStepsData['branding-and-identity']}
-            />
-      
-      
+      <FAQSection
+        title={faqData['branding-and-identity'].title}
+        items={faqData['branding-and-identity'].items}
+      />
+
+
       <BriefSection />
     </div>
   )

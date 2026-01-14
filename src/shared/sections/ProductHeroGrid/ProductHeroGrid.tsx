@@ -58,15 +58,15 @@ const DEFAULT_ITEMS: ProductHeroItem[] = [
     description: 'We Automate operations, connect internal and external systems, and streamline processes through custom logic, APIs, and scenario-based automation layers.',
     ctaText: 'Optimize Your Infrastructure',
     backgroundType: 'automation'
-  },
-  {
-    id: 'digital-creativity',
-    title: 'Dígital Creatívity',
-    subtitle: '·Innovative Digital Solutions·',
-    description: 'We Craft unique digital experiences with creative coding, interactive visuals, and cutting-edge technology to bring your most innovative ideas to life.',
-    ctaText: 'Unleash Creativity',
-    backgroundType: 'pixel' // Используем новый пиксельный фон
   }
+  // {
+  //   id: 'digital-creativity',
+  //   title: 'Dígital Creatívity',
+  //   subtitle: '·Innovative Digital Solutions·',
+  //   description: 'We Craft unique digital experiences with creative coding, interactive visuals, and cutting-edge technology to bring your most innovative ideas to life.',
+  //   ctaText: 'Unleash Creativity',
+  //   backgroundType: 'pixel' // Используем новый пиксельный фон
+  // }
 ];
 
 export const ProductHeroGrid: React.FC<ProductHeroGridProps> = ({

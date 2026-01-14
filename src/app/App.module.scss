@@ -37,27 +37,6 @@ html, body, main {
 
 }
 
-/* Задаем ширину вертикального скроллбара */
-::-webkit-scrollbar {
-  width: 3px;
-  height: 10px; /* Или другую желаемую высоту */
-}
-
-/* Стилизуем дорожку */
-::-webkit-scrollbar-track {
-  background: #f1f1f1;
-}
-
-/* Стилизуем сам ползунок */
-::-webkit-scrollbar-thumb {
-  background: #888;
-  border-radius: 5px; /* Скругление углов */
-}
-
-/* Стилизуем ползунок при наведении */
-::-webkit-scrollbar-thumb:hover {
-  background: #555;
-}
 
 // src/App.scss (добавьте эти стили)
 button, a, .clickable, .colabsys-btn-stack-item, .calendar-day {

@@ -22,7 +22,7 @@ export const HeaderMobile: React.FC<HeaderDeviceProps> = ({
     <header className={cn(
       styles.header, 
       className, 
-      'uc-global-container',
+      
       { 
         [styles.headerExpanded]: isMobileMenuOpen
       }

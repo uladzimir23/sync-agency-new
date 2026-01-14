@@ -48,7 +48,7 @@ export const HeaderDesktop: React.FC<HeaderDeviceProps> = ({
         <div className={styles.actions}>
           <div className={styles.actionItems}>
             <Button variant="outline">Discuss</Button>
-            <LanguageSwitcher />
+            {/* <LanguageSwitcher /> */}
             <ThemeToggle />
           </div>
         </div>

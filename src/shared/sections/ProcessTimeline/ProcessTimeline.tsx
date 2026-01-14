@@ -1,5 +1,5 @@
 import React from 'react'
-import './ProcessTimeline.scss'
+import styles from './ProcessTimeline.module.scss'
 
 interface ProcessStep {
   step: number
@@ -12,41 +12,33 @@ interface ProcessTimelineProps {
   title: string
   subtitle: string
   steps: ProcessStep[]
+  className?: string
 }
 
 export const ProcessTimeline: React.FC<ProcessTimelineProps> = ({
   title,
   subtitle,
-  steps
+  steps,
+  className = ''
 }) => {
   return (
-    <section className="process-timeline-section">
-      <div className="process-timeline-container">
-        <div className="process-timeline-header">
-          <h2 className="process-timeline-title">{title}</h2>
-          <p className="process-timeline-subtitle">{subtitle}</p>
+    <section className={`${styles.processTimelineSection} ${className}`}>
+      <div className={styles.container}>
+        <div className={styles.header}>
+          <h2 className={styles.title}>{title}</h2>
+          <p className={styles.subtitle}>{subtitle}</p>
         </div>
 
-        <div className="process-timeline">
-          {steps.map((step, index) => (
-            <div key={step.step} className="process-step">
-              <div className="process-step-marker">
-                <div className="process-step-number">{step.step}</div>
-                {index < steps.length - 1 && (
-                  <div className="process-step-connector"></div>
-                )}
-              </div>
-              
-              <div className="process-step-content">
-                <h3 className="process-step-title">{step.title}</h3>
-                <p className="process-step-description">{step.description}</p>
-                {step.duration && (
-                  <span className="process-step-duration">{step.duration}</span>
-                )}
-              </div>
-            </div>
-          ))}
-        </div>
+        {steps.map((step) => (
+          <div key={step.step} className={styles.stepCard}>
+            <div className={styles.stepNumber}>{step.step}</div>
+            <h3 className={styles.stepTitle}>{step.title}</h3>
+            <p className={styles.stepDescription}>{step.description}</p>
+            {step.duration && (
+              <span className={styles.stepDuration}>{step.duration}</span>
+            )}
+          </div>
+        ))}
       </div>
     </section>
   )

@@ -1,10 +1,12 @@
 @use '@app/styles/abstracts' as vars;
 
 .header {
-  position: sticky;
-  top: 0;
+  //position: sticky;
+  //top: 0;
   z-index: 50;
-  background: transparent;
+  //background: transparent;
+  background: var(--background-primary-yellow);
+
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -199,6 +201,7 @@
   width: 2rem;
   height: 2rem;
   -webkit-tap-highlight-color: transparent;
+  color: #4BC0C8;
 
   &:hover {
     transition: all 0.3s ease;
@@ -216,6 +219,7 @@
 }
 
 .menuIcon {
+  //background: var(--bg-primary-opacity);  
   transition: all 0.3s ease;
   opacity: 1;
   transform: rotate(90deg); // Поворачиваем на 90 градусов

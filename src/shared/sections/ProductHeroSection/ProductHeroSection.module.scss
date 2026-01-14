@@ -383,10 +383,12 @@
   .container {
     padding: 2rem;
     min-height: 220px;
-    border-radius: 25px;
+    border-radius: 45px;
     
     &:hover {
       transform: translateY(0px) scale(1);
+      border-radius: 40px;
+
     }
   }
   

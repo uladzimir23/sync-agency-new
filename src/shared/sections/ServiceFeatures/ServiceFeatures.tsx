@@ -123,7 +123,9 @@ export const ServiceFeatures: React.FC<ServiceFeaturesProps> = ({
                 onClick={() => handleCardClick(index)}
               >
                 <h3 className={styles.serviceFeatureTitle}>{feature.title}</h3>
-                <p className={styles.serviceFeatureDescription}>{feature.description}</p>
+                
+                <p className={styles.serviceFeatureDescription}>{feature.description}</p> 
+                
               </div>
             ))}
           </div>
