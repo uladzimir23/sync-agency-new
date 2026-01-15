@@ -70,6 +70,9 @@
       background: var(--bg-secondary);
       box-shadow: var(--box-shadow-primary);
       border-color: var(--border-color-accent);
+      box-shadow: 0px 0px 5px var(--border-color-accent);
+
+
       
       &::before {
         opacity: 1;
@@ -109,6 +112,8 @@
         background: var(--bg-secondary);
         box-shadow: var(--box-shadow-primary);
         border-color: var(--border-color-accent);
+        box-shadow: 0px 0px 5px var(--border-color-accent);
+
         
         &::before {
           opacity: 1;
@@ -178,25 +183,38 @@
   background: transparent;
   backdrop-filter: blur(20px);
   transition: all 0.3s ease;
-  
+
   &::before {
-    content: '';
+    content: "";
     position: absolute;
     inset: -1px;
-    border-radius: 100%;
+    border-radius: 50%;
     padding: 1px;
-    background: linear-gradient(
-      135deg,
-      var(--primary-color) 0%,
-      var(--border-color-accent) 50%,
-      var(--text-secondary) 100%
-    );
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--border-color-accent) 50%, var(--text-secondary) 100%);
     mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
     mask-composite: exclude;
-    opacity: 0;
+    opacity: 0.3;
     transition: all 0.3s ease;
-    border-radius: 50%;
   }
+  
+  // &::before {
+  //   content: '';
+  //   position: absolute;
+  //   inset: -1px;
+  //   border-radius: 100%;
+  //   padding: 1px;
+  //   background: linear-gradient(
+  //     135deg,
+  //     var(--primary-color) 0%,
+  //     var(--border-color-accent) 50%,
+  //     var(--text-secondary) 100%
+  //   );
+  //   mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  //   mask-composite: exclude;
+  //   opacity: 0;
+  //   transition: all 0.3s ease;
+  //   border-radius: 50%;
+  // }
   
   svg {
     width: 1.5rem;
@@ -250,22 +268,22 @@
 }
 
 .answerContainer {
-  max-height: 0;
+  height: 0;
   opacity: 0;
   overflow: hidden;
-  transform: translateY(-10px);
+  transform: translateY(20px);
   transition: all 0.4s ease;
   // transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 
  // transition: all 0.3s ease;
 
 
-  will-change: max-height, opacity, transform;
+  will-change: height, opacity, transform;
   
   &.expanded {
     transition: all 0.4s ease;
 
-    max-height: 2000px;
+    height: 130px;
     opacity: 1;
     transform: translateY(0);
     margin-top: 1.5rem;
@@ -273,7 +291,7 @@
 }
 
 .answer {
-  padding-left: 5.5rem;
+  padding-left: 6rem;
   padding-right: 2rem;
   padding-bottom: 0.5rem;
   font-size: 1.2rem;
@@ -304,7 +322,7 @@
   }
   
   @media (max-width: 480px) {
-    padding-left: 3.5rem;
+    padding-left: 4.4rem;
     padding-right: 3.5rem;
     
     p {
