@@ -1,0 +1,73 @@
+.videoContainer {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    // border-radius: 12px;
+    //background: var(--black-white);
+    padding: 0 2rem;
+  }
+  
+  .heroVideo {
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+    border-radius: 35px;
+
+    
+    &.loaded {
+      opacity: 1;
+    }
+  }
+  
+  .videoLoader {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    //background: rgba(0, 0, 0, 0.1);
+    z-index: 1;
+  }
+  
+  .loaderSpinner {
+    width: 40px;
+    height: 40px;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    border-top-color: #fff;
+    animation: spin 1s ease-in-out infinite;
+  }
+  
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  
+  .videoOverlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    pointer-events: none;
+  }
+  
+  // Адаптивные стили
+  @media (max-width: 768px) {
+    .videoContainer {
+      padding: 0;
+
+    }
+
+    .heroVideo {
+        border-radius: 15px;
+    }
+}

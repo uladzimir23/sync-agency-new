@@ -5,6 +5,10 @@
 │       └── package.json
 ├── .vscode
 │   └── settings.json
+├── FolderStructure
+│   ├── FolderStructure-booking-section.txt
+│   ├── FolderStructure-brief-section.txt
+│   └── FolderStructure-src.txt
 ├── public
 │   ├── favicon.ico
 │   ├── index.html
@@ -29,7 +33,6 @@
 │   │   ├── App.module.scss
 │   │   ├── App.tsx
 │   │   └── main.tsx
-
 │   ├── pages
 │   │   ├── About
 │   │   │   ├── AboutPage.scss
@@ -110,6 +113,8 @@
 │   │   │   │   ├── featuresData.ts
 │   │   │   │   ├── index.ts
 │   │   │   │   └── processStepsData.ts
+│   │   │   ├── types
+│   │   │   │   └── features.ts
 │   │   │   └── FolderStructure.txt
 │   │   ├── localization
 │   │   │   ├── components
@@ -151,14 +156,18 @@
 │   │   │   │   ├── DashboardHeader.tsx
 │   │   │   │   └── index.ts
 │   │   │   ├── FAQSection
-│   │   │   │   ├── FAQSection.scss
+│   │   │   │   ├── FAQSection.module.scss
 │   │   │   │   ├── FAQSection.tsx
 │   │   │   │   └── index.ts
 │   │   │   ├── FeaturesSection
 │   │   │   │   ├── FeaturesSection.scss
 │   │   │   │   └── FeaturesSection.tsx
+│   │   │   ├── PageHeader
+│   │   │   │   ├── PageHeader.module.scss
+│   │   │   │   ├── PageHeader.tsx
+│   │   │   │   └── index.ts
 │   │   │   ├── ProcessTimeline
-│   │   │   │   ├── ProcessTimeline.scss
+│   │   │   │   ├── ProcessTimeline.module.scss
 │   │   │   │   ├── ProcessTimeline.tsx
 │   │   │   │   └── index.ts
 │   │   │   ├── ProductHeroGrid
@@ -170,7 +179,7 @@
 │   │   │   │   ├── ProductHeroSection.tsx
 │   │   │   │   └── index.ts
 │   │   │   ├── ServiceFeatures
-│   │   │   │   ├── ServiceFeatures.scss
+│   │   │   │   ├── ServiceFeatures.module.scss
 │   │   │   │   ├── ServiceFeatures.tsx
 │   │   │   │   └── index.ts
 │   │   │   ├── ServicesSection
@@ -186,9 +195,6 @@
 │   │   │   │   │   │   ├── booking-form
 │   │   │   │   │   │   │   ├── booking-form.module.scss
 │   │   │   │   │   │   │   └── booking-form.tsx
-│   │   │   │   │   │   ├── collapsed-selection
-│   │   │   │   │   │   │   ├── collapsed-selection.module.scss
-│   │   │   │   │   │   │   └── collapsed-selection.tsx
 │   │   │   │   │   │   ├── date-picker
 │   │   │   │   │   │   │   ├── date-picker.module.scss
 │   │   │   │   │   │   │   └── date-picker.tsx
@@ -310,6 +316,10 @@
 │   │   │   │   ├── CasesGrid.tsx
 │   │   │   │   ├── cases-grid.module.scss
 │   │   │   │   └── index.ts
+│   │   │   ├── collapsed-selection
+│   │   │   │   ├── collapsed-selection.module.scss
+│   │   │   │   ├── collapsed-selection.tsx
+│   │   │   │   └── index.ts
 │   │   │   ├── cursor-follower
 │   │   │   │   ├── cursor-follower.scss
 │   │   │   │   ├── cursor-follower.tsx
@@ -336,6 +346,9 @@
 │   │   │   │   │   ├── MarketingBackground
 │   │   │   │   │   │   ├── MarketingBackground.module.scss
 │   │   │   │   │   │   └── MarketingBackground.tsx
+│   │   │   │   │   ├── PixelBackground
+│   │   │   │   │   │   ├── PixelBackground.module.scss
+│   │   │   │   │   │   └── PixelBackground.tsx
 │   │   │   │   │   ├── ProductBackground
 │   │   │   │   │   │   ├── ProductBackground.module.scss
 │   │   │   │   │   │   └── ProductBackground.tsx
@@ -386,9 +399,8 @@
 │   │   │   │   ├── brief.ts
 │   │   │   │   └── forms.ts
 │   │   │   └── index.ts
-│   │   ├── utils
-│   │   │   └── utils.ts
-│   │   └── .DS_Store
+│   │   └── utils
+│   │       └── utils.ts
 │   ├── widgets
 │   │   └── header
 │   │       ├── components
@@ -400,11 +412,9 @@
 │   │       │   │   ├── MobileMenu.tsx
 │   │       │   │   ├── MobileMenuContent.tsx
 │   │       │   │   ├── header-mobile.module.scss
-│   │       │   │   ├── mobile-menu-content.tsx
 │   │       │   │   ├── mobile-menu-item.tsx
 │   │       │   │   └── mobile-menu.mobile.module.scss
 │   │       │   └── tablet
-│   │       │       ├── HeaderTablet copy.tsx
 │   │       │       ├── HeaderTablet.tsx
 │   │       │       ├── header-tablet.module.scss
 │   │       │       └── mobile-menu.tablet.module.scss
@@ -412,7 +422,6 @@
 │   │       ├── header.tsx
 │   │       ├── header.types.ts
 │   │       └── index.ts
-│   ├── .DS_Store
 │   ├── App.test.tsx
 │   ├── index.css
 │   ├── index.tsx
@@ -438,7 +447,6 @@
 │   └── robots.txt
 ├── workflows
 │   └── deploy.yml
-├── .DS_Store
 ├── .env
 ├── .gitignore
 ├── FolderStructure.txt
@@ -455,4 +463,4 @@
 ├── tsconfig.node.json
 └── vite.config.ts
 
-131 directories, 324 files
+135 directories, 329 files

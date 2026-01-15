@@ -4,11 +4,9 @@ import { BookingSection } from '@shared/sections/booking-section';
 import { ServicesSection } from '@shared/sections/ServicesSection';
 import { CurvedLoop } from '@/shared/ui/curved-loop';
 import { FloatingContactButton } from '@/shared/ui/floating-contact-button';
+import { HeroVideo } from '@/shared/ui/hero-video'; // Импортируем новый компонент
 import { useTheme } from '@/shared/hooks/useTheme';
 import styles from './HomePage.module.scss';
-
-import {WavyBackground} from '@shared/ui/wavy-background';
-
 
 export const HomePage: React.FC = () => {
   const [activeTab, setActiveTab] = useState(0);
@@ -41,25 +39,27 @@ export const HomePage: React.FC = () => {
     }
   };
 
-  const getBackgroundFill = () => {
-    return theme === 'dark' ? '#020212' : '#f2f2ff';
-  };
-
   return (
     <div className={styles.homePage}>
-
       <div className={styles.homePageContent}>
         <div className={styles.dashboardSection}>
-          <DashboardHeader 
-            title={
-              <>
-                Unified system where <br />
-                brand, strategy, technology and data <br />
-                work together in sync
-              </>
-            }
-            subtitle="Creating premium digital experiences with integrated solutions"
-          />
+          {/* Добавляем HeroVideo под заголовком */}
+          <div className={styles.heroVideoSection}>
+            <DashboardHeader 
+              title={
+                <>
+                  Unified system where <br />
+                  brand, strategy, technology and data <br />
+                  work together in sync
+                </>
+              }
+              subtitle="Creating premium digital experiences with integrated solutions"
+            />
+            
+            <div className={styles.videoWrapper}>
+              <HeroVideo className={styles.heroVideoElement} />
+            </div>
+          </div>
 
           <ServicesSection onServiceClick={handleServiceClick} />
 
