@@ -1,11 +1,13 @@
 import React, { useState } from 'react'
-import { CollapsedSelection } from '../../../booking-section/components/common'
+// import { CollapsedSelection } from '../../../booking-section/components/common'
 import { FeaturesGrid } from '../common/features-grid/features-grid'
 import { FileUpload } from '../common/file-upload/file-upload'
 import { BudgetTimelineSelection } from '../common/budget-timeline-selection/budget-timeline-selection'
 import { ProjectDescription } from '../common/project-description/project-description'
 import { BriefTabletProps } from '../../types'
 import styles from './brief-tablet.module.scss'
+import { CollapsedSelection } from '@shared/ui/collapsed-selection/collapsed-selection'
+
 
 export const BriefTablet: React.FC<BriefTabletProps> = ({
   briefState,

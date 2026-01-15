@@ -1,9 +1,7 @@
 @use '@app/styles/abstracts' as vars;
 
 .header {
-  position: sticky;
-  top: 0;
-  z-index: 50;
+  //z-index: 50;
   //background: var(--background-primary-yellow-test);
   //background: #e12525;
   display: flex;
@@ -18,7 +16,7 @@
   left: 0.5rem;
   right: 0.5rem;
   z-index: 1000;
-  overflow: hidden;
+  overflow: hidden !important;
   min-height: 60px;
   //background: transparent;
 
@@ -34,22 +32,18 @@
     //background: var(--background-primary-yellow-test);
     //background: #e12525;
     //background: transparent;
-
-  
-
     //background: transparent;
 
     border-radius: 30px;
 
-    
     .blur {
       //background: transparent;
       background: var(--background-primary-yellow);
       //background: var(--background-primary-yellow);
 
-      //backdrop-filter: blur(10px);
+      backdrop-filter: blur(10px);
       border-radius: 30px;
-      //-webkit-backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
 
 
     }
@@ -59,8 +53,10 @@
     content: '';
     position: absolute;
     left: -100%;
-    width: 100%;
+    width: calc(100% - 1rem);
     height: 100%;
+
+
     background: linear-gradient(
       90deg,
       transparent,
@@ -91,7 +87,7 @@
   //background: transparent;
   top: 0;
   z-index: -1;
-  border-radius: 24px;
+  border-radius: 25px;
   transition: backdrop-filter 0.3s ease;
   //box-shadow: var(--box-shadow-primary), inset 0px 0px 1px var(--border-color-accent);
 
@@ -99,7 +95,7 @@
 
 
   .header:hover & {
-    box-shadow: var(--box-shadow-primary);
+    //box-shadow: var(--box-shadow-primary);
     transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   }
 }
@@ -112,7 +108,9 @@
   padding: vars.spacing(4) vars.spacing(4);
   transition: padding 0.3s ease;
   min-height: 60px;
-  background: transparent;
+  //background: var(--background-primary-yellow);
+  border-radius: 25px;
+
 
 }
 

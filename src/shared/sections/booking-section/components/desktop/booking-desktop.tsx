@@ -1,7 +1,9 @@
 import React from 'react'
-import { MonthSelector, DatePicker, TimeSlots, BookingForm, AppointmentDetails, CollapsedSelection } from '../common'
+import { MonthSelector, DatePicker, TimeSlots, BookingForm, AppointmentDetails} from '../common'
 import { BookingState, BookingDate } from '../../types'
 import styles from './booking-desktop.module.scss'
+ 
+import { CollapsedSelection } from '@shared/ui/collapsed-selection/collapsed-selection'
 
 interface BookingDesktopProps {
   bookingState: BookingState

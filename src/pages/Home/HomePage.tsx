@@ -47,10 +47,6 @@ export const HomePage: React.FC = () => {
 
   return (
     <div className={styles.homePage}>
-      <div className="home-page-background">
-
-
-      </div>
 
       <div className={styles.homePageContent}>
         <div className={styles.dashboardSection}>

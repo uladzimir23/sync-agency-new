@@ -57,20 +57,6 @@ export const BudgetTimelineSelection: React.FC<BudgetTimelineSelectionProps> = (
         </div>
       </div>
 
-      <div className={styles.section}>
-        <h4 className={styles.sectionTitle}>Budget of your project:</h4>
-        <div className={styles.optionsGrid}>
-          {budgetOptions.map(option => (
-            <div
-              key={option.id}
-              className={`${styles.option} ${selectedBudget === option.value ? styles.selected : ''}`}
-              onClick={() => onBudgetSelect(option.value)}
-            >
-              <span className={styles.optionLabel}>{option.label}</span>
-            </div>
-          ))}
-        </div>
-      </div>
 
     </div>
   )

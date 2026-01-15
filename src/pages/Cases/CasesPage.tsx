@@ -5,6 +5,8 @@ import { ProductHeroSection } from '../../shared/sections/ProductHeroSection'
 import { CasesSection } from '../../shared/sections/CasesSection'
 import { WavyBackground } from '@/shared/ui/wavy-background'
 import { useTheme } from '@/shared/hooks/useTheme'
+import { PageHeader } from '@/shared/sections/PageHeader'
+
 
 
 
@@ -23,14 +25,14 @@ export const CasesPage: React.FC = () => {
       
       
       <div className="page-container">
-      <ProductHeroSection
-        title="Case Studies"
-        subtitle="Focused on Results & Impact"
-        description="Dive into the challenges we've tackled and the solutions we've built. Each case is a story of collaboration, innovation, and the tangible business value we create alongside our partners."
-        ctaText="Discover the Proof"
-        onCtaClick={handleCtaClick}
-      />
-        
+<PageHeader
+  pageTitle="Cases"
+  title={<>From idea to launch —<br />we turn concepts into working products.</>}
+  subtitle="We design and build digital products — from landing pages and apps to complex platforms. At every stage, from UX research to development, we focus on user value and solving business problems."
+  onBookCall={() => console.log('Book call for Product Development')}
+  onMakeBrief={() => console.log('Make brief for Product Development')}
+/>
+
       <CasesSection />
 
       </div>

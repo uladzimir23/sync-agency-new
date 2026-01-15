@@ -1,0 +1,1 @@
+export { CollapsedSelection } from './collapsed-selection'

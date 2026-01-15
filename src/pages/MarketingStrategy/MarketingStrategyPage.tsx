@@ -9,6 +9,8 @@ import { processStepsData } from '../../shared/lib/data/processStepsData'
 import { faqData } from '../../shared/lib/data/faqData'
 import './MarketingStrategyPage.scss'
 import { BriefSection } from '@/shared/sections/brief-section'
+import { PageHeader } from '@/shared/sections/PageHeader'
+
 
 
 import { UnifiedBookingSection } from '@/shared/unified'
@@ -25,6 +27,15 @@ export const MarketingStrategyPage: React.FC = () => {
 
   return (
     <div className="marketing-strategy-page">
+
+<PageHeader
+  pageTitle="Marketing Strategy"
+  title={<>Launch with clarity.<br />Grow with data.</>}
+
+  subtitle="We create marketing strategies built on analytics and insights. We define the right channels, audiences, and messaging, build funnels and content plans. For new launches and scaling existing products."
+  onBookCall={() => console.log('Book call for Marketing Strategy')}
+  onMakeBrief={() => console.log('Make brief for Marketing Strategy')}
+/>
 
       <ServiceFeatures
         title="Strategic Marketing Framework"
@@ -43,7 +54,7 @@ export const MarketingStrategyPage: React.FC = () => {
         items={faqData['marketing-strategy'].items}
       />
 
-      <BriefSection />
+      <BriefSection page="marketing" />
 
     </div>
   )

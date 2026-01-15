@@ -59,6 +59,7 @@
   }
   
   &.active {
+
     .header {
       &:hover {
         //background: var(--bg-secondary);
@@ -253,13 +254,16 @@
   opacity: 0;
   overflow: hidden;
   transform: translateY(-10px);
-  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transition: all 0.4s ease;
+  // transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+
  // transition: all 0.3s ease;
 
 
   will-change: max-height, opacity, transform;
   
   &.expanded {
+    transition: all 0.4s ease;
 
     max-height: 2000px;
     opacity: 1;
@@ -277,8 +281,9 @@
   line-height: 1.6;
   opacity: 0;
   transform: translateY(-10px);
-  transition: all 0.3s ease;
-  
+  // transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transition: all 0.4s ease;
+
   p {
     margin: 0;
   }

@@ -1,12 +1,16 @@
+// src/shared/sections/brief-section/brief-section.tsx
 import React from 'react'
 import { useDeviceType } from '@/shared/hooks/useDeviceType'
 import { useBrief } from './components/hooks/use-brief'
 import { BriefDesktop } from './components/desktop/brief-desktop'
 import { BriefTablet } from './components/tablet/brief-tablet'
 import { BriefMobile } from './components/mobile/brief-mobile'
+import { BriefSectionProps } from './types'
 import styles from './brief-section.module.scss'
 
-export const BriefSection: React.FC = () => {
+export const BriefSection: React.FC<BriefSectionProps> = ({
+  page = 'branding'
+}) => {
   const deviceType = useDeviceType()
   const {
     briefState,
@@ -20,10 +24,11 @@ export const BriefSection: React.FC = () => {
     handleFilesUpload,
     handleBriefSubmit,
     isFormValid
-  } = useBrief()
+  } = useBrief({ page })
 
   const commonProps = {
     briefState,
+    page,
     projectFeatures,
     budgetOptions,
     timelineOptions,

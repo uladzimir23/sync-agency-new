@@ -1,8 +1,10 @@
 #!/usr/bin/env python3
 import os
 import sys
+import shutil
+from datetime import datetime
 
-def get_tree_structure(start_path, prefix="", is_last=True, exclude_file=None, base_path=None):
+def get_tree_structure(start_path, prefix="", is_last=True, exclude_dirs=None, base_path=None):
     """
     Рекурсивно генерирует древовидную структуру папок и файлов
     с полными путями
@@ -13,6 +15,9 @@ def get_tree_structure(start_path, prefix="", is_last=True, exclude_file=None, b
     if base_path is None:
         base_path = start_path
     
+    if exclude_dirs is None:
+        exclude_dirs = []
+    
     # Получаем относительный путь от базовой директории
     rel_path = os.path.relpath(start_path, base_path)
     if rel_path == ".":
@@ -20,8 +25,8 @@ def get_tree_structure(start_path, prefix="", is_last=True, exclude_file=None, b
     else:
         name = rel_path.replace(os.sep, '/')  # Используем / для консистентности
     
-    # Пропускаем файл вывода
-    if os.path.basename(start_path) == exclude_file:
+    # Пропускаем папку FolderStructure и другие исключенные папки
+    if os.path.basename(start_path) in exclude_dirs:
         return ""
     
     result = ""
@@ -37,7 +42,7 @@ def get_tree_structure(start_path, prefix="", is_last=True, exclude_file=None, b
         items = []
         for item in os.listdir(start_path):
             item_path = os.path.join(start_path, item)
-            if item != exclude_file:  # Пропускаем файл вывода
+            if item not in exclude_dirs:  # Пропускаем исключенные папки
                 items.append((item, item_path))
         
         # Сортируем: сначала папки, потом файлы
@@ -50,19 +55,22 @@ def get_tree_structure(start_path, prefix="", is_last=True, exclude_file=None, b
                 item_path, 
                 prefix + extension, 
                 is_last_item,
-                exclude_file,
+                exclude_dirs,
                 base_path
             )
     
     return result
 
-def get_file_contents(start_path, extensions=None, exclude_file=None, base_path=None):
+def get_file_contents(start_path, extensions=None, exclude_dirs=None, base_path=None):
     """
     Собирает содержимое всех файлов с указанными расширениями
     с полными путями
     """
     if base_path is None:
         base_path = start_path
+    
+    if exclude_dirs is None:
+        exclude_dirs = []
     
     if extensions is None:
         extensions = ['.ts', '.tsx', '.js', '.jsx', '.json', 
@@ -76,18 +84,14 @@ def get_file_contents(start_path, extensions=None, exclude_file=None, base_path=
     results = []
     
     for root, dirs, files in os.walk(start_path):
-        # Пропускаем скрытые папки (начинающиеся с .)
-        dirs[:] = [d for d in dirs if not d.startswith('.')]
+        # Пропускаем скрытые папки (начинающиеся с .) и исключенные папки
+        dirs[:] = [d for d in dirs if not d.startswith('.') and d not in exclude_dirs]
         
         # Сортируем для консистентного вывода
         files.sort(key=lambda x: x.lower())
         
         for file in files:
             file_path = os.path.join(root, file)
-            
-            # Пропускаем файл вывода
-            if file == exclude_file:
-                continue
             
             # Проверяем расширение
             if any(file.endswith(ext) for ext in extensions):
@@ -136,25 +140,40 @@ def main():
         print(f"Ошибка: Папка '{target_folder}' не найдена!")
         return
     
-    output_file = "FolderStructure.txt"
-    output_path = os.path.join(os.path.dirname(target_folder), output_file)
+    # Создаем папку FolderStructure, если её нет
+    folder_structure_dir = "FolderStructure"
+    if not os.path.exists(folder_structure_dir):
+        os.makedirs(folder_structure_dir)
+        print(f"Создана папка: {folder_structure_dir}")
+    
+    # Получаем имя целевой папки для названия файла
+    folder_name = os.path.basename(target_folder)
+    if not folder_name:  # Если корневой диск или пустое имя
+        folder_name = "root"
+    
+    # Формируем имя выходного файла
+    output_filename = f"FolderStructure-{folder_name}.txt"
+    output_path = os.path.join(folder_structure_dir, output_filename)
     
     print(f"Сканируем папку: {target_folder}")
     print(f"Результат будет сохранен в: {output_path}")
     
+    # Исключаем папку FolderStructure из сканирования
+    exclude_dirs = ['FolderStructure']
+    
     # Получаем структуру папок с полными путями
     print("Генерируем древовидную структуру...")
-    tree_structure = get_tree_structure(target_folder, exclude_file=output_file, base_path=target_folder)
+    tree_structure = get_tree_structure(target_folder, exclude_dirs=exclude_dirs, base_path=target_folder)
     
     # Получаем содержимое файлов с полными путями
     print("Читаем содержимое файлов...")
-    file_contents = get_file_contents(target_folder, exclude_file=output_file, base_path=target_folder)
+    file_contents = get_file_contents(target_folder, exclude_dirs=exclude_dirs, base_path=target_folder)
     
     # Записываем всё в файл
     with open(output_path, 'w', encoding='utf-8') as f:
         # Записываем заголовок с информацией о папке
         f.write(f"АНАЛИЗ ПАПКИ: {target_folder}\n")
-        f.write(f"Дата создания отчета: {sys.version_info[0]}.{sys.version_info[1]}.{sys.version_info[2]}\n")
+        f.write(f"Python версия: {sys.version_info[0]}.{sys.version_info[1]}.{sys.version_info[2]}\n")
         f.write("=" * 80 + "\n\n")
         
         # Записываем структуру
@@ -165,7 +184,7 @@ def main():
         # Записываем содержимое файлов
         if file_contents:
             f.write("\n\n" + "=" * 80 + "\n")
-            f.write("СОДЕРЖАНИЕ ФАЙЛОВ:\n")
+            f.write("СОДЕРЖИМОЕ ФАЙЛОВ:\n")
             f.write("=" * 80 + "\n\n")
             
             for i, item in enumerate(file_contents):
@@ -190,6 +209,18 @@ def main():
         f.write(f"Обработано файлов: {len(file_contents)}\n")
         f.write(f"Общий размер папки: {get_folder_size(target_folder):,.0f} байт\n")
         f.write(f"Дата создания отчета: {get_current_time()}\n")
+    
+    print(f"\nОтчет успешно сохранен в файл: {output_path}")
+    
+    # Показываем список всех файлов в папке FolderStructure
+    if os.path.exists(folder_structure_dir):
+        folder_structure_files = [f for f in os.listdir(folder_structure_dir) if f.endswith('.txt')]
+        if folder_structure_files:
+            print(f"\nФайлы в папке '{folder_structure_dir}':")
+            for file in sorted(folder_structure_files):
+                file_path = os.path.join(folder_structure_dir, file)
+                size = os.path.getsize(file_path)
+                print(f"  - {file} ({size:,} байт)")
 
 def get_folder_size(folder_path):
     """Вычисляет общий размер папки в байтах"""
@@ -203,7 +234,6 @@ def get_folder_size(folder_path):
 
 def get_current_time():
     """Возвращает текущее время в формате строки"""
-    from datetime import datetime
     return datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
 if __name__ == "__main__":

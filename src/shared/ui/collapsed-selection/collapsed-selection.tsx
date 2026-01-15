@@ -1,6 +1,6 @@
 import React from 'react'
 import { FaChevronDown } from 'react-icons/fa'; // Импортируем иконку
-import { BookingDate, TimeSlot } from '../../../types'
+import { BookingDate, TimeSlot } from '@shared/sections/booking-section/types.ts'
 import styles from './collapsed-selection.module.scss'
 
 interface CollapsedSelectionProps {

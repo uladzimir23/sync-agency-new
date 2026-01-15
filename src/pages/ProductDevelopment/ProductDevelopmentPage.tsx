@@ -9,6 +9,8 @@ import { processStepsData } from '../../shared/lib/data/processStepsData'
 import { faqData } from '../../shared/lib/data/faqData'
 import './ProductDevelopmentPage.scss'
 import { BriefSection } from '@/shared/sections/brief-section'
+import { PageHeader } from '@/shared/sections/PageHeader'
+
 
 
 export const ProductDevelopmentPage: React.FC = () => {
@@ -22,6 +24,14 @@ export const ProductDevelopmentPage: React.FC = () => {
 
   return (
     <div className="product-development-page">
+
+<PageHeader
+  pageTitle="Product Development"
+  title={<>From idea to launch —<br />we turn concepts <br />into working products.</>}
+  subtitle="We design and build digital products — from landing pages and apps to complex platforms. At every stage, from UX research to development, we focus on user value and solving business problems."
+  onBookCall={() => console.log('Book call for Product Development')}
+  onMakeBrief={() => console.log('Make brief for Product Development')}
+/>
 
       <ServiceFeatures
         title="Full-Stack Development Excellence"
@@ -41,7 +51,7 @@ export const ProductDevelopmentPage: React.FC = () => {
         items={faqData['product-development'].items}
       />
 
-      <BriefSection />
+      <BriefSection page="product" />
 
     </div>
   )

@@ -1,0 +1,2975 @@
+АНАЛИЗ ПАПКИ: /Users/vladimirmazyrec/sync-agency-new/src/shared/sections/booking-section
+Python версия: 3.12.4
+================================================================================
+
+СТРУКТУРА ПАПОК (полные пути):
+--------------------------------------------------------------------------------
+
+booking-section
+    ├── components
+    │   ├── components/common
+    │   │   ├── components/common/appointment-details
+    │   │   │   ├── components/common/appointment-details/appointment-details.module.scss
+    │   │   │   └── components/common/appointment-details/appointment-details.tsx
+    │   │   ├── components/common/booking-form
+    │   │   │   ├── components/common/booking-form/booking-form.module.scss
+    │   │   │   └── components/common/booking-form/booking-form.tsx
+    │   │   ├── components/common/collapsed-selection
+    │   │   │   ├── components/common/collapsed-selection/collapsed-selection.module.scss
+    │   │   │   └── components/common/collapsed-selection/collapsed-selection.tsx
+    │   │   ├── components/common/date-picker
+    │   │   │   ├── components/common/date-picker/date-picker.module.scss
+    │   │   │   └── components/common/date-picker/date-picker.tsx
+    │   │   ├── components/common/month-selector
+    │   │   │   ├── components/common/month-selector/month-selector.module.scss
+    │   │   │   └── components/common/month-selector/month-selector.tsx
+    │   │   ├── components/common/time-slots
+    │   │   │   ├── components/common/time-slots/time-slots.module.scss
+    │   │   │   └── components/common/time-slots/time-slots.tsx
+    │   │   └── components/common/index.ts
+    │   ├── components/desktop
+    │   │   ├── components/desktop/booking-desktop.module.scss
+    │   │   ├── components/desktop/booking-desktop.tsx
+    │   │   └── components/desktop/index.ts
+    │   ├── components/mobile
+    │   │   ├── components/mobile/booking-mobile.module.scss
+    │   │   ├── components/mobile/booking-mobile.tsx
+    │   │   └── components/mobile/index.ts
+    │   └── components/tablet
+    │       ├── components/tablet/booking-tablet.module.scss
+    │       ├── components/tablet/booking-tablet.tsx
+    │       └── components/tablet/index.ts
+    ├── hooks
+    │   ├── hooks/index.ts
+    │   ├── hooks/use-booking.ts
+    │   ├── hooks/use-date-formatters.ts
+    │   └── hooks/useToday.ts
+    ├── booking-section.module.scss
+    ├── booking-section.tsx
+    ├── index.ts
+    └── types.ts
+
+
+================================================================================
+СОДЕРЖИМОЕ ФАЙЛОВ:
+================================================================================
+
+АБСОЛЮТНЫЙ ПУТЬ: /Users/vladimirmazyrec/sync-agency-new/src/shared/sections/booking-section/booking-section.module.scss
+название файла: booking-section/booking-section.module.scss
+
+СОДЕРЖИМОЕ ФАЙЛА:
+----------------------------------------
+.bookingSection {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+
+    //display: grid;
+
+    padding: 160px 0;
+    gap: 40px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+    opacity: 1;
+    //height: 100vh;
+  
+
+    &:hover {
+      transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      opacity: 1;
+      //background: var(--background-primary-yellow);
+
+    }
+  }
+  
+  .header {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center
+
+    }
+  
+  .title {
+    font-size: 3rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    //margin-bottom: 16px;
+    text-align: center;
+    line-height: 1.2;
+    white-space: nowrap;
+  }
+  
+  .subtitle {
+    font-size: 1.3rem;
+    color: var(--text-secondary);
+    margin: 0;
+    text-align: center;
+
+  }
+  
+  // Адаптивность
+  @media (max-width: 1024px) {
+    .bookingSection {
+      padding: 80px 60px;
+    }
+    
+    .title {
+      font-size: 36px;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .bookingSection {
+      padding: 40px 10px;
+      gap: 1rem;
+
+      .header {
+        padding: 1rem;
+      }
+      
+    }
+    
+    .title {
+      font-size: 2rem;
+    }
+    
+    .subtitle {
+      font-size: 16px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .bookingSection {
+      padding: 40px 0.5rem;
+      gap: 1rem;
+
+      .header {
+        padding: 1rem;
+      }
+      
+    }
+    
+    .title {
+      font-size: 2rem;
+    }
+    
+    .subtitle {
+      font-size: 16px;
+    }
+  }
+
+________________________________________________________________________________
+
+АБСОЛЮТНЫЙ ПУТЬ: /Users/vladimirmazyrec/sync-agency-new/src/shared/sections/booking-section/booking-section.tsx
+название файла: booking-section/booking-section.tsx
+
+СОДЕРЖИМОЕ ФАЙЛА:
+----------------------------------------
+import React from 'react'
+import { useDeviceType } from '@/shared/hooks/useDeviceType'
+import { useBooking } from './hooks/use-booking'
+import { useDateFormatters } from './hooks/use-date-formatters'
+import { BookingDesktop } from './components/desktop/booking-desktop'
+import { BookingTablet } from './components/tablet/booking-tablet'
+import { BookingMobile } from './components/mobile/booking-mobile'
+import styles from './booking-section.module.scss'
+
+export const BookingSection: React.FC = () => {
+  const deviceType = useDeviceType()
+  const {
+    bookingState,
+    months,
+    bookingDates,
+    handleMonthSelect,
+    handleDateSelect,
+    handleTimeSelect,
+    handleFormDataChange,
+    handleFormOpen, // Новый обработчик
+    handleFormSubmit,
+    handleFormBack,
+    handleNewBooking
+  } = useBooking()
+
+  const { formatMonth, formatDate, formatDateFull } = useDateFormatters()
+
+  const renderContent = () => {
+    const commonProps = {
+      bookingState,
+      months,
+      bookingDates,
+      onMonthSelect: handleMonthSelect,
+      onDateSelect: handleDateSelect,
+      onTimeSelect: handleTimeSelect,
+      onFormDataChange: handleFormDataChange,
+      onFormOpen: handleFormOpen, // Передаем новый обработчик
+      onFormSubmit: handleFormSubmit,
+      onFormBack: handleFormBack,
+      onNewBooking: handleNewBooking,
+      formatMonth,
+      formatDate,
+      formatDateFull
+    }
+
+    switch (deviceType) {
+      case 'desktop':
+        return <BookingDesktop {...commonProps} />
+      case 'tablet':
+        return <BookingTablet {...commonProps} />
+      case 'mobile':
+        return <BookingMobile {...commonProps} />
+      default:
+        return <BookingDesktop {...commonProps} />
+    }
+  }
+
+  return (
+    <section className={styles.bookingSection}>
+      <div className={styles.header}>
+        <h1 className={styles.title}>Let's finally get in touch.</h1>
+        <p className={styles.subtitle}>
+          Schedule a consultation with our project manager
+        </p>
+      </div>
+      
+      {renderContent()}
+    </section>
+  )
+}
+
+________________________________________________________________________________
+
+АБСОЛЮТНЫЙ ПУТЬ: /Users/vladimirmazyrec/sync-agency-new/src/shared/sections/booking-section/components/common/appointment-details/appointment-details.module.scss
+название файла: booking-section/components/common/appointment-details/appointment-details.module.scss
+
+СОДЕРЖИМОЕ ФАЙЛА:
+----------------------------------------
+.appointmentDetails {
+    border-radius: 30px;
+    padding: 30px;
+    border: 1px solid var(--border-color);
+    margin-bottom: 20px;
+    width: 100%;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    position: relative;
+    text-align: center;
+  
+    &:hover {
+      box-shadow: var(--box-shadow-primary);
+      border-radius: 25px;
+      background: var(--bg-primary-opacity-sec);
+    }
+  
+    .successIcon {
+      font-size: 40px;
+      margin-bottom: 12px;
+    }
+  
+    .successTitle {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--success-color);
+      margin-bottom: 16px;
+    }
+  
+    .successDetails {
+      text-align: left;
+      margin-bottom: 16px;
+      
+      .successItem {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-bottom: 8px;
+        
+        .successLabel {
+          font-size: 11px;
+          color: var(--text-secondary);
+          font-weight: 500;
+        }
+        
+        .successValue {
+          font-size: 11px;
+          color: var(--text-primary);
+          font-weight: 500;
+          text-align: right;
+          max-width: 60%;
+        }
+      }
+    }
+  
+    .instructions {
+      text-align: left;
+      margin-bottom: 20px;
+      
+      h4 {
+        font-size: 12px;
+        font-weight: 600;
+        margin-bottom: 8px;
+        color: var(--text-primary);
+      }
+      
+      ul {
+        padding-left: 16px;
+        margin: 0;
+        
+        li {
+          font-size: 10px;
+          color: var(--text-secondary);
+          margin-bottom: 4px;
+          line-height: 1.4;
+        }
+      }
+    }
+  
+    .newBookingButton {
+      width: 100%;
+      background: transparent;
+      color: var(--primary-color);
+      border: 1px solid var(--primary-color);
+      padding: 10px 16px;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      
+      &:hover {
+        background: var(--primary-color);
+        color: white;
+      }
+    }
+  }
+  
+  // Адаптивность
+  @media (max-width: 768px) {
+    .appointmentDetails {
+      padding: 20px;
+      border-radius: 20px;
+
+      .instructions {
+        text-align: left;
+        margin-bottom: 20px;
+        
+        h4 {
+          font-size: 1.2rem;
+          font-weight: 600;
+          margin-bottom: 8px;
+          color: var(--text-primary);
+
+          ul {
+            padding-left: 16px;
+            margin: 0;
+            
+            li {
+              font-size: 14px;
+              color: var(--text-secondary);
+              margin-bottom: 4px;
+              line-height: 1.4;
+            }
+          }
+        }
+      }  
+      
+      .successDetails {
+        .successItem {
+          flex-direction: row;
+          gap: 4px;
+          
+          .successValue {
+            max-width: 100%;
+            text-align: left;
+          }
+        }
+      }
+    }
+  }
+
+________________________________________________________________________________
+
+АБСОЛЮТНЫЙ ПУТЬ: /Users/vladimirmazyrec/sync-agency-new/src/shared/sections/booking-section/components/common/appointment-details/appointment-details.tsx
+название файла: booking-section/components/common/appointment-details/appointment-details.tsx
+
+СОДЕРЖИМОЕ ФАЙЛА:
+----------------------------------------
+import React from 'react'
+import { AppointmentDetailsProps } from '../../../types'
+import styles from './appointment-details.module.scss'
+
+export const AppointmentDetails: React.FC<AppointmentDetailsProps> = ({
+  selectedDateObj,
+  selectedTimeObj,
+  formData,
+  onNewBooking,
+  formatDateFull,
+}) => {
+  // Функция для форматирования метода связи
+  const formatCommunicationMethod = (method: string) => {
+    switch (method) {
+      case 'telegram': return 'Telegram'
+      case 'whatsapp': return 'WhatsApp'
+      case 'viber': return 'Viber'
+      case 'other': return 'Other'
+      default: return method
+    }
+  }
+
+  return (
+    <div className={styles.appointmentDetails}>
+      <div className={styles.successIcon}>✅</div>
+      <h3 className={styles.successTitle}>Booking Confirmed!</h3>
+      
+      <div className={styles.successDetails}>
+        <div className={styles.successItem}>
+          <span className={styles.successLabel}>Date & Time:</span>
+          <span className={styles.successValue}>
+            {selectedDateObj && formatDateFull(selectedDateObj.date)} at {selectedTimeObj?.time}
+          </span>
+        </div>
+        <div className={styles.successItem}>
+          <span className={styles.successLabel}>With:</span>
+          <span className={styles.successValue}>Colabsys Studio Project Manager</span>
+        </div>
+        <div className={styles.successItem}>
+          <span className={styles.successLabel}>Meeting Type:</span>
+          <span className={styles.successValue}>Consultation</span>
+        </div>
+        <div className={styles.successItem}>
+          <span className={styles.successLabel}>Name:</span>
+          <span className={styles.successValue}>{formData.name}</span>
+        </div>
+        <div className={styles.successItem}>
+          <span className={styles.successLabel}>Email:</span>
+          <span className={styles.successValue}>{formData.email}</span>
+        </div>
+        <div className={styles.successItem}>
+          <span className={styles.successLabel}>Communication:</span>
+          <span className={styles.successValue}>
+            {formatCommunicationMethod(formData.communicationMethod)}
+          </span>
+        </div>
+        <div className={styles.successItem}>
+          <span className={styles.successLabel}>Contact ID:</span>
+          <span className={styles.successValue}>{formData.contactId}</span>
+        </div>
+      </div>
+      
+      <div className={styles.instructions}>
+        <h4>What's Next?</h4>
+        <ul>
+          <li>You'll receive a reminder email 1 hour before the meeting</li>
+          <li>Join link will be sent 15 minutes before the start</li>
+          <li>Duration: 30 minutes</li>
+          <li>Please prepare your project questions</li>
+        </ul>
+      </div>
+      
+      <button 
+        className={styles.newBookingButton}
+        onClick={onNewBooking}
+      >
+        Create New Booking
+      </button>
+    </div>
+  )
+}
+
+________________________________________________________________________________
+
+АБСОЛЮТНЫЙ ПУТЬ: /Users/vladimirmazyrec/sync-agency-new/src/shared/sections/booking-section/components/common/booking-form/booking-form.module.scss
+название файла: booking-section/components/common/booking-form/booking-form.module.scss
+
+СОДЕРЖИМОЕ ФАЙЛА:
+----------------------------------------
+.bookingForm {
+  border: none;
+  padding: 0;
+  border-radius: 0;
+  background: transparent;
+  height: 100%;
+  
+  &:hover {
+    box-shadow: none;
+    background: transparent;
+  }
+
+  .form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .label {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-primary);
+  }
+
+  .input {
+    padding: 12px 16px;
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    font-size: 14px;
+    transition: all 0.3s ease;
+
+    &:hover {
+      background: var(--background-primary-yellow);
+      box-shadow: var(--box-shadow-primary);
+    }
+  
+    &:focus {
+      outline: none;
+      border-color: var(--border-color-accent);
+      box-shadow: var(--box-shadow-primary), inset 0px 0px 3px var(--border-color-accent);
+    }
+  
+    &::placeholder {
+      color: var(--text-secondary);
+    }
+  }
+
+  .communicationStack {
+    width: 100%;
+  }
+
+  .communicationButtons {
+    width: 100%;
+    
+    :global(.btnStack__container) {
+      display: grid !important;
+      grid-template-columns: repeat(2, 1fr) !important;
+      gap: 8px !important;
+      width: 100% !important;
+    }
+    
+    :global(.btnStackItem) {
+      min-width: auto !important;
+      padding: 10px 12px !important;
+      font-size: 14px !important;
+      text-align: center;
+    }
+  }
+
+  .actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 16px;
+  }
+
+  .backButton {
+    flex: 1;
+    background: transparent;
+    color: var(--text-secondary);
+    border: 1px solid var(--border-color);
+    padding: 12px 16px;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+    &:hover {
+      background: var(--bg-secondary);
+      color: var(--text-primary);
+    }
+  }
+
+  .submitButton {
+    flex: 2;
+    background: #56aafe1f;
+    color: #56aafe8c;
+    border: none;
+    padding: 12px 16px;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+    &:hover {
+      background: var(--primary-color);
+      box-shadow: 0px 0px 3px var(--border-color-accent);
+      background: #56aafe54;
+      color: #56aafe;
+    }
+
+    &:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+  }
+}
+
+// Добавьте в существующие стили:
+
+.errorMessage {
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  color: #ef4444;
+  padding: 12px 16px;
+  border-radius: 12px;
+  font-size: 14px;
+  margin-bottom: 16px;
+}
+
+// Обновите стили кнопок для disabled состояния
+.backButton:disabled,
+.submitButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  
+  &:hover {
+    transform: none;
+    box-shadow: none;
+  }
+}
+
+// Адаптивность
+@media (max-width: 768px) {
+  .bookingForm {
+    .communicationButtons {
+      :global(.btnStack__container) {
+        grid-template-columns: 1fr !important;
+      }
+    }
+    
+    .actions {
+      flex-direction: row;
+    }
+    
+    .backButton,
+    .submitButton {
+      //flex: none;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .bookingForm {
+    .form {
+      gap: 16px;
+    }
+    
+    .communicationButtons {
+      :global(.btnStackItem) {
+        padding: 8px 12px !important;
+        font-size: 13px !important;
+      }
+    }
+  }
+}
+
+________________________________________________________________________________
+
+АБСОЛЮТНЫЙ ПУТЬ: /Users/vladimirmazyrec/sync-agency-new/src/shared/sections/booking-section/components/common/booking-form/booking-form.tsx
+название файла: booking-section/components/common/booking-form/booking-form.tsx
+
+СОДЕРЖИМОЕ ФАЙЛА:
+----------------------------------------
+import React, { useState } from 'react'
+import { ButtonStack, ButtonStackItem } from '@/shared/ui/button-stack'
+import { BookingFormProps } from '../../../types'
+import styles from './booking-form.module.scss'
+
+export const BookingForm: React.FC<BookingFormProps> = ({
+  formData,
+  onFormDataChange,
+  onSubmit,
+  onBack,
+}) => {
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [error, setError] = useState<string | null>(null)
+
+  const handleInputChange = (field: keyof typeof formData, value: string) => {
+    onFormDataChange({
+      ...formData,
+      [field]: value
+    })
+    if (error) setError(null)
+  }
+
+  const handleCommunicationMethodChange = (index: number) => {
+    const methods: ('telegram' | 'whatsapp' | 'viber' | 'other')[] = 
+      ['telegram', 'whatsapp', 'viber', 'other']
+    
+    onFormDataChange({
+      ...formData,
+      communicationMethod: methods[index],
+      contactId: ''
+    })
+  }
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setIsSubmitting(true)
+    setError(null)
+
+    try {
+      await onSubmit(formData)
+    } catch (error) {
+      setError('Failed to submit booking. Please try again.')
+      console.error('Booking submission error:', error)
+    } finally {
+      setIsSubmitting(false)
+    }
+  }
+
+  const getContactIdPlaceholder = () => {
+    switch (formData.communicationMethod) {
+      case 'telegram':
+        return '@telegramID'
+      case 'whatsapp':
+        return '@whatsappID' 
+      case 'viber':
+        return 'Phone number'
+      case 'other':
+        return 'Your contact details'
+      default:
+        return 'Contact ID'
+    }
+  }
+
+  const getContactIdLabel = () => {
+    switch (formData.communicationMethod) {
+      case 'telegram':
+        return 'Telegram ID'
+      case 'whatsapp':
+        return 'WhatsApp ID'
+      case 'viber':
+        return 'Phone Number'
+      case 'other':
+        return 'Contact Details'
+      default:
+        return 'Contact ID'
+    }
+  }
+
+  const communicationMethods = ['Telegram', 'WhatsApp', 'Viber', 'Other']
+  const activeMethodIndex = ['telegram', 'whatsapp', 'viber', 'other'].indexOf(formData.communicationMethod)
+
+  return (
+    <div className={styles.bookingForm}>
+      <form onSubmit={handleSubmit} className={styles.form}>
+        {error && (
+          <div className={styles.errorMessage}>
+            {error}
+          </div>
+        )}
+
+        <div className={styles.field}>
+          <label htmlFor="name" className={styles.label}>Name</label>
+          <input
+            id="name"
+            type="text"
+            className={styles.input}
+            value={formData.name}
+            onChange={(e) => handleInputChange('name', e.target.value)}
+            required
+          />
+        </div>
+
+        <div className={styles.field}>
+          <label htmlFor="email" className={styles.label}>Email</label>
+          <input
+            id="email"
+            type="email"
+            className={styles.input}
+            value={formData.email}
+            onChange={(e) => handleInputChange('email', e.target.value)}
+            required
+          />
+        </div>
+
+        <div className={styles.field}>
+          <label className={styles.label}>Communication Method</label>
+          <div className={styles.communicationStack}>
+            <ButtonStack 
+              direction="row"
+              spacing={8}
+              activeIndex={activeMethodIndex}
+              onActiveChange={handleCommunicationMethodChange}
+              className={styles.communicationButtons}
+              interactionMode="click"
+              rememberActive={true}
+            >
+              {communicationMethods.map((method) => (
+                <ButtonStackItem key={method}>
+                  {method}
+                </ButtonStackItem>
+              ))}
+            </ButtonStack>
+          </div>
+        </div>
+
+        <div className={styles.field}>
+          <label htmlFor="contactId" className={styles.label}>
+            {getContactIdLabel()}
+          </label>
+          <input
+            id="contactId"
+            type="text"
+            className={styles.input}
+            value={formData.contactId}
+            onChange={(e) => handleInputChange('contactId', e.target.value)}
+            placeholder={getContactIdPlaceholder()}
+            required
+          />
+        </div>
+
+        <div className={styles.actions}>
+          <button 
+            type="submit" 
+            className={styles.submitButton}
+            disabled={isSubmitting}
+          >
+            {isSubmitting ? 'Sending...' : 'Confirm'}
+          </button>
+        </div>
+      </form>
+    </div>
+  )
+}
+
+________________________________________________________________________________
+
+АБСОЛЮТНЫЙ ПУТЬ: /Users/vladimirmazyrec/sync-agency-new/src/shared/sections/booking-section/components/common/collapsed-selection/collapsed-selection.module.scss
+название файла: booking-section/components/common/collapsed-selection/collapsed-selection.module.scss
+
+СОДЕРЖИМОЕ ФАЙЛА:
+----------------------------------------
+.collapsedSelection {
+  border-radius: 25px;
+  border: 1px solid var(--border-color);
+  background: var(--bg-primary);
+  transition: all 1s ease;
+  overflow: hidden;
+  backdrop-filter: blur(20px);
+  display: flex;
+  flex-direction: column;
+  //min-height: 75px;
+  position: relative;
+
+
+  &:hover {
+    transition: all 0.2s ease;
+    box-shadow: var(--box-shadow-primary);
+
+  }
+
+
+
+  &.expanded {
+    background: var(--bg-secondary);
+    min-height: auto;
+    display: flex;
+    flex-direction: column;
+    border-radius: 20px;
+    transition: all 1s ease;
+    position: relative;
+
+
+
+
+    &:hover {
+      transition: all 0.2s ease;
+      box-shadow: var(--box-shadow-primary);
+
+      .header {
+        //background: var(--bg-secondary);
+
+      }
+
+    }
+  }
+
+
+  .header {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    //gap: 12px;
+    padding: 16px 16px 16px 24px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 100%;
+
+    &:hover {
+      background: var(--bg-secondary);
+
+    }
+  }
+
+  .details {
+    //flex: 1;
+    //min-width: 0;
+    //width: 100%;
+
+  }
+
+  .summary {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    font-size: 1.2rem; // Обновленный размер шрифта
+    font-weight: 500;
+    color: var(--text-primary);
+    width: 100%;
+  }
+
+  .month,
+  .date,
+  .time {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .separator {
+    color: var(--text-secondary);
+    font-size: 12px;
+  }
+
+
+  .arrowWrapper {
+    position: relative;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    border-radius: 40%;
+    box-shadow: var(--box-shadow-primary), inset 0px 0px 1px var(--border-color-accent);
+    // Градиентная обводка
+        &::before {
+          content: '';
+          position: absolute;
+          inset: -1px;
+          border-radius: 100%;
+          padding: 1px;
+          background: linear-gradient(
+            135deg,
+            var(--primary-color) 0%,
+            var(--border-color-accent) 50%,
+            var(--text-secondary) 100%
+          );
+          mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+          mask-composite: exclude;
+          opacity: 0;
+          transition: all 0.3s ease;
+          border-radius: 40%;
+  
+        }
+  
+          &:hover {
+            &::before {
+              opacity: 1;
+              transform: scale(0.98);
+              border-radius: 50%;
+              
+        
+            }
+            
+            .arrow {
+              transform: scale(1.02), rotate(180deg);
+            }
+          }
+        }
+
+  .arrow {
+    color: var(--text-secondary);
+    font-size: 14px;
+    transition: transform 0.3s ease;
+    flex-shrink: 0;
+
+  }
+
+  &.expanded .arrow {
+    transform: rotate(180deg);
+  }
+
+  // Анимация для контента
+  .content {
+    max-height: 0px;
+    opacity: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease, opacity 0.5s ease, padding 0.3s ease, background 0.3s ease,box-shadow 0.3s ease, scale 0.3s ease;
+    backdrop-filter: blur(20px);
+    transform-origin: top;
+    position: relative;
+    
+    * {
+      transition: max-height 0.4s ease, opacity 0.5s ease, padding 0.3s ease, background 0.3s ease,box-shadow 0.3s ease, scale 0.3s ease;
+      scale: 0;
+      //transform: scale(0);
+      //transform-origin: center center; /* Указывает центр трансформации внизу по центру */
+
+    }
+  
+    
+    &.expanded {
+      position: relative;
+
+      //max-height: auto;
+      max-height: 475px;
+      opacity: 1;
+      padding: 25px 20px;
+      margin: 0px 5px 5px 5px;
+      backdrop-filter: blur(20px);
+      background: var(--background-primary-yellow);
+      border: 1px solid var(--border-color);
+      gap: 16px;
+      border-radius: 16px;
+      display: flex;
+      flex-direction: column;
+      transition: max-height 0.4s ease, opacity 0.5s ease, padding 0.3s ease, background 0.3s ease,box-shadow 0.3s ease, scale 0.3s ease;
+      transform-origin: top;
+      overflow-y: auto; /* Показывает вертикальную прокрутку только если контент больше 300px */
+
+
+
+      * {
+        transition: max-height 0.4s ease, opacity 0.5s ease, padding 0.3s ease, background 0.3s ease,box-shadow 0.3s ease, scale 0.3s ease;
+        //transform: scale(1);
+        //transform-origin: center center; /* Указывает центр трансформации внизу по центру */
+        scale: 1;
+      }
+    
+
+      &:hover {
+        transition: all 0.3s ease;
+        background: var(--bg-primary);
+        box-shadow: var(--box-shadow-primary);
+        border: 1px solid var(--border-color);
+
+        
+      }
+
+
+      @media (min-width: 1400px) {
+        
+        //max-width: 430px;
+        padding: 20px;
+        height: 100%;
+
+      }
+      
+
+    }
+  }
+}
+
+.collapsedSelection.disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  
+  .header:hover {
+    background: var(--bg-primary);
+  }
+}
+
+
+@media (max-width: 480px) {
+  .collapsedSelection {
+    .header {
+      padding: 1rem 1.2rem;
+      display: flex;
+    }
+    
+    .summary {
+      font-size: 1.2rem;
+      gap: 6px;
+    }
+  }
+}
+
+________________________________________________________________________________
+
+АБСОЛЮТНЫЙ ПУТЬ: /Users/vladimirmazyrec/sync-agency-new/src/shared/sections/booking-section/components/common/collapsed-selection/collapsed-selection.tsx
+название файла: booking-section/components/common/collapsed-selection/collapsed-selection.tsx
+
+СОДЕРЖИМОЕ ФАЙЛА:
+----------------------------------------
+import React from 'react'
+import { FaChevronDown } from 'react-icons/fa'; // Импортируем иконку
+import { BookingDate, TimeSlot } from '../../../types'
+import styles from './collapsed-selection.module.scss'
+
+interface CollapsedSelectionProps {
+  selectedMonth: Date
+  selectedDate: BookingDate | undefined
+  selectedTime: TimeSlot | null
+  formatMonth: (date: Date) => string
+  formatDate: (date: Date) => string
+  onExpand: () => void
+  children?: React.ReactNode
+  isExpanded?: boolean
+  isDisabled?: boolean
+  title?: string
+  forceTitle?: boolean
+}
+
+export const CollapsedSelection: React.FC<CollapsedSelectionProps> = ({
+  selectedMonth,
+  selectedDate,
+  selectedTime,
+  formatMonth,
+  formatDate,
+  onExpand,
+  children,
+  isExpanded = false,
+  isDisabled = false,
+  title = 'Select Date & Time',
+  forceTitle = false
+}) => {
+  const handleClick = () => {
+    if (!isDisabled) {
+      onExpand()
+    }
+  }
+
+  return (
+    <div 
+      className={`${styles.collapsedSelection} ${isExpanded ? styles.expanded : ''} ${isDisabled ? styles.disabled : ''}`}
+    >
+      <div className={styles.header} onClick={handleClick}>
+        <div className={styles.details}>
+          <div className={styles.summary}>
+            {forceTitle ? (
+              <span>{title}</span>
+            ) : selectedTime ? (
+              <>
+                <span className={styles.date}>{formatDate(selectedDate?.date || new Date())}</span>
+                <span className={styles.separator}>•</span>
+                <span className={styles.time}>{selectedTime.time}</span>
+              </>
+            ) : selectedDate ? (
+              <>
+                <span className={styles.month}>{formatMonth(selectedMonth)}</span>
+                <span className={styles.separator}>•</span>
+                <span className={styles.date}>{formatDate(selectedDate.date)}</span>
+              </>
+            ) : (
+              <span>{title}</span>
+            )}
+          </div>
+        </div>
+
+      < div className={styles.arrowWrapper}>
+       <FaChevronDown className={`${styles.arrow} ${isExpanded ? styles.expanded : ''}`} />
+       </div>
+    </div>
+
+      <div className={`${styles.content} ${isExpanded ? styles.expanded : ''}`}>
+        {children}
+      </div>
+    </div>
+  )
+}
+
+________________________________________________________________________________
+
+АБСОЛЮТНЫЙ ПУТЬ: /Users/vladimirmazyrec/sync-agency-new/src/shared/sections/booking-section/components/common/date-picker/date-picker.module.scss
+название файла: booking-section/components/common/date-picker/date-picker.module.scss
+
+СОДЕРЖИМОЕ ФАЙЛА:
+----------------------------------------
+.datePicker {
+  border-radius: 18px;
+  padding: 20px;
+  border: 1px solid var(--border-color);
+  //margin-bottom: 20px;
+  width: 100%;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  background: var(--bg-primary-opacity-sec);
+
+
+  &:hover {
+    box-shadow: var(--box-shadow-primary);
+    border-radius: 18px;
+    background: var(--bg-primary);
+    
+  }
+
+  :global(.btnStack__slider) {
+    box-shadow: var(--box-shadow-primary);
+  }
+
+  .title {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin: 0 0 16px 0;
+  }
+
+  .weekDays {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 4px;
+    margin-bottom: 12px;
+    text-align: center;
+  }
+
+  .weekDay {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    padding: 8px 4px;
+    
+    &.weekend {
+      color: #ef4444;
+    }
+  }
+
+  .stack {
+    width: 100%;
+    
+    
+    // Исправление: одинаковый размер для всех ячеек
+    :global(.btnStack__container) {
+      display: grid !important;
+      grid-template-columns: repeat(7, 1fr) !important;
+      gap: 4px !important;
+      width: 100% !important;
+    }
+    
+    // Исправление: глобальные стили для кнопок
+    :global(.button-stack-item-module__btnStackItem) {
+      min-width: auto !important;
+      width: 100% !important;
+      aspect-ratio: 1 !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      padding: 0 !important;
+
+      &.past {
+        opacity: 0.4 !important;
+        pointer-events: none;
+        
+        .itemNumber {
+          color: var(--text-secondary) !important;
+        }
+      }
+
+      
+      &.weekend {
+        .itemNumber {
+          color: #ef4444 !important;
+        }
+      }
+      
+      &.today {
+        position: relative !important;
+
+        
+        &::before {
+          content: '';
+          position: absolute;
+          top: 15px;
+          right: 15px;
+          width: 6px;
+          height: 6px;
+          background: var(--primary-color);
+          border-radius: 50%;
+          z-index: 3;
+        }
+        
+        .itemNumber {
+          color: var(--primary-color) !important;
+          font-weight: 700 !important;
+        }
+      }
+
+
+      &:hover {
+        :global(.button-stack-item-module__btnStackItem__content) {
+          scale: 1.15 !important;
+        }
+      }
+      
+      &[data-active="true"] {
+        .itemNumber {
+          color: var(--primary-color) !important;
+        }
+      }
+    }
+  }
+
+  .item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    
+    &Number {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+  }
+}
+
+// Стили для ховера на датах
+.stack {
+  :global(.button-stack-item-module__btnStackItem):hover {
+    .itemNumber {
+      color: var(--primary-color);
+    }
+  }
+}
+
+// Адаптивность
+@media (max-width: 768px) {
+  .datePicker {
+    border-radius: 12px;
+    padding: 12px;
+    
+    .stack {
+      :global(.button-stack-item-module__btnStackItem) {
+        .itemNumber {
+          font-size: 12px !important;
+        }
+      }
+    }
+  }
+}
+
+// Для очень маленьких экранов - уменьшаем размер ячеек
+@media (max-width: 480px) {
+  .datePicker {
+    .weekDays {
+      gap: 2px;
+    }
+    
+    .stack {
+      :global(.btnStack__container) {
+        gap: 2px !important;
+      }
+      
+      :global(.button-stack-item-module__btnStackItem) {
+        .itemNumber {
+          font-size: 11px !important;
+        }
+      }
+    }
+  }
+}
+
+________________________________________________________________________________
+
+АБСОЛЮТНЫЙ ПУТЬ: /Users/vladimirmazyrec/sync-agency-new/src/shared/sections/booking-section/components/common/date-picker/date-picker.tsx
+название файла: booking-section/components/common/date-picker/date-picker.tsx
+
+СОДЕРЖИМОЕ ФАЙЛА:
+----------------------------------------
+import React from 'react'
+import { ButtonStack, ButtonStackItem } from '@/shared/ui/button-stack'
+import { DatePickerProps } from '../../../types'
+import { useToday } from '@/shared/hooks/useToday'
+import styles from './date-picker.module.scss'
+
+export const DatePicker: React.FC<DatePickerProps> = ({
+  bookingDates,
+  selectedDate,
+  onDateSelect,
+}) => {
+  const weekDays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat','Sun']
+  const { isToday } = useToday()
+
+  // Проверяем, является ли дата прошедшей
+  const isPastDate = (date: Date): boolean => {
+    const today = new Date()
+    today.setHours(0, 0, 0, 0)
+    const checkDate = new Date(date)
+    checkDate.setHours(0, 0, 0, 0)
+    return checkDate < today
+  }
+
+  return (
+    <div className={styles.datePicker}>
+      <div className={styles.calendar}>
+        <div className={styles.weekDays}>
+          {weekDays.map((day, index) => (
+            <div 
+              key={day} 
+              className={`${styles.weekDay} ${
+                index === 5 || index === 6 ? styles.weekend : ''
+              }`}
+            >
+              {day}
+            </div>
+          ))}
+        </div>
+
+        <ButtonStack 
+          direction="grid" 
+          spacing={4}
+          activeIndex={selectedDate}
+          onActiveChange={onDateSelect}
+          className={styles.stack}
+          interactionMode="click"
+          rememberActive={true}
+          enableActiveSlider={true}
+        >
+          {bookingDates.map((bookingDate, index) => {
+            const isWeekend = bookingDate.date.getDay() === 0 || bookingDate.date.getDay() === 6
+            const today = isToday(bookingDate.date)
+            const past = isPastDate(bookingDate.date)
+            
+            return (
+              <ButtonStackItem 
+                key={index}
+                className={`${isWeekend ? styles.weekend : ''} ${today ? styles.today : ''} ${past ? styles.past : ''}`}
+                isToday={today}
+              >
+                <div className={styles.item}>
+                  <div className={styles.itemNumber}>
+                    {bookingDate.date.getDate()}
+                  </div>
+                </div>
+              </ButtonStackItem>
+            )
+          })}
+        </ButtonStack>
+      </div>
+    </div>
+  )
+}
+
+________________________________________________________________________________
+
+АБСОЛЮТНЫЙ ПУТЬ: /Users/vladimirmazyrec/sync-agency-new/src/shared/sections/booking-section/components/common/index.ts
+название файла: booking-section/components/common/index.ts
+
+СОДЕРЖИМОЕ ФАЙЛА:
+----------------------------------------
+export { MonthSelector } from './month-selector/month-selector'
+export { DatePicker } from './date-picker/date-picker'
+export { TimeSlots } from './time-slots/time-slots'
+export { BookingForm } from './booking-form/booking-form'
+export { AppointmentDetails } from './appointment-details/appointment-details'
+export { CollapsedSelection } from './collapsed-selection/collapsed-selection'
+
+________________________________________________________________________________
+
+АБСОЛЮТНЫЙ ПУТЬ: /Users/vladimirmazyrec/sync-agency-new/src/shared/sections/booking-section/components/common/month-selector/month-selector.module.scss
+название файла: booking-section/components/common/month-selector/month-selector.module.scss
+
+СОДЕРЖИМОЕ ФАЙЛА:
+----------------------------------------
+.monthSelector {
+    //margin-bottom: 24px;
+    width: 100%;
+    position: relative;
+    
+    .title {
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin: 0 0 25px 0;
+    }
+  
+    .container {
+      width: 100%;
+      position: relative;
+      overflow-x: auto;
+      overflow-y: hidden;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+      
+      &::-webkit-scrollbar {
+        display: none;
+      }
+    }
+    
+    .stack {
+      width: max-content;
+      min-width: 100%;
+      
+      :global(.btnStackItem) {
+        min-width: 120px;
+        font-size: 14px;
+        flex-shrink: 0;
+  
+        &:hover {
+          span {
+            scale: 1.02;
+          }
+        }
+      }
+    }
+  }
+  
+  .scrollable {
+    .container {
+      &::-webkit-scrollbar {
+        display: block;
+        height: 4px;
+      }
+      
+      &::-webkit-scrollbar-track {
+        background: var(--bg-secondary);
+      }
+      
+      &::-webkit-scrollbar-thumb {
+        background: var(--border-color);
+        border-radius: 2px;
+      }
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .monthSelector {
+      margin-bottom: 0px;
+
+      .title {
+        margin-bottom: 10px ;
+        font-size: 1.2rem;
+
+      }
+    
+
+      .stack {
+        :global(.btnStackItem) {
+          min-width: 100px;
+          font-size: 12px;
+          padding: 8px 12px;
+        }
+      }
+    }
+  }
+
+________________________________________________________________________________
+
+АБСОЛЮТНЫЙ ПУТЬ: /Users/vladimirmazyrec/sync-agency-new/src/shared/sections/booking-section/components/common/month-selector/month-selector.tsx
+название файла: booking-section/components/common/month-selector/month-selector.tsx
+
+СОДЕРЖИМОЕ ФАЙЛА:
+----------------------------------------
+import React from 'react'
+import { ButtonStack, ButtonStackItem } from '@/shared/ui/button-stack'
+import { MonthSelectorProps } from '../../../types'
+import styles from './month-selector.module.scss'
+
+export const MonthSelector: React.FC<MonthSelectorProps> = ({
+  months,
+  selectedMonth,
+  onMonthSelect,
+  formatMonth,
+  scrollable = false,
+}) => {
+  return (
+    <div className={`${styles.monthSelector} ${scrollable ? styles.scrollable : ''}`}>
+      <div className={styles.container}>
+        <ButtonStack 
+          direction="row" 
+          spacing={8}
+          activeIndex={selectedMonth}
+          onActiveChange={onMonthSelect}
+          className={styles.stack}
+          interactionMode="click"
+          rememberActive={true}
+        >
+          {months.map((month, index) => (
+            <ButtonStackItem key={index}>
+              {formatMonth(month)}
+            </ButtonStackItem>
+          ))}
+        </ButtonStack>
+      </div>
+    </div>
+  )
+}
+
+________________________________________________________________________________
+
+АБСОЛЮТНЫЙ ПУТЬ: /Users/vladimirmazyrec/sync-agency-new/src/shared/sections/booking-section/components/common/time-slots/time-slots.module.scss
+название файла: booking-section/components/common/time-slots/time-slots.module.scss
+
+СОДЕРЖИМОЕ ФАЙЛА:
+----------------------------------------
+.timeSlots {
+    width: 100%;
+    
+    .title {
+      font-size: 0.875rem;      
+      font-weight: 600;
+      margin-bottom: 10px;
+      color: var(--text-primary);
+    }
+  
+    .container {
+      width: 100%;
+      position: relative;
+      overflow-x: auto;
+      overflow-y: hidden;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+      
+      &::-webkit-scrollbar {
+        display: none;
+      }
+    }
+  
+    .stack {
+      width: max-content;
+      min-width: 100%;
+
+      .slot {
+        font-size: 1rem !important;
+        font-weight: 500;
+      }
+      
+      
+      :global(.btnStackItem) {
+        min-width: 70px;
+        padding: 8px 12px;
+        flex-shrink: 0;
+        
+        &.unavailable {
+          opacity: 0.4;
+          pointer-events: none;
+        }
+        
+        
+      }
+    }
+  }
+  
+  // Стили для скролла при необходимости показать его
+  .scrollable {
+    .container {
+      &::-webkit-scrollbar {
+        display: block;
+        height: 4px;
+      }
+      
+      &::-webkit-scrollbar-track {
+        background: var(--bg-secondary);
+      }
+      
+      &::-webkit-scrollbar-thumb {
+        background: var(--border-color);
+        border-radius: 2px;
+      }
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .timeSlots {
+      .stack {
+        :global(.btnStack__container) {
+          flex-wrap: nowrap;
+          justify-content: flex-start;
+        }
+      }
+    }
+  }
+
+________________________________________________________________________________
+
+АБСОЛЮТНЫЙ ПУТЬ: /Users/vladimirmazyrec/sync-agency-new/src/shared/sections/booking-section/components/common/time-slots/time-slots.tsx
+название файла: booking-section/components/common/time-slots/time-slots.tsx
+
+СОДЕРЖИМОЕ ФАЙЛА:
+----------------------------------------
+import React from 'react'
+import { ButtonStack, ButtonStackItem } from '@/shared/ui/button-stack'
+import { TimeSlotsProps } from '../../../types'
+import styles from './time-slots.module.scss'
+
+export const TimeSlots: React.FC<TimeSlotsProps> = ({
+  selectedDate,
+  bookingDates,
+  selectedTime,
+  onTimeSelect,
+  formatDate,
+  scrollable = false,
+}) => {
+  const selectedDateObj = bookingDates[selectedDate]
+
+  if (!selectedDateObj) return null
+
+  return (
+    <div className={`${styles.timeSlots} ${scrollable ? styles.scrollable : ''}`}>
+      <h4 className={styles.title}>
+        Available times for {formatDate(selectedDateObj.date)}
+      </h4>
+      <div className={styles.container}>
+        <ButtonStack 
+          direction="row" 
+          spacing={6}
+          activeIndex={selectedTime}
+          onActiveChange={onTimeSelect}
+          className={styles.stack}
+          interactionMode="click"
+          rememberActive={true}
+        >
+          {selectedDateObj.timeSlots.map((slot, index) => (
+            <ButtonStackItem 
+              key={slot.id}
+              className={!slot.available ? styles.unavailable : ''}
+            >
+              <div className={styles.slot}>
+                {slot.time}
+              </div>
+            </ButtonStackItem>
+          ))}
+        </ButtonStack>
+      </div>
+    </div>
+  )
+}
+
+________________________________________________________________________________
+
+АБСОЛЮТНЫЙ ПУТЬ: /Users/vladimirmazyrec/sync-agency-new/src/shared/sections/booking-section/components/desktop/booking-desktop.module.scss
+название файла: booking-section/components/desktop/booking-desktop.module.scss
+
+СОДЕРЖИМОЕ ФАЙЛА:
+----------------------------------------
+.desktopLayout {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(430px, 430px));
+  gap: 20px;
+  width: 100%;
+  transition: all 0.3s ease;
+  justify-content: center
+}
+
+.selectionContent {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.desktopFormPlaceholder {
+  text-align: center;
+  padding: 40px 20px;
+  color: var(--text-secondary);
+  font-size: 16px;
+  height: 100%;
+}
+
+// Специфичные стили для компонентов внутри desktop
+.desktopLayout {
+  :global(.month-selector-module__monthSelector) {
+    margin-bottom: 0;
+    
+    // Убираем заголовок месяца
+    :global(.month-selector-module__title) {
+      display: none;
+    }
+  }
+  
+  :global(.date-picker-module__datePicker) {
+    margin-bottom: 0;
+  }
+  
+  :global(.time-slots-module__timeSlots) {
+    width: 100%;
+    margin-bottom: 0;
+  }
+
+  :global(.booking-form-module__bookingForm) {
+    border: none;
+    padding: 0;
+    border-radius: 0;
+    background: transparent;
+    
+    // Убираем заголовок формы
+    :global(.booking-form-module__title) {
+      display: none;
+    }
+    
+    &:hover {
+      box-shadow: none;
+      background: transparent;
+    }
+  }
+}
+
+// Адаптивность для десктопа
+@media (max-width: 1024px) {
+  .desktopLayout {
+    gap: 16px;
+  }
+  
+  .selectionContent {
+    gap: 20px;
+  }
+  
+  .desktopFormPlaceholder {
+    padding: 30px 20px;
+    font-size: 14px;
+  }
+}
+
+________________________________________________________________________________
+
+АБСОЛЮТНЫЙ ПУТЬ: /Users/vladimirmazyrec/sync-agency-new/src/shared/sections/booking-section/components/desktop/booking-desktop.tsx
+название файла: booking-section/components/desktop/booking-desktop.tsx
+
+СОДЕРЖИМОЕ ФАЙЛА:
+----------------------------------------
+import React from 'react'
+import { MonthSelector, DatePicker, TimeSlots, BookingForm, AppointmentDetails, CollapsedSelection } from '../common'
+import { BookingState, BookingDate } from '../../types'
+import styles from './booking-desktop.module.scss'
+
+interface BookingDesktopProps {
+  bookingState: BookingState
+  months: Date[]
+  bookingDates: BookingDate[]
+  onMonthSelect: (index: number) => void
+  onDateSelect: (index: number) => void
+  onTimeSelect: (index: number) => void
+  onFormDataChange: (formData: any) => void
+  onFormOpen: () => void
+  onFormSubmit: (formData: any) => void
+  onFormBack: () => void
+  onNewBooking: () => void
+  formatMonth: (date: Date) => string
+  formatDate: (date: Date) => string
+  formatDateFull: (date: Date) => string
+}
+
+export const BookingDesktop: React.FC<BookingDesktopProps> = ({
+  bookingState,
+  months,
+  bookingDates,
+  onMonthSelect,
+  onDateSelect,
+  onTimeSelect,
+  onFormDataChange,
+  onFormOpen,
+  onFormSubmit,
+  onFormBack,
+  onNewBooking,
+  formatMonth,
+  formatDate,
+  formatDateFull,
+}) => {
+  const { step, selectedDate, selectedTime, formData } = bookingState
+  const selectedDateObj = bookingDates[selectedDate]
+  const selectedTimeObj = selectedTime >= 0 ? selectedDateObj?.timeSlots[selectedTime] : null
+
+  // В десктопе оба аккордеона всегда открыты и доступны
+  const isSelectionExpanded = true
+  const isFormExpanded = true
+
+  return (
+    <div className={styles.desktopLayout}>
+      {/* Аккордеон 1: Выбор даты и времени (всегда открыт в десктопе) */}
+      <CollapsedSelection
+        selectedMonth={months[bookingState.selectedMonth]}
+        selectedDate={selectedDateObj}
+        selectedTime={selectedTimeObj}
+        formatMonth={formatMonth}
+        formatDate={formatDate}
+        onExpand={() => {}}
+        isExpanded={isSelectionExpanded}
+        isDisabled={false}
+        title="Select Date & Time"
+      >
+        <div className={styles.selectionContent}>
+          <MonthSelector
+            months={months}
+            selectedMonth={bookingState.selectedMonth}
+            onMonthSelect={onMonthSelect}
+            formatMonth={formatMonth}
+            scrollable={true}
+          />
+
+          <DatePicker
+            bookingDates={bookingDates}
+            selectedDate={bookingState.selectedDate}
+            onDateSelect={onDateSelect}
+          />
+
+          {selectedDate >= 0 && selectedDateObj && (
+            <TimeSlots
+              selectedDate={selectedDate}
+              bookingDates={bookingDates}
+              selectedTime={selectedTime}
+              onTimeSelect={onTimeSelect}
+              formatDate={formatDate}
+              scrollable={true}
+            />
+          )}
+          
+        </div>
+      </CollapsedSelection>
+
+      {/* Аккордеон 2: Форма контактов (всегда открыт в десктопе) */}
+      <CollapsedSelection
+        selectedMonth={months[bookingState.selectedMonth]}
+        selectedDate={selectedDateObj}
+        selectedTime={selectedTimeObj}
+        formatMonth={formatMonth}
+        formatDate={formatDate}
+        onExpand={() => {}}
+        isExpanded={isFormExpanded}
+        isDisabled={false} // Всегда доступен в десктопе
+        title="Contact Details"
+        forceTitle={true}
+      >
+        {selectedTime >= 0 ? (
+          <>
+            {step === 'form' && (
+              <BookingForm
+                formData={formData}
+                onFormDataChange={onFormDataChange}
+                onSubmit={onFormSubmit}
+                onBack={onFormBack}
+              />
+            )}
+            
+            {step === 'confirmation' && (
+              <AppointmentDetails
+                selectedDateObj={selectedDateObj}
+                selectedTimeObj={selectedTimeObj}
+                formData={formData}
+                onNewBooking={onNewBooking}
+                formatDateFull={formatDateFull}
+              />
+            )}
+          </>
+        ) : (
+          <div className={styles.desktopFormPlaceholder}>
+            Please select a date and time to continue
+          </div>
+        )}
+      </CollapsedSelection>
+    </div>
+  )
+}
+
+________________________________________________________________________________
+
+АБСОЛЮТНЫЙ ПУТЬ: /Users/vladimirmazyrec/sync-agency-new/src/shared/sections/booking-section/components/desktop/index.ts
+название файла: booking-section/components/desktop/index.ts
+
+СОДЕРЖИМОЕ ФАЙЛА:
+----------------------------------------
+export { BookingDesktop } from './booking-desktop'
+
+________________________________________________________________________________
+
+АБСОЛЮТНЫЙ ПУТЬ: /Users/vladimirmazyrec/sync-agency-new/src/shared/sections/booking-section/components/mobile/booking-mobile.module.scss
+название файла: booking-section/components/mobile/booking-mobile.module.scss
+
+СОДЕРЖИМОЕ ФАЙЛА:
+----------------------------------------
+.mobileLayout {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+  //height: 610px;
+}
+
+.selectionContent {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.confirmationSection {
+  backdrop-filter: blur(50px);
+  border-radius: 20px;
+  padding: 20px;
+  border: 1px solid var(--border-color);
+  width: 100%;
+  transition: all 0.3s ease;
+
+  &:hover {
+    box-shadow: inset 0px 0px 3px var(--border-color-accent);
+    border-radius: 16px;
+    background: var(--bg-secondary);
+  }
+}
+
+// Специфичные стили для компонентов внутри mobile
+.mobileLayout {
+  :global(.month-selector-module__monthSelector) {
+    margin-bottom: 0;
+    
+    // Убираем заголовок месяца
+    :global(.month-selector-module__title) {
+      display: none;
+    }
+  }
+  
+  :global(.date-picker-module__datePicker) {
+    margin-bottom: 0;
+  }
+  
+  :global(.time-slots-module__timeSlots) {
+    width: 100%;
+    margin-bottom: 0;
+  }
+
+  :global(.booking-form-module__bookingForm) {
+    border: none;
+    padding: 0;
+    border-radius: 0;
+    background: transparent;
+    
+    // Убираем заголовок формы
+    :global(.booking-form-module__title) {
+      display: none;
+    }
+    
+    &:hover {
+      box-shadow: none;
+      background: transparent;
+    }
+  }
+}
+
+// Улучшенные стили для мобильных
+@media (max-width: 480px) {
+  .mobileLayout {
+    gap: 12px;
+  }
+  
+  .confirmationSection {
+    padding: 16px;
+    border-radius: 16px;
+  }
+  
+  .selectionContent {
+    gap: 16px;
+  }
+}
+
+________________________________________________________________________________
+
+АБСОЛЮТНЫЙ ПУТЬ: /Users/vladimirmazyrec/sync-agency-new/src/shared/sections/booking-section/components/mobile/booking-mobile.tsx
+название файла: booking-section/components/mobile/booking-mobile.tsx
+
+СОДЕРЖИМОЕ ФАЙЛА:
+----------------------------------------
+import React from 'react'
+import { MonthSelector, DatePicker, TimeSlots, BookingForm, AppointmentDetails, CollapsedSelection } from '../common'
+import { BookingState, BookingDate } from '../../types'
+import styles from './booking-mobile.module.scss'
+
+interface BookingMobileProps {
+  bookingState: BookingState
+  months: Date[]
+  bookingDates: BookingDate[]
+  onMonthSelect: (index: number) => void
+  onDateSelect: (index: number) => void
+  onTimeSelect: (index: number) => void
+  onFormDataChange: (formData: any) => void
+  onFormOpen: () => void
+  onFormSubmit: (formData: any) => void
+  onFormBack: () => void
+  onNewBooking: () => void
+  formatMonth: (date: Date) => string
+  formatDate: (date: Date) => string
+  formatDateFull: (date: Date) => string
+}
+
+export const BookingMobile: React.FC<BookingMobileProps> = ({
+  bookingState,
+  months,
+  bookingDates,
+  onMonthSelect,
+  onDateSelect,
+  onTimeSelect,
+  onFormDataChange,
+  onFormOpen,
+  onFormSubmit,
+  onFormBack,
+  onNewBooking,
+  formatMonth,
+  formatDate,
+  formatDateFull,
+}) => {
+  const { step, selectedDate, selectedTime, formData } = bookingState
+  const selectedDateObj = bookingDates[selectedDate]
+  const selectedTimeObj = selectedTime >= 0 ? selectedDateObj?.timeSlots[selectedTime] : null
+
+  // Определяем состояния аккордеонов
+  const isSelectionExpanded = step === 'selection'
+  const isFormExpanded = step === 'form'
+
+  return (
+    <div className={styles.mobileLayout}>
+      {/* Аккордеон 1: Выбор даты и времени */}
+      <CollapsedSelection
+        selectedMonth={months[bookingState.selectedMonth]}
+        selectedDate={selectedDateObj}
+        selectedTime={selectedTimeObj}
+        formatMonth={formatMonth}
+        formatDate={formatDate}
+        onExpand={() => {
+          if (step === 'form') {
+            onFormBack()
+          }
+        }}
+        isExpanded={isSelectionExpanded}
+        isDisabled={false}
+        title="Select Date & Time"
+      >
+        <div className={styles.selectionContent}>
+          <MonthSelector
+            months={months}
+            selectedMonth={bookingState.selectedMonth}
+            onMonthSelect={onMonthSelect}
+            formatMonth={formatMonth}
+            scrollable={true}
+          />
+          
+          <DatePicker
+            bookingDates={bookingDates}
+            selectedDate={bookingState.selectedDate}
+            onDateSelect={onDateSelect}
+          />
+
+          {selectedDate >= 0 && selectedDateObj && (
+            <TimeSlots
+              selectedDate={selectedDate}
+              bookingDates={bookingDates}
+              selectedTime={selectedTime}
+              onTimeSelect={onTimeSelect}
+              formatDate={formatDate}
+              scrollable={true}
+            />
+          )}
+        </div>
+      </CollapsedSelection>
+
+      {/* Аккордеон 2: Форма контактов */}
+      <CollapsedSelection
+        selectedMonth={months[bookingState.selectedMonth]}
+        selectedDate={selectedDateObj}
+        selectedTime={selectedTimeObj}
+        formatMonth={formatMonth}
+        formatDate={formatDate}
+        onExpand={() => {
+          if (selectedTime >= 0) {
+            onFormOpen()
+          }
+        }}
+        isExpanded={isFormExpanded}
+        isDisabled={selectedTime < 0}
+        title="Contact Details" // Обновленный заголовок
+        forceTitle={true} // Всегда показываем "Contact Details"
+      >
+        <BookingForm
+          formData={formData}
+          onFormDataChange={onFormDataChange}
+          onSubmit={onFormSubmit}
+          onBack={onFormBack}
+        />
+      </CollapsedSelection>
+
+      {/* Step 3: Confirmation */}
+      {step === 'confirmation' && (
+        <div className={styles.confirmationSection}>
+          <AppointmentDetails
+            selectedDateObj={selectedDateObj}
+            selectedTimeObj={selectedTimeObj}
+            formData={formData}
+            onNewBooking={onNewBooking}
+            formatDateFull={formatDateFull}
+          />
+        </div>
+      )}
+    </div>
+  )
+}
+
+________________________________________________________________________________
+
+АБСОЛЮТНЫЙ ПУТЬ: /Users/vladimirmazyrec/sync-agency-new/src/shared/sections/booking-section/components/mobile/index.ts
+название файла: booking-section/components/mobile/index.ts
+
+СОДЕРЖИМОЕ ФАЙЛА:
+----------------------------------------
+export { BookingMobile } from './booking-mobile'
+
+________________________________________________________________________________
+
+АБСОЛЮТНЫЙ ПУТЬ: /Users/vladimirmazyrec/sync-agency-new/src/shared/sections/booking-section/components/tablet/booking-tablet.module.scss
+название файла: booking-section/components/tablet/booking-tablet.module.scss
+
+СОДЕРЖИМОЕ ФАЙЛА:
+----------------------------------------
+.tabletLayout {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+}
+
+.selectionContent {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.confirmationSection {
+  backdrop-filter: blur(50px);
+  border-radius: 30px;
+  padding: 30px;
+  border: 1px solid var(--border-color);
+  width: 100%;
+  transition: all 0.3s ease;
+
+  &:hover {
+    box-shadow: inset 0px 0px 3px var(--border-color-accent);
+    border-radius: 25px;
+    background: var(--bg-secondary);
+  }
+}
+
+// Специфичные стили для компонентов внутри tablet
+.tabletLayout {
+  :global(.month-selector-module__monthSelector) {
+    margin-bottom: 0;
+    
+    // Убираем заголовок месяца
+    :global(.month-selector-module__title) {
+      display: none;
+    }
+  }
+  
+  :global(.date-picker-module__datePicker) {
+    margin-bottom: 0;
+  }
+  
+  :global(.time-slots-module__timeSlots) {
+    width: 100%;
+    margin-bottom: 0;
+  }
+
+  :global(.booking-form-module__bookingForm) {
+    border: none;
+    padding: 0;
+    border-radius: 0;
+    background: transparent;
+    
+    // Убираем заголовок формы
+    :global(.booking-form-module__title) {
+      display: none;
+    }
+    
+    &:hover {
+      box-shadow: none;
+      background: transparent;
+    }
+  }
+}
+
+// Адаптивность для планшетов
+@media (max-width: 1024px) {
+  .tabletLayout {
+    gap: 16px;
+    display: grid;
+    justify-content: center;
+    grid-template-columns: 430px;
+  }
+  
+  .confirmationSection {
+    padding: 24px;
+    border-radius: 24px;
+  }
+  
+  .selectionContent {
+    gap: 20px;
+  }
+}
+
+
+// Адаптивность для планшетов
+@media (min-width: 1024px) and (max-width: 1440px){
+  .tabletLayout {
+    display: grid;
+    justify-content: center;
+    grid-template-columns: 430px 430px;
+  }
+  
+  .confirmationSection {
+    padding: 24px;
+    border-radius: 24px;
+  }
+  
+  .selectionContent {
+    gap: 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .confirmationSection {
+    padding: 20px;
+    border-radius: 20px;
+  }
+  
+  .selectionContent {
+    gap: 16px;
+  }
+}
+
+________________________________________________________________________________
+
+АБСОЛЮТНЫЙ ПУТЬ: /Users/vladimirmazyrec/sync-agency-new/src/shared/sections/booking-section/components/tablet/booking-tablet.tsx
+название файла: booking-section/components/tablet/booking-tablet.tsx
+
+СОДЕРЖИМОЕ ФАЙЛА:
+----------------------------------------
+import React from 'react'
+import { MonthSelector, DatePicker, TimeSlots, BookingForm, AppointmentDetails, CollapsedSelection } from '../common'
+import { BookingState, BookingDate } from '../../types'
+import styles from './booking-tablet.module.scss'
+
+interface BookingTabletProps {
+  bookingState: BookingState
+  months: Date[]
+  bookingDates: BookingDate[]
+  onMonthSelect: (index: number) => void
+  onDateSelect: (index: number) => void
+  onTimeSelect: (index: number) => void
+  onFormDataChange: (formData: any) => void
+  onFormOpen: () => void
+  onFormSubmit: (formData: any) => void
+  onFormBack: () => void
+  onNewBooking: () => void
+  formatMonth: (date: Date) => string
+  formatDate: (date: Date) => string
+  formatDateFull: (date: Date) => string
+}
+
+export const BookingTablet: React.FC<BookingTabletProps> = ({
+  bookingState,
+  months,
+  bookingDates,
+  onMonthSelect,
+  onDateSelect,
+  onTimeSelect,
+  onFormDataChange,
+  onFormOpen,
+  onFormSubmit,
+  onFormBack,
+  onNewBooking,
+  formatMonth,
+  formatDate,
+  formatDateFull,
+}) => {
+  const { step, selectedDate, selectedTime, formData } = bookingState
+  const selectedDateObj = bookingDates[selectedDate]
+  const selectedTimeObj = selectedTime >= 0 ? selectedDateObj?.timeSlots[selectedTime] : null
+
+  // Определяем состояния аккордеонов
+  const isSelectionExpanded = step === 'selection'
+  const isFormExpanded = step === 'form'
+
+  return (
+    <div className={styles.tabletLayout}>
+      {/* Аккордеон 1: Выбор даты и времени */}
+      <CollapsedSelection
+        selectedMonth={months[bookingState.selectedMonth]}
+        selectedDate={selectedDateObj}
+        selectedTime={selectedTimeObj}
+        formatMonth={formatMonth}
+        formatDate={formatDate}
+        onExpand={() => {
+          if (step === 'form') {
+            onFormBack()
+          }
+        }}
+        isExpanded={isSelectionExpanded}
+        isDisabled={false}
+        title="Select Date & Time"
+      >
+        <div className={styles.selectionContent}>
+          <MonthSelector
+            months={months}
+            selectedMonth={bookingState.selectedMonth}
+            onMonthSelect={onMonthSelect}
+            formatMonth={formatMonth}
+            scrollable={true}
+          />
+
+          <DatePicker
+            bookingDates={bookingDates}
+            selectedDate={bookingState.selectedDate}
+            onDateSelect={onDateSelect}
+          />
+
+          {selectedDate >= 0 && selectedDateObj && (
+            <TimeSlots
+              selectedDate={selectedDate}
+              bookingDates={bookingDates}
+              selectedTime={selectedTime}
+              onTimeSelect={onTimeSelect}
+              formatDate={formatDate}
+              scrollable={true}
+            />
+          )}
+        </div>
+      </CollapsedSelection>
+
+      {/* Аккордеон 2: Форма контактов */}
+      <CollapsedSelection
+        selectedMonth={months[bookingState.selectedMonth]}
+        selectedDate={selectedDateObj}
+        selectedTime={selectedTimeObj}
+        formatMonth={formatMonth}
+        formatDate={formatDate}
+        onExpand={() => {
+          if (selectedTime >= 0) {
+            onFormOpen()
+          }
+        }}
+        isExpanded={isFormExpanded}
+        isDisabled={selectedTime < 0}
+        title="Contact Details"
+        forceTitle={true}
+      >
+        <BookingForm
+          formData={formData}
+          onFormDataChange={onFormDataChange}
+          onSubmit={onFormSubmit}
+          onBack={onFormBack}
+        />
+      </CollapsedSelection>
+
+      {/* Step 3: Confirmation */}
+      {step === 'confirmation' && (
+        <div className={styles.confirmationSection}>
+          <AppointmentDetails
+            selectedDateObj={selectedDateObj}
+            selectedTimeObj={selectedTimeObj}
+            formData={formData}
+            onNewBooking={onNewBooking}
+            formatDateFull={formatDateFull}
+          />
+        </div>
+      )}
+    </div>
+  )
+}
+
+________________________________________________________________________________
+
+АБСОЛЮТНЫЙ ПУТЬ: /Users/vladimirmazyrec/sync-agency-new/src/shared/sections/booking-section/components/tablet/index.ts
+название файла: booking-section/components/tablet/index.ts
+
+СОДЕРЖИМОЕ ФАЙЛА:
+----------------------------------------
+export { BookingTablet } from './booking-tablet'
+
+________________________________________________________________________________
+
+АБСОЛЮТНЫЙ ПУТЬ: /Users/vladimirmazyrec/sync-agency-new/src/shared/sections/booking-section/hooks/index.ts
+название файла: booking-section/hooks/index.ts
+
+СОДЕРЖИМОЕ ФАЙЛА:
+----------------------------------------
+export { useBooking } from './use-booking'
+export { useDateFormatters } from './use-date-formatters'
+
+________________________________________________________________________________
+
+АБСОЛЮТНЫЙ ПУТЬ: /Users/vladimirmazyrec/sync-agency-new/src/shared/sections/booking-section/hooks/use-booking.ts
+название файла: booking-section/hooks/use-booking.ts
+
+СОДЕРЖИМОЕ ФАЙЛА:
+----------------------------------------
+import { useState, useMemo, useEffect } from 'react'
+import { BookingState, BookingFormData, BookingDate, TimeSlot } from '../types'
+import { TelegramService } from '@/shared/services/telegram-service'
+
+console.log('Env variables:', {
+  botToken: import.meta.env.VITE_TELEGRAM_BOT_TOKEN,
+  chatId: import.meta.env.VITE_TELEGRAM_CHAT_ID
+})
+
+export const useBooking = () => {
+  const [bookingState, setBookingState] = useState<BookingState>({
+    selectedMonth: 0,
+    selectedDate: -1,
+    selectedTime: -1,
+    isConfirmed: false,
+    formData: {
+      name: '',
+      email: '',
+      communicationMethod: 'telegram',
+      contactId: ''
+    },
+    step: 'selection'
+  })
+
+  
+
+  // Generate months for the next 6 months
+  const months = useMemo((): Date[] => {
+    const monthsList: Date[] = []
+    const today = new Date()
+    
+    for (let i = 0; i < 2; i++) {
+      const month = new Date(today.getFullYear(), today.getMonth() + i, 1)
+      monthsList.push(month)
+    }
+    
+    return monthsList
+  }, [])
+
+  // Generate dates for selected month
+  const bookingDates = useMemo((): BookingDate[] => {
+    const dates: BookingDate[] = []
+    const currentMonth = months[bookingState.selectedMonth]
+    
+    if (!currentMonth) return dates
+    
+    const year = currentMonth.getFullYear()
+    const month = currentMonth.getMonth()
+    const daysInMonth = new Date(year, month + 1, 0).getDate()
+    const today = new Date()
+    today.setHours(0, 0, 0, 0)
+    
+    for (let i = 1; i <= daysInMonth; i++) {
+      const date = new Date(year, month, i)
+      date.setHours(0, 0, 0, 0)
+      
+      const isPast = date < today
+      
+      const timeSlots: TimeSlot[] = [
+        { id: `morning-${i}`, time: '09:00', available: !isPast },
+        { id: `morning2-${i}`, time: '10:30', available: !isPast },
+        { id: `afternoon-${i}`, time: '14:00', available: !isPast },
+        { id: `afternoon2-${i}`, time: '15:30', available: !isPast },
+        { id: `evening-${i}`, time: '17:00', available: !isPast },
+      ]
+      dates.push({ date, timeSlots })
+    }
+    
+    return dates
+  }, [bookingState.selectedMonth, months])
+
+  // Находим первую доступную дату при изменении месяца
+  useEffect(() => {
+    if (bookingDates.length > 0 && bookingState.selectedDate === -1) {
+      const today = new Date()
+      today.setHours(0, 0, 0, 0)
+      
+      const firstAvailableIndex = bookingDates.findIndex(bookingDate => {
+        const date = new Date(bookingDate.date)
+        date.setHours(0, 0, 0, 0)
+        return date >= today
+      })
+      
+      if (firstAvailableIndex >= 0) {
+        setBookingState(prev => ({
+          ...prev,
+          selectedDate: firstAvailableIndex
+        }))
+      } else if (bookingDates.length > 0) {
+        setBookingState(prev => ({
+          ...prev,
+          selectedDate: 0
+        }))
+      }
+    }
+  }, [bookingDates, bookingState.selectedDate])
+
+  const handleMonthSelect = (index: number) => {
+    setBookingState(prev => ({
+      ...prev,
+      selectedMonth: index,
+      selectedDate: -1,
+      selectedTime: -1,
+      step: 'selection'
+    }))
+  }
+
+  const handleDateSelect = (index: number) => {
+    const selectedDateObj = bookingDates[index]
+    if (selectedDateObj) {
+      const today = new Date()
+      today.setHours(0, 0, 0, 0)
+      const selectedDate = new Date(selectedDateObj.date)
+      selectedDate.setHours(0, 0, 0, 0)
+      
+      if (selectedDate >= today) {
+        setBookingState(prev => ({
+          ...prev,
+          selectedDate: index,
+          selectedTime: -1,
+          step: 'selection'
+        }))
+      }
+    }
+  }
+
+  const handleTimeSelect = (index: number) => {
+    const selectedDateObj = bookingDates[bookingState.selectedDate]
+    if (selectedDateObj && selectedDateObj.timeSlots[index]?.available) {
+      setBookingState(prev => ({
+        ...prev,
+        selectedTime: index,
+        step: 'form'
+      }))
+    }
+  }
+
+  const handleFormDataChange = (formData: BookingFormData) => {
+    setBookingState(prev => ({
+      ...prev,
+      formData
+    }))
+  }
+
+  const handleFormOpen = () => {
+    if (bookingState.selectedTime >= 0) {
+      setBookingState(prev => ({
+        ...prev,
+        step: 'form'
+      }))
+    }
+  }
+  const handleFormSubmit = async (formData: BookingFormData) => {
+    try {
+      // Получаем данные о выбранной дате и времени
+      const selectedDateObj = bookingDates[bookingState.selectedDate]
+      const selectedTimeObj = bookingState.selectedTime >= 0 
+        ? selectedDateObj?.timeSlots[bookingState.selectedTime] 
+        : null
+  
+      // ВРЕМЕННО: пропускаем проверку Telegram конфигурации
+      // const configCheck = TelegramService.checkConfig()
+      // if (!configCheck.isValid) {
+      //   console.warn('Telegram not configured properly:', configCheck.issues)
+      // } else {
+        // Отправляем уведомление в Telegram
+        if (selectedDateObj && selectedTimeObj) {
+          const telegramMessage = {
+            name: formData.name,
+            email: formData.email,
+            communicationMethod: formData.communicationMethod,
+            contactId: formData.contactId,
+            date: selectedDateObj.date.toLocaleDateString('en-US', {
+              weekday: 'long',
+              year: 'numeric',
+              month: 'long',
+              day: 'numeric'
+            }),
+            time: selectedTimeObj.time
+          }
+  
+          const telegramSuccess = await TelegramService.sendBookingNotification(telegramMessage)
+          
+          if (!telegramSuccess) {
+            console.warn('Telegram notification failed, but booking will be confirmed')
+          }
+        }
+      // }
+  
+      // Обновляем состояние
+      setBookingState(prev => ({
+        ...prev,
+        formData,
+        step: 'confirmation',
+        isConfirmed: true
+      }))
+  
+    } catch (error) {
+      console.error('Error in booking process:', error)
+      setBookingState(prev => ({
+        ...prev,
+        formData,
+        step: 'confirmation', 
+        isConfirmed: true
+      }))
+    }
+  }
+
+  const handleFormBack = () => {
+    setBookingState(prev => ({
+      ...prev,
+      step: 'selection'
+    }))
+  }
+
+  const handleNewBooking = () => {
+    setBookingState({
+      selectedMonth: 0,
+      selectedDate: -1,
+      selectedTime: -1,
+      isConfirmed: false,
+      formData: {
+        name: '',
+        email: '',
+        communicationMethod: 'telegram',
+        contactId: ''
+      },
+      step: 'selection'
+    })
+  }
+
+  return {
+    bookingState,
+    months,
+    bookingDates,
+    handleMonthSelect,
+    handleDateSelect,
+    handleTimeSelect,
+    handleFormDataChange,
+    handleFormOpen,
+    handleFormSubmit,
+    handleFormBack,
+    handleNewBooking
+  }
+}
+
+________________________________________________________________________________
+
+АБСОЛЮТНЫЙ ПУТЬ: /Users/vladimirmazyrec/sync-agency-new/src/shared/sections/booking-section/hooks/use-date-formatters.ts
+название файла: booking-section/hooks/use-date-formatters.ts
+
+СОДЕРЖИМОЕ ФАЙЛА:
+----------------------------------------
+export const useDateFormatters = () => {
+    const formatMonth = (date: Date): string => {
+      return date.toLocaleDateString('en-US', { 
+        month: 'long',
+        year: 'numeric'
+      })
+    }
+  
+    const formatDate = (date: Date): string => {
+      const today = new Date()
+      const tomorrow = new Date(today)
+      tomorrow.setDate(today.getDate() + 1)
+  
+      if (date.toDateString() === today.toDateString()) {
+        return 'Today'
+      } else if (date.toDateString() === tomorrow.toDateString()) {
+        return 'Tomorrow'
+      } else {
+        return date.toLocaleDateString('en-US', { 
+          weekday: 'short', 
+          day: 'numeric',
+          month: 'short'
+        })
+      }
+    }
+  
+    const formatDateFull = (date: Date): string => {
+      return date.toLocaleDateString('en-US', { 
+        weekday: 'long',
+        day: 'numeric',
+        month: 'long',
+        year: 'numeric'
+      })
+    }
+  
+    return {
+      formatMonth,
+      formatDate,
+      formatDateFull,
+    }
+  }
+
+________________________________________________________________________________
+
+АБСОЛЮТНЫЙ ПУТЬ: /Users/vladimirmazyrec/sync-agency-new/src/shared/sections/booking-section/hooks/useToday.ts
+название файла: booking-section/hooks/useToday.ts
+
+СОДЕРЖИМОЕ ФАЙЛА:
+----------------------------------------
+import { useMemo } from 'react'
+
+export const useToday = () => {
+  const today = useMemo(() => {
+    const now = new Date()
+    // Сбрасываем время для точного сравнения дат
+    return new Date(now.getFullYear(), now.getMonth(), now.getDate())
+  }, [])
+  
+  const isToday = (date: Date): boolean => {
+    const compareDate = new Date(date.getFullYear(), date.getMonth(), date.getDate())
+    return compareDate.getTime() === today.getTime()
+  }
+
+  const isPast = (date: Date): boolean => {
+    const compareDate = new Date(date.getFullYear(), date.getMonth(), date.getDate())
+    return compareDate.getTime() < today.getTime()
+  }
+
+  return {
+    today,
+    isToday,
+    isPast,
+  }
+}
+
+________________________________________________________________________________
+
+АБСОЛЮТНЫЙ ПУТЬ: /Users/vladimirmazyrec/sync-agency-new/src/shared/sections/booking-section/index.ts
+название файла: booking-section/index.ts
+
+СОДЕРЖИМОЕ ФАЙЛА:
+----------------------------------------
+export { BookingSection } from './booking-section'
+export type { 
+  BookingState, 
+  BookingFormData, 
+  BookingDate, 
+  TimeSlot 
+} from './types'
+
+________________________________________________________________________________
+
+АБСОЛЮТНЫЙ ПУТЬ: /Users/vladimirmazyrec/sync-agency-new/src/shared/sections/booking-section/types.ts
+название файла: booking-section/types.ts
+
+СОДЕРЖИМОЕ ФАЙЛА:
+----------------------------------------
+export interface TimeSlot {
+    id: string
+    time: string
+    available: boolean
+  }
+  
+  export interface BookingDate {
+    date: Date
+    timeSlots: TimeSlot[]
+  }
+  
+  export interface BookingFormData {
+    name: string
+    email: string
+    communicationMethod: 'telegram' | 'whatsapp' | 'viber' | 'other'
+    contactId: string // Новое поле для ID/номера контакта
+  }
+  
+  export interface BookingState {
+    selectedMonth: number
+    selectedDate: number
+    selectedTime: number
+    isConfirmed: boolean
+    formData: BookingFormData
+    step: 'selection' | 'form' | 'confirmation'
+  }
+  
+  export interface MonthSelectorProps {
+    months: Date[]
+    selectedMonth: number
+    onMonthSelect: (index: number) => void
+    formatMonth: (date: Date) => string
+    scrollable?: boolean
+  }
+  
+  export interface DatePickerProps {
+    bookingDates: BookingDate[]
+    selectedDate: number
+    onDateSelect: (index: number) => void
+  }
+  
+  export interface TimeSlotsProps {
+    selectedDate: number
+    bookingDates: BookingDate[]
+    selectedTime: number
+    onTimeSelect: (index: number) => void
+    formatDate: (date: Date) => string
+    scrollable?: boolean
+  }
+  
+  export interface BookingFormProps {
+    formData: BookingFormData
+    onFormDataChange: (data: BookingFormData) => void
+    onSubmit: (formData: BookingFormData) => void
+    onBack: () => void
+  }
+  
+  export interface AppointmentDetailsProps {
+    selectedDateObj: BookingDate | undefined
+    selectedTimeObj: TimeSlot | null
+    formData: BookingFormData // Обновлено с новыми полями
+    onNewBooking: () => void
+    formatDateFull: (date: Date) => string
+  }
+  
+  // ... существующие типы ...
+
+export interface BookingDesktopProps {
+    bookingState: BookingState
+    months: Date[]
+    bookingDates: BookingDate[]
+    onMonthSelect: (index: number) => void
+    onDateSelect: (index: number) => void
+    onTimeSelect: (index: number) => void
+    onFormDataChange: (formData: BookingFormData) => void
+    onFormOpen: () => void // Добавлен
+    onFormSubmit: (formData: BookingFormData) => void
+    onFormBack: () => void
+    onNewBooking: () => void
+    formatMonth: (date: Date) => string
+    formatDate: (date: Date) => string
+    formatDateFull: (date: Date) => string
+  }
+  
+  export interface BookingTabletProps {
+    bookingState: BookingState
+    months: Date[]
+    bookingDates: BookingDate[]
+    onMonthSelect: (index: number) => void
+    onDateSelect: (index: number) => void
+    onTimeSelect: (index: number) => void
+    onFormDataChange: (formData: BookingFormData) => void
+    onFormOpen: () => void // Добавлен
+    onFormSubmit: (formData: BookingFormData) => void
+    onFormBack: () => void
+    onNewBooking: () => void
+    formatMonth: (date: Date) => string
+    formatDate: (date: Date) => string
+    formatDateFull: (date: Date) => string
+  }
+  
+  export interface BookingMobileProps {
+    bookingState: BookingState
+    months: Date[]
+    bookingDates: BookingDate[]
+    onMonthSelect: (index: number) => void
+    onDateSelect: (index: number) => void
+    onTimeSelect: (index: number) => void
+    onFormDataChange: (formData: BookingFormData) => void
+    onFormOpen: () => void // Добавлен
+    onFormSubmit: (formData: BookingFormData) => void
+    onFormBack: () => void
+    onNewBooking: () => void
+    formatMonth: (date: Date) => string
+    formatDate: (date: Date) => string
+    formatDateFull: (date: Date) => string
+  }
+
+================================================================================
+
+СТАТИСТИКА:
+----------------------------------------
+Обработано файлов: 30
+Общий размер папки: 67,079 байт
+Дата создания отчета: 2026-01-15 04:08:39

@@ -1,4 +1,5 @@
 import React from 'react'
+import { PageHeader } from '@/shared/sections/PageHeader'
 import { ProductHeroSection } from '@/shared/sections/ProductHeroSection'
 import { ServiceFeatures } from '@/shared/sections/ServiceFeatures'
 import { BriefSection } from '@/shared/sections/brief-section'
@@ -13,8 +14,14 @@ import { processStepsData } from '../../shared/lib/data/processStepsData'
 import { faqData } from '../../shared/lib/data/faqData'
 
 export const BrandingAndIdentityPage: React.FC = () => {
-  const handleCtaClick = () => {
-    console.log('CTA clicked - start branding project')
+  const handleBookCall = () => {
+    console.log('Book call clicked - start branding project')
+    // Реализация открытия модалки или перехода
+  }
+
+  const handleMakeBrief = () => {
+    console.log('Make brief clicked')
+    // Реализация открытия формы брифа
   }
 
   const { theme } = useTheme()
@@ -26,13 +33,21 @@ export const BrandingAndIdentityPage: React.FC = () => {
   return (
     <div className="branding-identity-page">
 
+      <PageHeader
+        pageTitle="Brand Identity"
+        title={<>Design that speaks.<br />Identity that stays.</>}
+
+        subtitle="We craft visual and verbal identities that make brands stand out, build trust, and stay memorable. From logos and colors to tone of voice and positioning — for startups and established companies alike."
+        onBookCall={handleBookCall}
+        onMakeBrief={handleMakeBrief}
+      />
+
       <ServiceFeatures
         title="Full-Stack Development Excellence"
         subtitle="Comprehensive digital product development engineered for performance, scalability, and user satisfaction"
         features={featuresData['branding-and-identity']}
       />
-      
-      {/* Обновленная ProcessTimeline с дизайном в стиле Apple */}
+
       <ProcessTimeline
         title="Agile Development Lifecycle"
         subtitle="A structured, transparent approach that ensures quality, innovation, and successful product delivery"
@@ -44,8 +59,7 @@ export const BrandingAndIdentityPage: React.FC = () => {
         items={faqData['branding-and-identity'].items}
       />
 
-
-      <BriefSection />
+      <BriefSection page="branding" />   
     </div>
   )
 }

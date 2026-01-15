@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { CollapsedSelection } from '../../../booking-section/components/common'
+// import { CollapsedSelection } from '../../../booking-section/components/common'
 import { BookingForm } from '../../../booking-section/components/common'
 
 import { FeaturesGrid } from '../common/features-grid/features-grid'
@@ -8,6 +8,8 @@ import { BudgetTimelineSelection } from '../common/budget-timeline-selection/bud
 import { ProjectDescription } from '../common/project-description/project-description'
 import { BriefMobileProps } from '../../types'
 import styles from './brief-mobile.module.scss'
+import { CollapsedSelection } from '@shared/ui/collapsed-selection/collapsed-selection'
+
 
 export const BriefMobile: React.FC<BriefMobileProps> = ({
   briefState,
