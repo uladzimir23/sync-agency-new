@@ -47,8 +47,10 @@ export const HomePage: React.FC = () => {
 
   return (
     <div className={styles.homePage}>
-
+      
       <div className={styles.homePageContent}>
+
+
         <div className={styles.dashboardSection}>
           <DashboardHeader 
             title={
