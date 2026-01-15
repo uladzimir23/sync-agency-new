@@ -1,0 +1,696 @@
+АНАЛИЗ ПАПКИ: /Users/vladimirmazyrec/sync-agency-new/src/app/styles
+Python версия: 3.12.4
+================================================================================
+
+СТРУКТУРА ПАПОК (полные пути):
+--------------------------------------------------------------------------------
+
+styles
+    ├── abstracts
+    │   ├── abstracts/animations.scss
+    │   ├── abstracts/index.scss
+    │   ├── abstracts/mixins.scss
+    │   └── abstracts/variables.scss
+    ├── _index.scss
+    ├── fonts.scss
+    └── main.scss
+
+
+================================================================================
+СОДЕРЖИМОЕ ФАЙЛОВ:
+================================================================================
+
+АБСОЛЮТНЫЙ ПУТЬ: /Users/vladimirmazyrec/sync-agency-new/src/app/styles/_index.scss
+название файла: styles/_index.scss
+
+СОДЕРЖИМОЕ ФАЙЛА:
+----------------------------------------
+// Forward всех модулей
+@forward 'abstract';
+
+________________________________________________________________________________
+
+АБСОЛЮТНЫЙ ПУТЬ: /Users/vladimirmazyrec/sync-agency-new/src/app/styles/abstracts/animations.scss
+название файла: styles/abstracts/animations.scss
+
+СОДЕРЖИМОЕ ФАЙЛА:
+----------------------------------------
+// Keyframes animations
+@keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  @keyframes slideInFromTop {
+    from {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  @keyframes slideInFromLeft {
+    from {
+      opacity: 0;
+      transform: translateX(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+  
+  @keyframes scaleIn {
+    from {
+      opacity: 0;
+      transform: scale(0.9);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+  
+  @keyframes bounceIn {
+    0% {
+      opacity: 0;
+      transform: scale(0.3);
+    }
+    50% {
+      opacity: 1;
+      transform: scale(1.05);
+    }
+    70% {
+      transform: scale(0.9);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+  
+  @keyframes shimmer {
+    0% {
+      background-position: -200px 0;
+    }
+    100% {
+      background-position: calc(200px + 100%) 0;
+    }
+  }
+  
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+  
+  @keyframes pulse-gentle {
+    0%, 100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.7;
+    }
+  }
+  
+  // Animation classes
+  .fade-in {
+    animation: fadeIn 0.5s ease-out;
+  }
+  
+  .slide-in-top {
+    animation: slideInFromTop 0.3s ease-out;
+  }
+  
+  .slide-in-left {
+    animation: slideInFromLeft 0.3s ease-out;
+  }
+  
+  .scale-in {
+    animation: scaleIn 0.2s ease-out;
+  }
+  
+  .bounce-in {
+    animation: bounceIn 0.6s ease-out;
+  }
+  
+  .float {
+    animation: float 3s ease-in-out infinite;
+  }
+  
+  .pulse-gentle {
+    animation: pulse-gentle 2s ease-in-out infinite;
+  }
+  
+  // Transition classes
+  .smooth-transition {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .smooth-transition-slow {
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  // Stagger animations for lists
+  .stagger-item {
+    opacity: 0;
+    transform: translateY(20px);
+    
+    &.animate-in {
+      opacity: 1;
+      transform: translateY(0);
+      transition: all 0.3s ease-out;
+    }
+  }
+
+________________________________________________________________________________
+
+АБСОЛЮТНЫЙ ПУТЬ: /Users/vladimirmazyrec/sync-agency-new/src/app/styles/abstracts/index.scss
+название файла: styles/abstracts/index.scss
+
+СОДЕРЖИМОЕ ФАЙЛА:
+----------------------------------------
+// Abstracts index - используем @forward для экспорта
+@forward 'variables';
+@forward 'mixins';
+//@forward 'functions';
+@forward 'animations';
+
+
+________________________________________________________________________________
+
+АБСОЛЮТНЫЙ ПУТЬ: /Users/vladimirmazyrec/sync-agency-new/src/app/styles/abstracts/mixins.scss
+название файла: styles/abstracts/mixins.scss
+
+СОДЕРЖИМОЕ ФАЙЛА:
+----------------------------------------
+// Современный Sass с использованием модульных функций
+@use 'sass:map';
+@use 'variables' as vars;
+
+// Media queries
+@mixin respond-to($breakpoint) {
+  @if map.has-key(vars.$breakpoints, $breakpoint) {
+    @media (min-width: map.get(vars.$breakpoints, $breakpoint)) {
+      @content;
+    }
+  } @else {
+    @warn "Unknown breakpoint: #{$breakpoint}";
+  }
+}
+
+// Flexbox centering
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+// Button base styles
+@mixin button-base {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--colabsys-radius);
+  font-weight: 500;
+  font-size: vars.text-size(sm);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  border: none;
+  outline: none;
+  
+  &:focus-visible {
+    outline: 2px solid hsl(var(--colabsys-ring));
+    outline-offset: 2px;
+  }
+  
+  &:disabled {
+    pointer-events: none;
+    opacity: 0.5;
+  }
+}
+
+// Glass morphism effect
+@mixin glass-effect($blur: 10px, $opacity: 0.1) {
+  background: rgba(255, 255, 255, $opacity);
+  backdrop-filter: blur($blur);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+// Hover lift effect
+@mixin hover-lift {
+  transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  
+  &:hover {
+    transform: translateY(-2px);
+  }
+}
+
+// Glow effect
+@mixin glow-effect($color: #3B82F6, $size: 8px) {
+  box-shadow: 0 0 $size rgba($color, 0.4);
+  
+  &:hover {
+    box-shadow: 0 0 ($size * 1.5) rgba($color, 0.6);
+  }
+}
+
+// Text gradient
+@mixin text-gradient($from, $to) {
+  background: linear-gradient(135deg, $from, $to);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+// Экспортируем миксины как модуль
+@mixin mixins {
+  // Этот миксин будет использоваться в main.scss
+}
+
+________________________________________________________________________________
+
+АБСОЛЮТНЫЙ ПУТЬ: /Users/vladimirmazyrec/sync-agency-new/src/app/styles/abstracts/variables.scss
+название файла: styles/abstracts/variables.scss
+
+СОДЕРЖИМОЕ ФАЙЛА:
+----------------------------------------
+// Современный Sass с использованием CSS переменных и map functions
+@use 'sass:map';
+
+// Цветовые схемы для категорий
+:root {
+  // Синяя схема (Brand Identity)
+  --color-scheme-blue-bg: rgba(33, 150, 243, 0.1);
+  --color-scheme-blue-text: #1976d2;
+  --color-scheme-blue-border: rgba(33, 150, 243, 0.3);
+  
+  // Красная схема (Marketing Strategy)
+  --color-scheme-red-bg: rgba(244, 67, 54, 0.1);
+  --color-scheme-red-text: #d32f2f;
+  --color-scheme-red-border: rgba(244, 67, 54, 0.3);
+  
+  // Зеленая схема (Product Development)
+  --color-scheme-green-bg: rgba(76, 175, 80, 0.1);
+  --color-scheme-green-text: #388e3c;
+  --color-scheme-green-border: rgba(76, 175, 80, 0.3);
+  
+  // Голубая схема (Performance Intelligence)
+  --color-scheme-cyan-bg: rgba(0, 188, 212, 0.1);
+  --color-scheme-cyan-text: #0097a7;
+  --color-scheme-cyan-border: rgba(0, 188, 212, 0.3);
+  
+  // Фиолетовая схема (Infrastructure Automation)
+  --color-scheme-purple-bg: rgba(156, 39, 176, 0.1);
+  --color-scheme-purple-text: #7b1fa2;
+  --color-scheme-purple-border: rgba(156, 39, 176, 0.3);
+}
+
+.dark-theme {
+  // Синяя схема (Brand Identity)
+  --color-scheme-blue-bg: rgba(33, 150, 243, 0.15);
+  --color-scheme-blue-text: #64b5f6;
+  --color-scheme-blue-border: rgba(33, 150, 243, 0.4);
+  
+  // Красная схема (Marketing Strategy)
+  --color-scheme-red-bg: rgba(244, 67, 54, 0.15);
+  --color-scheme-red-text: #ef5350;
+  --color-scheme-red-border: rgba(244, 67, 54, 0.4);
+  
+  // Зеленая схема (Product Development)
+  --color-scheme-green-bg: rgba(76, 175, 80, 0.15);
+  --color-scheme-green-text: #66bb6a;
+  --color-scheme-green-border: rgba(76, 175, 80, 0.4);
+  
+  // Голубая схема (Performance Intelligence)
+  --color-scheme-cyan-bg: rgba(0, 188, 212, 0.15);
+  --color-scheme-cyan-text: #4dd0e1;
+  --color-scheme-cyan-border: rgba(0, 188, 212, 0.4);
+  
+  // Фиолетовая схема (Infrastructure Automation)
+  --color-scheme-purple-bg: rgba(156, 39, 176, 0.15);
+  --color-scheme-purple-text: #ba68c8;
+  --color-scheme-purple-border: rgba(156, 39, 176, 0.4);
+}
+
+// Spacing system
+$spacing-unit: 0.25rem;
+$spacing-scale: (
+  0: 0,
+  1: $spacing-unit,
+  2: $spacing-unit * 2,
+  3: $spacing-unit * 3,
+  4: $spacing-unit * 4,
+  5: $spacing-unit * 5,
+  6: $spacing-unit * 6,
+  8: $spacing-unit * 8,
+  10: $spacing-unit * 10,
+  12: $spacing-unit * 12,
+  16: $spacing-unit * 16,
+  20: $spacing-unit * 20,
+  24: $spacing-unit * 24,
+  32: $spacing-unit * 32,
+);
+
+// Typography scale
+$text-scale: (
+  xs: 0.75rem,
+  sm: 0.875rem,
+  base: 1rem,
+  lg: 1.125rem,
+  xl: 1.25rem,
+  '2xl': 1.5rem,
+  '3xl': 1.875rem,
+  '4xl': 2.25rem,
+  '5xl': 3rem,
+);
+
+// Shadows - современный синтаксис
+$shadows: (
+  sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05),
+  base: (0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1)),
+  md: (0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1)),
+  lg: (0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1)),
+  xl: (0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1)),
+  '2xl': 0 25px 50px -12px rgba(0, 0, 0, 0.25),
+  inner: inset 0 2px 4px 0 rgba(0, 0, 0, 0.05),
+  none: none,
+);
+
+// Breakpoints
+$breakpoints: (
+  sm: 640px,
+  md: 768px,
+  lg: 1024px,
+  xl: 1280px,
+  '2xl': 1536px,
+);
+
+// Функции для работы с картами
+@function spacing($key) {
+  @return map.get($spacing-scale, $key);
+}
+
+@function text-size($key) {
+  @return map.get($text-scale, $key);
+}
+
+@function breakpoint($key) {
+  @return map.get($breakpoints, $key);
+}
+
+@function shadow($key) {
+  @return map.get($shadows, $key);
+}
+
+________________________________________________________________________________
+
+АБСОЛЮТНЫЙ ПУТЬ: /Users/vladimirmazyrec/sync-agency-new/src/app/styles/fonts.scss
+название файла: styles/fonts.scss
+
+СОДЕРЖИМОЕ ФАЙЛА:
+----------------------------------------
+// Подключаем TikTok Sans из Google Fonts для кириллицы
+@import url('https://fonts.googleapis.com/css2?family=TikTok+Sans:wght@400;500;600;700&display=swap&subset=cyrillic');
+
+// Определяем TASA Orbiter для латиницы
+@font-face {
+    font-family: 'TASA Orbiter Latin';
+    src: url('@shared/assets/fonts/tasa-orbiter/TASAOrbiter-VariableFont_wght.ttf') format('truetype');
+    font-weight: 100 900;
+    font-style: normal;
+    font-display: swap;
+}
+
+// Добавляем статические версии TASA Orbiter
+@font-face {
+    font-family: 'TASA Orbiter Latin';
+    src: url('@shared/assets/fonts/tasa-orbiter/static/TASAOrbiter-Regular.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'TASA Orbiter Latin';
+    src: url('@shared/assets/fonts/tasa-orbiter/static/TASAOrbiter-Medium.ttf') format('truetype');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'TASA Orbiter Latin';
+    src: url('@shared/assets/fonts/tasa-orbiter/static/TASAOrbiter-SemiBold.ttf') format('truetype');
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'TASA Orbiter Latin';
+    src: url('@shared/assets/fonts/tasa-orbiter/static/TASAOrbiter-Bold.ttf') format('truetype');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'TASA Orbiter Latin';
+    src: url('@shared/assets/fonts/tasa-orbiter/static/TASAOrbiter-ExtraBold.ttf') format('truetype');
+    font-weight: 800;
+    font-style: normal;
+    font-display: swap;
+}
+
+// Определяем CSS-класс для каждого языка
+.font-english {
+    font-family: 'TASA Orbiter Latin', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+.font-russian {
+    font-family: 'TikTok Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+// Создаем CSS-переменные для использования в SCSS
+:root {
+    --font-english: 'TASA Orbiter Latin', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --font-russian: 'TikTok Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+________________________________________________________________________________
+
+АБСОЛЮТНЫЙ ПУТЬ: /Users/vladimirmazyrec/sync-agency-new/src/app/styles/main.scss
+название файла: styles/main.scss
+
+СОДЕРЖИМОЕ ФАЙЛА:
+----------------------------------------
+
+@import './fonts.scss';
+//@import './utilities.scss'; // Добавьте эту строку
+@import '../../shared/ui/button/button.module.scss'; // Добавьте эту строку
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    // Используем оба шрифта для поддержки смешанного контента
+    font-family: var(--font-english), var(--font-russian), -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--black-white);
+    color: var(--text-primary);
+    line-height: 1.5;
+    transition: all 0.3s ease;
+
+    .p {
+      font-family: var(--font-english), var(--font-russian), -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+    }
+    .span {
+      font-family: var(--font-english), var(--font-russian), -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+    }
+  }
+
+// Устанавливаем шрифт для элементов
+body:lang(en) {
+  font-family: var(--font-english);
+}
+
+body:lang(ru) {
+  font-family: var(--font-russian);
+}
+
+// Также можно применить через классы на HTML элементе
+html.en body {
+  font-family: var(--font-english);
+}
+
+html.ru body {
+  font-family: var(--font-russian);
+}
+
+  // CSS переменные для светлой темы
+  :root {
+    --black-white: rgb(255, 255, 255);
+    --bg-primary: #f2f2ff6d;
+    --bg-primary-100: #f4f8ffe5;
+
+
+    --bg-primary-opacity: rgba(255, 255, 255, 0.2);
+    --bg-primary-opacity-sec: rgba(255, 255, 255, 0.1);
+    --background-primary-section: #e8e8f9;
+    --background-primary-yellow:  #155ed40f;
+    --background-primary-yellow-test:  #d415150f;
+
+    --background-primary-yellow-100: #EAF0FC;
+
+    //--background-primary-yellow:  #d4159e0f;
+
+    --background-primary-red:  #d4151511;
+
+    --bg-secondary: #f2fbfe77;
+    --bg-thirdly: #f2fbfebb;
+    --bg-fourthly: #e8f8ff;
+    --text-primary: #212529;
+    --text-secondary: #6c757d;
+    --text-thirdly: #6c757d;
+    --primary-color: #0C8CE9;
+    //--primary-color: #dd4e23;
+
+    --primary-color-red: #ff0000;
+    --accent-color: #56aafe25;
+    --accent-color-red: #ff000020;
+
+    --border-color: #dee2e6;
+    --border-color-accent: #89bbf0;
+    --border-color-pink: #C779D0;
+
+    --box-shadow-primary: 0px 0px 2px 1px #223c501a;
+    --text-shadow-primary: #223c5015;
+
+    --overlay-primary: rgba(25, 2, 43, 0.5);
+
+    --backdrop-blur: blur(20px);
+    --backdrop-bg-light: rgba(255, 255, 255, 0.1);
+    --backdrop-bg-dark: rgba(0, 0, 0, 0.2);
+
+    
+    // Дополнительные переменные для компонентов
+    --colabsys-radius: 10px;
+    --success-color: #10b981;
+    --warning-color: #f59e0b;
+    --destructive-color: #ef4444;
+
+    // Добавляем переменные шрифтов
+    --font-english: 'TASA Orbiter Latin', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --font-russian: 'TikTok Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+  }
+
+  .gradientPrimary {
+    background: linear-gradient(45deg, #FEAC5E, #C779D0, #4BC0C8);
+    background-size: 200% 200%;
+    animation: gradientShift 3s ease infinite;
+  }
+  
+  .gradientText {
+    background: linear-gradient(45deg, #FEAC5E, #C779D0, #4BC0C8);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-size: 200% 200%;
+    animation: gradientShift 3s ease infinite;
+  }
+  
+  @keyframes gradientShift {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+
+  
+  
+  // CSS переменные для темной темы
+  body.dark-theme {
+    --black-white: #050505;
+    --bg-primary: #00000077;
+    --bg-primary-100:#111119dc;
+    
+
+    --bg-secondary: #18181c80;
+    --bg-thirdly: #040421bb;
+    --bg-fourthly: #56aafe12;
+
+    --background-primary-section: #191919;
+    --background-primary-yellow:  #0e2d5f0f;
+    --background-primary-yellow-100: rgba(16, 20, 46, 0.471);
+
+
+   //--background-primary-yellow:  #18181C;
+
+    --background-primary-red:  #d4151511;
+    --bg-primary-opacity: rgba(8, 8, 43, 0.2);
+    --bg-primary-opacity-sec: rgba(8, 8, 43, 0.1);
+
+    --text-primary: #ffffff;
+    --text-secondary: #caafd1;
+    --text-thirdly: #adb5bd8b;
+    --primary-color: #56aafe;
+    --primary-color-red: #ff0000;
+    --accent-color: #56aafe25;
+    --accent-color-red: #321919;
+
+    --border-color: #1d2631a8;
+    --border-color-accent: #1E4765;
+    --border-color-pink: #c779d079;
+
+
+    --box-shadow-primary: 0px 0px 1px 0.5px #223c50da;
+    --text-shadow-primary: #223c5055;
+
+    --overlay-primary: rgba(25, 2, 43, 0.5);
+
+    --backdrop-bg-light: rgba(255, 255, 255, 0.05);
+    --backdrop-bg-dark: rgba(0, 0, 0, 0.3);
+
+    // Добавляем переменные шрифтов
+    --font-english: 'TASA Orbiter Latin', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --font-russian: 'TikTok Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  }
+  
+
+================================================================================
+
+СТАТИСТИКА:
+----------------------------------------
+Обработано файлов: 7
+Общий размер папки: 15,602 байт
+Дата создания отчета: 2026-01-16 02:22:04

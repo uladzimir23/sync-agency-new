@@ -1,0 +1,217 @@
+АНАЛИЗ ПАПКИ: /Users/vladimirmazyrec/sync-agency-new/src/pages/Home
+Python версия: 3.12.4
+================================================================================
+
+СТРУКТУРА ПАПОК (полные пути):
+--------------------------------------------------------------------------------
+
+Home
+    ├── HomePage.module.scss
+    ├── HomePage.tsx
+    ├── index.ts
+    └── text
+
+
+================================================================================
+СОДЕРЖИМОЕ ФАЙЛОВ:
+================================================================================
+
+АБСОЛЮТНЫЙ ПУТЬ: /Users/vladimirmazyrec/sync-agency-new/src/pages/Home/HomePage.module.scss
+название файла: Home/HomePage.module.scss
+
+СОДЕРЖИМОЕ ФАЙЛА:
+----------------------------------------
+.homePage {
+  position: relative;
+  min-height: 100vh;
+  width: 100%;
+  overflow: hidden;
+  background: var(--bg-primary);
+}
+
+.homePageContent {
+  position: relative;
+  z-index: 1;
+  background: transparent;
+}
+
+.dashboardSection {
+  padding: 2rem 1rem;
+  max-width: 1400px;
+  margin: 0 auto;
+  
+  @media (min-width: 768px) {
+    padding: 3rem 2rem;
+  }
+  
+  @media (min-width: 1024px) {
+    padding: 4rem;
+  }
+}
+
+.curvedLoopSection {
+  position: relative;
+  width: 100%;
+  left: 0;
+
+  margin: 3rem 0;
+  
+  .curvedLoopContainer {
+    width: 100%;
+    margin: 0;
+  }
+}
+
+// Анимации для плавного появления
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.homePageContent > * {
+  animation: fadeInUp 0.6s ease-out forwards;
+}
+
+// Staggered animations для секций
+.dashboardSection > * {
+  opacity: 0;
+  animation: fadeInUp 0.8s ease-out forwards;
+  
+  &:nth-child(1) { animation-delay: 0.1s; }
+  &:nth-child(2) { animation-delay: 0.2s; }
+  &:nth-child(3) { animation-delay: 0.3s; }
+  &:nth-child(4) { animation-delay: 0.4s; }
+}
+
+// Адаптивность
+@media (max-width: 768px) {
+  .dashboardSection {
+    padding: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .dashboardSection {
+    padding: 0.5rem;
+  }
+  
+  .curvedLoopSection {
+    margin: 2rem 0;
+  }
+}
+
+
+________________________________________________________________________________
+
+АБСОЛЮТНЫЙ ПУТЬ: /Users/vladimirmazyrec/sync-agency-new/src/pages/Home/HomePage.tsx
+название файла: Home/HomePage.tsx
+
+СОДЕРЖИМОЕ ФАЙЛА:
+----------------------------------------
+import React, { useState } from 'react';
+import { DashboardHeader } from '@shared/sections/DashboardHeader';
+import { BookingSection } from '@shared/sections/booking-section';
+import { ServicesSection } from '@shared/sections/ServicesSection';
+import { CurvedLoop } from '@/shared/ui/curved-loop';
+import { FloatingContactButton } from '@/shared/ui/floating-contact-button';
+import { HeroVideo } from '@/shared/ui/hero-video'; // Импортируем новый компонент
+import { useTheme } from '@/shared/hooks/useTheme';
+import styles from './HomePage.module.scss';
+import {WavyBackground} from '@shared/ui/wavy-background'
+
+export const HomePage: React.FC = () => {
+  const [activeTab, setActiveTab] = useState(0);
+  const [activeMenu, setActiveMenu] = useState(0);
+  const { theme } = useTheme();
+
+
+  
+    
+    const getBackgroundFill = () => {
+      return theme === 'dark' ? '#020212' : '#f2f2ff'
+    }
+  
+
+  const handleContactClick = () => {
+    console.log('Opening contact modal...');
+  };
+
+  const handleServiceClick = (id: string) => {
+    console.log(`Service clicked: ${id}`);
+    // Можно добавить логику навигации или открытия модального окна
+    switch(id) {
+      case 'brand-identity':
+        // Навигация к странице Brand Identity
+        break;
+      case 'marketing-strategy':
+        // Навигация к странице Marketing Strategy
+        break;
+      case 'product-development':
+        // Навигация к странице Product Development
+        break;
+      case 'performance-intelligence':
+        // Навигация к странице Performance Intelligence
+        break;
+      case 'infrastructure-automation':
+        // Навигация к странице Infrastructure Automation
+        break;
+    }
+  };
+
+  return (
+    <div className={styles.homePage}>
+      <div className={styles.homePageContent}>
+
+        <div className={styles.dashboardSection}>
+          {/* Добавляем HeroVideo под заголовком */}
+          <div className={styles.heroVideoSection}>
+            <DashboardHeader 
+              title={
+                <>
+                  Unified system where <br />
+                  brand, strategy, technology and data <br />
+                  work together in sync
+                </>
+              }
+              subtitle="Creating premium digital experiences with integrated solutions"
+            />
+            
+            <div className={styles.videoWrapper}>
+              <HeroVideo className={styles.heroVideoElement} />
+            </div>
+          </div>
+
+          <ServicesSection onServiceClick={handleServiceClick} />
+
+          <BookingSection />
+        </div>
+      </div>
+      
+      <FloatingContactButton onClick={handleContactClick} />
+    </div>
+
+  );
+};
+
+________________________________________________________________________________
+
+АБСОЛЮТНЫЙ ПУТЬ: /Users/vladimirmazyrec/sync-agency-new/src/pages/Home/index.ts
+название файла: Home/index.ts
+
+СОДЕРЖИМОЕ ФАЙЛА:
+----------------------------------------
+export { HomePage } from './HomePage'
+
+================================================================================
+
+СТАТИСТИКА:
+----------------------------------------
+Обработано файлов: 3
+Общий размер папки: 5,035 байт
+Дата создания отчета: 2026-01-16 02:21:06

@@ -7,11 +7,20 @@ import { FloatingContactButton } from '@/shared/ui/floating-contact-button';
 import { HeroVideo } from '@/shared/ui/hero-video'; // Импортируем новый компонент
 import { useTheme } from '@/shared/hooks/useTheme';
 import styles from './HomePage.module.scss';
+import {WavyBackground} from '@shared/ui/wavy-background'
 
 export const HomePage: React.FC = () => {
   const [activeTab, setActiveTab] = useState(0);
   const [activeMenu, setActiveMenu] = useState(0);
   const { theme } = useTheme();
+
+
+  
+    
+    const getBackgroundFill = () => {
+      return theme === 'dark' ? '#020212' : '#f2f2ff'
+    }
+  
 
   const handleContactClick = () => {
     console.log('Opening contact modal...');
@@ -42,6 +51,7 @@ export const HomePage: React.FC = () => {
   return (
     <div className={styles.homePage}>
       <div className={styles.homePageContent}>
+
         <div className={styles.dashboardSection}>
           {/* Добавляем HeroVideo под заголовком */}
           <div className={styles.heroVideoSection}>
@@ -69,5 +79,6 @@ export const HomePage: React.FC = () => {
       
       <FloatingContactButton onClick={handleContactClick} />
     </div>
+
   );
 };

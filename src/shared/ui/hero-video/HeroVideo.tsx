@@ -25,7 +25,7 @@ export const HeroVideo: React.FC<HeroVideoProps> = ({
   // Выбор видео в зависимости от устройства
   const videoSrc = isMobile || isTablet 
     ? '/src/shared/assets/video/Mobile.webm'
-    : '/src/shared/assets/video/Desktop.webm';
+    : '/src/shared/assets/video/Desktop2.webm';
 
   // Intersection Observer для отслеживания видимости
   useEffect(() => {
