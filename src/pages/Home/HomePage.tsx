@@ -9,6 +9,8 @@ import styles from './HomePage.module.scss';
 
 import {WavyBackground} from '@shared/ui/wavy-background';
 
+import { ChatAI } from '@/shared/ui/chat-ai';
+
 
 export const HomePage: React.FC = () => {
   const [activeTab, setActiveTab] = useState(0);
@@ -62,6 +64,15 @@ export const HomePage: React.FC = () => {
             }
             subtitle="Creating premium digital experiences with integrated solutions"
           />
+
+          {/* Добавляем ChatAI компонент здесь */}
+        <ChatAI 
+          className={styles.chatAI}
+          onSendMessage={async (message) => {
+            // Здесь можно добавить интеграцию с реальным AI API
+            console.log('User message:', message);
+          }}
+        />
 
           <ServicesSection onServiceClick={handleServiceClick} />
 
