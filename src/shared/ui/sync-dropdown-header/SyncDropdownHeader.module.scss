@@ -4,6 +4,14 @@
   justify-content: center;
   width: 100%;
   position: relative;
+  transition: all 0.3s ease;
+
+
+  &:hover {
+    transition: all 0.3s ease;
+
+    scale: 1.02;
+  }
 }
 
 // Дропдаун стили

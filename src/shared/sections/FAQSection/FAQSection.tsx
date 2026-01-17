@@ -37,7 +37,7 @@ export const FAQSection: React.FC<FAQSectionProps> = ({
   useEffect(() => {
     const newHeights = items.map((_, index) => {
       const element = answerRefs.current[index]?.querySelector('p')
-      return element ? element.scrollHeight + 40 : 0
+      return element ? element.scrollHeight + 60 : 0
     })
     setHeights(newHeights)
   }, [items])
@@ -89,7 +89,7 @@ export const FAQSection: React.FC<FAQSectionProps> = ({
             <div 
               className={`${styles.answerContainer} ${activeIndex === index ? styles.expanded : ''}`}
               style={activeIndex === index ? { 
-                maxHeight: heights[index] ? `${heights[index]}px` : '2000px' 
+                maxHeight: heights[index] ? `${heights[index]}px` : '1000px' 
               } : {}}
             >
               <div 

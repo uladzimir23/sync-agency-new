@@ -1,0 +1,1625 @@
+АНАЛИЗ ПАПКИ: /Users/vladimirmazyrec/sync-agency-new/src/shared/sections/ServiceFeatures
+Python версия: 3.12.4
+================================================================================
+
+СТРУКТУРА ПАПОК (полные пути):
+--------------------------------------------------------------------------------
+
+ServiceFeatures
+    ├── index.ts
+    ├── ServiceFeatures copy.tsx
+    ├── ServiceFeatures.module.scss
+    ├── ServiceFeatures.tsx
+    ├── ServiceFeaturesDesktop.module.scss
+    ├── ServiceFeaturesDesktop.tsx
+    ├── ServiceFeaturesMobile.module.scss
+    └── ServiceFeaturesMobile.tsx
+
+
+================================================================================
+СОДЕРЖИМОЕ ФАЙЛОВ:
+================================================================================
+
+АБСОЛЮТНЫЙ ПУТЬ: /Users/vladimirmazyrec/sync-agency-new/src/shared/sections/ServiceFeatures/index.ts
+название файла: ServiceFeatures/index.ts
+
+СОДЕРЖИМОЕ ФАЙЛА:
+----------------------------------------
+export { ServiceFeatures } from './ServiceFeatures'
+
+________________________________________________________________________________
+
+АБСОЛЮТНЫЙ ПУТЬ: /Users/vladimirmazyrec/sync-agency-new/src/shared/sections/ServiceFeatures/ServiceFeatures copy.tsx
+название файла: ServiceFeatures/ServiceFeatures copy.tsx
+
+СОДЕРЖИМОЕ ФАЙЛА:
+----------------------------------------
+import React, { useState, useRef, useEffect } from 'react'
+import styles from './ServiceFeatures.module.scss'
+
+interface Feature {
+  title: string
+  description: string
+  detailedDescription: string
+  exampleDescription: string
+  icon?: string
+}
+
+interface ServiceFeaturesProps {
+  title: string
+  subtitle: string
+  features: Feature[]
+}
+
+export const ServiceFeatures: React.FC<ServiceFeaturesProps> = ({
+  title,
+  subtitle,
+  features
+}) => {
+  const [activeFeature, setActiveFeature] = useState<number>(0)
+  const [isAnimating, setIsAnimating] = useState<boolean>(false)
+  const [detailHeight, setDetailHeight] = useState<number>(0)
+  const [hoveredCard, setHoveredCard] = useState<number | null>(null)
+  const detailContentRef = useRef<HTMLDivElement>(null)
+  const detailContainerRef = useRef<HTMLDivElement>(null)
+
+  // Обновляем высоту при изменении активного элемента
+  useEffect(() => {
+    if (detailContentRef.current && detailContainerRef.current) {
+      // Получаем высоту контента
+      const contentHeight = detailContentRef.current.scrollHeight
+      
+      // Получаем computed стили контейнера
+      const computedStyle = window.getComputedStyle(detailContainerRef.current)
+      const paddingTop = parseFloat(computedStyle.paddingTop) || 0
+      const paddingBottom = parseFloat(computedStyle.paddingBottom) || 0
+      
+      // Устанавливаем высоту контейнера (контент + паддинги)
+      const totalHeight = contentHeight + paddingTop + paddingBottom
+      setDetailHeight(totalHeight)
+    }
+  }, [activeFeature])
+
+  // Обновляем высоту при изменении размера окна
+  useEffect(() => {
+    const handleResize = () => {
+      if (detailContentRef.current && detailContainerRef.current) {
+        const contentHeight = detailContentRef.current.scrollHeight
+        const computedStyle = window.getComputedStyle(detailContainerRef.current)
+        const paddingTop = parseFloat(computedStyle.paddingTop) || 0
+        const paddingBottom = parseFloat(computedStyle.paddingBottom) || 0
+        const totalHeight = contentHeight + paddingTop + paddingBottom
+        setDetailHeight(totalHeight)
+      }
+    }
+
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, [activeFeature])
+
+  const handleCardClick = (index: number) => {
+    if (index === activeFeature || isAnimating) return
+    
+    setIsAnimating(true)
+    setActiveFeature(index)
+    
+    // Сброс состояния анимации после завершения
+    setTimeout(() => {
+      setIsAnimating(false)
+    }, 200)
+  }
+
+  return (
+    <section className={styles.serviceFeaturesSection}>
+      <div className={styles.serviceFeaturesContainer}>
+        <div className={styles.serviceFeaturesHeader}>
+          <h2 className={styles.serviceFeaturesTitle}>{title}</h2>
+          <h3 className={styles.serviceFeaturesSubtitle}>{subtitle}</h3>
+        </div>
+
+        <div className={styles.serviceFeaturesContent}>
+          <div className={styles.serviceFeaturesGrid}>
+            {features.map((feature, index) => (
+              <div 
+                key={index} 
+                className={`${styles.serviceFeatureCard} ${index === activeFeature ? styles.active : ''}`}
+                onClick={() => handleCardClick(index)}
+                onMouseEnter={() => setHoveredCard(index)}
+                onMouseLeave={() => setHoveredCard(null)}
+              >
+                <div className={styles.cardContent}>
+                  <h3 className={styles.serviceFeatureTitle}>{feature.title}</h3>
+                  <p className={styles.serviceFeatureDescription}>{feature.description}</p> 
+                </div>
+                
+                {/* Стрелка, которая появляется при ховере */}
+                <div 
+                  className={`${styles.arrowContainer} ${
+                    hoveredCard === index || index === activeFeature ? styles.arrowVisible : ''
+                  }`}
+                >
+                  <svg 
+                    xmlns="http://www.w3.org/2000/svg" 
+                    viewBox="0 0 24 24" 
+                    fill="currentColor"
+                    className={styles.arrow}
+                  >
+                    <path d="M0 14.0904L0 10.6205H16.3636C15.2253 9.55926 14.6453 8.92032 13.3636 6.86145C12.4743 5.43281 12 3.10241 11.7273 1.65663L14.7273 0.5C15.4545 2.33133 15.7727 4.54819 18.2727 7.72892C19.8636 9.75301 21.8182 10.3313 24 10.6205V14.0904C21.5455 14.3795 19.5415 15.1087 17.7273 17.8494C15.913 20.5901 15.1818 22.9578 14.7273 24.5L11.7273 23.0542C12.1818 21.8976 12.664 19.9352 13.6364 18.1386C14.6087 16.3419 15.6364 14.9578 16.3636 14.0904H0Z"/>
+                  </svg>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div 
+            ref={detailContainerRef}
+            className={`${styles.serviceFeaturesDetail} ${isAnimating ? styles.animating : ''}`}
+            style={{ height: `${detailHeight}px` }}
+          >
+            <div 
+              ref={detailContentRef}
+              className={`${styles.featureDetailContent} ${isAnimating ? styles.contentAnimating : ''}`}
+              key={activeFeature}
+            >
+              <h3 className={styles.detailTitle}>{features[activeFeature].title}</h3>
+              <p className={styles.detailDescription}>
+                {features[activeFeature].detailedDescription}
+              </p>
+              <p className={styles.detailExample}>
+                {features[activeFeature].exampleDescription}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+________________________________________________________________________________
+
+АБСОЛЮТНЫЙ ПУТЬ: /Users/vladimirmazyrec/sync-agency-new/src/shared/sections/ServiceFeatures/ServiceFeatures.module.scss
+название файла: ServiceFeatures/ServiceFeatures.module.scss
+
+СОДЕРЖИМОЕ ФАЙЛА:
+----------------------------------------
+.serviceFeaturesSection {
+  padding: 100px 160px;
+  display: grid;
+  height: fit-content;
+  align-items: center;
+}
+
+.serviceFeaturesContainer {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.serviceFeaturesHeader {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  margin-bottom: 4rem;
+  align-items: center;
+
+  .serviceFeaturesTitle {
+    font-size: 2.5rem;
+    font-weight: 700;
+    text-align: left;
+    color: var(--text-primary);
+    margin-bottom: 1rem;
+    text-align: center;
+    line-height: 1.2;
+
+  }
+
+  .serviceFeaturesSubtitle {
+    font-size: 1.25rem;
+    color: var(--text-secondary);
+    max-width: 600px;
+    line-height: 1.2;
+    text-align: center;
+
+  }
+}
+
+.serviceFeaturesContent {
+  display: grid;
+  grid-template-columns: 430px 430px;
+  gap: 1rem;
+  align-items: start;
+}
+
+.serviceFeaturesGrid {
+  display: grid;
+  flex-direction: column;
+  grid-template-columns: 1fr;
+  gap: 0.5rem;
+  align-items: start;
+  height: 100%;
+}
+.serviceFeatureCard {
+  box-shadow: inset 0 0px 20px rgba(12, 140, 233, 0.1);
+  cursor: pointer;
+  padding: 2rem;
+  border-radius: 1.5rem;
+  border: 1px solid var(--background-primary-yellow);
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  overflow: hidden;
+  gap: 10px;
+  backdrop-filter: blur(10px);
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+  scale: 1;
+  
+  // Добавляем новый контейнер для содержимого карточки
+  .cardContent {
+    position: relative;
+    z-index: 1;
+  }
+  
+  // Контейнер для стрелки
+  .arrowContainer {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    opacity: 0;
+    transform: scale(0.5) translate(-10px, 10px);
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    z-index: 2;
+    width: 2rem;
+    height: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(45deg, #ff7b0016, #df00f816, #00eeff1c);
+    border-radius: 50px;
+    border: 1px solid var(--border-color);
+    backdrop-filter: blur(15px) saturate(250%);
+    
+    &.arrowVisible {
+      opacity: 1;
+      transform: scale(1) translate(0, 0);
+    }
+    
+    .arrow {
+      width: 0.8rem;
+      height: 0.8rem;
+      fill: currentColor;
+      color: var(--text-primary);
+      transition: all 0.3s ease;
+      transform: rotate(-45deg) ;
+    }
+    
+    &:hover .arrow {
+      transform: scale(1.1) rotate(-45deg) ;
+
+      //color: var(--primary-color);
+    }
+  }
+  
+  &:hover {
+    .arrowContainer {
+      opacity: 1;
+      transform: scale(1) translate(0, 0);
+    }
+  }
+  
+  &.active {
+    .arrowContainer {
+      opacity: 1;
+      transform: scale(1) rotate(45deg) translate(0, 0);
+    }
+
+    .arrow {
+      color: var(--primary-color);
+    }
+  }
+  
+  h3 {
+    transition: color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    color: var(--text-primary);
+  }
+  
+  p {
+    transition: color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    color: var(--text-secondary);
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(86, 156, 254, 0.1),
+      transparent
+    );
+    transition: left 0.5s ease;
+  }
+
+  &:hover {
+    box-shadow: 0 0px 30px rgba(12, 140, 233, 0.1), inset 0px 0px 1px var(--border-color-accent);
+    background: var(--background-primary-yellow);
+    border-radius: 2rem;
+    transition: all 0.3s ease;
+    scale: 0.99;
+
+
+    h3 {
+      color: var(--primary-color);
+    }
+
+    p {
+      color: var(--text-primary);
+    }
+
+    &::before {
+      left: -100%;
+    }
+  }
+
+  &.active {
+    background: var(--background-primary-yellow);
+    box-shadow: var(--box-shadow-primary), inset 0px 0px 1px var(--border-color-accent);
+    border-radius: 2rem;
+    transition: all 0.3s ease;
+    scale: 1.01;
+
+    h3 {
+      color: var(--primary-color);
+    }
+
+    p {
+      color: var(--text-primary);
+    }
+  }
+
+  .serviceFeatureTitle {
+    line-height: 1;
+    font-size: 1.4rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+
+  .serviceFeatureDescription {
+    font-size: 1rem;
+    line-height: 1.2;
+    margin: 0 !important;
+  }
+}
+
+// Адаптивность для стрелки
+@media (max-width: 768px) {
+  .serviceFeatureCard {
+    .arrowContainer {
+      width: 1.8rem;
+      height: 1.8rem;
+      top: 0.8rem;
+      right: 0.8rem;
+      
+      .arrow {
+        width: 0.7rem;
+        height: 0.7rem;
+      }
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .serviceFeatureCard {
+    .arrowContainer {
+      width: 1.6rem;
+      height: 1.6rem;
+      top: 0.6rem;
+      right: 0.6rem;
+      
+      .arrow {
+        width: 0.6rem;
+        height: 0.6rem;
+      }
+    }
+  }
+}
+
+.serviceFeaturesDetail {
+  position: sticky;
+  top: 6rem;
+  background: var(--background-primary-yellow) !important;
+  box-shadow: var(--box-shadow-primary), inset 0 0px 20px rgba(12, 140, 233, 0.1);
+  border-radius: 2rem;
+  padding: 2.5rem;
+  backdrop-filter: blur(30px);
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+  overflow: hidden;
+  transition: 
+    height 0.5s cubic-bezier(0.4, 0, 0.2, 1), 
+    transform 0.5s cubic-bezier(0.4, 0, 0.2, 1), 
+    border-radius 0.5s cubic-bezier(0.4, 0, 0.2, 1), 
+    opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1) ;
+  height: 100%;
+  transform: scale(1);
+  opacity: 1;
+
+  
+  &.animating {
+    transition: 
+      height 0.5s cubic-bezier(0.4, 0, 0.2, 1), 
+      transform 0.5s cubic-bezier(0.4, 0, 0.2, 1), 
+      border-radius 0.5s cubic-bezier(0.4, 0, 0.2, 1), 
+      opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1) ;    
+    transform: scale(0.95);
+    border-radius: 5rem;
+    opacity: 0.8;
+    box-shadow: inset 0 0px 20px rgba(12, 140, 233, 0.1);
+
+
+
+  }
+
+  .featureDetailContent {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    
+    &.contentAnimating {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+
+    .detailTitle {
+      font-size: 1.8rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 1.5rem;
+      line-height: 1;
+      animation: slideInUp 0.5s ease 0.1s both;
+    }
+
+    .detailDescription {
+      font-size: 1.25rem;
+      line-height: 1.4;
+      color: var(--text-secondary);
+      margin-bottom: 1.5rem;
+      animation: slideInUp 0.5s ease 0.2s both;
+    }
+
+    .detailExample {
+      font-size: 1.1rem;
+      line-height: 1.4;
+      color: var(--text-primary);
+      font-style: italic;
+      padding: 1.5rem;
+      border-radius: 1.2rem;
+      //border-left: 3px solid var(--primary-color);
+      margin: 0;
+      background: var(--background-primary-yellow);
+      box-shadow: inset 0 0px 20px rgba(12, 140, 233, 0.1);
+
+      animation: slideInUp 0.5s ease 0.3s both;
+      
+      &::before {
+        content: "";
+        font-weight: 600;
+        color: var(--text-primary);
+        font-style: normal;
+      }
+    }
+  }
+}
+
+// Анимации
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+// Адаптивность
+@media (max-width: 1200px) {
+  .serviceFeaturesSection {
+    padding: 80px 2rem;
+  }
+}
+
+@media (max-width: 1024px) {
+  .serviceFeaturesSection {
+    padding: 80px 1.5rem;
+  }
+  .serviceFeaturesContent {
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+  
+  .serviceFeaturesDetail {
+  }
+}
+
+@media (max-width: 768px) {
+  .serviceFeaturesSection {
+    padding: 60px 1rem;
+  }
+  .serviceFeaturesContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center
+  }
+
+  .serviceFeaturesContent {
+    grid-template-columns: 1fr;
+    max-width: 460px;
+    gap: 2rem;
+
+    .serviceFeaturesGrid {
+      gap: 0.5rem;
+
+      .serviceFeatureTitle {
+        //margin: 0;
+        margin-bottom: 1rem;
+
+      }
+    }
+  }
+
+  .serviceFeaturesHeader {
+    margin-bottom: 2rem;
+
+    .serviceFeaturesTitle {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+
+    }
+
+    .serviceFeaturesSubtitle {
+      font-size: 1.125rem;
+    }
+  }
+
+  .serviceFeaturesDetail {
+    position: static;
+    
+    .featureDetailContent {
+      .detailTitle {
+        font-size: 1.5rem;
+      }
+      
+      .detailDescription {
+        font-size: 1rem;
+      }
+      
+      .detailExample {
+        font-size: 0.95rem;
+        padding-left: 1rem;
+      }
+    }
+  }
+
+  .serviceFeatureCard {
+    padding: 2rem;
+    display: flex;
+    justify-content: center;
+
+    .serviceFeatureDescription {
+      //display: none;
+    }
+    
+    .serviceFeatureTitle {
+      font-size: 1.4rem;
+      margin-bottom: 1rem;
+
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .serviceFeaturesContent {
+    grid-template-columns: 1fr;
+
+
+  }
+  
+  .serviceFeatureCard {
+    padding: 2rem;
+
+    .arrowContainer {
+      top: 1rem;
+      right: 1rem;
+
+      width: 2rem;
+      height: 2rem;
+
+      
+      &.arrowVisible {
+        opacity: 1;
+        transform: scale(1) translate(0, 0);
+      }
+      
+      .arrow {
+        width: 0.8rem;
+        height: 0.8rem;
+
+      }
+    
+    .serviceFeatureTitle {
+      font-size: 1.5rem;
+    }
+
+  }
+}
+  
+  .serviceFeaturesDetail {
+    padding: 2rem 1.5rem;
+    //max-height: 60%;
+    .featureDetailContent {
+      .detailTitle {
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+      }
+      
+      .detailDescription {
+        font-size: 1rem;
+
+      }
+      
+      .detailExample {
+        font-size: 0.95rem;
+        padding-left: 1rem;
+
+      }
+    }
+
+
+  }
+}
+
+________________________________________________________________________________
+
+АБСОЛЮТНЫЙ ПУТЬ: /Users/vladimirmazyrec/sync-agency-new/src/shared/sections/ServiceFeatures/ServiceFeatures.tsx
+название файла: ServiceFeatures/ServiceFeatures.tsx
+
+СОДЕРЖИМОЕ ФАЙЛА:
+----------------------------------------
+import React from 'react'
+import { ServiceFeaturesDesktop } from './ServiceFeaturesDesktop'
+import { ServiceFeaturesMobile } from './ServiceFeaturesMobile'
+import { useMediaQuery } from '@/shared/hooks/useMediaQuery'
+
+interface Feature {
+  title: string
+  description: string
+  detailedDescription: string
+  exampleDescription: string
+  icon?: string
+}
+
+interface ServiceFeaturesProps {
+  title: string
+  subtitle: string
+  features: Feature[]
+}
+
+export const ServiceFeatures: React.FC<ServiceFeaturesProps> = (props) => {
+  const isMobile = useMediaQuery('(max-width: 768px)')
+
+  if (isMobile) {
+    return <ServiceFeaturesMobile {...props} />
+  }
+
+  return <ServiceFeaturesDesktop {...props} />
+}
+
+________________________________________________________________________________
+
+АБСОЛЮТНЫЙ ПУТЬ: /Users/vladimirmazyrec/sync-agency-new/src/shared/sections/ServiceFeatures/ServiceFeaturesDesktop.module.scss
+название файла: ServiceFeatures/ServiceFeaturesDesktop.module.scss
+
+СОДЕРЖИМОЕ ФАЙЛА:
+----------------------------------------
+.serviceFeaturesSection {
+    padding: 100px 160px;
+    display: grid;
+    height: fit-content;
+    align-items: center;
+  }
+  
+  .serviceFeaturesContainer {
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+  
+  .serviceFeaturesHeader {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    margin-bottom: 4rem;
+    align-items: center;
+  
+    .serviceFeaturesTitle {
+      font-size: 2.5rem;
+      font-weight: 700;
+      text-align: left;
+      color: var(--text-primary);
+      margin-bottom: 1rem;
+      text-align: center;
+      line-height: 1.2;
+  
+    }
+  
+    .serviceFeaturesSubtitle {
+      font-size: 1.25rem;
+      color: var(--text-secondary);
+      max-width: 600px;
+      line-height: 1.2;
+      text-align: center;
+  
+    }
+  }
+  
+  .serviceFeaturesContent {
+    display: grid;
+    grid-template-columns: 430px 430px;
+    gap: 1rem;
+    align-items: start;
+  }
+  
+  .serviceFeaturesGrid {
+    display: grid;
+    flex-direction: column;
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+    align-items: start;
+    height: 100%;
+  }
+  
+  .serviceFeatureCard {
+    box-shadow: inset 0 0px 20px rgba(12, 140, 233, 0.1);
+    cursor: pointer;
+    padding: 2rem;
+    border-radius: 1.5rem;
+    border: 1px solid var(--background-primary-yellow);
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+    overflow: hidden;
+    gap: 10px;
+    backdrop-filter: blur(10px);
+    transform-style: preserve-3d;
+    backface-visibility: hidden;
+    scale: 1;
+    
+    .cardContent {
+      position: relative;
+      z-index: 1;
+    }
+    
+    .arrowContainer {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      opacity: 0;
+      transform: scale(0.5) translate(-10px, 10px);
+      transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+      z-index: 2;
+      width: 2rem;
+      height: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(45deg, #ff7b0016, #df00f816, #00eeff1c);
+      border-radius: 50px;
+      border: 1px solid var(--border-color);
+      backdrop-filter: blur(15px) saturate(250%);
+      
+      &.arrowVisible {
+        opacity: 1;
+        transform: scale(1) translate(0, 0);
+      }
+      
+      .arrow {
+        width: 0.8rem;
+        height: 0.8rem;
+        fill: currentColor;
+        color: var(--text-primary);
+        transition: all 0.3s ease;
+        transform: rotate(-45deg);
+      }
+      
+      &:hover .arrow {
+        transform: scale(1.1) rotate(-45deg);
+      }
+    }
+    
+    &:hover {
+      .arrowContainer {
+        opacity: 1;
+        transform: scale(1) translate(0, 0);
+      }
+    }
+    
+    &.active {
+      .arrowContainer {
+        opacity: 1;
+        transform: scale(1) rotate(45deg) translate(0, 0);
+      }
+  
+      .arrow {
+        color: var(--primary-color);
+      }
+    }
+    
+    h3 {
+      transition: color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      color: var(--text-primary);
+    }
+    
+    p {
+      transition: color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      color: var(--text-secondary);
+    }
+  
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(86, 156, 254, 0.1),
+        transparent
+      );
+      transition: left 0.5s ease;
+    }
+  
+    &:hover {
+      box-shadow: 0 0px 30px rgba(12, 140, 233, 0.1), inset 0px 0px 1px var(--border-color-accent);
+      background: var(--background-primary-yellow);
+      border-radius: 2rem;
+      transition: all 0.3s ease;
+      scale: 0.99;
+  
+      h3 {
+        color: var(--primary-color);
+      }
+  
+      p {
+        color: var(--text-primary);
+      }
+  
+      &::before {
+        left: -100%;
+      }
+    }
+  
+    &.active {
+      background: var(--background-primary-yellow);
+      box-shadow: var(--box-shadow-primary), inset 0px 0px 1px var(--border-color-accent);
+      border-radius: 2rem;
+      transition: all 0.3s ease;
+      scale: 1.01;
+  
+      h3 {
+        color: var(--primary-color);
+      }
+  
+      p {
+        color: var(--text-primary);
+      }
+    }
+  
+    .serviceFeatureTitle {
+      line-height: 1;
+      font-size: 1.4rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+  
+    .serviceFeatureDescription {
+      font-size: 1rem;
+      line-height: 1.2;
+      margin: 0 !important;
+    }
+  }
+  
+  .serviceFeaturesDetail {
+    position: sticky;
+    top: 6rem;
+    background: var(--background-primary-yellow) !important;
+    box-shadow: var(--box-shadow-primary), inset 0 0px 20px rgba(12, 140, 233, 0.1);
+    border-radius: 2rem;
+    padding: 2.5rem;
+    backdrop-filter: blur(30px);
+    transform-style: preserve-3d;
+    backface-visibility: hidden;
+    overflow: hidden;
+    transition: 
+      height 0.5s cubic-bezier(0.4, 0, 0.2, 1), 
+      transform 0.5s cubic-bezier(0.4, 0, 0.2, 1), 
+      border-radius 0.5s cubic-bezier(0.4, 0, 0.2, 1), 
+      opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    height: 100%;
+    transform: scale(1);
+    opacity: 1;
+  
+    
+    &.animating {
+      transition: 
+        height 0.5s cubic-bezier(0.4, 0, 0.2, 1), 
+        transform 0.5s cubic-bezier(0.4, 0, 0.2, 1), 
+        border-radius 0.5s cubic-bezier(0.4, 0, 0.2, 1), 
+        opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1);    
+      transform: scale(0.95);
+      border-radius: 5rem;
+      opacity: 0.8;
+      box-shadow: inset 0 0px 20px rgba(12, 140, 233, 0.1);
+    }
+  
+    .featureDetailContent {
+      opacity: 1;
+      transform: translateY(0);
+      transition: opacity 0.3s ease, transform 0.3s ease;
+      
+      &.contentAnimating {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+  
+      .detailTitle {
+        font-size: 1.8rem;
+        font-weight: 600;
+        color: var(--text-primary);
+        margin-bottom: 1.5rem;
+        line-height: 1;
+        animation: slideInUp 0.5s ease 0.1s both;
+      }
+  
+      .detailDescription {
+        font-size: 1.25rem;
+        line-height: 1.4;
+        color: var(--text-secondary);
+        margin-bottom: 1.5rem;
+        animation: slideInUp 0.5s ease 0.2s both;
+      }
+  
+      .detailExample {
+        font-size: 1.1rem;
+        line-height: 1.4;
+        color: var(--text-primary);
+        font-style: italic;
+        padding: 1.5rem;
+        border-radius: 1.2rem;
+        margin: 0;
+        background: var(--background-primary-yellow);
+        box-shadow: inset 0 0px 20px rgba(12, 140, 233, 0.1);
+        animation: slideInUp 0.5s ease 0.3s both;
+        
+        &::before {
+          content: "";
+          font-weight: 600;
+          color: var(--text-primary);
+          font-style: normal;
+        }
+      }
+    }
+  }
+  
+  // Анимации
+  @keyframes slideInUp {
+    from {
+      opacity: 0;
+      transform: translateY(15px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  
+  // Десктопные адаптивные стили (без мобильных)
+  @media (max-width: 1200px) {
+    .serviceFeaturesSection {
+      padding: 80px 2rem;
+    }
+  }
+  
+  @media (max-width: 1024px) {
+    .serviceFeaturesSection {
+      padding: 80px 1.5rem;
+    }
+    
+    .serviceFeaturesContent {
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+  }
+
+________________________________________________________________________________
+
+АБСОЛЮТНЫЙ ПУТЬ: /Users/vladimirmazyrec/sync-agency-new/src/shared/sections/ServiceFeatures/ServiceFeaturesDesktop.tsx
+название файла: ServiceFeatures/ServiceFeaturesDesktop.tsx
+
+СОДЕРЖИМОЕ ФАЙЛА:
+----------------------------------------
+import React, { useState, useRef, useEffect } from 'react'
+import styles from './ServiceFeaturesDesktop.module.scss'
+
+interface Feature {
+  title: string
+  description: string
+  detailedDescription: string
+  exampleDescription: string
+  icon?: string
+}
+
+interface ServiceFeaturesDesktopProps {
+  title: string
+  subtitle: string
+  features: Feature[]
+}
+
+export const ServiceFeaturesDesktop: React.FC<ServiceFeaturesDesktopProps> = ({
+  title,
+  subtitle,
+  features
+}) => {
+  const [activeFeature, setActiveFeature] = useState<number>(0)
+  const [isAnimating, setIsAnimating] = useState<boolean>(false)
+  const [detailHeight, setDetailHeight] = useState<number>(0)
+  const [hoveredCard, setHoveredCard] = useState<number | null>(null)
+  const detailContentRef = useRef<HTMLDivElement>(null)
+  const detailContainerRef = useRef<HTMLDivElement>(null)
+
+  // Обновляем высоту при изменении активного элемента
+  useEffect(() => {
+    if (detailContentRef.current && detailContainerRef.current) {
+      const contentHeight = detailContentRef.current.scrollHeight
+      const computedStyle = window.getComputedStyle(detailContainerRef.current)
+      const paddingTop = parseFloat(computedStyle.paddingTop) || 0
+      const paddingBottom = parseFloat(computedStyle.paddingBottom) || 0
+      const totalHeight = contentHeight + paddingTop + paddingBottom
+      setDetailHeight(totalHeight)
+    }
+  }, [activeFeature])
+
+  // Обновляем высоту при изменении размера окна
+  useEffect(() => {
+    const handleResize = () => {
+      if (detailContentRef.current && detailContainerRef.current) {
+        const contentHeight = detailContentRef.current.scrollHeight
+        const computedStyle = window.getComputedStyle(detailContainerRef.current)
+        const paddingTop = parseFloat(computedStyle.paddingTop) || 0
+        const paddingBottom = parseFloat(computedStyle.paddingBottom) || 0
+        const totalHeight = contentHeight + paddingTop + paddingBottom
+        setDetailHeight(totalHeight)
+      }
+    }
+
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, [activeFeature])
+
+  const handleCardClick = (index: number) => {
+    if (index === activeFeature || isAnimating) return
+    
+    setIsAnimating(true)
+    setActiveFeature(index)
+    
+    setTimeout(() => {
+      setIsAnimating(false)
+    }, 200)
+  }
+
+  return (
+    <section className={styles.serviceFeaturesSection}>
+      <div className={styles.serviceFeaturesContainer}>
+        <div className={styles.serviceFeaturesHeader}>
+          <h2 className={styles.serviceFeaturesTitle}>{title}</h2>
+          <h3 className={styles.serviceFeaturesSubtitle}>{subtitle}</h3>
+        </div>
+
+        <div className={styles.serviceFeaturesContent}>
+          <div className={styles.serviceFeaturesGrid}>
+            {features.map((feature, index) => (
+              <div 
+                key={index} 
+                className={`${styles.serviceFeatureCard} ${index === activeFeature ? styles.active : ''}`}
+                onClick={() => handleCardClick(index)}
+                onMouseEnter={() => setHoveredCard(index)}
+                onMouseLeave={() => setHoveredCard(null)}
+              >
+                <div className={styles.cardContent}>
+                  <h3 className={styles.serviceFeatureTitle}>{feature.title}</h3>
+                  <p className={styles.serviceFeatureDescription}>{feature.description}</p> 
+                </div>
+                
+                <div 
+                  className={`${styles.arrowContainer} ${
+                    hoveredCard === index || index === activeFeature ? styles.arrowVisible : ''
+                  }`}
+                >
+                  <svg 
+                    xmlns="http://www.w3.org/2000/svg" 
+                    viewBox="0 0 24 24" 
+                    fill="currentColor"
+                    className={styles.arrow}
+                  >
+                    <path d="M0 14.0904L0 10.6205H16.3636C15.2253 9.55926 14.6453 8.92032 13.3636 6.86145C12.4743 5.43281 12 3.10241 11.7273 1.65663L14.7273 0.5C15.4545 2.33133 15.7727 4.54819 18.2727 7.72892C19.8636 9.75301 21.8182 10.3313 24 10.6205V14.0904C21.5455 14.3795 19.5415 15.1087 17.7273 17.8494C15.913 20.5901 15.1818 22.9578 14.7273 24.5L11.7273 23.0542C12.1818 21.8976 12.664 19.9352 13.6364 18.1386C14.6087 16.3419 15.6364 14.9578 16.3636 14.0904H0Z"/>
+                  </svg>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div 
+            ref={detailContainerRef}
+            className={`${styles.serviceFeaturesDetail} ${isAnimating ? styles.animating : ''}`}
+            style={{ height: `${detailHeight}px` }}
+          >
+            <div 
+              ref={detailContentRef}
+              className={`${styles.featureDetailContent} ${isAnimating ? styles.contentAnimating : ''}`}
+              key={activeFeature}
+            >
+              <h3 className={styles.detailTitle}>{features[activeFeature].title}</h3>
+              <p className={styles.detailDescription}>
+                {features[activeFeature].detailedDescription}
+              </p>
+              <p className={styles.detailExample}>
+                {features[activeFeature].exampleDescription}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+________________________________________________________________________________
+
+АБСОЛЮТНЫЙ ПУТЬ: /Users/vladimirmazyrec/sync-agency-new/src/shared/sections/ServiceFeatures/ServiceFeaturesMobile.module.scss
+название файла: ServiceFeatures/ServiceFeaturesMobile.module.scss
+
+СОДЕРЖИМОЕ ФАЙЛА:
+----------------------------------------
+.serviceFeaturesSectionMobile {
+    padding: 60px 1rem;
+    display: grid;
+    height: fit-content;
+    align-items: center;
+  }
+  
+  .serviceFeaturesContainerMobile {
+    max-width: 460px;
+    margin: 0 auto;
+    width: 100%;
+  }
+  
+  .serviceFeaturesHeaderMobile {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    margin-bottom: 2rem;
+    align-items: center;
+  
+    .serviceFeaturesTitleMobile {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 1rem;
+      text-align: center;
+      line-height: 1.2;
+    }
+  
+    .serviceFeaturesSubtitleMobile {
+      font-size: 1.125rem;
+      color: var(--text-secondary);
+      max-width: 600px;
+      line-height: 1.2;
+      text-align: center;
+    }
+  }
+  
+  .accordion {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    width: 100%;
+  }
+  
+  .accordionItem {
+    box-shadow: inset 0 0px 20px rgba(12, 140, 233, 0.1);
+    border-radius: 2rem;
+    border: 1px solid var(--background-primary-yellow);
+    backdrop-filter: blur(10px);
+    overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    height: 100%;
+    
+    &.active {
+      background: var(--background-primary-yellow);
+      box-shadow: var(--box-shadow-primary), inset 0px 0px 1px var(--border-color-accent);
+      border-radius: 2rem;
+      transition: all 0.3s ease;
+      
+      .accordionHeader {
+        .accordionTitle {
+          color: var(--primary-color);
+        }
+        
+        .accordionDescription {
+          color: var(--text-primary);
+          max-height: 0px;
+          opacity: 0;
+          transition: all 0.3s ease;
+
+        }
+      }
+    }
+    
+    &.animating {
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+  }
+  
+  .accordionHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 1.5rem;
+    cursor: pointer;
+    min-height: 90px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+    
+    
+    .headerContent {
+      flex: 1;
+      margin-right: 2.5rem;
+    }
+    
+    .accordionTitle {
+      font-size: 1.4rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 0.5rem;
+      line-height: 1;
+      transition: color 0.3s ease;
+    }
+    
+    .accordionDescription {
+      font-size: 1rem;
+      line-height: 1.2;
+      color: var(--text-secondary);
+      margin: 0;
+      //transition: color 0.3s ease;
+      transition: all 0.3s ease;
+      opacity: 1;
+
+
+    }
+  }
+  
+  .arrowContainerMobile {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    width: 2rem;
+    height: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(45deg, #ff7b0016, #df00f816, #00eeff1c);
+    border-radius: 50px;
+    border: 1px solid var(--border-color);
+    backdrop-filter: blur(15px) saturate(250%);
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    
+    &.arrowActive {
+      transform: rotate(-190deg);
+      
+      .arrowMobile {
+        color: var(--primary-color);
+      }
+    }
+    
+    .arrowMobile {
+      width: 0.8rem;
+      height: 0.8rem;
+      fill: currentColor;
+      color: var(--text-primary);
+      transform: rotate(-45deg);
+      transition: all 0.3s ease;
+    }
+  }
+  
+  .accordionContent {
+    position: relative;
+    top: -1.5rem;
+    opacity: 0;
+    transform: translateY(0px);
+    height: 0;
+    overflow: hidden;
+    padding: 0 1.5rem;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    
+    &.contentVisible {
+      opacity: 1;
+      transform: translateY(0px);
+      height: auto;
+      padding: 0 1.5rem 1.5rem;
+      animation: slideInUpMobile 0.4s ease 0.1s both;
+    }
+    
+    .detailDescription {
+      font-size: 1rem;
+      line-height: 1.4;
+      color: var(--text-secondary);
+      margin-bottom: 1.5rem;
+      animation: slideInUpMobile 0.4s ease 0.2s both;
+    }
+    
+    .detailExample {
+      font-size: 0.95rem;
+      line-height: 1.4;
+      color: var(--text-primary);
+      font-style: italic;
+      padding: 1rem;
+      border-radius: 1rem;
+      margin: 0;
+      background: var(--background-primary-yellow);
+      box-shadow: inset 0 0px 20px rgba(12, 140, 233, 0.1);
+      animation: slideInUpMobile 0.4s ease 0.3s both;
+      
+      &::before {
+        content: "";
+        font-weight: 600;
+        color: var(--text-primary);
+        font-style: normal;
+      }
+    }
+  }
+  
+  // Анимации для мобильной версии
+  @keyframes slideInUpMobile {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  // Адаптивность для мобильной версии
+  @media (max-width: 480px) {
+    .serviceFeaturesSectionMobile {
+      padding: 40px 1rem;
+    }
+    
+    .accordionItem {
+      border-radius: 2rem;
+      
+      &.active {
+        border-radius: 2rem;
+
+        .accordionHeader{
+            padding-top: 2rem;
+        }
+      }
+    }
+    
+    .accordionHeader {
+      padding: 1.75rem;
+      min-height: 20px;
+      
+      .accordionTitle {
+        font-size: 1.3rem;
+      }
+      
+      .accordionDescription {
+        font-size: 0.95rem;
+      }
+    }
+    
+    .arrowContainerMobile {
+      width: 1.8rem;
+      height: 1.8rem;
+      
+      .arrowMobile {
+        width: 0.7rem;
+        height: 0.7rem;
+      }
+    }
+    
+    .accordionContent {
+      padding: 0 1.25rem;
+      
+      &.contentVisible {
+        padding: 0 1.25rem 1.25rem;
+      }
+      
+      .detailDescription {
+        font-size: 0.95rem;
+        margin: 0 0.5rem 1.5rem 0.5rem;
+      }
+      
+      .detailExample {
+        font-size: 0.9rem;
+        padding: 0.75rem;
+      }
+    }
+  }
+
+________________________________________________________________________________
+
+АБСОЛЮТНЫЙ ПУТЬ: /Users/vladimirmazyrec/sync-agency-new/src/shared/sections/ServiceFeatures/ServiceFeaturesMobile.tsx
+название файла: ServiceFeatures/ServiceFeaturesMobile.tsx
+
+СОДЕРЖИМОЕ ФАЙЛА:
+----------------------------------------
+import React, { useState, useRef, useEffect } from 'react'
+import styles from './ServiceFeaturesMobile.module.scss'
+
+interface Feature {
+  title: string
+  description: string
+  detailedDescription: string
+  exampleDescription: string
+  icon?: string
+}
+
+interface ServiceFeaturesMobileProps {
+  title: string
+  subtitle: string
+  features: Feature[]
+}
+
+export const ServiceFeaturesMobile: React.FC<ServiceFeaturesMobileProps> = ({
+  title,
+  subtitle,
+  features
+}) => {
+  const [activeFeature, setActiveFeature] = useState<number>(0)
+  const [isAnimating, setIsAnimating] = useState<boolean>(false)
+  const [heights, setHeights] = useState<number[]>([])
+  const contentRefs = useRef<(HTMLDivElement | null)[]>([])
+  const itemRefs = useRef<(HTMLDivElement | null)[]>([])
+
+  // Инициализируем высоты контента
+  useEffect(() => {
+    const newHeights = features.map((_, index) => {
+      const ref = contentRefs.current[index]
+      if (ref) {
+        return ref.scrollHeight
+      }
+      return 0
+    })
+    setHeights(newHeights)
+  }, [features])
+
+  const handleCardClick = (index: number) => {
+    if (index === activeFeature || isAnimating) return
+    
+    setIsAnimating(true)
+    setActiveFeature(index)
+    
+    setTimeout(() => {
+      setIsAnimating(false)
+    },800)
+  }
+
+  // Рассчитываем высоту каждого элемента
+  const getItemHeight = (index: number) => {
+    const baseHeight = 120 // Высота заголовка (приблизительно)
+    if (index === activeFeature) {
+      return baseHeight + heights[index] + 32 // + padding
+    }
+    return baseHeight
+  }
+
+  return (
+    <section className={styles.serviceFeaturesSectionMobile}>
+      <div className={styles.serviceFeaturesContainerMobile}>
+        <div className={styles.serviceFeaturesHeaderMobile}>
+          <h2 className={styles.serviceFeaturesTitleMobile}>{title}</h2>
+          <h3 className={styles.serviceFeaturesSubtitleMobile}>{subtitle}</h3>
+        </div>
+
+        <div className={styles.accordion}>
+          {features.map((feature, index) => (
+            <div
+              key={index}
+              ref={el => itemRefs.current[index] = el}
+              className={`${styles.accordionItem} ${index === activeFeature ? styles.active : ''} ${isAnimating ? styles.animating : ''}`}
+              style={{ 
+                height: `${getItemHeight(index)}px`,
+                transition: isAnimating ? 'height 0.3s cubic-bezier(0.4, 0, 0.2, 1)' : 'none'
+              }}
+            >
+              <div
+                className={styles.accordionHeader}
+                onClick={() => handleCardClick(index)}
+              >
+                <div className={styles.headerContent}>
+                  <h3 className={styles.accordionTitle}>{feature.title}</h3>
+                  <p className={styles.accordionDescription}>
+                    {feature.description}
+                  </p>
+                </div>
+                
+                <div className={`${styles.arrowContainerMobile} ${index === activeFeature ? styles.arrowActive : ''}`}>
+                  <svg 
+                    xmlns="http://www.w3.org/2000/svg" 
+                    viewBox="0 0 24 24" 
+                    fill="currentColor"
+                    className={styles.arrowMobile}
+                  >
+                    <path d="M0 14.0904L0 10.6205H16.3636C15.2253 9.55926 14.6453 8.92032 13.3636 6.86145C12.4743 5.43281 12 3.10241 11.7273 1.65663L14.7273 0.5C15.4545 2.33133 15.7727 4.54819 18.2727 7.72892C19.8636 9.75301 21.8182 10.3313 24 10.6205V14.0904C21.5455 14.3795 19.5415 15.1087 17.7273 17.8494C15.913 20.5901 15.1818 22.9578 14.7273 24.5L11.7273 23.0542C12.1818 21.8976 12.664 19.9352 13.6364 18.1386C14.6087 16.3419 15.6364 14.9578 16.3636 14.0904H0Z"/>
+                  </svg>
+                </div>
+              </div>
+              
+              <div
+                ref={el => contentRefs.current[index] = el}
+                className={`${styles.accordionContent} ${index === activeFeature ? styles.contentVisible : ''}`}
+              >
+                <p className={styles.detailDescription}>
+                  {feature.detailedDescription}
+                </p>
+                <p className={styles.detailExample}>
+                  {feature.exampleDescription}
+                </p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}
+
+================================================================================
+
+СТАТИСТИКА:
+----------------------------------------
+Обработано файлов: 8
+Общий размер папки: 39,325 байт
+Дата создания отчета: 2026-01-17 05:57:55

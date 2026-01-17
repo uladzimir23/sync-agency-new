@@ -1,10 +1,4 @@
-// ChatAI.module.scss - Обновленные стили для форматирования
-
-.chatContaineWrapper {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
+// src/shared/ui/chat-ai/components/desktop/chat-ai-desktop.module.scss
 .chatContainer {
     position: relative;
     width: 100%;
@@ -19,36 +13,6 @@
     display: flex;
     flex-direction: column;
     height: 445px;
-  }
-  
-  .chatHeader {
-    display: none;
-    padding: 1.5rem;
-    background: rgba(0, 128, 255, 0.02);
-    border-bottom: 1px solid var(--border-color);
-    
-    h2 {
-      margin: 0;
-      font-size: 1.5rem;
-      color: var(--text-primary);
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      
-      .aiIcon {
-        font-size: 1.8rem;
-        background: linear-gradient(45deg, #FEAC5E, #C779D0, #4BC0C8);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-      }
-    }
-    
-    .subtitle {
-      margin-top: 0.5rem;
-      color: var(--text-secondary);
-      font-size: 0.9rem;
-    }
   }
   
   .messagesContainer {
@@ -74,6 +38,7 @@
     }
   }
   
+  // Стили для MessageItem
   .message {
     display: flex;
     flex-direction: column;
@@ -85,7 +50,7 @@
       align-self: flex-end;
       align-items: flex-end;
       
-      .messageContent {
+      .message-content {
         background: #579aff53;
         color: var(--text-primary);
         margin-left: auto;
@@ -95,7 +60,7 @@
         border: 1px solid var(--border-color-accent);
       }
       
-      .messageMeta {
+      .message-meta {
         text-align: right;
       }
     }
@@ -104,7 +69,7 @@
       align-self: flex-start;
       align-items: flex-start;
       
-      .messageContent {
+      .message-content {
         background: var(--bg-primary);
         color: var(--text-primary);
         border: 1px solid var(--border-color);
@@ -118,41 +83,21 @@
       }
       
       &.type-welcome {
-        .messageContent {
+        .message-content {
           background: var(--accent-color);
           border-color: var(--border-color-accent);
-        }
-      }
-      
-      &.type-company,
-      &.type-services,
-      &.type-process,
-      &.type-clients,
-      &.type-booking,
-      &.type-pricing,
-      &.type-advantages {
-        .messageContent {
-          padding: 1.25rem 1.5rem;
-          line-height: 1.6;
-          
-          strong:first-child {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-size: 1.1rem;
-            color: var(--primary-color);
-          }
         }
       }
     }
   }
   
-  .messageContent {
+  .message-content {
     padding: 1rem 1.25rem;
     border-radius: 27px;
     line-height: 1.5;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
     
-    .listItem {
+    .list-item {
       display: flex;
       gap: 0.75rem;
       margin: 0.5rem 0;
@@ -179,16 +124,16 @@
       }
     }
     
-    .emptyLine {
+    .empty-line {
       height: 0.75rem;
     }
     
-    .textLine {
+    .text-line {
       margin: 0.5rem 0;
     }
   }
   
-  .messageMeta {
+  .message-meta {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -197,7 +142,7 @@
     color: var(--text-secondary);
     width: 100%;
     
-    .senderName {
+    .sender-name {
       font-weight: 500;
       color: var(--text-primary);
       font-size: 0.8rem;
@@ -207,16 +152,6 @@
       display: flex;
       align-items: center;
       gap: 0.5rem;
-    }
-    
-    .categoryTag {
-      background: var(--accent-color);
-      color: var(--primary-color);
-      padding: 0.125rem 0.5rem;
-      border-radius: 10px;
-      font-size: 0.625rem;
-      text-transform: capitalize;
-      border: 1px solid var(--border-color);
     }
   }
   
@@ -264,106 +199,16 @@
     bottom: 0;
     left: 0;
     right: 0;
-    //background: rgba(0, 128, 255, 0.02);
-    //border-top: 1px solid var(--border-color);
     border-radius: 0 0 60px 60px;
     overflow: hidden;
   }
   
   .inputContainer {
     padding: 0.5rem;
-    //background: rgba(0, 128, 255, 0.02);
-  }
-  
-  .inputWrapper {
-    background: rgba(0, 0, 0, 0.5);
-    border-radius: 50px;
-    backdrop-filter: blur(20px);
-    padding: 0.25rem;
-    display: flex;
-    gap: 1rem;
-    align-items: center;
-  }
-  
-  .chatInput {
-    flex: 1;
-    padding: 1rem 1.25rem;
-    border: 1px solid var(--border-color);
-    border-radius: 50px;
-    background: transparent;
-    color: var(--text-primary);
-    font-size: 1rem;
-    transition: all 0.3s ease;
-    resize: none;
-    min-height: 50px;
-    max-height: 50px;
-    line-height: 1;
-    font-family: inherit;
-    
-    &:focus {
-      outline: none;
-      border-color: var(--primary-color);
-      box-shadow: 0 0 0 2px var(--accent-color);
-    }
-    
-    &::placeholder {
-      color: var(--text-secondary);
-    }
-    
-    &:disabled {
-      opacity: 0.6;
-      cursor: not-allowed;
-    }
-  }
-  
-  .sendButton {
-    width: 50px;
-    height: 50px;
-    background: var(--primary-color);
-    color: white;
-    border: none;
-    border-radius: 50px;
-    font-weight: 900;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    
-    &:hover:not(:disabled) {
-      background: var(--primary-color);
-      opacity: 0.9;
-      transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(12, 140, 233, 0.3);
-    }
-    
-    &:disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
-    }
-    
-    .sendIcon {
-      width: 20px;
-      height: 20px;
-      fill: white;
-      transition: transform 0.3s ease;
-      
-      &:hover {
-        transform: translateY(-2px);
-      }
-    }
-    
-    .sendText {
-      display: none;
-    }
   }
   
   .suggestionsSection {
     padding: 0rem 1.5rem;
-    //background: rgba(0, 128, 255, 0.02);
-    //border-bottom: 1px solid var(--border-color);
-    //margin: 0 12rem;
     width: 645px;
   }
   
@@ -420,79 +265,5 @@
     }
     40% {
       transform: scale(1);
-    }
-  }
-  
-  // Адаптивность
-  @media (max-width: 768px) {
-    .chatContainer {
-      margin: 1rem auto;
-      border-radius: 30px;
-      height: 500px;
-      max-width: 95%;
-    }
-    
-    .messagesContainer {
-      padding: 1rem;
-    }
-    
-    .messageContent {
-      max-width: 90% !important;
-      padding: 0.875rem 1rem;
-    }
-    
-    .chatFooter {
-      border-radius: 0 0 30px 30px;
-    }
-    
-    .inputContainer {
-      padding: 0.5rem;
-    }
-    
-    .inputWrapper {
-      gap: 0.5rem;
-    }
-    
-    .sendButton {
-      width: 45px;
-      height: 45px;
-    }
-    
-    .suggestionsSection {
-      padding: 0.75rem 1rem;
-    }
-    
-    .suggestions {
-      gap: 0.5rem;
-    }
-    
-    .suggestionButton {
-      font-size: 0.8125rem;
-      padding: 0.375rem 0.75rem;
-    }
-  }
-  
-  @media (max-width: 480px) {
-    .messageContent {
-      font-size: 0.9375rem;
-    }
-    
-    .chatContainer {
-      border-radius: 20px;
-      height: 450px;
-    }
-    
-    .chatFooter {
-      border-radius: 0 0 20px 20px;
-    }
-    
-    .suggestionButton {
-      font-size: 0.75rem;
-      padding: 0.25rem 0.5rem;
-    }
-    
-    .chatInput {
-      padding: 0.875rem 1rem;
-      font-size: 0.9375rem;
     }
   }

@@ -3,6 +3,7 @@
     grid-template-columns: 1fr 1fr;
     gap: 20px;
     width: 100%;
+    justify-content: center;
   }
   
   .column {
@@ -31,7 +32,7 @@
   
   @media (max-width: 768px) {
     .tabletLayout {
-      grid-template-columns: 1fr;
+      grid-template-columns: 460px;
       gap: 16px;
     }
   }

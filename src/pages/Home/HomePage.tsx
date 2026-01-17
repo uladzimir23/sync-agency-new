@@ -65,14 +65,6 @@ export const HomePage: React.FC = () => {
             subtitle="Creating premium digital experiences with integrated solutions"
           />
 
-          {/* Добавляем ChatAI компонент здесь */}
-        <ChatAI 
-          className={styles.chatAI}
-          onSendMessage={async (message) => {
-            // Здесь можно добавить интеграцию с реальным AI API
-            console.log('User message:', message);
-          }}
-        />
 
           <ServicesSection onServiceClick={handleServiceClick} />
 
@@ -80,7 +72,7 @@ export const HomePage: React.FC = () => {
         </div>
       </div>
       
-      <FloatingContactButton onClick={handleContactClick} />
+      {/* <FloatingContactButton onClick={handleContactClick} /> */}
     </div>
   );
 };

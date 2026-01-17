@@ -26,7 +26,7 @@ export const ProcessTimeline: React.FC<ProcessTimelineProps> = ({
       <div className={styles.container}>
         <div className={styles.header}>
           <h2 className={styles.title}>{title}</h2>
-          <p className={styles.subtitle}>{subtitle}</p>
+          <h3 className={styles.subtitle}>{subtitle}</h3>
         </div>
 
         {steps.map((step) => (

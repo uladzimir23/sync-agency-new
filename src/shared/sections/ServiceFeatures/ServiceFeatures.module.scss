@@ -1,10 +1,8 @@
 .serviceFeaturesSection {
   padding: 100px 160px;
-  //background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
   display: grid;
   height: fit-content;
   align-items: center;
-  //margin-top: 160px;
 }
 
 .serviceFeaturesContainer {
@@ -55,14 +53,13 @@
   align-items: start;
   height: 100%;
 }
-
 .serviceFeatureCard {
-  box-shadow: inset 0px 0px 1px var(--border-color-accent);
+  box-shadow: inset 0 0px 20px rgba(12, 140, 233, 0.1);
   cursor: pointer;
-  padding: 1.5rem 1.5rem;
-  border-radius: 16px;
-  border: 1px solid transparent;
-  transition: color 0.3s ease;
+  padding: 2rem;
+  border-radius: 1.5rem;
+  border: 1px solid var(--background-primary-yellow);
+  transition: all 0.3s ease;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -72,9 +69,71 @@
   backdrop-filter: blur(10px);
   transform-style: preserve-3d;
   backface-visibility: hidden;
-  will-change: transform;
-  transform: translateZ(0);
-  perspective: 1000px;
+  scale: 1;
+  
+  // Добавляем новый контейнер для содержимого карточки
+  .cardContent {
+    position: relative;
+    z-index: 1;
+  }
+  
+  // Контейнер для стрелки
+  .arrowContainer {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    opacity: 0;
+    transform: scale(0.5) translate(-10px, 10px);
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    z-index: 2;
+    width: 2rem;
+    height: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(45deg, #ff7b0016, #df00f816, #00eeff1c);
+    border-radius: 50px;
+    border: 1px solid var(--border-color);
+    backdrop-filter: blur(15px) saturate(250%);
+    
+    &.arrowVisible {
+      opacity: 1;
+      transform: scale(1) translate(0, 0);
+    }
+    
+    .arrow {
+      width: 0.8rem;
+      height: 0.8rem;
+      fill: currentColor;
+      color: var(--text-primary);
+      transition: all 0.3s ease;
+      transform: rotate(-45deg) ;
+    }
+    
+    &:hover .arrow {
+      transform: scale(1.1) rotate(-45deg) ;
+
+      //color: var(--primary-color);
+    }
+  }
+  
+  &:hover {
+    .arrowContainer {
+      opacity: 1;
+      transform: scale(1) translate(0, 0);
+    }
+  }
+  
+  &.active {
+    .arrowContainer {
+      opacity: 1;
+      transform: scale(1) rotate(45deg) translate(0, 0);
+    }
+
+    .arrow {
+      color: var(--primary-color);
+    }
+  }
   
   h3 {
     transition: color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -103,8 +162,12 @@
   }
 
   &:hover {
-    box-shadow: 0 12px 30px rgba(12, 140, 233, 0.1);
+    box-shadow: 0 0px 30px rgba(12, 140, 233, 0.1), inset 0px 0px 1px var(--border-color-accent);
     background: var(--background-primary-yellow);
+    border-radius: 2rem;
+    transition: all 0.3s ease;
+    scale: 0.99;
+
 
     h3 {
       color: var(--primary-color);
@@ -115,18 +178,16 @@
     }
 
     &::before {
-      left: 100%;
+      left: -100%;
     }
   }
 
   &.active {
     background: var(--background-primary-yellow);
-    box-shadow: var(--box-shadow-primary);
-    transform: none !important;
-
-    &:hover {
-      transform: none !important;
-    }
+    box-shadow: var(--box-shadow-primary), inset 0px 0px 1px var(--border-color-accent);
+    border-radius: 2rem;
+    transition: all 0.3s ease;
+    scale: 1.01;
 
     h3 {
       color: var(--primary-color);
@@ -139,9 +200,7 @@
 
   .serviceFeatureTitle {
     line-height: 1;
-    //font-size: 1.7rem;
     font-size: 1.4rem;
-
     font-weight: 600;
     margin-bottom: 0.5rem;
   }
@@ -153,27 +212,92 @@
   }
 }
 
+// Адаптивность для стрелки
+@media (max-width: 768px) {
+  .serviceFeatureCard {
+    .arrowContainer {
+      width: 1.8rem;
+      height: 1.8rem;
+      top: 0.8rem;
+      right: 0.8rem;
+      
+      .arrow {
+        width: 0.7rem;
+        height: 0.7rem;
+      }
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .serviceFeatureCard {
+    .arrowContainer {
+      width: 1.6rem;
+      height: 1.6rem;
+      top: 0.6rem;
+      right: 0.6rem;
+      
+      .arrow {
+        width: 0.6rem;
+        height: 0.6rem;
+      }
+    }
+  }
+}
+
 .serviceFeaturesDetail {
   position: sticky;
   top: 6rem;
   background: var(--background-primary-yellow) !important;
-  box-shadow: var(--box-shadow-primary);
-  border-radius: 16px;
+  box-shadow: var(--box-shadow-primary), inset 0 0px 20px rgba(12, 140, 233, 0.1);
+  border-radius: 2rem;
   padding: 2.5rem;
   backdrop-filter: blur(30px);
   transform-style: preserve-3d;
   backface-visibility: hidden;
-  will-change: transform;
-  transform: translateZ(0);
-  perspective: 1000px;
+  overflow: hidden;
+  transition: 
+    height 0.5s cubic-bezier(0.4, 0, 0.2, 1), 
+    transform 0.5s cubic-bezier(0.4, 0, 0.2, 1), 
+    border-radius 0.5s cubic-bezier(0.4, 0, 0.2, 1), 
+    opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1) ;
+  height: 100%;
+  transform: scale(1);
+  opacity: 1;
+
   
+  &.animating {
+    transition: 
+      height 0.5s cubic-bezier(0.4, 0, 0.2, 1), 
+      transform 0.5s cubic-bezier(0.4, 0, 0.2, 1), 
+      border-radius 0.5s cubic-bezier(0.4, 0, 0.2, 1), 
+      opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1) ;    
+    transform: scale(0.95);
+    border-radius: 5rem;
+    opacity: 0.8;
+    box-shadow: inset 0 0px 20px rgba(12, 140, 233, 0.1);
+
+
+
+  }
+
   .featureDetailContent {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    
+    &.contentAnimating {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+
     .detailTitle {
       font-size: 1.8rem;
       font-weight: 600;
       color: var(--text-primary);
       margin-bottom: 1.5rem;
       line-height: 1;
+      animation: slideInUp 0.5s ease 0.1s both;
     }
 
     .detailDescription {
@@ -181,6 +305,7 @@
       line-height: 1.4;
       color: var(--text-secondary);
       margin-bottom: 1.5rem;
+      animation: slideInUp 0.5s ease 0.2s both;
     }
 
     .detailExample {
@@ -189,10 +314,13 @@
       color: var(--text-primary);
       font-style: italic;
       padding: 1.5rem;
-      border-left: 3px solid var(--primary-color);
+      border-radius: 1.2rem;
+      //border-left: 3px solid var(--primary-color);
       margin: 0;
-      //border-radius: 12px;
       background: var(--background-primary-yellow);
+      box-shadow: inset 0 0px 20px rgba(12, 140, 233, 0.1);
+
+      animation: slideInUp 0.5s ease 0.3s both;
       
       &::before {
         content: "";
@@ -204,36 +332,69 @@
   }
 }
 
+// Анимации
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
 // Адаптивность
 @media (max-width: 1200px) {
   .serviceFeaturesSection {
-    padding: 80px 40px;
+    padding: 80px 2rem;
+  }
+}
+
+@media (max-width: 1024px) {
+  .serviceFeaturesSection {
+    padding: 80px 1.5rem;
+  }
+  .serviceFeaturesContent {
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+  
+  .serviceFeaturesDetail {
   }
 }
 
 @media (max-width: 768px) {
   .serviceFeaturesSection {
-    padding: 60px 20px;
+    padding: 60px 1rem;
   }
-
-  .serviceFeatureCard,
-  .serviceFeaturesDetail {
-    transform: none !important;
-    
-    &:hover {
-      transform: none !important;
-    }
+  .serviceFeaturesContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center
   }
 
   .serviceFeaturesContent {
     grid-template-columns: 1fr;
+    max-width: 460px;
     gap: 2rem;
 
     .serviceFeaturesGrid {
       gap: 0.5rem;
 
       .serviceFeatureTitle {
-        margin: 0;
+        //margin: 0;
+        margin-bottom: 1rem;
+
       }
     }
   }
@@ -243,6 +404,8 @@
 
     .serviceFeaturesTitle {
       font-size: 2rem;
+      margin-bottom: 1rem;
+
     }
 
     .serviceFeaturesSubtitle {
@@ -252,7 +415,6 @@
 
   .serviceFeaturesDetail {
     position: static;
-    order: -1;
     
     .featureDetailContent {
       .detailTitle {
@@ -271,16 +433,79 @@
   }
 
   .serviceFeatureCard {
-    padding: 1.5rem;
+    padding: 2rem;
     display: flex;
     justify-content: center;
 
     .serviceFeatureDescription {
-      display: none;
+      //display: none;
     }
     
     .serviceFeatureTitle {
       font-size: 1.4rem;
+      margin-bottom: 1rem;
+
     }
+  }
+}
+
+@media (max-width: 480px) {
+  .serviceFeaturesContent {
+    grid-template-columns: 1fr;
+
+
+  }
+  
+  .serviceFeatureCard {
+    padding: 2rem;
+
+    .arrowContainer {
+      top: 1rem;
+      right: 1rem;
+
+      width: 2rem;
+      height: 2rem;
+
+      
+      &.arrowVisible {
+        opacity: 1;
+        transform: scale(1) translate(0, 0);
+      }
+      
+      .arrow {
+        width: 0.8rem;
+        height: 0.8rem;
+
+      }
+    
+    .serviceFeatureTitle {
+      font-size: 1.5rem;
+    }
+
+  }
+}
+  
+  .serviceFeaturesDetail {
+    padding: 2rem 1.5rem;
+    //max-height: 60%;
+    .featureDetailContent {
+      .detailTitle {
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+      }
+      
+      .detailDescription {
+        font-size: 1rem;
+
+      }
+      
+      .detailExample {
+        font-size: 0.95rem;
+        padding-left: 1rem;
+
+      }
+    }
+
+
   }
 }
