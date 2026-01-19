@@ -3,7 +3,6 @@
   border-radius: 45px;
   padding: 2.5rem;
   background: var(--bg-primary-opacity);
-  //backdrop-filter: blur(20px);
   border: 1px solid var(--border-color);
   transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
   overflow: hidden;
@@ -11,29 +10,17 @@
   min-height: 320px;
   width: 100%;
   height: 100%;
-  //transform-style: preserve-3d;
-  //perspective: 1000px;
-
   
   &:hover, &[data-active="true"] {
-    //transform: translateY(0px) scale(1);
-   //box-shadow: var(--box-shadow-primary);
     background: var(--bg-primary-opacity-sec);
     box-shadow: var(--box-shadow-primary), inset 0px 0px 50px var(--background-primary-yellow-100);
     border-radius: 2.5rem;
     
-
-
-
     .backgroundWrapper {
       scale: 1.05;
-      //filter: blur(0px);
       transition: all 0.4s ease;
-
-
     }
     
-
     .content {
       transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
       scale: 1.01;
@@ -43,7 +30,6 @@
       color: var(--text-primary);
       transform: translateY(-2px);
     }
-
 
     .ctaContainer {
       opacity: 1;
@@ -55,12 +41,8 @@
       background: var(--background-primary);
       border: 1px solid var(--border-color);
       box-shadow: var(--background-primary);
-      //backdrop-filter: blur(50px);
       transition: all 0.3s ease;
       z-index: 99;
-
-      
-
     }
   }
 
@@ -108,7 +90,6 @@
   height: 100%;
   scale: 1;
   transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-
 }
 
 .header {
@@ -116,9 +97,6 @@
   flex-direction: column;
   gap: 0.75rem;
   position: static;
-  //background: var(--bg-primary);
-
-
 }
 
 .headerTitle {
@@ -127,7 +105,6 @@
   gap: 7px;
 }
 
-// Контейнер для стрелки с более плавной анимацией
 .arrowContainer {
   position: absolute;
   top: -1rem;
@@ -136,9 +113,7 @@
   height: 2rem;
   z-index: 3;
   opacity: 0;
-  //transform: scale(0.8) translate(-10px, 10px);
-  transform: scale(0.5) rotate(-45deg)  translate(-10px, 0px);
-
+  transform: scale(0.5) rotate(-45deg) translate(-10px, 0px);
   transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s;
   
   &.arrowVisible {
@@ -161,24 +136,14 @@
   align-items: center;
   justify-content: center;
   backdrop-filter: blur(15px) saturate(250%);
-
-
   
-  // Анимация при ховере на саму иконку
   &:hover {
     transform: scale(1.1) rotate(0deg);
-    //background: linear-gradient(45deg, #feab5e60, #c779d055, #4bc0c850);
-    //border-color: var(--primary-color);
-    //color: var(--primary-color);
   }
 }
 
-
-// Базовые стили для subtitle (по умолчанию - нейтральный желтый)
 .subtitle {
-  //position: relative;
   position: relative;
-
   font-size: 0.875rem;
   font-weight: 500;
   color: var(--text-secondary);
@@ -192,14 +157,9 @@
   border-radius: 50px;
   backdrop-filter: blur(15px) saturate(280%);
   -webkit-backdrop-filter: blur(15px) saturate(280%);
-
-  //filter: blur(3px);
   transition: all 0.3s ease;
   overflow: hidden;
   
-
-  
-  // Размеры
   &.small {
     font-size: 0.75rem;
     padding: 3px 8px;
@@ -213,69 +173,6 @@
   &.large {
     font-size: 1rem;
     padding: 8px 16px;
-  }
-}
-
-// Цветовые схемы - применяются только при ховере через классы
-.blueColor {
-  background-color: rgba(33, 150, 243, 0.1) !important;
-  color: #1976d2 !important;
-  border-color: rgba(33, 150, 243, 0.3) !important;
-  
-  :global(.dark-theme) & {
-    background-color: rgba(33, 150, 243, 0.05) !important;
-    color: #64b5f6 !important;
-    border-color: rgba(33, 150, 243, 0.2) !important;
-
-  }
-}
-
-.redColor {
-  background-color: rgba(244, 67, 54, 0.05) !important;
-  color: #d32f2f !important;
-  border-color: rgba(244, 67, 54, 0.05) !important;
-  
-  :global(.dark-theme) & {
-    background-color: rgba(244, 67, 54, 0.05) !important;
-    color: #ef5350 !important;
-    border-color: rgba(244, 67, 54, 0.2) !important;
-  }
-}
-
-.greenColor {
-  background-color: rgba(76, 175, 80, 0.1) !important;
-  color: #388e3c !important;
-  border-color: rgba(76, 175, 80, 0.3) !important;
-  
-  :global(.dark-theme) & {
-    background-color: rgba(76, 175, 80, 0.05) !important;
-    color: #66bb6a !important;
-    border-color: rgba(76, 175, 80, 0.2) !important;
-  }
-}
-
-.cyanColor {
-  background-color: rgba(0, 188, 212, 0.1) !important;
-  color: #0097a7 !important;
-  border-color: rgba(0, 188, 212, 0.3) !important;
-  
-  :global(.dark-theme) & {
-    background-color: rgba(0, 188, 212, 0.05) !important;
-    color: #4dd0e1 !important;
-    border-color: rgba(0, 188, 212, 0.2) !important;
-  }
-}
-
-.purpleColor {
-  background-color: rgba(156, 39, 176, 0.1) !important;
-  color: #7b1fa2 !important;
-  border-color: rgba(156, 39, 176, 0.3) !important;
-  
-  :global(.dark-theme) & {
-    background-color: rgba(156, 39, 176, 0.05) !important;
-    color: #ba68c8 !important;
-    border-color: rgba(156, 39, 176, 0.2) !important;
-
   }
 }
 
@@ -307,7 +204,6 @@
     opacity: 1;
     transform: translateY(0) translateZ(0px);
     height: 100%;
-    //max-height: 200px;
   }
 }
 
@@ -333,7 +229,6 @@
   }
 }
 
-// Адаптивные стили
 @media (max-width: 1440px) {
   .container {
     min-height: 280px;
@@ -370,8 +265,6 @@
   
   .description {
     font-size: 0.75rem;
-
-
   }
   
   .subtitle {
@@ -393,7 +286,6 @@
     &:hover {
       transform: translateY(0px) scale(1);
       border-radius: 3.5rem;
-
     }
   }
   

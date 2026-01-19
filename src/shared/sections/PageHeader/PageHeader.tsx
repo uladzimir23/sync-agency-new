@@ -12,6 +12,24 @@ export interface PageHeaderProps {
   className?: string
   onBookCall?: () => void
   onMakeBrief?: () => void
+  scrollToBrief?: () => void
+
+}
+
+// Маппинг названий страниц на цветовые схемы
+const PAGE_COLOR_MAPPING: Record<string, string> = {
+  'Brand Identity': 'blueColor',
+  'Marketing Strategy': 'redColor', 
+  'Product Development': 'greenColor',
+  'Infrastructure Automation': 'cyanColor',
+  'Performance Intelligence': 'purpleColor',
+  // Дополнительные страницы, если понадобятся
+  'brand': 'blueColor',
+  'marketing': 'redColor',
+  'product': 'greenColor',
+  'automation': 'cyanColor',
+  'performance': 'purpleColor',
+  'data': 'purpleColor',
 }
 
 export const PageHeader: React.FC<PageHeaderProps> = ({ 
@@ -22,9 +40,39 @@ export const PageHeader: React.FC<PageHeaderProps> = ({
   subtitleClassName = '',
   className = '',
   onBookCall,
-  onMakeBrief
+  onMakeBrief,
+  scrollToBrief // Новый пропс
+
 }) => {
   const { t } = useTranslation()
+
+  // Функция для обработки клика на кнопку Make Brief
+  const handleMakeBriefClick = () => {
+    if (scrollToBrief) {
+      scrollToBrief() // Сначала скроллим к BriefSection
+    }
+    if (onMakeBrief) {
+      onMakeBrief() // Затем выполняем дополнительную логику (если есть)
+    }
+  }
+
+  // Получаем цветовой класс для pageTitle
+  const getPageTitleColorClass = () => {
+    const normalizedTitle = pageTitle.trim()
+    
+    // Прямое совпадение
+    if (PAGE_COLOR_MAPPING[normalizedTitle]) {
+      return PAGE_COLOR_MAPPING[normalizedTitle]
+    }
+    
+    // Поиск по частичному совпадению (без учета регистра)
+    const normalizedKey = Object.keys(PAGE_COLOR_MAPPING).find(key => 
+      normalizedTitle.toLowerCase().includes(key.toLowerCase()) ||
+      key.toLowerCase().includes(normalizedTitle.toLowerCase())
+    )
+    
+    return normalizedKey ? PAGE_COLOR_MAPPING[normalizedKey] : 'blueColor'
+  }
 
   // Генерация уникальных классов на основе pageTitle
   const generateUniqueClass = (baseClass: string) => {
@@ -34,13 +82,16 @@ export const PageHeader: React.FC<PageHeaderProps> = ({
 
   const uniqueTitleClass = generateUniqueClass(styles.title)
   const uniqueSubtitleClass = generateUniqueClass(styles.subtitle)
+  const pageTitleColorClass = getPageTitleColorClass()
 
   return (
     <div className={`${styles.pageHeader} ${className}`}>
       <div className={styles.content}>
-        {/* Название страницы вместо SyncDropdownHeader */}
+        {/* Название страницы с цветовым классом */}
         <div className={styles.pageTitleWrapper}>
-          <span className={styles.pageTitle}>{pageTitle}</span>
+          <span className={`${styles.pageTitle} ${pageTitleColorClass}`}>
+            {pageTitle}
+          </span>
         </div>
 
         {/* Заголовок и подзаголовок */}
@@ -66,7 +117,7 @@ export const PageHeader: React.FC<PageHeaderProps> = ({
             variant="secondary"
             size="lg"
             animation="scale"
-            onClick={onMakeBrief}
+            onClick={handleMakeBriefClick} 
             className={styles.button}
           >
             {t('header.makeBrief')}

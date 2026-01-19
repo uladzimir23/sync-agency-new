@@ -1,13 +1,13 @@
-.unifiedBookingForm {
+.contactForm {
     border: none;
     padding: 0;
     border-radius: 0;
     background: transparent;
     height: 100%;
     
-    &.disabled {
-      opacity: 0.6;
-      pointer-events: none;
+    &:hover {
+      box-shadow: none;
+      background: transparent;
     }
   
     .form {
@@ -37,12 +37,17 @@
       font-size: 14px;
       transition: all 0.3s ease;
   
-      &:hover {
+      &:hover:not(:disabled) {
         background: var(--background-primary-yellow);
         box-shadow: var(--box-shadow-primary);
       }
+  
+      &:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+      }
     
-      &:focus {
+      &:focus:not(:disabled) {
         outline: none;
         border-color: var(--border-color-accent);
         box-shadow: var(--box-shadow-primary), inset 0px 0px 3px var(--border-color-accent);
@@ -50,11 +55,6 @@
     
       &::placeholder {
         color: var(--text-secondary);
-      }
-  
-      &:disabled {
-        opacity: 0.6;
-        cursor: not-allowed;
       }
     }
   
@@ -133,21 +133,33 @@
         cursor: not-allowed;
       }
     }
+  }
   
-    .errorMessage {
-      background: rgba(239, 68, 68, 0.1);
-      border: 1px solid rgba(239, 68, 68, 0.3);
-      color: #ef4444;
-      padding: 12px 16px;
-      border-radius: 12px;
-      font-size: 14px;
-      margin-bottom: 16px;
+  .errorMessage {
+    background: rgba(239, 68, 68, 0.1);
+    border: 1px solid rgba(239, 68, 68, 0.3);
+    color: #ef4444;
+    padding: 12px 16px;
+    border-radius: 12px;
+    font-size: 14px;
+    margin-bottom: 16px;
+  }
+  
+  // Обновите стили кнопок для disabled состояния
+  .backButton:disabled,
+  .submitButton:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    
+    &:hover {
+      transform: none;
+      box-shadow: none;
     }
   }
   
   // Адаптивность
   @media (max-width: 768px) {
-    .unifiedBookingForm {
+    .contactForm {
       .communicationButtons {
         :global(.btnStack__container) {
           grid-template-columns: 1fr !important;
@@ -157,11 +169,16 @@
       .actions {
         flex-direction: row;
       }
+      
+      .backButton,
+      .submitButton {
+        //flex: none;
+      }
     }
   }
   
   @media (max-width: 480px) {
-    .unifiedBookingForm {
+    .contactForm {
       .form {
         gap: 16px;
       }

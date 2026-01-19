@@ -1,4 +1,5 @@
-// src/shared/sections/brief-section/types.ts
+import { ContactFormData } from '@/shared/ui/contact-form'
+
 export interface ProjectFeature {
   id: string
   title: string
@@ -24,16 +25,20 @@ export interface BriefFormData {
   selectedBudget: string | null
   selectedTimeline: string | null
   uploadedFiles: File[]
+  contactFormData: ContactFormData
 }
 
 export interface BriefState {
   formData: BriefFormData
   isSubmitted: boolean
+  error: string | null
 }
 
 // Интерфейс для BriefSection пропсов
 export interface BriefSectionProps {
   page?: string // Простая строка
+  id?: string  // Добавляем опциональный пропс id
+
 }
 
 // Common props for all device types
@@ -48,7 +53,8 @@ export interface BriefCommonProps {
   onTimelineSelect: (timelineValue: string) => void
   onProjectDescriptionChange: (description: string) => void
   onFilesUpload: (files: File[]) => void
-  onBriefSubmit: () => void
+  onContactFormChange: (contactFormData: ContactFormData) => void
+  onBriefSubmit: (contactFormData?: ContactFormData) => void
   resetForm?: () => void
   isFormValid: boolean
 }

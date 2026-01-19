@@ -24,8 +24,8 @@
 }
 
 // Убедитесь, что body и html занимают всю высоту
-html, body, main {
-  background: var(--black-white);
+html, body{
+  //background: var(--black-white);
   margin: 0;
   padding: 0;
   height: 100%;

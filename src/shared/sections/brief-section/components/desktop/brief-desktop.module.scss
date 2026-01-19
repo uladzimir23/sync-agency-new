@@ -1,40 +1,77 @@
 .desktopLayout {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(430px, 430px));
-    justify-content: center;
-    gap: 20px;
-    width: 100%;
-    transition: all 0.3s ease;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(430px, 430px));
+  justify-content: center;
+  gap: 1rem;
+  width: 100%;
+  transition: all 0.3s ease;
 
+  @media (min-width: 1440px) {
+    grid-template-columns: repeat(2, 430px);
   }
+}
+
+.leftColumn,
+.rightColumn {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  max-height: auto;
+  transition: all 0.3s ease;
+  
+  :global(.collapsed-selection-module__collapsedSelection) {
+    width: 100%;
+  }
+}
+
+.rightColumn {
+  :global(.collapsed-selection-module__collapsedSelection) {
+    &:global(.expanded) {
+      height: 100%;
+      
+      :global(.collapsed-selection-module__content) {
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+        
+        .selectionContent {
+          flex: 1;
+          display: flex;
+          flex-direction: column;
+        }
+      }
+    }
+  }
+}
+
+.selectionContent {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+// Убираем стрелку в правой колонке (она всегда открыта)
+.rightColumn {
+  .arrowWrapper {
+      display: none;
+  }
+}
+
+@media (max-width: 1024px) {
+  .desktopLayout {
+    gap: 1rem;
+  }
+  
   .leftColumn,
   .rightColumn {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    max-height: auto;
-    transition: all 0.3s ease;
+    gap: 0.5rem;
   }
-  .rightColumn {
-    .arrowWrapper {
-        display: none;
-    }
+}
+
+@media (max-width: 768px) {
+  .desktopLayout {
+    grid-template-columns: 1fr;
+    max-width: 430px;
+    margin: 0 auto;
   }
-  
-  .contactFormWrapper {
-    // Стили для скрытия кнопок в форме контактов, если нужно
-    :global(.booking-form-module__actions) {
-      display: none;
-    }
-  }
-  
-  @media (max-width: 1024px) {
-    .desktopLayout {
-      gap: 16px;
-    }
-    
-    .leftColumn,
-    .rightColumn {
-      gap: 16px;
-    }
-  }
+}

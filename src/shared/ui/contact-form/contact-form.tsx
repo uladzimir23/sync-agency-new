@@ -1,77 +1,72 @@
 import React, { useState } from 'react'
 import { ButtonStack, ButtonStackItem } from '@/shared/ui/button-stack'
-import styles from './UnifiedBookingForm.module.scss'
+import styles from './contact-form.module.scss'
 
-interface UnifiedBookingFormProps {
-  initialData?: {
-    name?: string
-    email?: string
-    communicationMethod?: 'telegram' | 'whatsapp' | 'viber' | 'other'
-    contactId?: string
-  }
-  onSubmit: (data: any) => Promise<void>
-  onCancel?: () => void
-  submitText?: string
-  cancelText?: string
-  disabled?: boolean
-  showCancel?: boolean
-  className?: string
+export interface ContactFormData {
+  name: string
+  email: string
+  communicationMethod: 'telegram' | 'whatsapp' | 'viber' | 'other'
+  contactId: string
 }
 
-export const UnifiedBookingForm: React.FC<UnifiedBookingFormProps> = ({
-  initialData = {},
-  onSubmit,
-  onCancel,
-  submitText = 'Confirm Booking',
-  cancelText = 'Back',
-  disabled = false,
-  showCancel = true,
-  className = ''
-}) => {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    communicationMethod: 'telegram' as const,
-    contactId: '',
-    ...initialData
-  })
-  
-  const [isSubmitting, setIsSubmitting] = useState(false)
-  const [error, setError] = useState<string | null>(null)
+interface ContactFormProps {
+  formData: ContactFormData
+  onFormDataChange: (data: ContactFormData) => void
+  onSubmit: (formData: ContactFormData) => Promise<void> | void
+  onBack?: () => void
+  submitLabel?: string
+  showBackButton?: boolean
+  disabled?: boolean
+  error?: string | null
+}
 
-  const handleInputChange = (field: keyof typeof formData, value: string) => {
-    setFormData(prev => ({
-      ...prev,
+export const ContactForm: React.FC<ContactFormProps> = ({
+  formData,
+  onFormDataChange,
+  onSubmit,
+  onBack,
+  submitLabel = 'Confirm',
+  showBackButton = true,
+  disabled = false,
+  error: externalError = null
+}) => {
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [internalError, setInternalError] = useState<string | null>(null)
+
+  const error = externalError || internalError
+
+  const handleInputChange = (field: keyof ContactFormData, value: string) => {
+    onFormDataChange({
+      ...formData,
       [field]: value
-    }))
-    if (error) setError(null)
+    })
+    if (internalError) setInternalError(null)
   }
 
   const handleCommunicationMethodChange = (index: number) => {
-    if (disabled || isSubmitting) return
-    
     const methods: ('telegram' | 'whatsapp' | 'viber' | 'other')[] = 
       ['telegram', 'whatsapp', 'viber', 'other']
     
-    setFormData(prev => ({
-      ...prev,
+    onFormDataChange({
+      ...formData,
       communicationMethod: methods[index],
       contactId: ''
-    }))
+    })
+    if (internalError) setInternalError(null)
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    
     if (disabled || isSubmitting) return
     
     setIsSubmitting(true)
-    setError(null)
+    setInternalError(null)
 
     try {
       await onSubmit(formData)
     } catch (error) {
-      setError(error instanceof Error ? error.message : 'Failed to submit form')
+      setInternalError('Failed to submit. Please try again.')
+      console.error('Form submission error:', error)
     } finally {
       setIsSubmitting(false)
     }
@@ -97,14 +92,21 @@ export const UnifiedBookingForm: React.FC<UnifiedBookingFormProps> = ({
     }
   }
 
+  const getAutoCompleteType = (method: string) => {
+    switch (method) {
+      case 'telegram': return 'username'
+      case 'whatsapp': return 'username'
+      case 'viber': return 'tel'
+      case 'other': return 'off'
+      default: return 'off'
+    }
+  }
+
   const communicationMethods = ['Telegram', 'WhatsApp', 'Viber', 'Other']
   const activeMethodIndex = ['telegram', 'whatsapp', 'viber', 'other'].indexOf(formData.communicationMethod)
 
-  const isFormDisabled = disabled || isSubmitting
-  const canSubmit = !isFormDisabled && formData.name && formData.email && formData.contactId
-
   return (
-    <div className={`${styles.unifiedBookingForm} ${className} ${isFormDisabled ? styles.disabled : ''}`}>
+    <div className={styles.contactForm}>
       <form onSubmit={handleSubmit} className={styles.form}>
         {error && (
           <div className={styles.errorMessage}>
@@ -116,13 +118,14 @@ export const UnifiedBookingForm: React.FC<UnifiedBookingFormProps> = ({
           <label htmlFor="name" className={styles.label}>Name</label>
           <input
             id="name"
+            name="name"
             type="text"
+            autoComplete="name"
             className={styles.input}
             value={formData.name}
             onChange={(e) => handleInputChange('name', e.target.value)}
             required
-            disabled={isFormDisabled}
-            placeholder="Your name"
+            disabled={isSubmitting}
           />
         </div>
 
@@ -130,13 +133,14 @@ export const UnifiedBookingForm: React.FC<UnifiedBookingFormProps> = ({
           <label htmlFor="email" className={styles.label}>Email</label>
           <input
             id="email"
+            name="email"
             type="email"
+            autoComplete="email"
             className={styles.input}
             value={formData.email}
             onChange={(e) => handleInputChange('email', e.target.value)}
             required
-            disabled={isFormDisabled}
-            placeholder="your.email@example.com"
+            disabled={isSubmitting}
           />
         </div>
 
@@ -151,6 +155,7 @@ export const UnifiedBookingForm: React.FC<UnifiedBookingFormProps> = ({
               className={styles.communicationButtons}
               interactionMode="click"
               rememberActive={true}
+              disabled={isSubmitting}
             >
               {communicationMethods.map((method) => (
                 <ButtonStackItem key={method}>
@@ -167,33 +172,35 @@ export const UnifiedBookingForm: React.FC<UnifiedBookingFormProps> = ({
           </label>
           <input
             id="contactId"
+            name="contactId"
             type="text"
+            autoComplete={getAutoCompleteType(formData.communicationMethod)}
             className={styles.input}
             value={formData.contactId}
             onChange={(e) => handleInputChange('contactId', e.target.value)}
             placeholder={getContactIdPlaceholder()}
             required
-            disabled={isFormDisabled}
+            disabled={isSubmitting}
           />
         </div>
 
         <div className={styles.actions}>
-          {showCancel && onCancel && (
+          {showBackButton && onBack && (
             <button 
-              type="button" 
-              onClick={onCancel} 
+              type="button"
               className={styles.backButton}
-              disabled={isFormDisabled}
+              onClick={onBack}
+              disabled={isSubmitting}
             >
-              {cancelText}
+              Back
             </button>
           )}
           <button 
             type="submit" 
             className={styles.submitButton}
-            disabled={!canSubmit}
+            disabled={isSubmitting || disabled}
           >
-            {isSubmitting ? 'Sending...' : submitText}
+            {isSubmitting ? 'Sending...' : submitLabel}
           </button>
         </div>
       </form>

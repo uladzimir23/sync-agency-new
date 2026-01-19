@@ -1,8 +1,6 @@
 import React from 'react'
-import { ProductHeroSection } from '../../shared/sections/ProductHeroSection'
 import { ServiceFeatures } from '../../shared/sections/ServiceFeatures'
 import { ProcessTimeline } from '../../shared/sections/ProcessTimeline'
-import { CTASection } from '../../shared/sections/CTASection'
 import { FAQSection } from '../../shared/sections/FAQSection'
 import { featuresData } from '../../shared/lib/data/featuresData'
 import { processStepsData } from '../../shared/lib/data/processStepsData'
@@ -13,16 +11,17 @@ import { PageHeader } from '@/shared/sections/PageHeader'
 
 
 
-import { UnifiedBookingSection } from '@/shared/unified'
-
-
 export const MarketingStrategyPage: React.FC = () => {
-  const handleCtaClick = () => {
-    console.log('CTA clicked - discuss strategy')
-  }
-
-  const handleSecondaryCtaClick = () => {
-    console.log('Secondary CTA clicked - view marketing cases')
+  const handleMakeBrief = () => {
+    console.log('Make brief clicked')
+    // Прокрутка к BriefSection по якорной ссылке
+    const briefSection = document.getElementById('brief-section')
+    if (briefSection) {
+      briefSection.scrollIntoView({ 
+        behavior: 'smooth',
+        block: 'start'
+      })
+    }
   }
 
   return (
@@ -34,7 +33,7 @@ export const MarketingStrategyPage: React.FC = () => {
 
   subtitle="We create marketing strategies built on analytics and insights. We define the right channels, audiences, and messaging, build funnels and content plans. For new launches and scaling existing products."
   onBookCall={() => console.log('Book call for Marketing Strategy')}
-  onMakeBrief={() => console.log('Make brief for Marketing Strategy')}
+  onMakeBrief={handleMakeBrief}
 />
 
       <ServiceFeatures
@@ -53,8 +52,10 @@ export const MarketingStrategyPage: React.FC = () => {
         title={faqData['marketing-strategy'].title}
         items={faqData['marketing-strategy'].items}
       />
-
-      <BriefSection page="marketing" />
+      
+      <div id="brief-section">
+        <BriefSection page="marketing" />
+      </div>
 
     </div>
   )

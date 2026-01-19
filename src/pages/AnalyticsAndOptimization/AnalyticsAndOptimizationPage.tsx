@@ -1,8 +1,6 @@
 import React from 'react'
-import { ProductHeroSection } from '../../shared/sections/ProductHeroSection'
 import { ServiceFeatures } from '../../shared/sections/ServiceFeatures'
 import { ProcessTimeline } from '../../shared/sections/ProcessTimeline'
-import { CTASection } from '../../shared/sections/CTASection'
 import { FAQSection } from '../../shared/sections/FAQSection'
 import { featuresData } from '../../shared/lib/data/featuresData'
 import { processStepsData } from '../../shared/lib/data/processStepsData'
@@ -14,13 +12,19 @@ import { PageHeader } from '@/shared/sections/PageHeader'
 
 
 export const AnalyticsAndOptimizationPage: React.FC = () => {
-  const handleCtaClick = () => {
-    console.log('CTA clicked - start analytics project')
+
+  const handleMakeBrief = () => {
+    console.log('Make brief clicked')
+    // Прокрутка к BriefSection по якорной ссылке
+    const briefSection = document.getElementById('brief-section')
+    if (briefSection) {
+      briefSection.scrollIntoView({ 
+        behavior: 'smooth',
+        block: 'start'
+      })
+    }
   }
 
-  const handleSecondaryCtaClick = () => {
-    console.log('Secondary CTA clicked - view analytics dashboard')
-  }
 
   return (
     <div className="analytics-optimization-page">
@@ -31,7 +35,7 @@ export const AnalyticsAndOptimizationPage: React.FC = () => {
 
   subtitle="We set up data collection and visualization systems, identify pain points and growth opportunities. We optimize landing pages, ads, funnels, and UX — all driven by real user behavior and numbers."
   onBookCall={() => console.log('Book call for Performance Intelligence')}
-  onMakeBrief={() => console.log('Make brief for Performance Intelligence')}
+  onMakeBrief={handleMakeBrief}
 />
 
       <ServiceFeatures
@@ -51,8 +55,9 @@ export const AnalyticsAndOptimizationPage: React.FC = () => {
         items={faqData['analytics-and-optimization'].items}
       />
 
-
+    <div id="brief-section">
       <BriefSection page="analytics" />
+    </div>
 
     </div>
   )

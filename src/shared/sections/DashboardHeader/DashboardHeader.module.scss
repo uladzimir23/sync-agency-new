@@ -24,12 +24,38 @@
     
     // Анимация появления
     animation: titleReveal 0.8s ease-out;
+
+    &::after {
+      content: ' sync.'; /* Добавляемый текст */
+      font-style: italic;
+      width: max-content;
+      background: linear-gradient(45deg, #FEAC5E, #C779D0, #4BC0C8);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-size: 200% 200%;
+      animation: gradientShift 3s ease infinite;
+    }
     
     br {
       display: block;
       margin: 0.5rem 0;
     }
   }
+
+  // Анимация градиента
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
 
   .subtitle {
     font-size: 1.3rem;
@@ -124,8 +150,14 @@
     }
 
     .title {
-      font-size: 1.8rem;
-      padding: 0 2rem;
+      line-height: 1.1;
+      font-size: 2rem;
+      padding: 0;
     }
+
+    .subtitle {
+      line-height: 1.4;
+    }
+
   }
 }

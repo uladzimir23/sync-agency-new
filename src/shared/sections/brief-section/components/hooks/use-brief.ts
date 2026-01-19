@@ -1,4 +1,3 @@
-// src/shared/sections/brief-section/components/hooks/use-brief.ts
 import { useState, useCallback, useMemo } from 'react'
 import { 
   BriefState, 
@@ -7,6 +6,8 @@ import {
   BudgetOption, 
   TimelineOption 
 } from '../../types'
+import { TelegramService } from '@/shared/services/telegram-service'
+import { ContactFormData } from '@/shared/ui/contact-form'
 
 // Интерфейс для пропсов хука
 interface UseBriefOptions {
@@ -222,7 +223,13 @@ const initialFormData: BriefFormData = {
   selectedFeatures: [],
   selectedBudget: null,
   selectedTimeline: null,
-  uploadedFiles: []
+  uploadedFiles: [],
+  contactFormData: {
+    name: '',
+    email: '',
+    communicationMethod: 'telegram',
+    contactId: ''
+  }
 }
 
 export const useBrief = (options: UseBriefOptions = {}) => {
@@ -236,7 +243,8 @@ export const useBrief = (options: UseBriefOptions = {}) => {
       ...initialFormData,
       ...customInitialData
     },
-    isSubmitted: false
+    isSubmitted: false,
+    error: null
   })
 
   // Получаем фичи для указанной страницы
@@ -273,7 +281,8 @@ export const useBrief = (options: UseBriefOptions = {}) => {
         formData: {
           ...prev.formData,
           selectedFeatures: newFeatures
-        }
+        },
+        error: null
       }
     })
   }, [])
@@ -284,7 +293,8 @@ export const useBrief = (options: UseBriefOptions = {}) => {
       formData: {
         ...prev.formData,
         selectedBudget: budgetValue
-      }
+      },
+      error: null
     }))
   }, [])
 
@@ -294,7 +304,8 @@ export const useBrief = (options: UseBriefOptions = {}) => {
       formData: {
         ...prev.formData,
         selectedTimeline: timelineValue
-      }
+      },
+      error: null
     }))
   }, [])
 
@@ -304,7 +315,8 @@ export const useBrief = (options: UseBriefOptions = {}) => {
       formData: {
         ...prev.formData,
         projectDescription: description
-      }
+      },
+      error: null
     }))
   }, [])
 
@@ -314,7 +326,19 @@ export const useBrief = (options: UseBriefOptions = {}) => {
       formData: {
         ...prev.formData,
         uploadedFiles: files
-      }
+      },
+      error: null
+    }))
+  }, [])
+
+  const handleContactFormChange = useCallback((contactFormData: ContactFormData) => {
+    setBriefState(prev => ({
+      ...prev,
+      formData: {
+        ...prev.formData,
+        contactFormData
+      },
+      error: null
     }))
   }, [])
 
@@ -322,38 +346,70 @@ export const useBrief = (options: UseBriefOptions = {}) => {
     briefState.formData.projectDescription.trim().length > 0 &&
     briefState.formData.selectedFeatures.length > 0 &&
     briefState.formData.selectedBudget !== null &&
-    briefState.formData.selectedTimeline !== null,
+    briefState.formData.selectedTimeline !== null &&
+    briefState.formData.contactFormData.name.trim().length > 0 &&
+    briefState.formData.contactFormData.email.trim().length > 0 &&
+    briefState.formData.contactFormData.contactId.trim().length > 0,
     [briefState.formData]
   )
 
-  const handleBriefSubmit = useCallback(() => {
-    if (isFormValid) {
+  const handleBriefSubmit = useCallback(async (contactFormData?: ContactFormData) => {
+    const finalContactData = contactFormData || briefState.formData.contactFormData
+    
+    if (!isFormValid && !contactFormData) {
       setBriefState(prev => ({
         ...prev,
-        isSubmitted: true
+        error: 'Please fill in all required fields'
       }))
-      
-      // Подготовка данных для отправки
-      const submissionData = {
-        ...briefState.formData,
+      return
+    }
+
+    try {
+      // Отправка в Telegram
+      const telegramMessage = {
+        type: 'brief_submission' as const,
         page,
-        timestamp: new Date().toISOString(),
-        selectedFeaturesDetails: briefState.formData.selectedFeatures.map(featureId => 
-          projectFeatures.find(f => f.id === featureId) || { id: featureId }
-        )
+        name: finalContactData.name,
+        email: finalContactData.email,
+        communicationMethod: finalContactData.communicationMethod,
+        contactId: finalContactData.contactId,
+        projectDescription: briefState.formData.projectDescription,
+        selectedFeatures: briefState.formData.selectedFeatures,
+        selectedBudget: briefState.formData.selectedBudget,
+        selectedTimeline: briefState.formData.selectedTimeline,
+        fileCount: briefState.formData.uploadedFiles.length,
+        timestamp: new Date().toISOString()
       }
       
-      console.log('Submitting brief for page:', page, submissionData)
+      const telegramSuccess = await TelegramService.sendBriefNotification(telegramMessage)
       
-      // TODO: Здесь будет логика отправки данных
-      // Например: sendBriefToTelegram(submissionData)
+      if (!telegramSuccess) {
+        console.warn('Telegram notification failed, but brief will be submitted')
+      }
+      
+      // Обновляем состояние
+      setBriefState(prev => ({
+        ...prev,
+        isSubmitted: true,
+        error: null
+      }))
+      
+      console.log('Submitting brief for page:', page, telegramMessage)
+      
+    } catch (error) {
+      console.error('Error in brief submission:', error)
+      setBriefState(prev => ({
+        ...prev,
+        error: 'Failed to submit brief. Please try again.'
+      }))
     }
-  }, [briefState.formData, isFormValid, page, projectFeatures])
+  }, [briefState.formData, isFormValid, page])
 
   const resetForm = useCallback(() => {
     setBriefState({
       formData: initialFormData,
-      isSubmitted: false
+      isSubmitted: false,
+      error: null
     })
   }, [])
 
@@ -368,6 +424,7 @@ export const useBrief = (options: UseBriefOptions = {}) => {
     handleTimelineSelect,
     handleProjectDescriptionChange,
     handleFilesUpload,
+    handleContactFormChange,
     handleBriefSubmit,
     resetForm,
     isFormValid

@@ -65,8 +65,8 @@ export const HeroBackground: React.FC<HeroBackgroundProps> = ({
           return <DataBackground {...commonProps} />;
         case 'automation':
           return <AutomationBackground {...commonProps} />;
-        case 'pixel': // Добавили новый вариант
-          return <PixelBackground {...commonProps} />;
+        // case 'pixel': // Добавили новый вариант
+        //   return <PixelBackground {...commonProps} />;
         default:
           return <BrandBackground {...commonProps} />;
       }

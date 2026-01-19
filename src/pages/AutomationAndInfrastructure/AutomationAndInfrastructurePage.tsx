@@ -1,8 +1,6 @@
 import React from 'react'
-import { ProductHeroSection } from '../../shared/sections/ProductHeroSection'
 import { ServiceFeatures } from '../../shared/sections/ServiceFeatures'
 import { ProcessTimeline } from '../../shared/sections/ProcessTimeline'
-import { CTASection } from '../../shared/sections/CTASection'
 import { FAQSection } from '../../shared/sections/FAQSection'
 import { featuresData } from '../../shared/lib/data/featuresData'
 import { processStepsData } from '../../shared/lib/data/processStepsData'
@@ -14,12 +12,16 @@ import { PageHeader } from '@/shared/sections/PageHeader'
 
 
 export const AutomationAndInfrastructurePage: React.FC = () => {
-  const handleCtaClick = () => {
-    console.log('CTA clicked - discuss automation')
-  }
-
-  const handleSecondaryCtaClick = () => {
-    console.log('Secondary CTA clicked - view infrastructure cases')
+  const handleMakeBrief = () => {
+    console.log('Make brief clicked')
+    // Прокрутка к BriefSection по якорной ссылке
+    const briefSection = document.getElementById('brief-section')
+    if (briefSection) {
+      briefSection.scrollIntoView({ 
+        behavior: 'smooth',
+        block: 'start'
+      })
+    }
   }
 
   return (
@@ -31,7 +33,7 @@ export const AutomationAndInfrastructurePage: React.FC = () => {
 
   subtitle="We streamline repetitive tasks and set up resilient digital infrastructure. From lead automation and CRM funnels to system integrations and sales pipelines — everything to grow your business faster."
   onBookCall={() => console.log('Book call for Infrastructure Automation')}
-  onMakeBrief={() => console.log('Make brief for Infrastructure Automation')}
+  onMakeBrief={handleMakeBrief}
 />
 
       <ServiceFeatures
@@ -51,8 +53,9 @@ export const AutomationAndInfrastructurePage: React.FC = () => {
         items={faqData['automation-and-infrastructure'].items}
       />
 
-
+    <div id="brief-section">
       <BriefSection page="automation" />
+    </div>
 
     </div>
   )

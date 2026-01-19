@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
-// import { CollapsedSelection } from '../../../booking-section/components/common'
-import { BookingForm } from '../../../booking-section/components/common'
+import { ContactForm } from '@/shared/ui/contact-form'
 import { FeaturesGrid } from '../common/features-grid/features-grid'
 import { FileUpload } from '../common/file-upload/file-upload'
 import { BudgetTimelineSelection } from '../common/budget-timeline-selection/budget-timeline-selection'
@@ -8,7 +7,6 @@ import { ProjectDescription } from '../common/project-description/project-descri
 import { BriefDesktopProps } from '../../types'
 import styles from './brief-desktop.module.scss'
 import { CollapsedSelection } from '@shared/ui/collapsed-selection/collapsed-selection'
-
 
 export const BriefDesktop: React.FC<BriefDesktopProps> = ({
   briefState,
@@ -20,10 +18,11 @@ export const BriefDesktop: React.FC<BriefDesktopProps> = ({
   onTimelineSelect,
   onProjectDescriptionChange,
   onFilesUpload,
+  onContactFormChange,
   onBriefSubmit,
   isFormValid
 }) => {
-  const { formData } = briefState
+  const { formData, error } = briefState
   
   // Состояние для управления открытыми секциями в левой колонке
   const [leftExpandedSections, setLeftExpandedSections] = useState({
@@ -52,6 +51,10 @@ export const BriefDesktop: React.FC<BriefDesktopProps> = ({
     })
   }
 
+  const handleContactSubmit = async (contactData: any) => {
+    await onBriefSubmit(contactData)
+  }
+
   return (
     <div className={styles.desktopLayout}>
       {/* Левая колонка - с аккордеоном */}
@@ -68,11 +71,13 @@ export const BriefDesktop: React.FC<BriefDesktopProps> = ({
           title="Service Features"
           forceTitle={true}
         >
-          <FeaturesGrid
-            features={projectFeatures}
-            selectedFeatures={formData.selectedFeatures}
-            onFeatureToggle={onFeatureToggle}
-          />
+          <div className={styles.selectionContent}>
+            <FeaturesGrid
+              features={projectFeatures}
+              selectedFeatures={formData.selectedFeatures}
+              onFeatureToggle={onFeatureToggle}
+            />
+          </div>
         </CollapsedSelection>
 
         {/* Budget / Timeline */}
@@ -87,14 +92,16 @@ export const BriefDesktop: React.FC<BriefDesktopProps> = ({
           title="Budget & Timeline"
           forceTitle={true}
         >
-          <BudgetTimelineSelection
-            budgetOptions={budgetOptions}
-            timelineOptions={timelineOptions}
-            selectedBudget={formData.selectedBudget}
-            selectedTimeline={formData.selectedTimeline}
-            onBudgetSelect={onBudgetSelect}
-            onTimelineSelect={onTimelineSelect}
-          />
+          <div className={styles.selectionContent}>
+            <BudgetTimelineSelection
+              budgetOptions={budgetOptions}
+              timelineOptions={timelineOptions}
+              selectedBudget={formData.selectedBudget}
+              selectedTimeline={formData.selectedTimeline}
+              onBudgetSelect={onBudgetSelect}
+              onTimelineSelect={onTimelineSelect}
+            />
+          </div>
         </CollapsedSelection>
 
         {/* Project Description */}
@@ -109,14 +116,16 @@ export const BriefDesktop: React.FC<BriefDesktopProps> = ({
           title="Project Description"
           forceTitle={true}
         >
-          <ProjectDescription
-            description={formData.projectDescription}
-            onDescriptionChange={onProjectDescriptionChange}
-          />
-          <FileUpload
-            uploadedFiles={formData.uploadedFiles}
-            onFilesUpload={onFilesUpload}
-          />
+          <div className={styles.selectionContent}>
+            <ProjectDescription
+              description={formData.projectDescription}
+              onDescriptionChange={onProjectDescriptionChange}
+            />
+            <FileUpload
+              uploadedFiles={formData.uploadedFiles}
+              onFilesUpload={onFilesUpload}
+            />
+          </div>
         </CollapsedSelection>
       </div>
 
@@ -134,17 +143,15 @@ export const BriefDesktop: React.FC<BriefDesktopProps> = ({
           title="Contact Details"
           forceTitle={true}
         >
-          <div className={styles.contactFormWrapper}>
-            <BookingForm
-              formData={{
-                name: '',
-                email: '',
-                communicationMethod: 'telegram',
-                contactId: ''
-              }}
-              onFormDataChange={() => {}} // Заглушка
-              onSubmit={() => {}} // Заглушка
-              onBack={() => {}} // Заглушка
+          <div className={styles.selectionContent}>
+            <ContactForm
+              formData={formData.contactFormData}
+              onFormDataChange={onContactFormChange}
+              onSubmit={handleContactSubmit}
+              submitLabel="Submit Brief"
+              showBackButton={false}
+              disabled={!isFormValid}
+              error={error}
             />
           </div>
         </CollapsedSelection>

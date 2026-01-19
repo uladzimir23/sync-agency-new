@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import { cn } from '@/shared/utils/utils'
 import { ButtonStack, ButtonStackItem } from '@/shared/ui/button-stack'
 import { Button } from '@/shared/ui/button'
@@ -6,6 +7,7 @@ import { ThemeToggle } from '@/shared/theme/ThemeToggle'
 import { LanguageSwitcher } from '@/shared/localization'
 import { HeaderDeviceProps } from '../../header.types'
 import styles from './header-desktop.module.scss'
+import { ROUTES } from '@/shared/constants/routes'
 
 export const HeaderDesktop: React.FC<HeaderDeviceProps> = ({
   className,
@@ -22,9 +24,9 @@ export const HeaderDesktop: React.FC<HeaderDeviceProps> = ({
       <div className={styles.container}>
         {/* Логотип */}
         <div className={styles.logo}>
-          <div className={styles.logoPlaceholder}>
+          <Link to={ROUTES.HOME} className={styles.logoPlaceholder}>
             <h3>SYNC</h3>
-          </div>
+          </Link>
         </div>
 
         {/* Навигация */}

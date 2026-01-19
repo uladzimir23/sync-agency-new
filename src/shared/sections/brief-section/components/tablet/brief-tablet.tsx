@@ -1,13 +1,12 @@
 import React, { useState } from 'react'
-// import { CollapsedSelection } from '../../../booking-section/components/common'
 import { FeaturesGrid } from '../common/features-grid/features-grid'
 import { FileUpload } from '../common/file-upload/file-upload'
 import { BudgetTimelineSelection } from '../common/budget-timeline-selection/budget-timeline-selection'
 import { ProjectDescription } from '../common/project-description/project-description'
+import { ContactForm } from '@/shared/ui/contact-form'
 import { BriefTabletProps } from '../../types'
 import styles from './brief-tablet.module.scss'
 import { CollapsedSelection } from '@shared/ui/collapsed-selection/collapsed-selection'
-
 
 export const BriefTablet: React.FC<BriefTabletProps> = ({
   briefState,
@@ -18,50 +17,118 @@ export const BriefTablet: React.FC<BriefTabletProps> = ({
   onBudgetSelect,
   onTimelineSelect,
   onProjectDescriptionChange,
-  onFilesUpload
+  onFilesUpload,
+  onContactFormChange,
+  onBriefSubmit,
+  isFormValid
 }) => {
-  const { formData } = briefState
-  const [leftExpanded, setLeftExpanded] = useState(true)
-  const [rightExpanded, setRightExpanded] = useState(true)
+  const { formData, error } = briefState
+  const [leftExpandedSections, setLeftExpandedSections] = useState({
+    features: false,
+    budget: false,
+    description: false
+  })
+  const [rightExpanded, setRightExpanded] = useState(false)
+
+  const handleLeftSectionToggle = (section: keyof typeof leftExpandedSections) => {
+    setLeftExpandedSections(prev => {
+      const newState = { ...prev }
+      
+      // Если секция уже открыта - закрываем её
+      if (newState[section]) {
+        newState[section] = false
+      } else {
+        // Закрываем все секции и открываем только выбранную
+        Object.keys(newState).forEach(key => {
+          newState[key as keyof typeof leftExpandedSections] = false
+        })
+        newState[section] = true
+      }
+      
+      return newState
+    })
+  }
+
+  const handleContactSubmit = async (contactData: any) => {
+    await onBriefSubmit(contactData)
+  }
 
   return (
     <div className={styles.tabletLayout}>
-      {/* Левая колонка */}
-      <div className={styles.column}>
+      {/* Левая колонка - 3 аккордеона */}
+      <div className={styles.leftColumn}>
+        {/* Service Features */}
         <CollapsedSelection
           selectedMonth={new Date()}
           selectedDate={undefined}
           selectedTime={null}
           formatMonth={() => ''}
           formatDate={() => ''}
-          onExpand={() => setLeftExpanded(!leftExpanded)}
-          isExpanded={leftExpanded}
-          title="Project Details"
+          onExpand={() => handleLeftSectionToggle('features')}
+          isExpanded={leftExpandedSections.features}
+          title="Service Features"
           forceTitle={true}
         >
-          <div className={styles.tabletContent}>
-            <div className={styles.section}>
-              <h4 className={styles.sectionTitle}>Service Features</h4>
-              <FeaturesGrid
-                features={projectFeatures}
-                selectedFeatures={formData.selectedFeatures}
-                onFeatureToggle={onFeatureToggle}
-              />
-            </div>
+          <div className={styles.selectionContent}>
+            <FeaturesGrid
+              features={projectFeatures}
+              selectedFeatures={formData.selectedFeatures}
+              onFeatureToggle={onFeatureToggle}
+            />
+          </div>
+        </CollapsedSelection>
 
-            <div className={styles.section}>
-              <h4 className={styles.sectionTitle}>Project Description</h4>
-              <ProjectDescription
-                description={formData.projectDescription}
-                onDescriptionChange={onProjectDescriptionChange}
-              />
-            </div>
+        {/* Budget / Timeline */}
+        <CollapsedSelection
+          selectedMonth={new Date()}
+          selectedDate={undefined}
+          selectedTime={null}
+          formatMonth={() => ''}
+          formatDate={() => ''}
+          onExpand={() => handleLeftSectionToggle('budget')}
+          isExpanded={leftExpandedSections.budget}
+          title="Budget / Timeline"
+          forceTitle={true}
+        >
+          <div className={styles.selectionContent}>
+            <BudgetTimelineSelection
+              budgetOptions={budgetOptions}
+              timelineOptions={timelineOptions}
+              selectedBudget={formData.selectedBudget}
+              selectedTimeline={formData.selectedTimeline}
+              onBudgetSelect={onBudgetSelect}
+              onTimelineSelect={onTimelineSelect}
+            />
+          </div>
+        </CollapsedSelection>
+
+        {/* Project Description */}
+        <CollapsedSelection
+          selectedMonth={new Date()}
+          selectedDate={undefined}
+          selectedTime={null}
+          formatMonth={() => ''}
+          formatDate={() => ''}
+          onExpand={() => handleLeftSectionToggle('description')}
+          isExpanded={leftExpandedSections.description}
+          title="Project Description"
+          forceTitle={true}
+        >
+          <div className={styles.selectionContent}>
+            <ProjectDescription
+              description={formData.projectDescription}
+              onDescriptionChange={onProjectDescriptionChange}
+            />
+            <FileUpload
+              uploadedFiles={formData.uploadedFiles}
+              onFilesUpload={onFilesUpload}
+            />
           </div>
         </CollapsedSelection>
       </div>
 
-      {/* Правая колонка */}
-      <div className={styles.column}>
+      {/* Правая колонка - контактная форма */}
+      <div className={styles.rightColumn}>
         <CollapsedSelection
           selectedMonth={new Date()}
           selectedDate={undefined}
@@ -70,28 +137,20 @@ export const BriefTablet: React.FC<BriefTabletProps> = ({
           formatDate={() => ''}
           onExpand={() => setRightExpanded(!rightExpanded)}
           isExpanded={rightExpanded}
-          title="Budget & Files"
+          isDisabled={false}
+          title="Contact Details"
           forceTitle={true}
         >
-          <div className={styles.tabletContent}>
-            <div className={styles.section}>
-              <BudgetTimelineSelection
-                budgetOptions={budgetOptions}
-                timelineOptions={timelineOptions}
-                selectedBudget={formData.selectedBudget}
-                selectedTimeline={formData.selectedTimeline}
-                onBudgetSelect={onBudgetSelect}
-                onTimelineSelect={onTimelineSelect}
-              />
-            </div>
-
-            <div className={styles.section}>
-              <h4 className={styles.sectionTitle}>Attachments</h4>
-              <FileUpload
-                uploadedFiles={formData.uploadedFiles}
-                onFilesUpload={onFilesUpload}
-              />
-            </div>
+          <div className={styles.selectionContent}>
+            <ContactForm
+              formData={formData.contactFormData}
+              onFormDataChange={onContactFormChange}
+              onSubmit={handleContactSubmit}
+              submitLabel="Submit Brief"
+              showBackButton={false}
+              disabled={!isFormValid}
+              error={error}
+            />
           </div>
         </CollapsedSelection>
       </div>

@@ -133,6 +133,7 @@
   margin-left: 10px;
   flex-shrink: 0;
   cursor: pointer;
+  
 }
 
 .logoPlaceholder {
@@ -146,6 +147,7 @@
   border-radius: var(--colabsys-radius);
   background: transparent;
   border: 0px solid var(--border-color-accent);
+
   
   @media (max-width: vars.breakpoint(sm)) {
     padding: vars.spacing(1) vars.spacing(3);

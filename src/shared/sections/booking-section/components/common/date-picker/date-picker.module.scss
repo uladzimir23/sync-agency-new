@@ -1,5 +1,5 @@
 .datePicker {
-  border-radius: 18px;
+  border-radius: 1.5rem;
   padding: 20px;
   border: 1px solid var(--border-color);
   //margin-bottom: 20px;
@@ -10,8 +10,9 @@
 
 
   &:hover {
+    transition: all 0.3s ease;
     box-shadow: var(--box-shadow-primary);
-    border-radius: 18px;
+    border-radius: 1.7rem;
     background: var(--bg-primary);
     
   }

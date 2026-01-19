@@ -14,9 +14,6 @@ booking-section
     │   │   ├── components/common/booking-form
     │   │   │   ├── components/common/booking-form/booking-form.module.scss
     │   │   │   └── components/common/booking-form/booking-form.tsx
-    │   │   ├── components/common/collapsed-selection
-    │   │   │   ├── components/common/collapsed-selection/collapsed-selection.module.scss
-    │   │   │   └── components/common/collapsed-selection/collapsed-selection.tsx
     │   │   ├── components/common/date-picker
     │   │   │   ├── components/common/date-picker/date-picker.module.scss
     │   │   │   └── components/common/date-picker/date-picker.tsx
@@ -843,352 +840,13 @@ export const BookingForm: React.FC<BookingFormProps> = ({
 
 ________________________________________________________________________________
 
-АБСОЛЮТНЫЙ ПУТЬ: /Users/vladimirmazyrec/sync-agency-new/src/shared/sections/booking-section/components/common/collapsed-selection/collapsed-selection.module.scss
-название файла: booking-section/components/common/collapsed-selection/collapsed-selection.module.scss
-
-СОДЕРЖИМОЕ ФАЙЛА:
-----------------------------------------
-.collapsedSelection {
-  border-radius: 25px;
-  border: 1px solid var(--border-color);
-  background: var(--bg-primary);
-  transition: all 1s ease;
-  overflow: hidden;
-  backdrop-filter: blur(20px);
-  display: flex;
-  flex-direction: column;
-  //min-height: 75px;
-  position: relative;
-
-
-  &:hover {
-    transition: all 0.2s ease;
-    box-shadow: var(--box-shadow-primary);
-
-  }
-
-
-
-  &.expanded {
-    background: var(--bg-secondary);
-    min-height: auto;
-    display: flex;
-    flex-direction: column;
-    border-radius: 20px;
-    transition: all 1s ease;
-    position: relative;
-
-
-
-
-    &:hover {
-      transition: all 0.2s ease;
-      box-shadow: var(--box-shadow-primary);
-
-      .header {
-        //background: var(--bg-secondary);
-
-      }
-
-    }
-  }
-
-
-  .header {
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    //gap: 12px;
-    padding: 16px 16px 16px 24px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    width: 100%;
-
-    &:hover {
-      background: var(--bg-secondary);
-
-    }
-  }
-
-  .details {
-    //flex: 1;
-    //min-width: 0;
-    //width: 100%;
-
-  }
-
-  .summary {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    flex-wrap: wrap;
-    font-size: 1.2rem; // Обновленный размер шрифта
-    font-weight: 500;
-    color: var(--text-primary);
-    width: 100%;
-  }
-
-  .month,
-  .date,
-  .time {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-
-  .separator {
-    color: var(--text-secondary);
-    font-size: 12px;
-  }
-
-
-  .arrowWrapper {
-    position: relative;
-    width: 40px;
-    height: 40px;
-    display: flex;
-    align-content: center;
-    justify-content: center;
-    align-items: center;
-    border-radius: 40%;
-    box-shadow: var(--box-shadow-primary), inset 0px 0px 1px var(--border-color-accent);
-    // Градиентная обводка
-        &::before {
-          content: '';
-          position: absolute;
-          inset: -1px;
-          border-radius: 100%;
-          padding: 1px;
-          background: linear-gradient(
-            135deg,
-            var(--primary-color) 0%,
-            var(--border-color-accent) 50%,
-            var(--text-secondary) 100%
-          );
-          mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-          mask-composite: exclude;
-          opacity: 0;
-          transition: all 0.3s ease;
-          border-radius: 40%;
-  
-        }
-  
-          &:hover {
-            &::before {
-              opacity: 1;
-              transform: scale(0.98);
-              border-radius: 50%;
-              
-        
-            }
-            
-            .arrow {
-              transform: scale(1.02), rotate(180deg);
-            }
-          }
-        }
-
-  .arrow {
-    color: var(--text-secondary);
-    font-size: 14px;
-    transition: transform 0.3s ease;
-    flex-shrink: 0;
-
-  }
-
-  &.expanded .arrow {
-    transform: rotate(180deg);
-  }
-
-  // Анимация для контента
-  .content {
-    max-height: 0px;
-    opacity: 0;
-    overflow: hidden;
-    transition: max-height 0.4s ease, opacity 0.5s ease, padding 0.3s ease, background 0.3s ease,box-shadow 0.3s ease, scale 0.3s ease;
-    backdrop-filter: blur(20px);
-    transform-origin: top;
-    position: relative;
-    
-    * {
-      transition: max-height 0.4s ease, opacity 0.5s ease, padding 0.3s ease, background 0.3s ease,box-shadow 0.3s ease, scale 0.3s ease;
-      scale: 0;
-      //transform: scale(0);
-      //transform-origin: center center; /* Указывает центр трансформации внизу по центру */
-
-    }
-  
-    
-    &.expanded {
-      position: relative;
-
-      //max-height: auto;
-      max-height: 475px;
-      opacity: 1;
-      padding: 25px 20px;
-      margin: 0px 5px 5px 5px;
-      backdrop-filter: blur(20px);
-      background: var(--background-primary-yellow);
-      border: 1px solid var(--border-color);
-      gap: 16px;
-      border-radius: 16px;
-      display: flex;
-      flex-direction: column;
-      transition: max-height 0.4s ease, opacity 0.5s ease, padding 0.3s ease, background 0.3s ease,box-shadow 0.3s ease, scale 0.3s ease;
-      transform-origin: top;
-      overflow-y: auto; /* Показывает вертикальную прокрутку только если контент больше 300px */
-
-
-
-      * {
-        transition: max-height 0.4s ease, opacity 0.5s ease, padding 0.3s ease, background 0.3s ease,box-shadow 0.3s ease, scale 0.3s ease;
-        //transform: scale(1);
-        //transform-origin: center center; /* Указывает центр трансформации внизу по центру */
-        scale: 1;
-      }
-    
-
-      &:hover {
-        transition: all 0.3s ease;
-        background: var(--bg-primary);
-        box-shadow: var(--box-shadow-primary);
-        border: 1px solid var(--border-color);
-
-        
-      }
-
-
-      @media (min-width: 1400px) {
-        
-        //max-width: 430px;
-        padding: 20px;
-        height: 100%;
-
-      }
-      
-
-    }
-  }
-}
-
-.collapsedSelection.disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-  
-  .header:hover {
-    background: var(--bg-primary);
-  }
-}
-
-
-@media (max-width: 480px) {
-  .collapsedSelection {
-    .header {
-      padding: 1rem 1.2rem;
-      display: flex;
-    }
-    
-    .summary {
-      font-size: 1.2rem;
-      gap: 6px;
-    }
-  }
-}
-
-________________________________________________________________________________
-
-АБСОЛЮТНЫЙ ПУТЬ: /Users/vladimirmazyrec/sync-agency-new/src/shared/sections/booking-section/components/common/collapsed-selection/collapsed-selection.tsx
-название файла: booking-section/components/common/collapsed-selection/collapsed-selection.tsx
-
-СОДЕРЖИМОЕ ФАЙЛА:
-----------------------------------------
-import React from 'react'
-import { FaChevronDown } from 'react-icons/fa'; // Импортируем иконку
-import { BookingDate, TimeSlot } from '../../../types'
-import styles from './collapsed-selection.module.scss'
-
-interface CollapsedSelectionProps {
-  selectedMonth: Date
-  selectedDate: BookingDate | undefined
-  selectedTime: TimeSlot | null
-  formatMonth: (date: Date) => string
-  formatDate: (date: Date) => string
-  onExpand: () => void
-  children?: React.ReactNode
-  isExpanded?: boolean
-  isDisabled?: boolean
-  title?: string
-  forceTitle?: boolean
-}
-
-export const CollapsedSelection: React.FC<CollapsedSelectionProps> = ({
-  selectedMonth,
-  selectedDate,
-  selectedTime,
-  formatMonth,
-  formatDate,
-  onExpand,
-  children,
-  isExpanded = false,
-  isDisabled = false,
-  title = 'Select Date & Time',
-  forceTitle = false
-}) => {
-  const handleClick = () => {
-    if (!isDisabled) {
-      onExpand()
-    }
-  }
-
-  return (
-    <div 
-      className={`${styles.collapsedSelection} ${isExpanded ? styles.expanded : ''} ${isDisabled ? styles.disabled : ''}`}
-    >
-      <div className={styles.header} onClick={handleClick}>
-        <div className={styles.details}>
-          <div className={styles.summary}>
-            {forceTitle ? (
-              <span>{title}</span>
-            ) : selectedTime ? (
-              <>
-                <span className={styles.date}>{formatDate(selectedDate?.date || new Date())}</span>
-                <span className={styles.separator}>•</span>
-                <span className={styles.time}>{selectedTime.time}</span>
-              </>
-            ) : selectedDate ? (
-              <>
-                <span className={styles.month}>{formatMonth(selectedMonth)}</span>
-                <span className={styles.separator}>•</span>
-                <span className={styles.date}>{formatDate(selectedDate.date)}</span>
-              </>
-            ) : (
-              <span>{title}</span>
-            )}
-          </div>
-        </div>
-
-      < div className={styles.arrowWrapper}>
-       <FaChevronDown className={`${styles.arrow} ${isExpanded ? styles.expanded : ''}`} />
-       </div>
-    </div>
-
-      <div className={`${styles.content} ${isExpanded ? styles.expanded : ''}`}>
-        {children}
-      </div>
-    </div>
-  )
-}
-
-________________________________________________________________________________
-
 АБСОЛЮТНЫЙ ПУТЬ: /Users/vladimirmazyrec/sync-agency-new/src/shared/sections/booking-section/components/common/date-picker/date-picker.module.scss
 название файла: booking-section/components/common/date-picker/date-picker.module.scss
 
 СОДЕРЖИМОЕ ФАЙЛА:
 ----------------------------------------
 .datePicker {
-  border-radius: 18px;
+  border-radius: 1.5rem;
   padding: 20px;
   border: 1px solid var(--border-color);
   //margin-bottom: 20px;
@@ -1199,8 +857,9 @@ ________________________________________________________________________________
 
 
   &:hover {
+    transition: all 0.3s ease;
     box-shadow: var(--box-shadow-primary);
-    border-radius: 18px;
+    border-radius: 1.7rem;
     background: var(--bg-primary);
     
   }
@@ -1465,7 +1124,7 @@ export { DatePicker } from './date-picker/date-picker'
 export { TimeSlots } from './time-slots/time-slots'
 export { BookingForm } from './booking-form/booking-form'
 export { AppointmentDetails } from './appointment-details/appointment-details'
-export { CollapsedSelection } from './collapsed-selection/collapsed-selection'
+// export { CollapsedSelection } from './collapsed-selection/collapsed-selection'
 
 ________________________________________________________________________________
 
@@ -1830,9 +1489,11 @@ ________________________________________________________________________________
 СОДЕРЖИМОЕ ФАЙЛА:
 ----------------------------------------
 import React from 'react'
-import { MonthSelector, DatePicker, TimeSlots, BookingForm, AppointmentDetails, CollapsedSelection } from '../common'
+import { MonthSelector, DatePicker, TimeSlots, BookingForm, AppointmentDetails} from '../common'
 import { BookingState, BookingDate } from '../../types'
 import styles from './booking-desktop.module.scss'
+ 
+import { CollapsedSelection } from '@shared/ui/collapsed-selection/collapsed-selection'
 
 interface BookingDesktopProps {
   bookingState: BookingState
@@ -2069,9 +1730,11 @@ ________________________________________________________________________________
 СОДЕРЖИМОЕ ФАЙЛА:
 ----------------------------------------
 import React from 'react'
-import { MonthSelector, DatePicker, TimeSlots, BookingForm, AppointmentDetails, CollapsedSelection } from '../common'
+import { MonthSelector, DatePicker, TimeSlots, BookingForm, AppointmentDetails} from '../common'
 import { BookingState, BookingDate } from '../../types'
 import styles from './booking-mobile.module.scss'
+import { CollapsedSelection } from '@shared/ui/collapsed-selection/collapsed-selection'
+
 
 interface BookingMobileProps {
   bookingState: BookingState
@@ -2340,9 +2003,11 @@ ________________________________________________________________________________
 СОДЕРЖИМОЕ ФАЙЛА:
 ----------------------------------------
 import React from 'react'
-import { MonthSelector, DatePicker, TimeSlots, BookingForm, AppointmentDetails, CollapsedSelection } from '../common'
+import { MonthSelector, DatePicker, TimeSlots, BookingForm, AppointmentDetails} from '../common'
 import { BookingState, BookingDate } from '../../types'
 import styles from './booking-tablet.module.scss'
+import { CollapsedSelection } from '@shared/ui/collapsed-selection/collapsed-selection'
+
 
 interface BookingTabletProps {
   bookingState: BookingState
@@ -2970,6 +2635,6 @@ export interface BookingDesktopProps {
 
 СТАТИСТИКА:
 ----------------------------------------
-Обработано файлов: 30
-Общий размер папки: 67,079 байт
-Дата создания отчета: 2026-01-15 04:08:39
+Обработано файлов: 28
+Общий размер папки: 59,649 байт
+Дата создания отчета: 2026-01-19 06:46:24

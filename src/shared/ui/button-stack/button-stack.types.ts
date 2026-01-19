@@ -11,6 +11,7 @@ export interface ButtonStackProps {
   interactionMode?: 'hover' | 'click'
   enableActiveSlider?: boolean
   rememberActive?: boolean
+  disabled?: boolean 
 }
 
 export interface ButtonStackItemProps {

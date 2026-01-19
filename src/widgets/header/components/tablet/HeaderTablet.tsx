@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import { cn } from '@/shared/utils/utils'
 import { Button } from '@/shared/ui/button'
 import { ThemeToggle } from '@/shared/theme/ThemeToggle'
@@ -8,6 +9,7 @@ import { HeaderDeviceProps } from '../../header.types'
 import styles from './header-tablet.module.scss'
 import { FaArrowRightArrowLeft } from 'react-icons/fa6'
 import { IoClose } from 'react-icons/io5'
+import { ROUTES } from '@/shared/constants/routes'
 
 export const HeaderTablet: React.FC<HeaderDeviceProps> = ({
   className,
@@ -23,9 +25,9 @@ export const HeaderTablet: React.FC<HeaderDeviceProps> = ({
       <div className={styles.container}>
         {/* Логотип */}
         <div className={styles.logo}>
-          <div className={styles.logoPlaceholder}>
+          <Link to={ROUTES.HOME} className={styles.logoPlaceholder}>
             <h3>SYNC</h3>
-          </div>
+          </Link>
         </div>
 
         {/* Правый блок с действиями (аналогично мобильной версии) */}

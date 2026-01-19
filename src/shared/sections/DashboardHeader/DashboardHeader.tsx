@@ -4,13 +4,14 @@ import { SyncDropdownHeader } from '@/shared/ui/sync-dropdown-header'
 import styles from './DashboardHeader.module.scss'
 import { useTranslation } from '@/shared/localization/hooks/useTranslation'
 
-
 interface DashboardHeaderProps {
   title: React.ReactNode
-  subtitle?: string
+  subtitle: React.ReactNode
   className?: string
   onBookCall?: () => void
   onMakeBrief?: () => void
+  // Добавляем опциональный пропс для якорной ссылки
+  scrollToBooking?: () => void
 }
 
 export const DashboardHeader: React.FC<DashboardHeaderProps> = ({ 
@@ -18,9 +19,20 @@ export const DashboardHeader: React.FC<DashboardHeaderProps> = ({
   subtitle,
   className = '',
   onBookCall,
-  onMakeBrief
+  onMakeBrief,
+  scrollToBooking // Новый пропс
 }) => {
   const { t } = useTranslation()
+
+  // Функция для обработки клика на кнопку Book Call
+  const handleBookCallClick = () => {
+    if (scrollToBooking) {
+      scrollToBooking() // Сначала скроллим к BookingSection
+    }
+    if (onBookCall) {
+      onBookCall() // Затем выполняем дополнительную логику (если есть)
+    }
+  }
 
   return (
     <div className={`${styles.dashboardHeader} ${className}`}>
@@ -38,7 +50,7 @@ export const DashboardHeader: React.FC<DashboardHeaderProps> = ({
             variant="outline"
             size="lg"
             animation="scale"
-            onClick={onBookCall}
+            onClick={handleBookCallClick}
             className={styles.button}
           >
             {t('header.bookCall')}

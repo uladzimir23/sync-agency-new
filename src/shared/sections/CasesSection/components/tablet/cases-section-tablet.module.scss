@@ -1,6 +1,6 @@
 .casesSectionTablet {
     display: grid;
-    grid-template-columns: 300px 1fr;
+    grid-template-columns: 1fr;
     //gap: 2rem;
     //padding: 2rem 0;
     
@@ -9,6 +9,7 @@
       //gap: 1.5rem;
     }
   }
+
   
   .sidebar {
     position: sticky;

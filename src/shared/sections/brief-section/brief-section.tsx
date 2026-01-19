@@ -1,4 +1,3 @@
-// src/shared/sections/brief-section/brief-section.tsx
 import React from 'react'
 import { useDeviceType } from '@/shared/hooks/useDeviceType'
 import { useBrief } from './components/hooks/use-brief'
@@ -22,6 +21,7 @@ export const BriefSection: React.FC<BriefSectionProps> = ({
     handleTimelineSelect,
     handleProjectDescriptionChange,
     handleFilesUpload,
+    handleContactFormChange,
     handleBriefSubmit,
     isFormValid
   } = useBrief({ page })
@@ -37,8 +37,10 @@ export const BriefSection: React.FC<BriefSectionProps> = ({
     onTimelineSelect: handleTimelineSelect,
     onProjectDescriptionChange: handleProjectDescriptionChange,
     onFilesUpload: handleFilesUpload,
+    onContactFormChange: handleContactFormChange,
     onBriefSubmit: handleBriefSubmit,
     isFormValid
+    
   }
 
   const renderContent = () => {
@@ -55,19 +57,13 @@ export const BriefSection: React.FC<BriefSectionProps> = ({
   }
 
   return (
-    <section className={styles.briefSection}>
+    <section 
+      className={styles.briefSection} >
       <div className={styles.header}>
         <h1 className={styles.title}>Project Brief</h1>
         <p className={styles.subtitle}>
           Provide details about your project to get started
         </p>
-        <button 
-          className={styles.submitButton}
-          onClick={handleBriefSubmit}
-          disabled={!isFormValid}
-        >
-          Submit Brief
-        </button>
       </div>
       
       {renderContent()}

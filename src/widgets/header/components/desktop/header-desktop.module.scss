@@ -100,11 +100,13 @@
   border-radius: var(--colabsys-radius);
   background: transparent;
   border: 0px solid var(--border-color-accent);
+  text-decoration: none ;
+
   
   &:hover {
     h3 {
       font-weight: 900;
-      background: linear-gradient(45deg, #ff9b3e, #e773f4, #43e8f4);
+      //background: linear-gradient(45deg, #ff9b3e, #e773f4, #43e8f4);
       background-clip: text;
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;

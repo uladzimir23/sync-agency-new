@@ -40,14 +40,16 @@
   .featureCard {
     position: relative;
     border: 1px solid var(--border-color);
-    border-radius: 12px;
-    padding: 16px;
+    border-radius: 1rem;
+    padding: 1rem;
     //background: var(--bg-primary);
     background: transparent;
     cursor: pointer;
     transition: all 0.3s ease;
     //min-height: 120px;
     max-height: 100%;
+    scale: 1;
+
 
     .selectedBadge {
       position: absolute;
@@ -81,7 +83,8 @@
       //border-color: var(--primary-color);
       //transform: translateY(-2px);
       transition: all 0.3s ease;
-
+      border-radius: 1.2rem;
+      scale: 0.9;
       background: var(--background-primary-yellow);
       box-shadow: var(--box-shadow-primary);
 
@@ -98,8 +101,12 @@
     &.active {
       border-color: var(--border-color-accent);
       background: var(--background-primary-yellow);
-      box-shadow: var(--box-shadow-primary), inset 0px 0px 2px var(--border-color-accent);
-      scale: 0.99;
+      box-shadow: var(--box-shadow-primary), inset 0px 0px 5px var(--border-color-accent);
+      scale: 1.05;
+      border-radius: 1.4rem;
+      transition: all 0.3s ease;
+
+
 
         .selectedBadge {
           scale: 1;

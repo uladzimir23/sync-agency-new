@@ -15,6 +15,7 @@ const ButtonStack = React.forwardRef<HTMLDivElement, ButtonStackProps>(
     interactionMode = 'hover',
     rememberActive = false,
     enableActiveSlider = true,
+    disabled = false, // ДОБАВЬТЕ ЭТО
   }, ref) => {
     const containerRef = useRef<HTMLDivElement>(null)
     const sliderRef = useRef<HTMLDivElement>(null)

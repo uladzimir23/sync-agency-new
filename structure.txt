@@ -5,6 +5,13 @@
 │       └── package.json
 ├── .vscode
 │   └── settings.json
+├── FolderStructure
+│   ├── FolderStructure-ServiceFeatures.txt
+│   ├── FolderStructure-booking-section.txt
+│   ├── FolderStructure-brief-section.txt
+│   ├── FolderStructure-collapsed-selection.txt
+│   ├── FolderStructure-main.scss.txt
+│   └── FolderStructure-src.txt
 ├── public
 │   ├── favicon.ico
 │   ├── index.html
@@ -29,7 +36,6 @@
 │   │   ├── App.module.scss
 │   │   ├── App.tsx
 │   │   └── main.tsx
-
 │   ├── pages
 │   │   ├── About
 │   │   │   ├── AboutPage.scss
@@ -99,6 +105,7 @@
 │   │   │   ├── useCases.ts
 │   │   │   ├── useDateFormatters.ts
 │   │   │   ├── useDeviceType.ts
+│   │   │   ├── useMediaQuery.ts
 │   │   │   ├── useNavigation.ts
 │   │   │   ├── useScrollTrigger.ts
 │   │   │   ├── useTheme.ts
@@ -110,6 +117,8 @@
 │   │   │   │   ├── featuresData.ts
 │   │   │   │   ├── index.ts
 │   │   │   │   └── processStepsData.ts
+│   │   │   ├── types
+│   │   │   │   └── features.ts
 │   │   │   └── FolderStructure.txt
 │   │   ├── localization
 │   │   │   ├── components
@@ -130,9 +139,6 @@
 │   │   │   └── index.ts
 │   │   ├── sections
 │   │   │   ├── CTASection
-│   │   │   │   ├── CTASection.scss
-│   │   │   │   ├── CTASection.tsx
-│   │   │   │   └── index.ts
 │   │   │   ├── CasesSection
 │   │   │   │   ├── components
 │   │   │   │   │   ├── desktop
@@ -151,14 +157,15 @@
 │   │   │   │   ├── DashboardHeader.tsx
 │   │   │   │   └── index.ts
 │   │   │   ├── FAQSection
-│   │   │   │   ├── FAQSection.scss
+│   │   │   │   ├── FAQSection.module.scss
 │   │   │   │   ├── FAQSection.tsx
 │   │   │   │   └── index.ts
-│   │   │   ├── FeaturesSection
-│   │   │   │   ├── FeaturesSection.scss
-│   │   │   │   └── FeaturesSection.tsx
+│   │   │   ├── PageHeader
+│   │   │   │   ├── PageHeader.module.scss
+│   │   │   │   ├── PageHeader.tsx
+│   │   │   │   └── index.ts
 │   │   │   ├── ProcessTimeline
-│   │   │   │   ├── ProcessTimeline.scss
+│   │   │   │   ├── ProcessTimeline.module.scss
 │   │   │   │   ├── ProcessTimeline.tsx
 │   │   │   │   └── index.ts
 │   │   │   ├── ProductHeroGrid
@@ -170,8 +177,12 @@
 │   │   │   │   ├── ProductHeroSection.tsx
 │   │   │   │   └── index.ts
 │   │   │   ├── ServiceFeatures
-│   │   │   │   ├── ServiceFeatures.scss
+│   │   │   │   ├── ServiceFeatures.module.scss
 │   │   │   │   ├── ServiceFeatures.tsx
+│   │   │   │   ├── ServiceFeaturesDesktop.module.scss
+│   │   │   │   ├── ServiceFeaturesDesktop.tsx
+│   │   │   │   ├── ServiceFeaturesMobile.module.scss
+│   │   │   │   ├── ServiceFeaturesMobile.tsx
 │   │   │   │   └── index.ts
 │   │   │   ├── ServicesSection
 │   │   │   │   ├── ServicesSection.module.scss
@@ -186,9 +197,6 @@
 │   │   │   │   │   │   ├── booking-form
 │   │   │   │   │   │   │   ├── booking-form.module.scss
 │   │   │   │   │   │   │   └── booking-form.tsx
-│   │   │   │   │   │   ├── collapsed-selection
-│   │   │   │   │   │   │   ├── collapsed-selection.module.scss
-│   │   │   │   │   │   │   └── collapsed-selection.tsx
 │   │   │   │   │   │   ├── date-picker
 │   │   │   │   │   │   │   ├── date-picker.module.scss
 │   │   │   │   │   │   │   └── date-picker.tsx
@@ -254,7 +262,6 @@
 │   │   │   │   ├── brief-section.tsx
 │   │   │   │   ├── index.ts
 │   │   │   │   └── types.ts
-│   │   │   ├── FolderStructure.txt
 │   │   │   └── index.ts
 │   │   ├── services
 │   │   │   └── telegram-service.ts
@@ -310,6 +317,37 @@
 │   │   │   │   ├── CasesGrid.tsx
 │   │   │   │   ├── cases-grid.module.scss
 │   │   │   │   └── index.ts
+│   │   │   ├── chat-ai
+│   │   │   │   ├── components
+│   │   │   │   │   ├── common
+│   │   │   │   │   │   ├── ChatInputWrapper.module.scss
+│   │   │   │   │   │   ├── ChatInputWrapper.tsx
+│   │   │   │   │   │   ├── MessageItem.module.scss
+│   │   │   │   │   │   ├── MessageItem.tsx
+│   │   │   │   │   │   └── SendIcon.tsx
+│   │   │   │   │   ├── desktop
+│   │   │   │   │   │   ├── ChatAIDesktop.tsx
+│   │   │   │   │   │   └── chat-ai-desktop.module.scss
+│   │   │   │   │   ├── mobile
+│   │   │   │   │   │   ├── ChatAIMobile.tsx
+│   │   │   │   │   │   └── chat-ai-mobile.module.scss
+│   │   │   │   │   └── tablet
+│   │   │   │   │       ├── ChatAITablet.tsx
+│   │   │   │   │       └── chat-ai-tablet.module.scss
+│   │   │   │   ├── data
+│   │   │   │   │   └── knowledgeBase.ts
+│   │   │   │   ├── hooks
+│   │   │   │   │   └── useChatAI.ts
+│   │   │   │   ├── ChatAI copy.tsx
+│   │   │   │   ├── ChatAI.module.scss
+│   │   │   │   ├── ChatAI.tsx
+│   │   │   │   ├── chat-ai.module.scss
+│   │   │   │   ├── index.ts
+│   │   │   │   └── types.ts
+│   │   │   ├── collapsed-selection
+│   │   │   │   ├── collapsed-selection.module.scss
+│   │   │   │   ├── collapsed-selection.tsx
+│   │   │   │   └── index.ts
 │   │   │   ├── cursor-follower
 │   │   │   │   ├── cursor-follower.scss
 │   │   │   │   ├── cursor-follower.tsx
@@ -336,6 +374,9 @@
 │   │   │   │   │   ├── MarketingBackground
 │   │   │   │   │   │   ├── MarketingBackground.module.scss
 │   │   │   │   │   │   └── MarketingBackground.tsx
+│   │   │   │   │   ├── PixelBackground
+│   │   │   │   │   │   ├── PixelBackground.module.scss
+│   │   │   │   │   │   └── PixelBackground.tsx
 │   │   │   │   │   ├── ProductBackground
 │   │   │   │   │   │   ├── ProductBackground.module.scss
 │   │   │   │   │   │   └── ProductBackground.tsx
@@ -359,36 +400,12 @@
 │   │   │   │   ├── SyncDropdownHeader.tsx
 │   │   │   │   ├── animations.ts
 │   │   │   │   └── index.ts
-│   │   │   ├── wavy-background
-│   │   │   │   ├── WavyBackground.scss
-│   │   │   │   ├── WavyBackground.tsx
-│   │   │   │   └── index.ts
-│   │   │   └── FolderStructure.txt
-│   │   ├── unified
-│   │   │   ├── components
-│   │   │   │   └── forms
-│   │   │   │       ├── booking-form
-│   │   │   │       │   ├── UnifiedBookingForm.module.scss
-│   │   │   │       │   └── UnifiedBookingForm.tsx
-│   │   │   │       └── collapsed-section
-│   │   │   │           ├── CollapsedSection.module.scss
-│   │   │   │           └── CollapsedSection.tsx
-│   │   │   ├── hooks
-│   │   │   │   ├── use-responsive-layout.ts
-│   │   │   │   ├── use-unified-booking.ts
-│   │   │   │   └── use-unified-brief.ts
-│   │   │   ├── sections
-│   │   │   │   ├── UnifiedBookingSection.module.scss
-│   │   │   │   ├── UnifiedBookingSection.tsx
-│   │   │   │   └── UnifiedBriefSection.tsx
-│   │   │   ├── types
-│   │   │   │   ├── booking.ts
-│   │   │   │   ├── brief.ts
-│   │   │   │   └── forms.ts
-│   │   │   └── index.ts
-│   │   ├── utils
-│   │   │   └── utils.ts
-│   │   └── .DS_Store
+│   │   │   └── wavy-background
+│   │   │       ├── WavyBackground.scss
+│   │   │       ├── WavyBackground.tsx
+│   │   │       └── index.ts
+│   │   └── utils
+│   │       └── utils.ts
 │   ├── widgets
 │   │   └── header
 │   │       ├── components
@@ -400,11 +417,9 @@
 │   │       │   │   ├── MobileMenu.tsx
 │   │       │   │   ├── MobileMenuContent.tsx
 │   │       │   │   ├── header-mobile.module.scss
-│   │       │   │   ├── mobile-menu-content.tsx
 │   │       │   │   ├── mobile-menu-item.tsx
 │   │       │   │   └── mobile-menu.mobile.module.scss
 │   │       │   └── tablet
-│   │       │       ├── HeaderTablet copy.tsx
 │   │       │       ├── HeaderTablet.tsx
 │   │       │       ├── header-tablet.module.scss
 │   │       │       └── mobile-menu.tablet.module.scss
@@ -412,7 +427,6 @@
 │   │       ├── header.tsx
 │   │       ├── header.types.ts
 │   │       └── index.ts
-│   ├── .DS_Store
 │   ├── App.test.tsx
 │   ├── index.css
 │   ├── index.tsx
@@ -455,4 +469,4 @@
 ├── tsconfig.node.json
 └── vite.config.ts
 
-131 directories, 324 files
+134 directories, 336 files

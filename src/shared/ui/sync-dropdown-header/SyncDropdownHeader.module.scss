@@ -67,6 +67,8 @@
 
 .soon {
   background: linear-gradient(45deg, #FEAC5E, #C779D0, #4BC0C8);
+  animation: gradientShift 3s ease infinite;
+
   color: white;
   padding: 0.4rem 0.8rem;
   border-radius: 20px;
