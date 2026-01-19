@@ -53,7 +53,7 @@ const AppContent: React.FC = () => {
           </Routes>
         </main>
 
-        <Footer />
+        {/* <Footer /> */}
     </>
   )
 }
