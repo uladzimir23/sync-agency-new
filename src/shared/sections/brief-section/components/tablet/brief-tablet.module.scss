@@ -44,7 +44,7 @@
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 1rem;
-    max-width: 860px; // 2 колонки по 430px
+    max-width: 876px; // 2 колонки по 430px
     margin: 0 auto;
     
     .leftColumn {
@@ -60,7 +60,7 @@
 }
 
 // Для планшетов в альбомной ориентации
-@media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
+@media (min-width: 768px) and (max-width: 1024px) {
   .tabletLayout {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -81,7 +81,6 @@
 // Адаптивность для планшетов
 @media (max-width: 1024px) and (min-width: 768px) {
   .tabletLayout {
-    padding: 0 20px;
     gap: 1rem;
 
   }

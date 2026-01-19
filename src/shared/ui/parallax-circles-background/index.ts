@@ -1,0 +1,1 @@
+export { ParallaxCirclesBackground } from './ParallaxCirclesBackground';

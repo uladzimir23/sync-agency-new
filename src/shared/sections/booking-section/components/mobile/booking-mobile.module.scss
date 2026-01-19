@@ -80,3 +80,10 @@
     gap: 16px;
   }
 }
+
+@media (max-width: 768px) {
+  .mobileLayout {
+    max-width: 460px;
+  }
+  
+}
