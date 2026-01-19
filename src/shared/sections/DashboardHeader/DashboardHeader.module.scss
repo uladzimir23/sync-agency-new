@@ -1,6 +1,7 @@
 .dashboardHeader {
+  //height: 100vh;
   text-align: center;
-  margin-bottom: 4rem;
+  //margin-bottom: 4rem;
   margin-top: 10rem;
   position: relative;
   
@@ -99,6 +100,34 @@
   100% {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+@media (max-width: 1024px) {
+  .dashboardHeader {
+    //margin-bottom: 6rem;
+    //padding: 1rem 0;
+    //padding-top: 70px;
+    
+    .title {
+      font-size: 2.5rem;
+      line-height: 1.2;
+    }
+    
+    .subtitle {
+      font-size: 1.1rem;
+    }
+
+    .actions {
+      flex-direction: row;
+      gap: 0.5rem;
+      margin-top: 2rem;
+    }
+
+    .button {
+      width: 250px;
+      margin: 0 auto;
+    }
   }
 }
 

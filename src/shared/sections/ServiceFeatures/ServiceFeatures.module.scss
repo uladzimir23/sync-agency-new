@@ -213,6 +213,24 @@
 }
 
 // Адаптивность для стрелки
+@media (max-width: 1024px) {
+  .serviceFeatureCard {
+    .arrowContainer:not(.active){
+      opacity: 1;
+      width: 1.8rem;
+      height: 1.8rem;
+      top: 0.8rem;
+      right: 0.8rem;
+      
+      .arrow {
+        width: 0.7rem;
+        height: 0.7rem;
+      }
+    }
+  }
+}
+
+// Адаптивность для стрелки
 @media (max-width: 768px) {
   .serviceFeatureCard {
     .arrowContainer {
