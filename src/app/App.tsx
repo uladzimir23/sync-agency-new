@@ -1,13 +1,13 @@
 import React from 'react'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
-import { ThemeProvider, useThemeContext } from '@app/providers/ThemeProvider'
-import { WavyBackground } from '@shared/ui/wavy-background'
-import { Header } from '@/widgets/header'
-import { CursorFollower } from '@shared/ui/cursor-follower'
+
 import { ROUTES } from '@/shared/constants/routes'
 
+import { ThemeProvider, useThemeContext } from '@app/providers/ThemeProvider'
 import { LanguageProvider } from '@/shared/localization/contexts/LanguageContext'
 
+import { Header } from '@/widgets/header'
+import { Footer } from '@/shared/sections/Footer'
 
 // Импорты страниц
 import { HomePage } from '@pages/Home'
@@ -52,6 +52,8 @@ const AppContent: React.FC = () => {
             <Route path={ROUTES.CONTACT} element={<ContactPage />} />
           </Routes>
         </main>
+
+        <Footer />
     </>
   )
 }

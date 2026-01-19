@@ -1,0 +1,150 @@
+:root {
+    --gradient-speed: 25s;
+    --hue-speed: 80s;
+    --morph-speed: 18s;
+    --wrapper-scale: 0.98;
+  }
+  
+  .wrapper {
+    position: relative;
+    width: 100px;
+    height: 100px;
+    animation: 
+      wrapper-rotate 24s infinite linear,
+      wrapper-breath 8s infinite ease-in-out,
+      random-float 13s infinite ease-in-out;
+    transform-origin: center center;
+    filter: drop-shadow(0 0 15px rgba(0, 150, 200, 0.3));
+    transform: scale(var(--wrapper-scale));
+    
+    @media (max-width: 768px) {
+      width: 80px;
+      height: 80px;
+    }
+  }
+  
+  .siriStyle {
+    width: 100%;
+    height: 100%;
+    perspective: 1600px;
+    filter: contrast(240%) saturate(260%);
+  }
+  
+  .ssCoreOcean {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    animation: cosmic-rotate 55s infinite linear;
+  }
+  
+  .ssLayerOcean {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(-45deg, 
+      hsl(350, 50%, 75%), 
+      hsl(10, 40%, 70%), 
+      hsl(30, 40%, 65%), 
+      hsl(5, 40%, 70%)
+    );
+    background-size: 400% 400%;
+    transform-style: preserve-3d;
+    mix-blend-mode: screen;
+    animation: 
+      gradient-flow var(--gradient-speed) ease infinite,
+      morphing var(--morph-speed) infinite cubic-bezier(0.445, 0.05, 0.55, 0.95),
+      hue-rotate var(--hue-speed) linear infinite,
+      organic-pulse 20s infinite cubic-bezier(0.4, 0, 0.2, 1);
+    border-radius: 48% 52% 53% 47% / 49% 51% 49% 51%;
+  }
+  
+  .particles {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    pointer-events: none;
+  }
+  
+  .particle {
+    position: absolute;
+    background: rgba(179, 229, 252, 0.6);
+    border-radius: 50%;
+    animation: particle-float 15s infinite linear;
+    bottom: 0;
+  }
+  
+  // Анимации
+  @keyframes wrapper-rotate {
+    0% { transform: rotate(0deg) scale(var(--wrapper-scale)); }
+    100% { transform: rotate(360deg) scale(var(--wrapper-scale)); }
+  }
+  
+  @keyframes wrapper-breath {
+    0%, 100% { transform: scale(0.97) rotate(var(--rotation, 0deg)); }
+    50% { transform: scale(1.02) rotate(var(--rotation, 0deg)); }
+  }
+  
+  @keyframes random-float {
+    0% { transform: translate(0, 0) rotate(var(--rotation, 0deg)); }
+    15% { transform: translate(2px, -1px) rotate(var(--rotation, 0deg)); }
+    30% { transform: translate(-1px, 2px) rotate(var(--rotation, 0deg)); }
+    45% { transform: translate(2px, 0px) rotate(var(--rotation, 0deg)); }
+    60% { transform: translate(-2px, -1px) rotate(var(--rotation, 0deg)); }
+    75% { transform: translate(0px, 2px) rotate(var(--rotation, 0deg)); }
+    90% { transform: translate(2px, -1px) rotate(var(--rotation, 0deg)); }
+    100% { transform: translate(0, 0) rotate(var(--rotation, 0deg)); }
+  }
+  
+  @keyframes cosmic-rotate {
+    0%, 100% { transform: rotate3d(0.3, 0.7, 0.2, 0deg) scale(1.2); }
+    50% { transform: rotate3d(-0.4, 0.5, 0.3, 15deg) scale(0.94); }
+  }
+  
+  @keyframes gradient-flow {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+  
+  @keyframes morphing {
+    0% { border-radius: 43% 57% 49% 51% / 48% 52% 48% 52%; }
+    10% { border-radius: 55% 45% 62% 38% / 57% 43% 57% 43%; }
+    20% { border-radius: 38% 62% 53% 47% / 49% 61% 39% 51%; }
+    30% { border-radius: 61% 39% 44% 56% / 52% 48% 52% 48%; }
+    40% { border-radius: 47% 53% 58% 42% / 39% 61% 39% 61%; }
+    50% { border-radius: 53% 47% 41% 59% / 48% 52% 48% 52%; }
+    60% { border-radius: 44% 56% 63% 37% / 57% 43% 57% 43%; }
+    70% { border-radius: 59% 41% 52% 48% / 49% 51% 49% 51%; }
+    80% { border-radius: 36% 64% 47% 53% / 58% 42% 58% 42%; }
+    90% { border-radius: 51% 49% 64% 36% / 43% 57% 43% 57%; }
+    100% { border-radius: 43% 57% 49% 51% / 48% 52% 48% 52%; }
+  }
+  
+  @keyframes hue-rotate {
+    to { filter: hue-rotate(360deg); }
+  }
+  
+  @keyframes organic-pulse {
+    0% { transform: scale(1) translateZ(var(--z, 0px)); opacity: var(--opacity, 1); }
+    10% { transform: scale(0.98) translateZ(var(--z, 0px)); opacity: calc(var(--opacity, 1) * 0.96); }
+    20% { transform: scale(1.03) translateZ(var(--z, 0px)); opacity: calc(var(--opacity, 1) * 0.92); }
+    30% { transform: scale(0.97) translateZ(var(--z, 0px)); opacity: calc(var(--opacity, 1) * 0.88); }
+    40% { transform: scale(1.05) translateZ(var(--z, 0px)); opacity: calc(var(--opacity, 1) * 0.94); }
+    50% { transform: scale(0.99) translateZ(var(--z, 0px)); opacity: calc(var(--opacity, 1) * 0.90); }
+    60% { transform: scale(1.04) translateZ(var(--z, 0px)); opacity: calc(var(--opacity, 1) * 0.93); }
+    70% { transform: scale(0.96) translateZ(var(--z, 0px)); opacity: calc(var(--opacity, 1) * 0.85); }
+    80% { transform: scale(1.02) translateZ(var(--z, 0px)); opacity: calc(var(--opacity, 1) * 0.97); }
+    90% { transform: scale(0.98) translateZ(var(--z, 0px)); opacity: calc(var(--opacity, 1) * 0.89); }
+    100% { transform: scale(1) translateZ(var(--z, 0px)); opacity: var(--opacity, 1); }
+  }
+  
+  @keyframes particle-float {
+    0% { transform: translateY(0) translateX(0) rotate(0deg); opacity: 0; }
+    10% { opacity: 1; }
+    90% { opacity: 1; }
+    100% { transform: translateY(-100px) translateX(calc(-50px + 100px)) rotate(360deg); opacity: 0; }
+  }

@@ -1,0 +1,1 @@
+export { FooterForm } from './FooterForm';
