@@ -16,20 +16,29 @@
     width: 100%;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    text-align: center;
-    max-width: 1000px;
-    margin: 0 auto;
+    align-items: left;
+    text-align: left;
+    //max-width: 1000px;
+    //margin: 0 auto;
     padding: 0 2rem;
   }
   
   .title {
     font-size: 3rem;
     font-weight: 700;
-    color: var(--text-primary);
     line-height: 1.1;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1rem;
     letter-spacing: -0.02em;
+    width: max-content;
+    //background: linear-gradient(45deg, #ffe4ca, #f5dcf9, #8ae7f1);
+    background: var( --text-primary-gr);
+
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-size: 200% 200%;
+    animation: gradientShift 3s ease infinite;
+    
     
     @media (max-width: 768px) {
       font-size: 2.5rem;

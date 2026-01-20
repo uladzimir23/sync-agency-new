@@ -10,6 +10,11 @@ import { ProcessTimeline } from '../../shared/sections/ProcessTimeline'
 import { processStepsData } from '../../shared/lib/data/processStepsData'
 import { faqData } from '../../shared/lib/data/faqData'
 
+import { SimpleGridBackground } from '@/shared/ui/simple-grid-background';
+import styles from './BrandingAndIdentityPage.scss';
+
+
+
 export const BrandingAndIdentityPage: React.FC = () => {
 
   const handleMakeBrief = () => {
@@ -26,6 +31,7 @@ export const BrandingAndIdentityPage: React.FC = () => {
 
   return (
     <div className="branding-identity-page">
+   
 
       <PageHeader
         pageTitle="Brand Identity"

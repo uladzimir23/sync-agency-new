@@ -63,9 +63,13 @@ html.ru body {
     --bg-secondary: #f2fbfe77;
     --bg-thirdly: #f2fbfebb;
     --bg-fourthly: #e8f8ff;
+
     --text-primary: #212529;
+    --text-primary-gr: linear-gradient(45deg, #664b39, #733a78, #38e2eb);
+
     --text-secondary: #6c757d;
     --text-thirdly: #6c757d;
+
     --primary-color: #0C8CE9;
     --primary-color-red: #ff0000;
     --accent-color: #56aafe25;
@@ -136,8 +140,10 @@ html.ru body {
     --bg-primary-opacity-sec: rgba(8, 8, 43, 0.1);
 
     --text-primary: #ffffff;
+    --text-primary-gr: linear-gradient(45deg, #ffe4ca, #f5dcf9, #8ae7f1);
     --text-secondary: #caafd1;
     --text-thirdly: #adb5bd8b;
+
     --primary-color: #56aafe;
     --primary-color-red: #ff0000;
     --accent-color: #56aafe25;

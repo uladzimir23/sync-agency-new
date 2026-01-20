@@ -1,0 +1,1 @@
+export { SimpleGridBackground } from './SimpleGridBackground';

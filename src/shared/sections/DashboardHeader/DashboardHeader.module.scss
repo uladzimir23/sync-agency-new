@@ -21,8 +21,16 @@
     font-size: 3rem;
     font-weight: 700;
     line-height: 1.1;
-    color: var(--text-primary);
+    //color: var(--text-primary);
+    width: max-content;
     margin-bottom: 1.5rem;
+    background: var( --text-primary-gr);
+
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-size: 200% 200%;
+    animation: gradientShift 3s ease infinite;
     
     // Анимация появления
     animation: titleReveal 0.8s ease-out;

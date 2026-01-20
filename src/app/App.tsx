@@ -20,6 +20,7 @@ import { BrandingAndIdentityPage } from '@pages/BrandingAndIdentity'
 import { AutomationAndInfrastructurePage } from '@pages/AutomationAndInfrastructure'
 import { AnalyticsAndOptimizationPage } from '@pages/AnalyticsAndOptimization'
 
+
 import './App.module.scss'
 
 import { gsap } from 'gsap';
@@ -40,6 +41,7 @@ const AppContent: React.FC = () => {
         <Header onServiceChange={handleServiceChange} />
         
         <main className="app-main-content">
+
           <Routes>
             <Route path={ROUTES.HOME} element={<HomePage />} />
             <Route path={ROUTES.CASES} element={<CasesPage />} />

@@ -25,27 +25,34 @@
   
   .header {
     width: 100%;
+    max-width: 876px;
     display: flex;
     flex-direction: column;
-    align-items: center
+    align-items: left;
 
     }
   
   .title {
     font-size: 3rem;
     font-weight: 700;
-    color: var(--text-primary);
-    //margin-bottom: 16px;
-    text-align: center;
-    line-height: 1.2;
-    white-space: nowrap;
+    line-height: 1.1;
+    margin-bottom: 1rem;
+    letter-spacing: -0.02em;
+    width: max-content;
+    background: var( --text-primary-gr);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-size: 200% 200%;
+    animation: gradientShift 3s ease infinite;
+    
   }
   
   .subtitle {
     font-size: 1.3rem;
     color: var(--text-secondary);
     margin: 0;
-    text-align: center;
+    text-align: left;
 
   }
   

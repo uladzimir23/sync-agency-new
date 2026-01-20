@@ -1,0 +1,1 @@
+export { GridParallaxBackground } from './GridParallaxBackground';
