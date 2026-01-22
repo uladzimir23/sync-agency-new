@@ -3,7 +3,9 @@ export type HeroBackgroundType =
   | 'marketing' 
   | 'product' 
   | 'data' 
-  | 'automation';
+  | 'automation'
+  | 'performance';
+
   // | 'pixel';
 
 export interface HeroBackgroundProps {

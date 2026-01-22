@@ -69,6 +69,15 @@ export const SocialMediaGrid: React.FC<SocialMediaGridProps> = ({
       gradient: 'linear-gradient(45deg, #833AB4, #E1306C, #F77737)'
     },
     {
+        id: 'whatsapp',
+        name: 'WhatsApp',
+        icon: <FaWhatsapp />,
+        url: 'https://wa.me/your-number',
+        color: '#25D366',
+        description: 'Direct messaging for inquiries',
+        gradient: 'linear-gradient(135deg, #25D366 0%, #128C7E 100%)'
+    },
+    {
       id: 'linkedin',
       name: 'LinkedIn',
       icon: <FaLinkedinIn />,
@@ -77,15 +86,15 @@ export const SocialMediaGrid: React.FC<SocialMediaGridProps> = ({
       description: 'Professional network and company updates',
       gradient: 'linear-gradient(135deg, #0077B5 0%, #005582 100%)'
     },
-    {
-      id: 'twitter',
-      name: 'Twitter',
-      icon: <FaTwitter />,
-      url: 'https://twitter.com/sync_agency',
-      color: '#1DA1F2',
-      description: 'News, insights, and industry trends',
-      gradient: 'linear-gradient(135deg, #1DA1F2 0%, #0d8bd9 100%)'
-    },
+    // {
+    //   id: 'twitter',
+    //   name: 'Twitter',
+    //   icon: <FaTwitter />,
+    //   url: 'https://twitter.com/sync_agency',
+    //   color: '#1DA1F2',
+    //   description: 'News, insights, and industry trends',
+    //   gradient: 'linear-gradient(135deg, #1DA1F2 0%, #0d8bd9 100%)'
+    // },
     {
       id: 'behance',
       name: 'Behance',
@@ -95,25 +104,25 @@ export const SocialMediaGrid: React.FC<SocialMediaGridProps> = ({
       description: 'Our creative portfolio and design work',
       gradient: 'linear-gradient(135deg, #0057FF 0%, #0033aa 100%)'
     },
-    {
-      id: 'dribbble',
-      name: 'Dribbble',
-      icon: <FaDribbble />,
-      url: 'https://dribbble.com/syncagency',
-      color: '#EA4C89',
-      description: 'Design shots and creative concepts',
-      gradient: 'linear-gradient(135deg, #EA4C89 0%, #c32369 100%)'
-    },
-    {
-      id: 'github',
-      name: 'GitHub',
-      icon: <FaGithub />,
-      url: 'https://github.com/sync-agency',
-    //   color: '#0FBF3E',
-      color: 'invert',
-      description: 'Open-source projects and contributions',
-      gradient: 'linear-gradient(135deg, #333 0%, #181717 100%)'
-    },
+    // {
+    //   id: 'dribbble',
+    //   name: 'Dribbble',
+    //   icon: <FaDribbble />,
+    //   url: 'https://dribbble.com/syncagency',
+    //   color: '#EA4C89',
+    //   description: 'Design shots and creative concepts',
+    //   gradient: 'linear-gradient(135deg, #EA4C89 0%, #c32369 100%)'
+    // },
+    // {
+    //   id: 'github',
+    //   name: 'GitHub',
+    //   icon: <FaGithub />,
+    //   url: 'https://github.com/sync-agency',
+    // //   color: '#0FBF3E',
+    //   color: 'invert',
+    //   description: 'Open-source projects and contributions',
+    //   gradient: 'linear-gradient(135deg, #333 0%, #181717 100%)'
+    // },
     // {
     //   id: 'youtube',
     //   name: 'YouTube',
@@ -133,15 +142,15 @@ export const SocialMediaGrid: React.FC<SocialMediaGridProps> = ({
     //   description: 'Short-form creative content',
     //   gradient: 'linear-gradient(135deg, #000000 0%, #333333 50%, #69C9D0 100%)'
     // },
-    {
-      id: 'facebook',
-      name: 'Facebook',
-      icon: <FaFacebookF />,
-      url: 'https://facebook.com/syncagency',
-      color: '#1877F2',
-      description: 'Community and company updates',
-      gradient: 'linear-gradient(135deg, #1877F2 0%, #0d5cb6 100%)'
-    },
+    // {
+    //   id: 'facebook',
+    //   name: 'Facebook',
+    //   icon: <FaFacebookF />,
+    //   url: 'https://facebook.com/syncagency',
+    //   color: '#1877F2',
+    //   description: 'Community and company updates',
+    //   gradient: 'linear-gradient(135deg, #1877F2 0%, #0d5cb6 100%)'
+    // },
     // {
     //   id: 'pinterest',
     //   name: 'Pinterest',
@@ -151,15 +160,6 @@ export const SocialMediaGrid: React.FC<SocialMediaGridProps> = ({
     //   description: 'Visual inspiration and mood boards',
     //   gradient: 'linear-gradient(135deg, #E60023 0%, #a3001a 100%)'
     // },
-    {
-      id: 'whatsapp',
-      name: 'WhatsApp',
-      icon: <FaWhatsapp />,
-      url: 'https://wa.me/your-number',
-      color: '#25D366',
-      description: 'Direct messaging for inquiries',
-      gradient: 'linear-gradient(135deg, #25D366 0%, #128C7E 100%)'
-    },
     // {
     //   id: 'discord',
     //   name: 'Discord',

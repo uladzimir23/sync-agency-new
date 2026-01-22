@@ -59,12 +59,15 @@ button-stack
     color: var(--primary-color);
     transform: translateY(0px);
     border-radius: 10px !important;
+    scale: 0.99;
+
   }
   
   // Стили для активного элемента (выбранного)
   &[data-active="true"] {
     color: var(--primary-color);
     font-weight: 500;
+    //scale: 1.05;
 
     span {
         transition: scale 0.4s ease;
@@ -291,34 +294,37 @@ ________________________________________________________________________________
     z-index: 2;
     opacity: 1;
     transform-origin: center;
-    will-change: transform, width, height;
-    
+    will-change: transform, width, height, border-radius;
+    width: min-content;
+
     border: 1px solid;
     border-color: rgba(36, 115, 212, 0.49);
     box-shadow: inset 0px 0px 3px var(--border-color-accent);
-    border-radius: 12px;
+    //border-radius: 15px;
 
-    &::before {
-      content: '';
-      position: absolute;
-      inset: -1px;
-      border-radius: 12px;
-      padding: 1px;
-      background: linear-gradient(
-        135deg,
-        var(--primary-color) 0%,
-        var(--border-color-accent) 50%,
-        var(--text-secondary) 100%
-      );
-      mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-      mask-composite: exclude;
-      opacity: 1;
-      transition: all 0.3s ease;
-    }
+    // &::before {
+    //   content: '';
+    //   position: absolute;
+    //   inset: -1px;
+    //   border-radius: 15px;
+    //   padding: 1px;
+    //   background: linear-gradient(
+    //     135deg,
+    //     var(--primary-color) 0%,
+    //     var(--border-color-accent) 50%,
+    //     var(--text-secondary) 100%
+    //   );
+    //   mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    //   mask-composite: exclude;
+    //   opacity: 1;
+    //   transition: all 0.3s ease;
+    // }
     
     transition: 
       width 0s cubic-bezier(0.4, 0, 0.2, 1),
-      height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      height 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+      border-radius 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+      opacity 0.2s ease;
   }
 }
 
@@ -387,6 +393,7 @@ const ButtonStack = React.forwardRef<HTMLDivElement, ButtonStackProps>(
     interactionMode = 'hover',
     rememberActive = false,
     enableActiveSlider = true,
+    disabled = false, // ДОБАВЬТЕ ЭТО
   }, ref) => {
     const containerRef = useRef<HTMLDivElement>(null)
     const sliderRef = useRef<HTMLDivElement>(null)
@@ -454,14 +461,14 @@ const ButtonStack = React.forwardRef<HTMLDivElement, ButtonStackProps>(
         y,
         width,
         height,
-        scale: 0.93,
-        borderRadius: 10,
+        scale: 1.05,
+        borderRadius: 12,
         duration: 0.2,
         ease: "power2.out",
         onComplete: () => {
           animationRef.current = gsap.to(slider, {
             borderRadius: 15,
-            duration: 0.3,
+            duration: 0.2,
             scale: 1,
             ease: "power2.out",
             onComplete: () => {
@@ -508,7 +515,9 @@ const ButtonStack = React.forwardRef<HTMLDivElement, ButtonStackProps>(
           y,
           width,
           height,
-          opacity: 1
+          opacity: 1,
+          borderRadius: 15
+
         })
         return
       }
@@ -518,10 +527,21 @@ const ButtonStack = React.forwardRef<HTMLDivElement, ButtonStackProps>(
         y,
         width,
         height,
-        duration: 0.4,
+        scale: 1.05,
+        borderRadius: 12,
+        duration: 0.3,
         ease: "power2.out",
         onComplete: () => {
-          activeAnimationRef.current = null
+          animationRef.current = gsap.to(activeSlider, {
+            borderRadius: 15,
+            duration: 0.3,
+            scale: 1,
+            ease: "power2.out",
+            onComplete: () => {
+              setIsAnimating(false)
+              animationRef.current = null
+            }
+          })
         }
       })
     }, [enableActiveSlider])
@@ -697,6 +717,7 @@ export interface ButtonStackProps {
   interactionMode?: 'hover' | 'click'
   enableActiveSlider?: boolean
   rememberActive?: boolean
+  disabled?: boolean 
 }
 
 export interface ButtonStackItemProps {
@@ -727,5 +748,5 @@ export type { ButtonStackProps, ButtonStackItemProps } from './button-stack.type
 СТАТИСТИКА:
 ----------------------------------------
 Обработано файлов: 6
-Общий размер папки: 17,044 байт
-Дата создания отчета: 2026-01-19 08:01:57
+Общий размер папки: 17,657 байт
+Дата создания отчета: 2026-01-22 12:26:49

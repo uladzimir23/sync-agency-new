@@ -83,14 +83,14 @@ const ButtonStack = React.forwardRef<HTMLDivElement, ButtonStackProps>(
         y,
         width,
         height,
-        scale: 0.93,
-        borderRadius: 10,
+        scale: 1.05,
+        borderRadius: 12,
         duration: 0.2,
         ease: "power2.out",
         onComplete: () => {
           animationRef.current = gsap.to(slider, {
             borderRadius: 15,
-            duration: 0.3,
+            duration: 0.2,
             scale: 1,
             ease: "power2.out",
             onComplete: () => {
@@ -137,7 +137,9 @@ const ButtonStack = React.forwardRef<HTMLDivElement, ButtonStackProps>(
           y,
           width,
           height,
-          opacity: 1
+          opacity: 1,
+          borderRadius: 15
+
         })
         return
       }
@@ -147,10 +149,21 @@ const ButtonStack = React.forwardRef<HTMLDivElement, ButtonStackProps>(
         y,
         width,
         height,
-        duration: 0.4,
+        scale: 1.05,
+        borderRadius: 12,
+        duration: 0.3,
         ease: "power2.out",
         onComplete: () => {
-          activeAnimationRef.current = null
+          animationRef.current = gsap.to(activeSlider, {
+            borderRadius: 15,
+            duration: 0.3,
+            scale: 1,
+            ease: "power2.out",
+            onComplete: () => {
+              setIsAnimating(false)
+              animationRef.current = null
+            }
+          })
         }
       })
     }, [enableActiveSlider])
@@ -261,7 +274,8 @@ const ButtonStack = React.forwardRef<HTMLDivElement, ButtonStackProps>(
           onMouseLeave: handleMouseLeave,
           onClick: () => handleClick(index),
           'data-active': currentActive === index,
-          'data-index': index
+          'data-index': index,
+          showArrow: true, // Добавляем стрелку для всех элементов
         })
       }
       return child

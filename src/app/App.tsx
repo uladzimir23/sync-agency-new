@@ -1,6 +1,5 @@
 import React from 'react'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
-
 import { ROUTES } from '@/shared/constants/routes'
 
 import { ThemeProvider, useThemeContext } from '@app/providers/ThemeProvider'
@@ -20,57 +19,52 @@ import { BrandingAndIdentityPage } from '@pages/BrandingAndIdentity'
 import { AutomationAndInfrastructurePage } from '@pages/AutomationAndInfrastructure'
 import { AnalyticsAndOptimizationPage } from '@pages/AnalyticsAndOptimization'
 
+import styles from './App.module.scss'
 
-import './App.module.scss'
+import { gsap } from 'gsap'
+import { CSSPlugin } from 'gsap/CSSPlugin'
 
-import { gsap } from 'gsap';
-import { CSSPlugin } from 'gsap/CSSPlugin';
-
-gsap.registerPlugin(CSSPlugin);
+gsap.registerPlugin(CSSPlugin)
 
 // Компонент приложения с темой
 const AppContent: React.FC = () => {
-
   const handleServiceChange = (index: number) => {
     console.log('Selected service:', index)
   }
-  
 
   return (
-    <>
-        <Header onServiceChange={handleServiceChange} />
-        
-        <main className="app-main-content">
+    <div className={styles.app}>
+      <Header onServiceChange={handleServiceChange} />
+      
+      <main className={styles.appMainContent}>
+        <Routes>
+          <Route path={ROUTES.HOME} element={<HomePage />} />
+          <Route path={ROUTES.CASES} element={<CasesPage />} />
+          <Route path={ROUTES.PRODUCT_DEVELOPMENT} element={<ProductDevelopmentPage />} />
+          <Route path={ROUTES.MARKETING_STRATEGY} element={<MarketingStrategyPage />} />
+          <Route path={ROUTES.BRANDING_AND_IDENTITY} element={<BrandingAndIdentityPage />} />
+          <Route path={ROUTES.AUTOMATION_AND_INFRASTRUCTURE} element={<AutomationAndInfrastructurePage />} />
+          <Route path={ROUTES.ANALYTICS_AND_OPTIMIZATION} element={<AnalyticsAndOptimizationPage />} />
+          <Route path={ROUTES.ABOUT} element={<AboutPage />} />
+          <Route path={ROUTES.CONTACT} element={<ContactPage />} />
+        </Routes>
+      </main>
 
-          <Routes>
-            <Route path={ROUTES.HOME} element={<HomePage />} />
-            <Route path={ROUTES.CASES} element={<CasesPage />} />
-            <Route path={ROUTES.PRODUCT_DEVELOPMENT} element={<ProductDevelopmentPage />} />
-            <Route path={ROUTES.MARKETING_STRATEGY} element={<MarketingStrategyPage />} />
-            <Route path={ROUTES.BRANDING_AND_IDENTITY} element={<BrandingAndIdentityPage />} />
-            <Route path={ROUTES.AUTOMATION_AND_INFRASTRUCTURE} element={<AutomationAndInfrastructurePage />} />
-            <Route path={ROUTES.ANALYTICS_AND_OPTIMIZATION} element={<AnalyticsAndOptimizationPage />} />
-            <Route path={ROUTES.ABOUT} element={<AboutPage />} />
-            <Route path={ROUTES.CONTACT} element={<ContactPage />} />
-          </Routes>
-        </main>
-
-        {/* <Footer /> */}
-    </>
+      {/* <Footer /> */}
+    </div>
   )
 }
 
 // Главный компонент App с провайдерами
-function App() {
+const App: React.FC = () => {
   return (
     <LanguageProvider>
-    <ThemeProvider>
-      <Router>
-        <AppContent />
-      </Router>
-    </ThemeProvider>
+      <ThemeProvider>
+        <Router>
+          <AppContent />
+        </Router>
+      </ThemeProvider>
     </LanguageProvider>
-
   )
 }
 

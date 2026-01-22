@@ -1,139 +1,150 @@
-import React, { useEffect, useRef } from 'react';
-import { gsap } from 'gsap';
+import React, { useEffect, useRef, useState, useMemo, useCallback } from 'react';
+import { motion } from 'framer-motion';
 import { BaseBackgroundProps } from '../../HeroBackground.types';
 import styles from './BrandBackground.module.scss';
 
 export const BrandBackground: React.FC<BaseBackgroundProps> = ({
   speed = 1,
-  intensity = 0.5,
+  intensity = 1,
   isHovered = false,
   isActive = false,
   isScrolled = false
 }) => {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const shapesRef = useRef<HTMLDivElement[]>([]);
-  const glowRef = useRef<HTMLDivElement>(null);
-  const timelineRef = useRef<gsap.core.Timeline | null>(null);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const intervalRef = useRef<NodeJS.Timeout>();
 
-  useEffect(() => {
-    if (!containerRef.current) return;
-
-    // Создаем анимацию один раз при монтировании
-    if (!timelineRef.current) {
-      const tl = gsap.timeline({ repeat: -1, yoyo: true });
-      
-      // Основная форма - мягкое пульсирование
-      shapesRef.current.forEach((shape, index) => {
-        const delay = index * 0.3;
-        
-        tl.to(shape, {
-          duration: 8 / speed,
-          scale: 1 + (0.05 * intensity),
-          opacity: 0.4 + (0.2 * intensity),
-          repeat: -1,
-          yoyo: true,
-          ease: "sine.inOut",
-          delay,
-        }, 0);
-
-        // Легкое вращение по часовой стрелке
-        tl.to(shape, {
-          duration: 20 / speed,
-          rotation: 360,
-          repeat: -1,
-          ease: "none",
-          delay,
-        }, 0);
-
-        // Медленный дрейф
-        tl.to(shape, {
-          duration: 15 / speed,
-          x: `+=${20 * intensity}`,
-          y: `+=${10 * intensity}`,
-          repeat: -1,
-          yoyo: true,
-          ease: "sine.inOut",
-          delay,
-        }, 0);
-      });
-
-      // Свечение фона - очень мягкое
-      if (glowRef.current) {
-        tl.to(glowRef.current, {
-          duration: 6 / speed,
-          opacity: 0.15 * intensity,
-          repeat: -1,
-          yoyo: true,
-          ease: "sine.inOut",
-        }, 0);
-      }
-
-      // Общая легкая вибрация всего фона
-      tl.to(containerRef.current, {
-        duration: 10 / speed,
-        opacity: 0.95,
-        repeat: -1,
-        yoyo: true,
-        ease: "sine.inOut",
-      }, 0);
-
-      timelineRef.current = tl;
+  // Компактные элементы брендинга
+  const brandElements = useMemo(() => [
+    {
+      type: 'font',
+      content: 'Aa',
+      description: 'TASA Orbiter',
+      color: 'var(--page-title-cyan-text)',
+      size: '2rem'
+    },
+    {
+      type: 'color',
+      content: '#569cfe',
+      description: 'Primary Blue',
+      color: '#569cfe',
+      size: '1.5rem'
+    },
+    {
+      type: 'font',
+      content: 'Аа',
+      description: 'TikTok Sans',
+      color: 'var(--page-title-purple-text)',
+      size: '2rem'
+    },
+    {
+      type: 'color',
+      content: '#48bb78',
+      description: 'Success Green',
+      color: '#48bb78',
+      size: '1.5rem'
+    },
+    {
+      type: 'font',
+      content: '012',
+      description: 'Numerals',
+      color: 'var(--page-title-green-text)',
+      size: '1.8rem'
     }
+  ], []);
+
+  // Автоматическое переключение
+  useEffect(() => {
+    const intervalTime = 2500 / speed;
+    
+    intervalRef.current = setInterval(() => {
+      setCurrentIndex((prev) => (prev + 1) % brandElements.length);
+    }, intervalTime);
 
     return () => {
-      if (timelineRef.current) {
-        timelineRef.current.kill();
-        timelineRef.current = null;
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
       }
     };
-  }, [speed, intensity]);
+  }, [speed, brandElements.length]);
 
+  // Ускорение при активности
   useEffect(() => {
-    // Управляем скоростью анимации
-    if (timelineRef.current) {
-      const shouldSpeedUp = isHovered || isActive || isScrolled;
-      timelineRef.current.timeScale(shouldSpeedUp ? 1.5 : 1);
+    if (isHovered || isActive || isScrolled) {
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+        intervalRef.current = setInterval(() => {
+          setCurrentIndex((prev) => (prev + 1) % brandElements.length);
+        }, 1200 / speed);
+      }
+    } else {
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+        intervalRef.current = setInterval(() => {
+          setCurrentIndex((prev) => (prev + 1) % brandElements.length);
+        }, 2500 / speed);
+      }
     }
-  }, [isHovered, isActive, isScrolled]);
+  }, [isHovered, isActive, isScrolled, speed, brandElements.length]);
 
-  const addToShapes = (el: HTMLDivElement | null) => {
-    if (el && !shapesRef.current.includes(el)) {
-      shapesRef.current.push(el);
-    }
-  };
+  const currentElement = brandElements[currentIndex];
 
   return (
     <div 
-      ref={containerRef} 
       className={styles.brandContainer}
       data-hovered={isHovered}
       data-active={isActive}
       data-scrolled={isScrolled}
     >
-      {/* Основная форма - абстрактный бренд */}
-      <div 
-        ref={addToShapes}
-        className={`${styles.shape} ${styles.mainShape}`}
-      />
+      {/* Фоновый градиент */}
+      <div className={styles.backgroundGradient} />
       
-      {/* Вторичная форма - мягкая тень */}
-      <div 
-        ref={addToShapes}
-        className={`${styles.shape} ${styles.secondaryShape}`}
-      />
-      
-      {/* Третичная форма - акцент */}
-      <div 
-        ref={addToShapes}
-        className={`${styles.shape} ${styles.accentShape}`}
-      />
-      
-      {/* Очень мягкое свечение фона */}
-      <div ref={glowRef} className={styles.backgroundGlow} />
-      
-      {/* Тонкие линии-направляющие */}
-      <div className={styles.guideline} style={{ left: '20%', transform: 'rotate(15deg)' }} />
-      <div className={styles.guideline} style={{ right: '20%', transform: 'rotate(-15deg)' }} />
+      {/* Центральный элемент */}
+      <motion.div 
+        className={styles.centralElement}
+        key={currentIndex}
+        initial={{ opacity: 0, scale: 0.8 }}
+        animate={{ opacity: 1, scale: 1 }}
+        exit={{ opacity: 0, scale: 1.2 }}
+        transition={{ duration: 0.5 }}
+        style={{
+          color: currentElement.color,
+          fontSize: currentElement.size
+        }}
+      >
+        <div className={styles.elementContent}>
+          {currentElement.type === 'color' ? (
+            <div 
+              className={styles.colorCircle}
+              style={{ backgroundColor: currentElement.color }}
+            />
+          ) : (
+            <div className={styles.fontSample}>
+              {currentElement.content}
+            </div>
+          )}
+        </div>
+        
+        {/* Описание */}
+        <motion.div 
+          className={styles.elementDescription}
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2 }}
+        >
+          {currentElement.description}
+        </motion.div>
+      </motion.div>
+
+      {/* Индикаторы */}
+      <div className={styles.indicators}>
+        {brandElements.map((_, index) => (
+          <div
+            key={index}
+            className={`${styles.indicatorDot} ${index === currentIndex ? styles.active : ''}`}
+            onClick={() => setCurrentIndex(index)}
+          />
+        ))}
+      </div>
     </div>
   );
 };

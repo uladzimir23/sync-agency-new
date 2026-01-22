@@ -1,11 +1,25 @@
 .container {
+    position: relative;
+    width: 100%;
+    height: 100vh; // Удвоенная высота
+    overflow: hidden;
+  }
+  
+  .fixed {
     position: fixed;
     top: 0;
     left: 0;
     width: 100vw;
-    height: 400vh; // Удвоенная высота для бесконечности
-    z-index: -1;
-    overflow: hidden;
+    height: 100vh;
+    z-index: -2; // Уменьшаем z-index чтобы backdrop-filter работал
+  }
+  
+  .absolute {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
   }
   
   .gridLayer {
@@ -13,7 +27,17 @@
     top: 0;
     left: 0;
     width: 100%;
-    height: 200%; // Удвоенная высота для плавного перехода
+    height: 100%;
+    will-change: transform; // Оптимизация для анимаций
+  }
+  
+  .gridLayer2 {
+    position: absolute;
+    top: -400px;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    will-change: transform; // Оптимизация для анимаций
   }
   
   .grid {
@@ -41,14 +65,17 @@
     top: 0;
     left: 0;
     width: 100%;
-    height: 200%;
+    height: 100%;
     pointer-events: none;
+    will-change: transform; // Оптимизация для анимаций
   }
   
   .highlightSquare {
     position: absolute;
     pointer-events: none;
     border-radius: 4px;
+    backface-visibility: hidden; // Улучшение производительности
+    transform: translateZ(0); // Аппаратное ускорение
     
     &.border {
       background: transparent;
@@ -103,26 +130,11 @@
         50% { opacity: 0.3; transform: scale(1.05); }
       }
     }
-    
-    // Разные размеры
-    &[style*="--highlight-size: 1"] {
-      z-index: 1;
-    }
-    
-    &[style*="--highlight-size: 2"] {
-      z-index: 2;
-      border-radius: 8px;
-    }
-    
-    &[style*="--highlight-size: 3"] {
-      z-index: 3;
-      border-radius: 12px;
-    }
   }
   
   .content {
     position: relative;
-    z-index: 10;
+    z-index: 1;
   }
   
   // Варианты
@@ -142,9 +154,10 @@
     --grid-opacity: 0.05;
   }
   
+  // Оптимизация для мобильных устройств
   @media (max-width: 768px) {
     .container {
-      height: 300vh; // На мобильных увеличиваем высоту
+      height: 300vh;
     }
     
     .gridLayer {
@@ -154,11 +167,29 @@
     .highlightsLayer {
       height: 300%;
     }
+    
+    .gridLayer2 {
+      top: -1200px; // Увеличиваем отступ для мобильных
+    }
+    
+    // Уменьшаем количество анимаций на мобильных
+    .highlightSquare.pulse {
+      animation: pulse 6s ease-in-out infinite; // Увеличиваем длительность анимации
+    }
+    
+    // Уменьшаем blur для лучшей производительности
+    .highlightSquare.border::before {
+      filter: blur(2px);
+    }
   }
   
-  // Оптимизация
-  @media (prefers-reduced-motion: reduce) {
-    .pulse {
-      animation: none !important;
+  @media (max-width: 480px) {
+    // Дополнительная оптимизация для маленьких экранов
+    .highlightSquare {
+      //display: none; // Скрываем квадраты на очень маленьких экранах для производительности
+    }
+    
+    .highlightSquare:nth-child(-n+5) {
+      //display: block; // Оставляем только 5 квадратов
     }
   }

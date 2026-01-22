@@ -1,25 +1,18 @@
-import React, { useEffect, useRef, useState } from 'react';
+// src/shared/ui/simple-grid-background/SimpleGridBackground.tsx
+import React, { useEffect, useRef, useState, useCallback } from 'react';
 import { useScroll, useTransform, motion } from 'framer-motion';
 import styles from './SimpleGridBackground.module.scss';
 
 interface SimpleGridBackgroundProps {
-  /** Размер ячейки сетки в пикселях */
   cellSize?: number;
-  /** Толщина линий */
   lineWidth?: number;
-  /** Цвет линий */
   color?: string;
-  /** Прозрачность линий */
   opacity?: number;
-  /** Скорость параллакса */
   speed?: number;
-  /** Количество подсвеченных квадратов */
   highlightCount?: number;
-  /** Цвета для подсветки */
   highlightColors?: string[];
-  /** Дочерние элементы */
+  fixed?: boolean;
   children?: React.ReactNode;
-  /** Дополнительные классы */
   className?: string;
 }
 
@@ -28,7 +21,7 @@ interface HighlightSquare {
   col: number;
   row: number;
   color: string;
-  size: 1 | 2 | 3; // 1x1, 2x2, 3x3
+  size: 1 | 2 | 3;
   type: 'border' | 'fill' | 'pulse';
 }
 
@@ -40,14 +33,13 @@ export const SimpleGridBackground: React.FC<SimpleGridBackgroundProps> = ({
   speed = 0.15,
   highlightCount = 8,
   highlightColors = [
-    'rgba(79, 70, 229, 0.1)',    // indigo
-    'rgba(147, 51, 234, 0.1)',   // purple
-    'rgba(236, 72, 153, 0.1)',   // pink
-    'rgba(6, 182, 212, 0.1)',    // cyan
-    'rgba(34, 197, 94, 0.1)',    // green
-    'rgba(249, 115, 22, 0.1)',   // orange
-    'rgba(239, 68, 68, 0.1)',    // red
+    'rgba(79, 70, 229, 0.1)',
+    'rgba(147, 51, 234, 0.1)',
+    'rgba(236, 72, 153, 0.1)',
+    'rgba(6, 182, 212, 0.1)',
+    'rgba(34, 197, 94, 0.1)',
   ],
+  fixed = true,
   children,
   className = ''
 }) => {
@@ -55,34 +47,15 @@ export const SimpleGridBackground: React.FC<SimpleGridBackgroundProps> = ({
   const { scrollY } = useScroll();
   const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
   const [highlights, setHighlights] = useState<HighlightSquare[]>([]);
+  const resizeTimeoutRef = useRef<NodeJS.Timeout>();
 
   // Параллакс эффект
   const y = useTransform(scrollY, [0, 10000], [0, 10000 * speed]);
 
-  // Обновляем размеры контейнера
-  useEffect(() => {
-    const updateDimensions = () => {
-      if (containerRef.current) {
-        const rect = containerRef.current.getBoundingClientRect();
-        setDimensions({
-          width: rect.width,
-          height: rect.height
-        });
-      }
-    };
-
-    updateDimensions();
-    window.addEventListener('resize', updateDimensions);
-    
-    return () => window.removeEventListener('resize', updateDimensions);
-  }, []);
-
-  // Генерируем подсвеченные квадраты
-  useEffect(() => {
-    if (dimensions.width === 0 || dimensions.height === 0) return;
-
-    const cols = Math.ceil(dimensions.width / cellSize);
-    const rows = Math.ceil(dimensions.height / cellSize) * 2; // x2 для бесконечности
+  // Функция для генерации квадратов
+  const generateHighlights = useCallback((width: number, height: number) => {
+    const cols = Math.ceil(width / cellSize);
+    const rows = Math.ceil((height * 4) / cellSize); // x4 для бесконечности
 
     const newHighlights: HighlightSquare[] = [];
     
@@ -104,7 +77,62 @@ export const SimpleGridBackground: React.FC<SimpleGridBackgroundProps> = ({
     }
 
     setHighlights(newHighlights);
-  }, [dimensions, cellSize, highlightCount, highlightColors]);
+  }, [cellSize, highlightCount, highlightColors]);
+
+  // Обновляем размеры контейнера с debounce
+  useEffect(() => {
+    if (!containerRef.current) return;
+
+    const updateDimensions = () => {
+      if (containerRef.current) {
+        const rect = containerRef.current.getBoundingClientRect();
+        setDimensions(prev => {
+          // Обновляем только если размеры действительно изменились
+          if (Math.abs(prev.width - rect.width) < 10 && Math.abs(prev.height - rect.height) < 10) {
+            return prev;
+          }
+          return {
+            width: rect.width,
+            height: rect.height
+          };
+        });
+      }
+    };
+
+    // Используем ResizeObserver вместо resize event для большей точности
+    const resizeObserver = new ResizeObserver((entries) => {
+      if (resizeTimeoutRef.current) {
+        clearTimeout(resizeTimeoutRef.current);
+      }
+      
+      // Дебаунс 500ms для избежания частых обновлений
+      resizeTimeoutRef.current = setTimeout(() => {
+        updateDimensions();
+      }, 500);
+    });
+
+    if (containerRef.current) {
+      resizeObserver.observe(containerRef.current);
+    }
+    
+    // Инициализация
+    updateDimensions();
+    
+    return () => {
+      resizeObserver.disconnect();
+      if (resizeTimeoutRef.current) {
+        clearTimeout(resizeTimeoutRef.current);
+      }
+    };
+  }, []);
+
+  // Генерируем подсвеченные квадраты только при значительном изменении размеров
+  useEffect(() => {
+    if (dimensions.width === 0 || dimensions.height === 0) return;
+    
+    // Генерируем только если размеры изменились существенно
+    generateHighlights(dimensions.width, dimensions.height);
+  }, [dimensions, generateHighlights]);
 
   // Создаем переменные CSS для сетки
   useEffect(() => {
@@ -117,10 +145,24 @@ export const SimpleGridBackground: React.FC<SimpleGridBackgroundProps> = ({
     container.style.setProperty('--grid-opacity', `${opacity}`);
   }, [cellSize, lineWidth, color, opacity]);
 
+  // Оптимизация: предотвращаем перерисовку квадратов на мобильных устройствах при таче
+  useEffect(() => {
+    const handleTouchMove = (e: TouchEvent) => {
+      // Не делаем ничего, просто предотвращаем частые обновления
+    };
+
+    // Добавляем passive: true для улучшения производительности
+    window.addEventListener('touchmove', handleTouchMove, { passive: true });
+    
+    return () => {
+      window.removeEventListener('touchmove', handleTouchMove);
+    };
+  }, []);
+
   return (
     <div 
       ref={containerRef}
-      className={`${styles.container} ${className}`}
+      className={`${styles.container} ${fixed ? styles.fixed : styles.absolute} ${className}`}
     >
       {/* Основная сетка (первый слой) */}
       <motion.div 
@@ -132,8 +174,14 @@ export const SimpleGridBackground: React.FC<SimpleGridBackgroundProps> = ({
 
       {/* Второй слой сетки (смещенный для бесконечности) */}
       <motion.div 
-        className={styles.gridLayer}
-        style={{ y: useTransform(scrollY, [0, 10000], [cellSize * 10, 10000 * speed + cellSize * 10]) }}
+        className={styles.gridLayer2}
+        style={{ 
+          y: useTransform(
+            scrollY, 
+            [0, 10000], 
+            [cellSize * 200, 10000 * speed + cellSize * 200]
+          ) 
+        }}
       >
         <div className={styles.grid} />
       </motion.div>

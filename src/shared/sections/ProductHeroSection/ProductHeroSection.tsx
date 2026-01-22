@@ -95,8 +95,8 @@ export const ProductHeroSection: React.FC<ProductHeroSectionProps> = ({
     mm.add("(max-width: 767px)", () => {
       const trigger = ScrollTrigger.create({
         trigger: container,
-        start: "top 50%",
-        end: "bottom 50%",
+        start: "top 20%",
+        end: "bottom 80%",
         onEnter: () => {
           setIsScrolledTriggered(true);
           container.setAttribute('data-scrolled', 'true');

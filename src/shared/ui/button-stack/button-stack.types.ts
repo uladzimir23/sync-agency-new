@@ -11,7 +11,8 @@ export interface ButtonStackProps {
   interactionMode?: 'hover' | 'click'
   enableActiveSlider?: boolean
   rememberActive?: boolean
-  disabled?: boolean 
+  disabled?: boolean
+  showArrows?: boolean // Добавляем пропс для стрелок
 }
 
 export interface ButtonStackItemProps {
@@ -19,6 +20,7 @@ export interface ButtonStackItemProps {
   className?: string
   onClick?: () => void
   isToday?: boolean
+  showArrow?: boolean // Добавляем пропс для стрелки
   'data-active'?: boolean
   'data-hovered'?: boolean
   'data-index'?: number

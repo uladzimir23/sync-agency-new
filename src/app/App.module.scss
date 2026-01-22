@@ -1,11 +1,11 @@
 @import '@app/styles/main.scss';
 
-.App {
+.app {
   min-height: 100vh;
   transition: all 0.3s ease;
 }
 
-.app-wavy-bg {
+.appWavyBg {
   position: fixed;
   top: 0;
   left: 0;
@@ -14,41 +14,41 @@
   z-index: -1; // Фон позади всего контента
 }
 
-.app-main-content {
+.appMainContent {
   position: relative;
   z-index: 1; // Контент поверх фона
   min-height: 100vh;
-  background: var(--black-white);
-
 
 }
 
-// Убедитесь, что body и html занимают всю высоту
-html, body{
-  //background: var(--black-white);
+// Плавный скролл для всей страницы
+:global(html) {
+  scroll-behavior: smooth;
+}
+
+:global(html),
+:global(body) {
   margin: 0;
   padding: 0;
   height: 100%;
 }
 
-#root {
+:global(#root) {
   height: 100%;
-  background: var(--black-white);
-
 }
 
-
-// src/App.scss (добавьте эти стили)
-button, a, .clickable, .colabsys-btn-stack-item, .calendar-day {
+// Глобальные стили для курсоров (так как они используются в других компонентах)
+:global(button),
+:global(a),
+:global(.clickable),
+:global(.colabsys-btn-stack-item),
+:global(.calendar-day) {
   cursor: pointer !important;
 }
 
 // Для полей ввода оставляем стандартный курсор
-input, textarea, select {
+:global(input),
+:global(textarea),
+:global(select) {
   cursor: auto !important;
-}
-
-// Плавный скролл для всей страницы
-html {
-  scroll-behavior: smooth;
 }

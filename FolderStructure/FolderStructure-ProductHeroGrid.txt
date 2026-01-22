@@ -1,0 +1,224 @@
+АНАЛИЗ ПАПКИ: /Users/vladimirmazyrec/sync-agency-new/src/shared/sections/ProductHeroGrid
+Python версия: 3.12.4
+================================================================================
+
+СТРУКТУРА ПАПОК (полные пути):
+--------------------------------------------------------------------------------
+
+ProductHeroGrid
+    ├── index.ts
+    ├── ProductHeroGrid.module.scss
+    └── ProductHeroGrid.tsx
+
+
+================================================================================
+СОДЕРЖИМОЕ ФАЙЛОВ:
+================================================================================
+
+АБСОЛЮТНЫЙ ПУТЬ: /Users/vladimirmazyrec/sync-agency-new/src/shared/sections/ProductHeroGrid/index.ts
+название файла: ProductHeroGrid/index.ts
+
+СОДЕРЖИМОЕ ФАЙЛА:
+----------------------------------------
+export { ProductHeroGrid } from './ProductHeroGrid';
+
+________________________________________________________________________________
+
+АБСОЛЮТНЫЙ ПУТЬ: /Users/vladimirmazyrec/sync-agency-new/src/shared/sections/ProductHeroGrid/ProductHeroGrid.module.scss
+название файла: ProductHeroGrid/ProductHeroGrid.module.scss
+
+СОДЕРЖИМОЕ ФАЙЛА:
+----------------------------------------
+.gridContainer {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.5rem;
+    width: 100%;
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    justify-content: center;
+    
+    @media (min-width: 1024px) {
+      grid-template-columns: repeat(3, 1fr);
+    }
+    
+    @media (max-width: 1023px) and (min-width: 768px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    
+    @media (max-width: 767px) {
+      grid-template-columns: 1fr;
+      max-width: 460px;
+      gap: 1rem;
+      padding: 0 1rem;
+    }
+  }
+  
+  .gridItem {
+    display: flex;
+    transition: transform 0.3s ease;
+    position: relative;
+    
+    &:hover {
+      z-index: 10;
+      
+      .product-hero-section {
+        z-index: 11;
+      }
+    }
+  }
+  
+  // Staggered animation for grid items (обновили для 6 элементов)
+  .gridItem {
+    animation: fadeInUp 0.6s ease-out forwards;
+    opacity: 0;
+    
+    @for $i from 1 through 6 {
+      &:nth-child(#{$i}) {
+        animation-delay: #{0.1s + ($i * 0.08s)};
+      }
+    }
+  }
+  
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  // Адаптивные стили для мобильных устройств
+  @media (max-width: 480px) {
+    .gridContainer {
+      grid-template-columns: 1fr !important;
+      gap: 0.75rem;
+      padding: 0;
+    }
+    
+    .gridItem {
+        height: 320px;
+
+      .product-hero-section {
+        margin: 0 !important;
+      }
+    }
+  }
+
+________________________________________________________________________________
+
+АБСОЛЮТНЫЙ ПУТЬ: /Users/vladimirmazyrec/sync-agency-new/src/shared/sections/ProductHeroGrid/ProductHeroGrid.tsx
+название файла: ProductHeroGrid/ProductHeroGrid.tsx
+
+СОДЕРЖИМОЕ ФАЙЛА:
+----------------------------------------
+import React from 'react';
+import { ProductHeroSection } from '../ProductHeroSection';
+import styles from './ProductHeroGrid.module.scss';
+import { HeroBackgroundType } from '@/shared/ui/hero-background';
+
+export interface ProductHeroItem {
+  id: string;
+  title: string;
+  subtitle: string;
+  description: string;
+  ctaText: string;
+  backgroundType: HeroBackgroundType;
+}
+
+interface ProductHeroGridProps {
+  items?: ProductHeroItem[];
+  onItemClick?: (id: string) => void;
+  className?: string;
+}
+
+const DEFAULT_ITEMS: ProductHeroItem[] = [
+  {
+    id: 'brand-identity',
+    title: 'Brand Identity',
+    subtitle: '·Unique Brand Design·',
+    description: 'We Build strong, strategic brand systems with expressive identity, naming, tone of voice, and visual language to amplify positioning and ensure recognition.',
+    ctaText: 'Create Your Brand',
+    backgroundType: 'brand'
+  },
+  {
+    id: 'marketing-strategy',
+    title: 'Marketing Strategy',
+    subtitle: '·Effective Growth Strategies·',
+    description: 'We Create multi-stage marketing funnels and drive measurable business growth through conversion-driven, data-powered, and insight-led performance campaigns.',
+    ctaText: 'Discuss Your Strategy',
+    backgroundType: 'marketing'
+  },
+  {
+    id: 'product-development',
+    title: 'Product Development',
+    subtitle: '·Reliable Digital Products·',
+    description: 'We Design and build scalable digital products with reliable architecture and seamless integrations that support long-term growth and excellent user experience.',
+    ctaText: 'Start Your Project',
+    backgroundType: 'product'
+  },
+  {
+    id: 'performance-intelligence',
+    title: 'Performance Intelligence',
+    subtitle: '·Data-Backed Decisions·',
+    description: 'We Collect, analyze, and act on data across all stages of the funnel to ensure continuous performance improvement, optimization, and real-time decision-making.',
+    ctaText: 'Optimize With Data',
+    backgroundType: 'data'
+  },
+  {
+    id: 'infrastructure-automation',
+    title: 'Infrastructure Automation',
+    subtitle: '·Efficient Systems·',
+    description: 'We Automate operations, connect internal and external systems, and streamline processes through custom logic, APIs, and scenario-based automation layers.',
+    ctaText: 'Optimize Your Infrastructure',
+    backgroundType: 'automation'
+  }
+  // {
+  //   id: 'digital-creativity',
+  //   title: 'Dígital Creatívity',
+  //   subtitle: '·Innovative Digital Solutions·',
+  //   description: 'We Craft unique digital experiences with creative coding, interactive visuals, and cutting-edge technology to bring your most innovative ideas to life.',
+  //   ctaText: 'Unleash Creativity',
+  //   backgroundType: 'pixel' // Используем новый пиксельный фон
+  // }
+];
+
+export const ProductHeroGrid: React.FC<ProductHeroGridProps> = ({
+  items = DEFAULT_ITEMS,
+  onItemClick,
+  className = ''
+}) => {
+  const handleItemClick = (id: string) => {
+    console.log(`ProductHeroGrid item clicked: ${id}`);
+    onItemClick?.(id);
+  };
+
+  return (
+    <div className={`${styles.gridContainer} ${className}`}>
+      {items.map((item) => (
+        <div key={item.id} className={styles.gridItem}>
+          <ProductHeroSection
+            title={item.title}
+            subtitle={item.subtitle}
+            description={item.description}
+            ctaText={item.ctaText}
+            onCtaClick={() => handleItemClick(item.id)}
+            backgroundType={item.backgroundType}
+          />
+        </div>
+      ))}
+    </div>
+  );
+};
+
+================================================================================
+
+СТАТИСТИКА:
+----------------------------------------
+Обработано файлов: 3
+Общий размер папки: 5,195 байт
+Дата создания отчета: 2026-01-22 08:24:08

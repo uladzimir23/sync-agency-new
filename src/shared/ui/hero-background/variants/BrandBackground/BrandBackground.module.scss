@@ -4,147 +4,189 @@
   height: 100%;
   overflow: hidden;
   border-radius: inherit;
-  background: transparent;
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
 }
 
-// Базовые стили для всех форм
-.shape {
+.backgroundGradient {
   position: absolute;
-  border-radius: 50%;
+  inset: 0;
+  background: radial-gradient(
+    circle at 50% 50%,
+    rgba(86, 156, 254, 0.05) 0%,
+    rgba(138, 43, 226, 0.03) 25%,
+    rgba(72, 187, 120, 0.02) 50%,
+    transparent 70%
+  );
+  filter: blur(20px);
   opacity: 0.3;
-  transition: all 0.5s ease;
-  filter: blur(40px);
-  mix-blend-mode: soft-light;
 }
 
-// Основная форма - большая и мягкая
-.mainShape {
-  width: 300px;
-  height: 300px;
-  top: 30%;
-  left: 20%;
-  background: rgba(86, 156, 254, 0.1);
-  border: 1px solid rgba(86, 156, 254, 0.5);
-  
-  &::before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 60%;
-    height: 60%;
-    transform: translate(-50%, -50%);
-    background: rgba(86, 156, 254, 0.1);
-    border-radius: 50%;
-    filter: blur(20px);
-  }
-  
-  &::after {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 30%;
-    height: 30%;
-    transform: translate(-50%, -50%);
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 50%;
-    filter: blur(10px);
-  }
-}
-
-// Вторичная форма - средняя, более прозрачная
-.secondaryShape {
-  width: 200px;
-  height: 200px;
-  bottom: 25%;
-  right: 15%;
-  background: rgba(128, 90, 213, 0.1);
-  border: 1px solid rgba(128, 90, 213, 0.4);
-  filter: blur(30px);
-}
-
-// Акцентная форма - маленькая, едва заметная
-.accentShape {
-  width: 120px;
-  height: 120px;
-  top: 15%;
-  right: 30%;
-  background: rgba(72, 187, 120, 1);
-  border: 1px solid rgba(72, 187, 120, 0.2);
-  filter: blur(25px);
-}
-
-// Очень мягкое свечение фона
-.backgroundGlow {
-  position: absolute;
+.centralElement {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  z-index: 2;
+  pointer-events: auto;
   width: 100%;
   height: 100%;
-  background: radial-gradient(
-    circle at 30% 40%,
-    rgba(86, 156, 254, 0.02) 0%,
-    transparent 50%
-  );
-  opacity: 0.1;
-  pointer-events: none;
+  position: relative;
+  top: 2.5rem;
+
 }
 
-// Тонкие направляющие линии
-.guideline {
+.elementContent {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.fontSample {
+  font-family: var(--font-english), sans-serif;
+  font-weight: 600;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+  line-height: 1;
+  font-size: 4.5rem;
+
+}
+
+.colorCircle {
+  width: 5rem;
+  height: 5rem;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 
+    0 4px 15px rgba(0, 0, 0, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
+}
+
+.elementDescription {
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  text-align: center;
+  padding: 0.375rem 0.75rem;
+  background: var(--bg-thirdly);
+  border: 1px solid var(--border-color);
+
+  border-radius: 1rem;
+  //border: 1px solid rgba(255, 255, 255, 0.1);
+  max-width: 80%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.indicators {
   position: absolute;
-  width: 1px;
-  height: 80%;
-  top: 10%;
-  background: linear-gradient(
-    to bottom,
-    transparent,
-    rgba(86, 156, 254, 1),
-    transparent
-  );
-  opacity: 0.2;
-  
-  &::before {
-    content: '';
-    position: absolute;
-    top: -10px;
-    left: -2px;
-    width: 5px;
-    height: 5px;
-    border-radius: 50%;
-    background: rgba(86, 156, 254, 0.3);
-    filter: blur(1px);
+  bottom: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 0.375rem;
+  z-index: 3;
+}
+
+.indicatorDot {
+  width: 0.375rem;
+  height: 0.375rem;
+  border-radius: 50%;
+  cursor: pointer;
+  pointer-events: auto;
+  transition: all 0.3s ease;
+  background: rgba(100, 120, 140, 0.3);
+
+  &:hover {
+    background: rgba(86, 156, 254, 0.5);
+    transform: scale(1.2);
   }
   
-  &::after {
-    content: '';
-    position: absolute;
-    bottom: -10px;
-    left: -2px;
-    width: 5px;
-    height: 5px;
-    border-radius: 50%;
-    background: rgba(86, 156, 254, 0.3);
-    filter: blur(1px);
+  &.active {
+    width: 1rem;
+    background: var(--page-title-cyan-text);
+    border-radius: 0.5rem;
+    box-shadow: 0 0 8px rgba(86, 156, 254, 0.4);
   }
 }
 
-// Эффекты при наведении
-.brandContainer:hover {
-  .mainShape {
-    filter: blur(45px);
-    opacity: 0.4;
+/* Interactive States */
+.brandContainer[data-hovered='true'],
+.brandContainer[data-active='true'],
+.brandContainer[data-scrolled='true'] {
+  .fontSample {
+    transform: scale(1.1);
+    text-shadow: 0 0 15px currentColor;
   }
   
-  .secondaryShape {
-    filter: blur(35px);
+  .colorCircle {
+    transform: scale(1.1);
+    box-shadow: 
+      0 6px 20px rgba(0, 0, 0, 0.3),
+      0 0 20px currentColor;
   }
   
-  .guideline {
-    opacity: 0.3;
-    
-    &::before,
-    &::after {
-      opacity: 0.5;
-    }
+  .elementDescription {
+    background: rgba(86, 156, 254, 0.1);
+    border-color: rgba(86, 156, 254, 0.3);
+    color: rgba(255, 255, 255, 0.9);
+  }
+  
+  .indicatorDot.active {
+    animation: pulse 1s ease-in-out infinite alternate;
+  }
+}
+
+@keyframes pulse {
+  from {
+    box-shadow: 0 0 8px rgba(86, 156, 254, 0.4);
+  }
+  to {
+    box-shadow: 0 0 15px rgba(86, 156, 254, 0.6), 0 0 25px rgba(86, 156, 254, 0.3);
+  }
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+  .fontSample {
+    font-size: 1.8rem !important;
+  }
+  
+  .colorCircle {
+    width: 3rem;
+    height: 3rem;
+  }
+  
+  .elementDescription {
+    font-size: 0.75rem;
+    padding: 0.25rem 0.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .fontSample {
+    font-size: 5rem !important;
+  }
+  
+  .colorCircle {
+    width: 5.5rem;
+    height: 5.5rem;
+  }
+  
+  .elementDescription {
+    font-size: 1rem;
+    padding: 0.25rem 0.5rem;
+  }
+  
+  .indicators {
+    bottom: 0.75rem;
   }
 }

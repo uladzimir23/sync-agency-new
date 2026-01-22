@@ -104,7 +104,7 @@
 .stepCard {
   //background: var(--bg-secondary);
   border: 1px solid var(--border-color);
-  border-radius: 45px;
+  border-radius: 3rem;
   padding: 2rem;
   //height: 320px;
   display: flex;
@@ -112,16 +112,22 @@
   justify-content: flex-start;
   position: relative;
   transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-  backdrop-filter: blur(20px);
+  backdrop-filter: blur(1px) saturate(280%);
+  -webkit-backdrop-filter: blur(1px) saturate(280%);   
   overflow: hidden;
   background: var(--bg-primary-opacity-sec);
+  transform: scale(1) translateY(0px);
+
 
   &:hover {
     transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
     background: var(--bg-primary-opacity-sec);
     box-shadow: var(--box-shadow-primary), inset 0px 0px 50px var(--background-primary-yellow-100);
-    border-radius: 40px;
+    border-radius: 3.5rem;
     cursor: pointer;
+    backdrop-filter: blur(2px) saturate(280%);
+    -webkit-backdrop-filter: blur(2px) saturate(280%);  
+    transform: scale(1.05) translateY(2px);
 
     .stepTitle {
       color: var(--primary-color);

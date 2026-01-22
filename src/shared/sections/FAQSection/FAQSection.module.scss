@@ -60,6 +60,8 @@
   overflow: hidden;
   position: relative;
   transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  backdrop-filter: blur(1px) saturate(280%);
+  -webkit-backdrop-filter: blur(1px) saturate(280%);   
   
   &:first-child {
     border-top: 1px solid var(--border-color);
@@ -68,7 +70,9 @@
   &.active {
     //box-shadow: inset 0px 0px 50px rgba(255, 255, 255, 0.01);
     //box-shadow: inset 0px 0px 50px  var(--background-primary-yellow);
-    //background: var(--background-primary-yellow);
+    background: var(--bg-fourthly);
+    backdrop-filter: blur(3px) saturate(280%);
+    -webkit-backdrop-filter: blur(3px) saturate(280%);   
     scale: 1.007;
     .header {
       &:hover {

@@ -1,11 +1,14 @@
+// src/shared/ui/hero-background/variants/MarketingBackground/MarketingBackground.tsx
+
 import React, { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { BaseBackgroundProps } from '../../HeroBackground.types';
+import { MarketingBackgroundLogos } from './MarketingBackgroundLogos';
 import styles from './MarketingBackground.module.scss';
 
 export const MarketingBackground: React.FC<BaseBackgroundProps> = ({
-  speed = 1,
-  intensity = 1,
+  speed = 10,
+  intensity = 10,
   isHovered = false,
   isActive = false,
   isScrolled = false
@@ -14,69 +17,83 @@ export const MarketingBackground: React.FC<BaseBackgroundProps> = ({
   const linesRef = useRef<HTMLDivElement[]>([]);
   const timelineRef = useRef<gsap.core.Timeline | null>(null);
 
+  /**
+   * Инициализация фоновой анимации
+   * Лёгкие диагональные линии создают ощущение потока / distribution
+   */
   useEffect(() => {
-    if (!containerRef.current) return;
+    if (!containerRef.current || timelineRef.current) return;
 
-    if (!timelineRef.current) {
-      const tl = gsap.timeline({ repeat: -1 });
-      
-      // Анимация линий потока
-      linesRef.current.forEach((line, index) => {
-        tl.to(line, {
-          duration: 2 + (index * 0.5) / speed,
-          x: `${100 * intensity}px`,
+    const tl = gsap.timeline({ repeat: -1 });
+
+    linesRef.current.forEach((line, index) => {
+      tl.fromTo(
+        line,
+        {
+          x: 0,
+          opacity: 0.15
+        },
+        {
+          x: `${120 * intensity}px`,
+          opacity: 0.35,
+          duration: (2.5 + index * 0.4) / speed,
+          ease: 'sine.inOut',
           repeat: -1,
           yoyo: true,
-          ease: "sine.inOut",
-          delay: index * 0.2,
-        }, 0);
-      });
+          delay: index * 0.15
+        },
+        0
+      );
+    });
 
-      timelineRef.current = tl;
-    }
+    timelineRef.current = tl;
 
     return () => {
-      if (timelineRef.current) {
-        timelineRef.current.kill();
-        timelineRef.current = null;
-      }
+      tl.kill();
+      timelineRef.current = null;
     };
   }, [speed, intensity]);
 
+  /**
+   * Реакция на hover / active / scroll
+   */
   useEffect(() => {
-    // Управляем скоростью анимации
-    if (timelineRef.current) {
-      const shouldSpeedUp = isHovered || isActive || isScrolled;
-      timelineRef.current.timeScale(shouldSpeedUp ? 1.5 : 1);
-    }
+    if (!timelineRef.current) return;
+
+    const boosted = isHovered || isActive || isScrolled;
+
+    timelineRef.current.timeScale(boosted ? 1.6 : 1);
+    gsap.to(containerRef.current, {
+      opacity: boosted ? 1 : 0.85,
+      duration: 0.4,
+      ease: 'power2.out'
+    });
   }, [isHovered, isActive, isScrolled]);
 
-  const addToLines = (el: HTMLDivElement | null) => {
+  const registerLine = (el: HTMLDivElement | null) => {
     if (el && !linesRef.current.includes(el)) {
       linesRef.current.push(el);
     }
   };
 
   return (
-    <div 
-      ref={containerRef} 
+    <div
+      ref={containerRef}
       className={styles.marketingContainer}
       data-hovered={isHovered}
       data-active={isActive}
       data-scrolled={isScrolled}
     >
-      {[...Array(8)].map((_, i) => (
-        <div
-          key={i}
-          ref={addToLines}
-          className={styles.flowLine}
-          style={{
-            left: `${i * 15}%`,
-            transform: `rotate(${45 + (i * 5)}deg)`,
-            opacity: 0.2 + (i * 0.1),
-          }}
-        />
-      ))}
+      {/* Слой с логотипами платформ */}
+      <MarketingBackgroundLogos
+        speed={speed}
+        intensity={intensity}
+        isHovered={isHovered}
+        isActive={isActive}
+        isScrolled={isScrolled}
+      />
     </div>
   );
 };
+
+export default MarketingBackground;

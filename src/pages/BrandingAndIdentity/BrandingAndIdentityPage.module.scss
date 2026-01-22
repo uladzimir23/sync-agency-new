@@ -2,6 +2,15 @@
     min-height: calc(100vh - 100px);
     padding-top: 60px;
     background: var(--black-white);
+    
+    .gridBackground {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: -1;
+    }
 
 
     .ProductHeroSection {

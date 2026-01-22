@@ -8,6 +8,8 @@ import { DataBackground } from './variants/DataBackground/DataBackground';
 import { AutomationBackground } from './variants/AutomationBackground/AutomationBackground';
 import { PixelBackground } from './variants/PixelBackground/PixelBackground'; // Добавили
 import styles from './HeroBackground.module.scss';
+import {PerformanceBackground} from './variants/PerformanceBackground/PerformanceBackground';
+
 
 export const HeroBackground: React.FC<HeroBackgroundProps> = ({
     type,
@@ -62,7 +64,7 @@ export const HeroBackground: React.FC<HeroBackgroundProps> = ({
         case 'product':
           return <ProductBackground {...commonProps} />;
         case 'data':
-          return <DataBackground {...commonProps} />;
+          return <PerformanceBackground {...commonProps} />;
         case 'automation':
           return <AutomationBackground {...commonProps} />;
         // case 'pixel': // Добавили новый вариант
