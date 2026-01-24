@@ -161,7 +161,7 @@
     padding: 0.4rem 0.6rem;
     
     &.btnStackItemWithArrow {
-      padding-right: 2rem;
+      padding-right: 0.8rem;
     }
     
     &[data-active="true"] {
@@ -184,6 +184,7 @@
     }
     
     &__arrowContainer {
+      display: none;
       width: 1.5rem;
       height: 1.5rem;
       right: 0.5rem;

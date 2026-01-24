@@ -244,15 +244,16 @@
 /* -------------------------------------------------
    Адаптивность
 ------------------------------------------------- */
-@media (max-width: 768px) {
+
+@media (max-width: 1440px) {
   .galleryContainer {
-    gap: 1.5rem;
+    gap: 0rem;
     padding: 0 1rem;
   }
   
   .elementIcon {
-    width: 6rem;
-    height: 6rem;
+    width: 4rem;
+    height: 4rem;
   }
   
   .elementName {
@@ -261,10 +262,24 @@
   }
   
   .sideItem {
-    width: 5rem;
-    height: 5rem;
+    width: 4.5rem;
+    height: 4.5rem;
+    order: 1;
+    flex-direction: row;
+    //width: auto;
+    //min-width: 120px;
+    padding: 1rem;
+    position: absolute;
+    bottom: 0rem;
+    
+    &:first-child {
+      left: 2rem;
+    }
+    
+    &:last-child {
+      right: 2rem;
+    }
   }
-  
   .sideIcon {
     width: 2.5rem;
     height: 2.5rem;
@@ -273,12 +288,70 @@
   .sideName {
     font-size: 0.7rem;
   }
+
+  .indicators {
+    bottom: 0.5rem;
+
+  }
+  
+}
+
+@media (max-width: 768px) {
+  .galleryContainer {
+    gap: 0rem;
+    padding: 0 1rem;
+  }
+  
+  .elementIcon {
+    width: 4rem;
+    height: 4rem;
+  }
+  
+  .elementName {
+    font-size: 1rem;
+    padding: 0.375rem 0.75rem;
+  }
+  
+  .sideItem {
+    width: 4.5rem;
+    height: 4.5rem;
+    order: 1;
+    flex-direction: row;
+    //width: auto;
+    //min-width: 120px;
+    padding: 1rem;
+    position: absolute;
+    bottom: 0rem;
+    
+    &:first-child {
+      left: 2rem;
+    }
+    
+    &:last-child {
+      right: 2rem;
+    }
+  }
+  .sideIcon {
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+  
+  .sideName {
+    font-size: 0.7rem;
+  }
+
+  .indicators {
+    bottom: 0.5rem;
+
+  }
+  
 }
 
 @media (max-width: 480px) {
   .galleryContainer {
     gap: 1rem;
     flex-direction: column;
+
   }
   
   .centralElement {
@@ -287,27 +360,29 @@
   }
   
   .sideItem {
-    width: 4rem;
-    height: 4rem;
+    width: 6rem;
+    height: 6rem;
     order: 1;
     flex-direction: row;
-    width: auto;
-    min-width: 120px;
-    padding: 0.5rem 1rem;
+    //width: auto;
+    //min-width: 120px;
+    padding: 1rem;
+    position: absolute;
+    bottom: 1rem;
     
     &:first-child {
-      margin-right: auto;
+      left: 2rem;
     }
     
     &:last-child {
-      margin-left: auto;
+      right: 2rem;
     }
   }
   
   .sideIcon {
     width: 2rem;
     height: 2rem;
-    margin-right: 0.5rem;
+    //margin-right: 0.5rem;
   }
   
   .sideName {

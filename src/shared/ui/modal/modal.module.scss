@@ -1,0 +1,221 @@
+.overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    z-index: 1000;
+    pointer-events: auto;
+  }
+  
+  .modalContainer {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1001;
+    pointer-events: none;
+    padding: 1rem;
+  }
+
+  .modalContent {
+    position: relative;
+    background: var(--background-primary-yellow);
+    border-radius: 2rem;
+    box-shadow: 
+      0 25px 50px -12px rgba(0, 0, 0, 0.5),
+      inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    border: 1px solid var(--border-color);
+    pointer-events: auto;
+    display: flex;
+    flex-direction: column;
+    max-height: calc(100vh - 2rem);
+    overflow: hidden;
+    will-change: transform, opacity;
+  
+    &::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 2rem;
+      padding: 1px;
+      background: linear-gradient(
+        135deg,
+        rgba(86, 156, 254, 0.2) 0%,
+        rgba(86, 156, 254, 0.1) 50%,
+        transparent 100%
+      );
+      mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      mask-composite: exclude;
+      pointer-events: none;
+    }
+  }
+  
+  // Размеры модального окна
+  .modalSize_sm {
+    width: 100%;
+    max-width: 400px;
+  }
+  
+  .modalSize_md {
+    width: 100%;
+    max-width: 600px;
+  }
+  
+  .modalSize_lg {
+    width: fit-content;
+    //max-width: 800px;
+    height: min-content;
+  }
+  
+  .modalSize_xl {
+    width: 100%;
+    max-width: 1000px;
+  }
+  
+  .modalSize_full {
+    width: calc(100% - 2rem);
+    height: calc(100% - 2rem);
+    max-width: none;
+  }
+  
+  .modalHeader {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    padding: 1.5rem 1.5rem 0;
+    border-bottom: 1px solid var(--border-color);
+    flex-shrink: 0;
+  }
+  
+  .modalTitle {
+    flex: 1;
+    
+    h2 {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin: 0;
+    }
+  }
+  
+  .closeButton {
+    margin-left: 1rem;
+    flex-shrink: 0;
+    
+    &:hover {
+      background: rgba(86, 156, 254, 0.1);
+    }
+  }
+  
+  .modalBody {
+    flex: 1;
+    padding: 1.5rem;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    
+    // Скрываем стандартный скроллбар
+    scrollbar-width: thin;
+    scrollbar-color: var(--border-color) transparent;
+    
+    &::-webkit-scrollbar {
+      width: 6px;
+    }
+    
+    &::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    
+    &::-webkit-scrollbar-thumb {
+      background: var(--border-color);
+      border-radius: 3px;
+    }
+  }
+  
+  // Адаптивность
+  @media (max-width: 768px) {
+    .modalContainer {
+      padding: 0.5rem;
+    }
+    
+    .modalContent {
+      border-radius: 1.5rem;
+      
+      &::before {
+        border-radius: 1.5rem;
+      }
+    }
+    
+    .modalSize_sm,
+    .modalSize_md,
+    .modalSize_lg,
+    .modalSize_xl {
+      max-width: calc(100% - 1rem);
+    }
+    
+    .modalHeader {
+      padding: 1rem 1rem 0;
+    }
+    
+    .modalBody {
+      padding: 1rem;
+    }
+    
+    .modalTitle {
+      h2 {
+        font-size: 1.25rem;
+      }
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .modalContainer {
+      align-items: flex-end;
+      padding: 0;
+    }
+    
+    .modalContent {
+      border-radius: 1.5rem 1.5rem 0 0;
+      max-height: 90vh;
+      width: 100%;
+      
+      &::before {
+        border-radius: 1.5rem 1.5rem 0 0;
+      }
+    }
+    
+    .modalHeader {
+      padding: 1rem 1rem 0;
+    }
+    
+    .modalBody {
+      padding: 1rem;
+    }
+  }
+  
+  // Анимации для iOS и других устройств
+  @supports (padding: max(0px)) {
+    .modalContainer {
+      padding-top: max(1rem, env(safe-area-inset-top));
+      padding-bottom: max(1rem, env(safe-area-inset-bottom));
+      padding-left: max(1rem, env(safe-area-inset-left));
+      padding-right: max(1rem, env(safe-area-inset-right));
+    }
+  }
+  
+  // Улучшение производительности на мобильных устройствах
+  @media (max-width: 768px) {
+    .overlay {
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+    }
+  }
+  
+  // Reduced motion support
+  @media (prefers-reduced-motion: reduce) {
+    .modalContent {
+      animation: none !important;
+      transition: none !important;
+    }
+  }

@@ -1,8 +1,6 @@
 .branding-identity-page {
-    min-height: calc(100vh - 100px);
-    padding-top: 60px;
-    background: var(--black-white);
-    
+  min-height: calc(100vh - 100px);
+  padding-top: 60px;
     .gridBackground {
       position: fixed;
       top: 0;
@@ -13,15 +11,5 @@
     }
 
 
-    .ProductHeroSection {
-        z-index: 0;
-        //height: 50vh;
-      .container {
-        margin: 5rem !important;
-
-
-      }
- 
-    }
 
   }

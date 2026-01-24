@@ -26,7 +26,7 @@ interface HighlightSquare {
 }
 
 export const SimpleGridBackground: React.FC<SimpleGridBackgroundProps> = ({
-  cellSize = 60,
+  cellSize = 64,
   lineWidth = 1,
   color = 'var(--border-color)',
   opacity = 0.08,

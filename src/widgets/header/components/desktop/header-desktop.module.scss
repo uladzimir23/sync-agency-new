@@ -92,9 +92,9 @@
 .logoPlaceholder {
   display: flex;
   align-items: center;
-  //font-family: 'TASA Orbiter';
-  font-weight: 600;
   font-size: vars.text-size(lg);
+  font-weight: 800;
+
   //color: var(--primary-color);
   padding: vars.spacing(0) vars.spacing(4);
   border-radius: var(--colabsys-radius);
@@ -105,7 +105,8 @@
   
   &:hover {
     h3 {
-      font-weight: 900;
+      font-weight: 800;
+
       //background: linear-gradient(45deg, #ff9b3e, #e773f4, #43e8f4);
       background-clip: text;
       -webkit-background-clip: text;
@@ -116,14 +117,16 @@
   }
 
   h3 {
+    font-weight: 800;
+    letter-spacing: 1px;
+
     background: linear-gradient(135deg, var(--primary-color), #ffffff);
-    font-weight: 700;
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    letter-spacing: -1px;
     animation: gradientShift 3s ease infinite;
     transition: all 0.3s ease !important;
+    
   }
 }
 

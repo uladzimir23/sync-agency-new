@@ -139,25 +139,27 @@
 .logoPlaceholder {
   display: flex;
   align-items: center;
-  font-family: 'TASA Orbiter';
-  font-weight: 700;
+  font-family: 'Manrope';
   font-size: vars.text-size(lg);
+  font-weight: 900;
+  letter-spacing: 2px;
+
   color: var(--primary-color);
   padding: vars.spacing(2) vars.spacing(4);
   border-radius: var(--colabsys-radius);
   background: transparent;
   border: 0px solid var(--border-color-accent);
-
-  
+  color: #333; /* Основной цвет текста */
+ 
   @media (max-width: vars.breakpoint(sm)) {
     padding: vars.spacing(1) vars.spacing(3);
     font-size: vars.text-size(md);
   }
 
   h3 {
-    font-weight: 700;
 
-    letter-spacing: -1px;
+    letter-spacing: 2px;
+    font-weight: 800;
 
     background: linear-gradient(45deg, #FEAC5E, #C779D0, #4BC0C8);
     -webkit-background-clip: text;

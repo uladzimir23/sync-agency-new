@@ -54,8 +54,10 @@ export const PerformanceBackground: React.FC<BaseBackgroundProps> = ({
   const containerRef = useRef<HTMLDivElement>(null);
   const carouselRef = useRef<HTMLDivElement>(null);
   const timelineRef = useRef<gsap.core.Timeline | null>(null);
+  const numberAnimationsRef = useRef<Record<string, gsap.core.Tween>>({});
   const [isAnimatingDown, setIsAnimatingDown] = useState(true);
   const [currentCycle, setCurrentCycle] = useState(0);
+  const [previousMetrics, setPreviousMetrics] = useState<PerformanceMetric[]>([]);
 
   // Большой набор данных производительности с иконками
   const performanceData: PerformanceMetric[] = useMemo(() => [
@@ -233,30 +235,65 @@ export const PerformanceBackground: React.FC<BaseBackgroundProps> = ({
     return Math.round(value) + metric.unit;
   }, [animatedValues]);
 
-  // Анимация счетчиков для видимых метрик
+  // Анимация счетчиков для видимых метрик - ОБНОВЛЕННАЯ ЛОГИКА
   useEffect(() => {
+    // Останавливаем предыдущие анимации для тех метрик, которые больше не видны
+    const visibleIds = visibleMetrics.map(m => m.id);
+    Object.keys(numberAnimationsRef.current).forEach(metricId => {
+      if (!visibleIds.includes(metricId) && numberAnimationsRef.current[metricId]) {
+        numberAnimationsRef.current[metricId].kill();
+        delete numberAnimationsRef.current[metricId];
+      }
+    });
+
+    // Запускаем новые анимации для видимых метрик
     visibleMetrics.forEach(metric => {
       const targetValue = parseFloat(metric.value);
       const duration = 1.2 / speed;
       
-      gsap.to(animatedValues, {
-        [metric.id]: targetValue,
+      // Останавливаем предыдущую анимацию для этой метрики, если есть
+      if (numberAnimationsRef.current[metric.id]) {
+        numberAnimationsRef.current[metric.id].kill();
+      }
+      
+      // Сбрасываем значение в 0 перед началом анимации
+      setAnimatedValues(prev => ({
+        ...prev,
+        [metric.id]: 0
+      }));
+      
+      // Создаем новую анимацию
+      numberAnimationsRef.current[metric.id] = gsap.to({ value: 0 }, {
+        value: targetValue,
         duration: duration,
         ease: 'power2.out',
-        onUpdate: () => {
-          setAnimatedValues({ ...animatedValues });
+        onUpdate: function() {
+          setAnimatedValues(prev => ({
+            ...prev,
+            [metric.id]: this.targets()[0].value
+          }));
         }
       });
     });
+    
+    return () => {
+      // Очищаем все анимации при размонтировании
+      Object.values(numberAnimationsRef.current).forEach(animation => {
+        if (animation) animation.kill();
+      });
+      numberAnimationsRef.current = {};
+    };
   }, [speed, visibleMetrics]);
 
   // Инициализация карусели
   useEffect(() => {
     // Начинаем с первых 4 метрик
-    setVisibleMetrics(performanceData.slice(0, 4));
+    const initialMetrics = performanceData.slice(0, 4);
+    setVisibleMetrics(initialMetrics);
+    setPreviousMetrics(initialMetrics);
   }, [performanceData]);
 
-  // Карусель автоматической прокрутки
+  // Карусель автоматической прокрутки - ОБНОВЛЕННАЯ ЛОГИКА
   useEffect(() => {
     if (!carouselRef.current || performanceData.length === 0) return;
 
@@ -272,19 +309,43 @@ export const PerformanceBackground: React.FC<BaseBackgroundProps> = ({
       }
     });
 
-    // Анимация скролла вниз
-    const scrollDown = () => {
-      setIsAnimatingDown(true);
-      
-      // Находим следующий набор метрик (4 штуки)
+    // Функция для получения следующего набора метрик
+    const getNextMetrics = () => {
       const nextIndex = (currentIndex + 4) % performanceData.length;
-      const nextMetrics = performanceData.slice(nextIndex, nextIndex + 4);
+      let nextMetrics = performanceData.slice(nextIndex, nextIndex + 4);
       
       // Если не хватает метрик, добавляем с начала
       if (nextMetrics.length < 4) {
         const remaining = 4 - nextMetrics.length;
-        nextMetrics.push(...performanceData.slice(0, remaining));
+        nextMetrics = [...nextMetrics, ...performanceData.slice(0, remaining)];
       }
+      
+      return { nextMetrics, nextIndex };
+    };
+
+    // Функция для получения предыдущего набора метрик
+    const getPrevMetrics = () => {
+      let prevIndex = currentIndex - 4;
+      if (prevIndex < 0) {
+        prevIndex = performanceData.length + prevIndex;
+      }
+      
+      let prevMetrics = performanceData.slice(prevIndex, prevIndex + 4);
+      
+      // Если не хватает метрик, добавляем с конца
+      if (prevMetrics.length < 4) {
+        const remaining = 4 - prevMetrics.length;
+        prevMetrics = [...prevMetrics, ...performanceData.slice(-remaining)];
+      }
+      
+      return { prevMetrics, prevIndex };
+    };
+
+    // Анимация скролла вниз
+    const scrollDown = () => {
+      setIsAnimatingDown(true);
+      
+      const { nextMetrics, nextIndex } = getNextMetrics();
       
       // Анимация исчезновения текущих метрик
       tl.to(carouselRef.current, {
@@ -293,6 +354,7 @@ export const PerformanceBackground: React.FC<BaseBackgroundProps> = ({
         duration: 0.4 / speed,
         ease: 'power2.in',
         onComplete: () => {
+          setPreviousMetrics(visibleMetrics);
           setVisibleMetrics(nextMetrics);
           setCurrentIndex(nextIndex);
         }
@@ -311,19 +373,7 @@ export const PerformanceBackground: React.FC<BaseBackgroundProps> = ({
     const scrollUp = () => {
       setIsAnimatingDown(false);
       
-      // Находим предыдущий набор метрик
-      let prevIndex = currentIndex - 4;
-      if (prevIndex < 0) {
-        prevIndex = performanceData.length + prevIndex;
-      }
-      
-      const prevMetrics = performanceData.slice(prevIndex, prevIndex + 4);
-      
-      // Если не хватает метрик, добавляем с конца
-      if (prevMetrics.length < 4) {
-        const remaining = 4 - prevMetrics.length;
-        prevMetrics.push(...performanceData.slice(-remaining));
-      }
+      const { prevMetrics, prevIndex } = getPrevMetrics();
       
       // Анимация исчезновения текущих метрик
       tl.to(carouselRef.current, {
@@ -332,6 +382,7 @@ export const PerformanceBackground: React.FC<BaseBackgroundProps> = ({
         duration: 0.4 / speed,
         ease: 'power2.in',
         onComplete: () => {
+          setPreviousMetrics(visibleMetrics);
           setVisibleMetrics(prevMetrics);
           setCurrentIndex(prevIndex);
         }
@@ -370,7 +421,7 @@ export const PerformanceBackground: React.FC<BaseBackgroundProps> = ({
         timelineRef.current.kill();
       }
     };
-  }, [speed, currentCycle, currentIndex, performanceData]);
+  }, [speed, currentCycle, currentIndex, performanceData, visibleMetrics]);
 
   // Реакция на hover/active/scroll
   useEffect(() => {
@@ -389,6 +440,14 @@ export const PerformanceBackground: React.FC<BaseBackgroundProps> = ({
     if (timelineRef.current) {
       if (shouldAnimate) {
         timelineRef.current.timeScale(2 * speed); // Ускоряем при взаимодействии
+        
+        // Ускоряем анимацию чисел
+        Object.values(numberAnimationsRef.current).forEach(animation => {
+          if (animation) {
+            animation.timeScale(2 * speed);
+          }
+        });
+        
         gsap.to(`.${styles.performanceMetric}`, {
           background: 'rgba(86, 156, 254, 0.05)',
           duration: 0.2,
@@ -397,6 +456,14 @@ export const PerformanceBackground: React.FC<BaseBackgroundProps> = ({
         });
       } else {
         timelineRef.current.timeScale(1 * speed);
+        
+        // Возвращаем нормальную скорость анимации чисел
+        Object.values(numberAnimationsRef.current).forEach(animation => {
+          if (animation) {
+            animation.timeScale(1 * speed);
+          }
+        });
+        
         gsap.to(`.${styles.performanceMetric}`, {
           background: 'transparent',
           duration: 0.2,
@@ -450,7 +517,7 @@ export const PerformanceBackground: React.FC<BaseBackgroundProps> = ({
       >
         {visibleMetrics.map((metric) => (
           <div
-            key={metric.id}
+            key={`${metric.id}-${currentCycle}-${currentIndex}`} // Уникальный ключ для каждого показа
             className={styles.performanceMetric}
             data-category={metric.category}
             data-status={metric.status}

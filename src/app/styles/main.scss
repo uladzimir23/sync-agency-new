@@ -53,8 +53,9 @@ html.ru body {
     --bg-primary-opacity: rgba(255, 255, 255, 0.2);
     --bg-primary-opacity-sec: rgba(255, 255, 255, 0.1);
     --background-primary-section: #e8e8f9;
-    --background-primary-yellow:  #155ed40f;
-    --background-primary-yellow-test:  #d415150f;
+    --background-primary-yellow:  rgba(21, 94, 212, 0.059);
+    --background-primary-yellow-rgb: 255, 255, 255; /* RGB значение для прозрачности */
+    --background-primary-yellow-test:  rgba(212, 21, 21, 0.059);
 
     --background-primary-yellow-100: #EAF0FC;
 
@@ -132,7 +133,8 @@ html.ru body {
     --bg-fourthly: rgba(86, 170, 254, 0.025);
 
     --background-primary-section: #191919;
-    --background-primary-yellow:  #0e2d5f0f;
+    --background-primary-yellow:  rgba(14, 45, 95, 0.059);
+    --background-primary-yellow-rgb: 0, 0, 0; /* RGB значение для прозрачности */
     --background-primary-yellow-100: rgba(16, 20, 46, 0.471);
 
     --background-primary-red:  #d4151511;

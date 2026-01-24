@@ -5,16 +5,15 @@ import { SocialMediaGrid } from '@shared/sections/SocialMediaGrid';
 import { BookingSection } from '@shared/sections/booking-section';
 import { ServicesSection } from '@shared/sections/ServicesSection';
 import { SimpleGridBackground } from '@/shared/ui/simple-grid-background';
-import { SyncFlowMatrixBackground } from '@/shared/ui/sync-flow-matrix-background';
+import { Modal } from '@/shared/ui/modal'; // Импортируем модальное окно
 
 import styles from './HomePage.module.scss';
 import { ROUTES } from '@/shared/constants/routes';
-import SimpleModifyGridBackground from '@/shared/ui/simple-grid-background/SimpleModifyGridBackground';
-
 
 export const HomePage: React.FC = () => {
   const [activeTab, setActiveTab] = useState(0);
   const [activeMenu, setActiveMenu] = useState(0);
+  const [isBookingModalOpen, setIsBookingModalOpen] = useState(false); // Состояние для модалки
   const navigate = useNavigate();
   
   const bookingSectionRef = useRef<HTMLDivElement>(null);
@@ -49,76 +48,32 @@ export const HomePage: React.FC = () => {
   };
 
   const handleOpenBookCallModal = () => {
+    setIsBookingModalOpen(true);
     console.log('Opening Book Call modal...');
+  };
+
+  const handleCloseBookCallModal = () => {
+    setIsBookingModalOpen(false);
   };
 
   return (
     <div className={styles.homePage}>
-      {/* <SimpleGridBackground
-        cellSize={50}
-        lineWidth={1}
-        color="var(--border-color-accent)"
-        opacity={0.15}
-        speed={0.05}
-        fixed={true}
-        className={styles.gridBackground}
-      />
-       */}
-
       <SimpleGridBackground
-        cellSize={45}
+        cellSize={45.39}
         lineWidth={1}
         color="var(--border-color-accent)"
         opacity={0.16}
         speed={0.12}
         highlightCount={50}
         highlightColors={[
-          'rgba(79, 70, 229, 0.15)',    // indigo
-          'rgba(147, 51, 234, 0.12)',   // purple
-          'rgba(236, 72, 153, 0.1)',    // pink
-          'rgba(6, 182, 212, 0.1)',     // cyan
-          'rgba(34, 197, 94, 0.08)',    // green
+          'rgba(79, 70, 229, 0.15)',
+          'rgba(147, 51, 234, 0.12)',
+          'rgba(236, 72, 153, 0.1)',
+          'rgba(6, 182, 212, 0.1)',
+          'rgba(34, 197, 94, 0.08)',
         ]}
         className={styles.gridBackground}
       />
-
-      {/* <SimpleModifyGridBackground
-        cellSize={45}
-        lineWidth={1}
-        color="var(--border-color-accent)"
-        opacity={0.05}
-        speed={0.12}
-        highlightCount={28}
-        highlightColors={[
-          'rgba(79,70,229,0.14)',
-          'rgba(147,51,234,0.12)',
-          'rgba(236,72,153,0.10)',
-          'rgba(6,182,212,0.08)',
-          'rgba(34,197,94,0.06)'
-        ]}
-        className={styles.gridBackground}
-      /> */}
-
-      {/* <SyncFlowMatrixBackground
-        cellSize={45}
-        gridColor="var(--primary-color)"
-        gridOpacity={0.06}
-        flowLinesCount={50}
-        flowLineWidth={1}
-        flowLineOpacity={1}
-        nodesCount={22}
-        nodeSize={6}
-        nodeGlow={20}
-        driftSpeed={20}
-        pulseInterval={6}
-        colors={{
-          primary: 'var(--primary-color)',
-          secondary: 'var(--secondary-color)',
-          accent: 'var(--accent-color)'
-        }}
-        fixed={true}
-        className={styles.syncBackground}
-      /> */}
 
       <div className={styles.homePageContent}>
         <div className={styles.dashboardSection}>
@@ -137,7 +92,7 @@ export const HomePage: React.FC = () => {
               </>
             }
             scrollToBooking={scrollToBookingSection}
-            onBookCall={handleOpenBookCallModal}
+            onBookCall={handleOpenBookCallModal} // Передаем функцию открытия модалки
           />
           <ServicesSection onServiceClick={handleServiceClick} />
 
@@ -146,12 +101,26 @@ export const HomePage: React.FC = () => {
             showDescriptions={true}
             className={styles.socialSection}
           />
-
-          <div ref={bookingSectionRef}>
             <BookingSection />
-          </div>
         </div>
       </div>
+
+      {/* Модальное окно с BookingSection */}
+      <Modal
+        isOpen={isBookingModalOpen}
+        onClose={handleCloseBookCallModal}
+        size="lg"
+        title="Book a Consultation"
+        showCloseButton={true}
+        closeOnBackdropClick={true}
+        closeOnEscape={true}
+        className={styles.bookingModal}
+      >
+        <div className={styles.bookingModalContent}>
+          <BookingSection 
+          />
+        </div>
+      </Modal>
     </div>
   );
 };

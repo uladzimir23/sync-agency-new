@@ -1,7 +1,7 @@
 .desktopLayout {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(430px, 430px));
-  gap: 1rem;
+  gap: 0.5rem;
   width: 100%;
   transition: all 0.3s ease;
   justify-content: center
@@ -15,7 +15,6 @@
 
 .desktopFormPlaceholder {
   text-align: center;
-  padding: 40px 20px;
   color: var(--text-secondary);
   font-size: 16px;
   height: 100%;

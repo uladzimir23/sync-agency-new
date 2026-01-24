@@ -10,7 +10,6 @@ interface DashboardHeaderProps {
   className?: string
   onBookCall?: () => void
   onMakeBrief?: () => void
-  // Добавляем опциональный пропс для якорной ссылки
   scrollToBooking?: () => void
 }
 
@@ -20,17 +19,19 @@ export const DashboardHeader: React.FC<DashboardHeaderProps> = ({
   className = '',
   onBookCall,
   onMakeBrief,
-  scrollToBooking // Новый пропс
+  scrollToBooking
 }) => {
   const { t } = useTranslation()
 
   // Функция для обработки клика на кнопку Book Call
   const handleBookCallClick = () => {
+    // Если передан скролл к секции, сначала скроллим
     if (scrollToBooking) {
-      scrollToBooking() // Сначала скроллим к BookingSection
+      scrollToBooking()
     }
+    // Затем открываем модальное окно (если передана функция)
     if (onBookCall) {
-      onBookCall() // Затем выполняем дополнительную логику (если есть)
+      onBookCall()
     }
   }
 

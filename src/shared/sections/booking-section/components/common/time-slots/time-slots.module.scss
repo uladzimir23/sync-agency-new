@@ -11,8 +11,8 @@
     .container {
       width: 100%;
       position: relative;
-      overflow-x: auto;
-      overflow-y: hidden;
+      overflow: visible;
+
       scrollbar-width: none;
       -ms-overflow-style: none;
       
