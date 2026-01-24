@@ -11,7 +11,8 @@ import {
   FaTiktok,
   FaFacebookF,
   FaPinterestP,
-  FaWhatsapp
+  FaWhatsapp,
+  FaGoogle // Добавлен импорт для Gmail
 } from 'react-icons/fa';
 import { SiNotion, SiDiscord } from 'react-icons/si';
 import styles from './SocialMediaGrid.module.scss';
@@ -69,13 +70,13 @@ export const SocialMediaGrid: React.FC<SocialMediaGridProps> = ({
       gradient: 'linear-gradient(45deg, #833AB4, #E1306C, #F77737)'
     },
     {
-        id: 'whatsapp',
-        name: 'WhatsApp',
-        icon: <FaWhatsapp />,
-        url: 'https://wa.me/your-number',
-        color: '#25D366',
-        description: 'Direct messaging for inquiries',
-        gradient: 'linear-gradient(135deg, #25D366 0%, #128C7E 100%)'
+      id: 'whatsapp',
+      name: 'WhatsApp',
+      icon: <FaWhatsapp />,
+      url: 'https://wa.me/your-number',
+      color: '#25D366',
+      description: 'Direct messaging for inquiries',
+      gradient: 'linear-gradient(135deg, #25D366 0%, #128C7E 100%)'
     },
     {
       id: 'linkedin',
@@ -86,15 +87,15 @@ export const SocialMediaGrid: React.FC<SocialMediaGridProps> = ({
       description: 'Professional network and company updates',
       gradient: 'linear-gradient(135deg, #0077B5 0%, #005582 100%)'
     },
-    // {
-    //   id: 'twitter',
-    //   name: 'Twitter',
-    //   icon: <FaTwitter />,
-    //   url: 'https://twitter.com/sync_agency',
-    //   color: '#1DA1F2',
-    //   description: 'News, insights, and industry trends',
-    //   gradient: 'linear-gradient(135deg, #1DA1F2 0%, #0d8bd9 100%)'
-    // },
+    {
+      id: 'gmail',
+      name: 'Gmail',
+      icon: <FaGoogle />,
+      url: 'mailto:your-email@gmail.com',
+      color: '#EA4335',
+      description: 'Send us an email for business inquiries',
+      gradient: 'linear-gradient(135deg, #EA4335 0%, #D14836 100%)'
+    },
     {
       id: 'behance',
       name: 'Behance',
@@ -104,6 +105,15 @@ export const SocialMediaGrid: React.FC<SocialMediaGridProps> = ({
       description: 'Our creative portfolio and design work',
       gradient: 'linear-gradient(135deg, #0057FF 0%, #0033aa 100%)'
     },
+    // {
+    //   id: 'twitter',
+    //   name: 'Twitter',
+    //   icon: <FaTwitter />,
+    //   url: 'https://twitter.com/sync_agency',
+    //   color: '#1DA1F2',
+    //   description: 'News, insights, and industry trends',
+    //   gradient: 'linear-gradient(135deg, #1DA1F2 0%, #0d8bd9 100%)'
+    // },
     // {
     //   id: 'dribbble',
     //   name: 'Dribbble',

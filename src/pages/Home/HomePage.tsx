@@ -101,11 +101,14 @@ export const HomePage: React.FC = () => {
             showDescriptions={true}
             className={styles.socialSection}
           />
+
+          <div ref={bookingSectionRef}>
             <BookingSection />
+          </div>
         </div>
       </div>
 
-      {/* Модальное окно с BookingSection */}
+      {/* Модальное окно с BookingSection
       <Modal
         isOpen={isBookingModalOpen}
         onClose={handleCloseBookCallModal}
@@ -118,9 +121,11 @@ export const HomePage: React.FC = () => {
       >
         <div className={styles.bookingModalContent}>
           <BookingSection 
+            compactMode={true} // Можно добавить пропс для компактного режима
+            showTitle={false} // Не показываем заголовок внутри модалки
           />
         </div>
-      </Modal>
+      </Modal> */}
     </div>
   );
 };
