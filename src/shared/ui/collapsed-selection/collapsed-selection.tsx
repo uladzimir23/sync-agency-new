@@ -64,7 +64,7 @@ export const CollapsedSelection: React.FC<CollapsedSelectionProps> = ({
         </div>
 
       < div className={styles.arrowWrapper}>
-       <FaChevronDown className={`${styles.arrow} ${isExpanded ? styles.expanded : ''}`} />
+       <FaChevronDown className={`${styles.arrowDropdown} ${isExpanded ? styles.expanded : ''}`} />
        </div>
     </div>
 

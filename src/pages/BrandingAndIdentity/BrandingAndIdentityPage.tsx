@@ -10,7 +10,7 @@ import { processStepsData } from '../../shared/lib/data/processStepsData'
 import { faqData } from '../../shared/lib/data/faqData'
 
 import { SimpleGridBackground } from '@/shared/ui/simple-grid-background';
-import styles from './BrandingAndIdentityPage.module.scss'; // Модульные стили
+import './BrandingAndIdentityPage.scss'; 
 
 export const BrandingAndIdentityPage: React.FC = () => {
 
@@ -27,24 +27,7 @@ export const BrandingAndIdentityPage: React.FC = () => {
 
   return (
     <>
-      {/* Фон с сеткой */}
-      <SimpleGridBackground
-        cellSize={45}
-        lineWidth={1}
-        color="var(--border-color-accent)"
-        opacity={0.16}
-        speed={0.12}
-        highlightCount={25}
-        highlightColors={[
-          'rgba(79, 70, 229, 0.15)',
-          'rgba(147, 51, 234, 0.12)',
-          'rgba(236, 72, 153, 0.1)',
-          'rgba(6, 182, 212, 0.1)',
-          'rgba(34, 197, 94, 0.08)',
-        ]}
-        className={styles.gridBackground}
-      />
-      
+
       {/* Контент страницы */}
       <div className="branding-identity-page">
         <PageHeader

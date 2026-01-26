@@ -118,15 +118,16 @@
 .dropdownContent {
   position: absolute;
   top: calc(100% + 0.25rem);
-  background: var(--background-primary);
+  // background: var(--background-primary);
+  // background: rgba(var(--background-primary-rgb), 1);
+
   border: 1px solid var(--border-color);
   border-radius: 16px;
   padding: 0;
   box-shadow: var(--box-shadow-primary);
   z-index: 99;
   overflow: hidden;
-  backdrop-filter: blur(15px) !important;
-  -webkit-backdrop-filter: blur(15px) !important;
+
   cursor: pointer;
   
 
@@ -152,7 +153,9 @@
   transition: all 0.3s ease;
   flex-direction: column;
   position: relative;
-  
+  background: var(--border-color);
+  backdrop-filter: blur(1px) !important;
+  -webkit-backdrop-filter: blur(1px) !important;
 
 
 }

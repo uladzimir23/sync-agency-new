@@ -62,6 +62,23 @@
   transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
   backdrop-filter: blur(1px) saturate(280%);
   -webkit-backdrop-filter: blur(1px) saturate(280%);   
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(86, 156, 254, 0.075),
+      transparent
+    );
+    transition: left 0.5s ease;
+  }
+
   
   &:first-child {
     border-top: 1px solid var(--border-color);
@@ -74,6 +91,11 @@
     backdrop-filter: blur(3px) saturate(280%);
     -webkit-backdrop-filter: blur(3px) saturate(280%);   
     scale: 1.007;
+
+    &::before {
+      left: 100%;
+    }
+
     .header {
       &:hover {
         //background: var(--bg-secondary);
@@ -81,10 +103,10 @@
     }
     
     .icon {
-      background: var(--bg-secondary);
-      box-shadow: var(--box-shadow-primary);
+      //background: var(--bg-secondary);
+      // box-shadow: var(--box-shadow-primary);
       border-color: var(--border-color-accent);
-      box-shadow: 0px 0px 5px var(--border-color-accent);
+      box-shadow: 0px 0px 5px var(--border-color-accent),var(--box-shadow-primary);
       transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       
       &::before {
@@ -209,7 +231,7 @@
   flex-shrink: 0;
   position: relative;
   background: transparent;
-  backdrop-filter: blur(20px);
+
   transition: all 0.3s ease;
 
   &::before {
@@ -224,25 +246,6 @@
     opacity: 0.3;
     transition: all 0.3s ease;
   }
-  
-  // &::before {
-  //   content: '';
-  //   position: absolute;
-  //   inset: -1px;
-  //   border-radius: 100%;
-  //   padding: 1px;
-  //   background: linear-gradient(
-  //     135deg,
-  //     var(--primary-color) 0%,
-  //     var(--border-color-accent) 50%,
-  //     var(--text-secondary) 100%
-  //   );
-  //   mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  //   mask-composite: exclude;
-  //   opacity: 0;
-  //   transition: all 0.3s ease;
-  //   border-radius: 50%;
-  // }
   
   svg {
     width: 1.5rem;

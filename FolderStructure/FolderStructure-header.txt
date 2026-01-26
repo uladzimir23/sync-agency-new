@@ -1,0 +1,1870 @@
+АНАЛИЗ ПАПКИ: /Users/vladimirmazyrec/sync-agency-new/src/widgets/header
+Python версия: 3.12.4
+================================================================================
+
+СТРУКТУРА ПАПОК (полные пути):
+--------------------------------------------------------------------------------
+
+header
+    ├── components
+    │   ├── components/desktop
+    │   │   ├── components/desktop/header-desktop.module.scss
+    │   │   └── components/desktop/HeaderDesktop.tsx
+    │   ├── components/mobile
+    │   │   ├── components/mobile/header-mobile.module.scss
+    │   │   ├── components/mobile/HeaderMobile.tsx
+    │   │   ├── components/mobile/mobile-menu-item.tsx
+    │   │   ├── components/mobile/mobile-menu.mobile.module.scss
+    │   │   ├── components/mobile/MobileMenu.tsx
+    │   │   └── components/mobile/MobileMenuContent.tsx
+    │   └── components/tablet
+    │       ├── components/tablet/header-tablet.module.scss
+    │       ├── components/tablet/HeaderTablet.tsx
+    │       └── components/tablet/mobile-menu.tablet.module.scss
+    ├── header.module.scss
+    ├── header.tsx
+    ├── header.types.ts
+    └── index.ts
+
+
+================================================================================
+СОДЕРЖИМОЕ ФАЙЛОВ:
+================================================================================
+
+АБСОЛЮТНЫЙ ПУТЬ: /Users/vladimirmazyrec/sync-agency-new/src/widgets/header/components/desktop/header-desktop.module.scss
+название файла: header/components/desktop/header-desktop.module.scss
+
+СОДЕРЖИМОЕ ФАЙЛА:
+----------------------------------------
+@use '@app/styles/abstracts' as vars;
+
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: transparent;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0;
+  border-radius: 24px;
+  position: fixed;
+  width: calc(100% - 20px);
+  top: 10px;
+  left: 10px;
+  right: 10px;
+  z-index: 1000;
+  overflow: hidden;
+  min-height: 60px;
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  box-shadow: inset 0px 0px 7px var(--border-color-accent);
+  //overflow-x: hidden;
+  transition: scale 0.2s ease;
+
+
+
+
+  
+
+  &::before {
+    content: '';
+    position: absolute;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(86, 156, 254, 0.1),
+      transparent
+    );
+    transition: left 1.2s ease;
+  }
+  
+  &:hover {
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    box-shadow: var(--box-shadow-primary), inset 0px 0px 5px var(--border-color-accent);
+    background: var(--background-primary-yellow);
+    transition: scale 0.2s ease;
+    scale: 1.002;
+    &::before {
+      left: 100%;
+    }
+  }
+}
+
+.blur {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backdrop-filter: blur(7px) saturate(200%);
+  -webkit-backdrop-filter: blur(7px) saturate(200%);
+
+  top: 0;
+  z-index: -1;
+  border-radius: 24px;
+  transition: backdrop-filter 0.3s ease;
+  //box-shadow: var(--box-shadow-primary), inset 0px 0px 1px var(--border-color-accent);
+  
+
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px !important;
+  padding: vars.spacing(3) vars.spacing(3);
+  gap: vars.spacing(8);
+  transition: padding 0.3s ease;
+  min-height: 60px;
+  
+}
+
+.logo {
+  margin-left: 10px;
+  flex-shrink: 0;
+  cursor: pointer;
+}
+
+.logoPlaceholder {
+  display: flex;
+  align-items: center;
+  font-size: vars.text-size(lg);
+  font-weight: 800;
+
+  //color: var(--primary-color);
+  padding: vars.spacing(0) vars.spacing(4);
+  border-radius: var(--colabsys-radius);
+  background: transparent;
+  border: 0px solid var(--border-color-accent);
+  text-decoration: none ;
+
+  
+  &:hover {
+    h3 {
+      font-weight: 800;
+
+      //background: linear-gradient(45deg, #ff9b3e, #e773f4, #43e8f4);
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: gradientShift 3s ease infinite;
+      transition: all 0.3s ease !important;
+    }
+  }
+
+  h3 {
+    font-weight: 800;
+    letter-spacing: 1px;
+
+    background: linear-gradient(135deg, var(--primary-color), #ffffff);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: gradientShift 3s ease infinite;
+    transition: all 0.3s ease !important;
+    
+  }
+}
+
+.nav {
+  display: flex;
+
+  :global(.colabsys-btn-stack-item) {
+    backdrop-filter: blur(1px);
+    padding: 0.5rem 1rem;
+  }
+}
+
+.actions {
+  margin-right: 20px;
+  flex-shrink: 0;
+  border: none;
+}
+
+.actionItems {
+  border: none;
+  display: flex;
+  align-items: center;
+  gap: vars.spacing(2);
+}
+
+// Адаптивные стили для desktop
+@media (max-width: vars.breakpoint(lg)) {
+  .container {
+    gap: vars.spacing(4);
+  }
+}
+
+@media (max-width: vars.breakpoint(md)) {
+  .header {
+    display: none; // Скрываем desktop header на мобильных устройствах
+  }
+}
+
+________________________________________________________________________________
+
+АБСОЛЮТНЫЙ ПУТЬ: /Users/vladimirmazyrec/sync-agency-new/src/widgets/header/components/desktop/HeaderDesktop.tsx
+название файла: header/components/desktop/HeaderDesktop.tsx
+
+СОДЕРЖИМОЕ ФАЙЛА:
+----------------------------------------
+import React from 'react'
+import { Link } from 'react-router-dom'
+import { cn } from '@/shared/utils/utils'
+import { ButtonStack, ButtonStackItem } from '@/shared/ui/button-stack'
+import { Button } from '@/shared/ui/button'
+import { ThemeToggle } from '@/shared/theme/ThemeToggle'
+import { LanguageSwitcher } from '@/shared/localization'
+import { HeaderDeviceProps } from '../../header.types'
+import styles from './header-desktop.module.scss'
+import { ROUTES } from '@/shared/constants/routes'
+
+export const HeaderDesktop: React.FC<HeaderDeviceProps> = ({
+  className,
+  activeIndex,
+  onServiceChange,
+  services
+}) => {
+  const handleServiceClick = (index: number) => {
+    onServiceChange(index)
+  }
+
+  return (
+    <header className={cn(styles.header, className, 'uc-global-container')}>
+      <div className={styles.container}>
+        {/* Логотип */}
+        <div className={styles.logo}>
+          <Link to={ROUTES.HOME} className={styles.logoPlaceholder}>
+            <h3>SYNC</h3>
+          </Link>
+        </div>
+
+        {/* Навигация */}
+        <div className={styles.nav}>
+          <ButtonStack
+            activeIndex={activeIndex}
+            onActiveChange={handleServiceClick}
+            interactionMode="click"
+            enableActiveSlider={true}
+            spacing={8}
+          >
+            {services.map((service) => (
+              <ButtonStackItem key={service.path}>
+                {service.name}
+              </ButtonStackItem>
+            ))}
+          </ButtonStack>
+        </div>
+
+        {/* Дополнительные элементы */}
+        <div className={styles.actions}>
+          <div className={styles.actionItems}>
+            <Button variant="outline">Discuss</Button>
+            {/* <LanguageSwitcher /> */}
+            <ThemeToggle />
+          </div>
+        </div>
+      </div>
+      
+      {/* Blur эффект */}
+      <div className={styles.blur}></div>
+    </header>
+  )
+}
+
+________________________________________________________________________________
+
+АБСОЛЮТНЫЙ ПУТЬ: /Users/vladimirmazyrec/sync-agency-new/src/widgets/header/components/mobile/header-mobile.module.scss
+название файла: header/components/mobile/header-mobile.module.scss
+
+СОДЕРЖИМОЕ ФАЙЛА:
+----------------------------------------
+@use '@app/styles/abstracts' as vars;
+
+.header {
+  //z-index: 50;
+  //background: var(--background-primary-yellow-test);
+  //background: #e12525;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0;
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  border-radius: 25px;
+  position: fixed;
+  width: calc(100% - 1rem);
+  top: 0.5rem;
+  left: 0.5rem;
+  right: 0.5rem;
+  z-index: 1000;
+  overflow: hidden !important;
+  min-height: 60px;
+  //background: transparent;
+
+
+
+  // Стиль для расширенного состояния (когда меню открыто)
+  &.headerExpanded {
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 60px;
+    //background: var(--background-primary-yellow-test);
+    //background: #e12525;
+    //background: transparent;
+    //background: transparent;
+
+    border-radius: 30px;
+
+    .blur {
+      //background: transparent;
+      background: var(--background-primary-yellow);
+      //background: var(--background-primary-yellow);
+
+      backdrop-filter: blur(10px);
+      border-radius: 30px;
+      -webkit-backdrop-filter: blur(10px);
+
+
+    }
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    left: -100%;
+    width: calc(100% - 1rem);
+    height: 100%;
+
+
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(86, 156, 254, 0.1),
+      transparent
+    );
+    transition: left 1.2s ease;
+  }
+  
+  &:hover {
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    box-shadow: var(--box-shadow-primary), inset 0px 0px 5px var(--border-color-accent);
+    //background: var(--background-primary-yellow-test);
+    //background: transparent;
+
+    &::before {
+      left: 100%;
+    }
+  }
+}
+
+.blur {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backdrop-filter: blur(7px) saturate(200%);
+  -webkit-backdrop-filter: blur(7px) saturate(200%);
+  //background: transparent;
+  top: 0;
+  z-index: -1;
+  border-radius: 25px;
+  transition: backdrop-filter 0.3s ease;
+  //box-shadow: var(--box-shadow-primary), inset 0px 0px 1px var(--border-color-accent);
+
+  background: var(--background-primary-yellow);
+
+
+  .header:hover & {
+    //box-shadow: var(--box-shadow-primary);
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px !important;
+  padding: vars.spacing(4) vars.spacing(4);
+  transition: padding 0.3s ease;
+  min-height: 60px;
+  //background: var(--background-primary-yellow);
+  border-radius: 25px;
+
+
+}
+
+.logo {
+  margin-left: 5px;
+  flex-shrink: 0;
+  cursor: pointer;
+  
+}
+
+.logoPlaceholder {
+  display: flex;
+  align-items: center;
+  //font-family: 'TASA Orbiter';
+  font-weight: 700;
+  font-size: vars.text-size(lg);
+  color: var(--primary-color);
+  padding: vars.spacing(2) vars.spacing(4);
+  border-radius: var(--colabsys-radius);
+  background: transparent;
+  border: 0px solid var(--border-color-accent);
+  text-decoration: none ;
+
+
+  h3 {
+    background: linear-gradient(135deg, var(--primary-color), #ffffff);
+    font-weight: 700;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: -1px;
+  }
+}
+
+.actionsSection {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-right: 3px;
+}
+
+.themeToggle {
+  display: flex;
+  align-items: center;
+
+  
+  // Стили для переключателя темы в мобильной версии
+  :global(.theme-toggle) {
+    transform: scale(0.9);
+  }
+}
+
+.mobileToggle {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;  
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 8px;
+  border: none;
+  transition: all 0.3s ease;
+  position: relative;
+  width: 40px;
+  height: 40px;
+  -webkit-tap-highlight-color: transparent;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+
+  border-radius: 40%;
+  box-shadow: var(--box-shadow-primary), inset 0px 0px 1px var(--border-color-accent);
+  -webkit-tap-highlight-color: transparent; // Убирает синюю подсветку
+  -webkit-user-select: none; // Предотвращает выделение текста
+  user-select: none;
+  color: var(--text-primary);
+
+
+
+  &:before {
+    content: "";
+    position: absolute;
+    inset: 0px;
+    border-radius: 40%;
+
+    padding: 1px;
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--border-color-accent) 50%, var(--text-secondary) 100%);
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask-composite: exclude;
+    opacity: 0;
+    transition: all 0.3s ease;
+  }
+
+  &:active, &:focus {
+    outline: none; // Убирает outline при фокусе
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  &:hover {
+    //background: var(--accent-color);
+    transform: translateY(0px);
+    box-shadow: 
+      0 4px 12px rgba(0, 0, 0, 0.15),
+      inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+
+    
+    &::before {
+      opacity: 1;
+      transform: scale(0.98);
+      border-radius: 50%;
+
+    }
+}
+    
+}
+
+.menuIcon {
+  transition: all 0.3s ease;
+  opacity: 1;
+  transform: rotate(90deg);
+  
+  &.menuIconHidden {
+    opacity: 0;
+    transform: rotate(90deg) scale(0.3);
+  }
+}
+
+.closeIcon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.3);
+  opacity: 0;
+  transition: all 0.3s ease;
+  
+  &.closeIconVisible {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+// Скрываем на больших экранах
+@media (min-width: vars.breakpoint(md)) {
+  .header {
+    display: none;
+  }
+}
+
+// Адаптивность для очень маленьких экранов
+@media (max-width: vars.breakpoint(sm)) {
+  .logoPlaceholder {
+    font-size: 1rem;
+    padding: vars.spacing(1) vars.spacing(2);
+  }
+  
+  .actionsSection {
+    gap: 7px;
+  }
+  
+  .container {
+    padding: vars.spacing(2) vars.spacing(2);
+  }
+}
+
+________________________________________________________________________________
+
+АБСОЛЮТНЫЙ ПУТЬ: /Users/vladimirmazyrec/sync-agency-new/src/widgets/header/components/mobile/HeaderMobile.tsx
+название файла: header/components/mobile/HeaderMobile.tsx
+
+СОДЕРЖИМОЕ ФАЙЛА:
+----------------------------------------
+import React from 'react'
+import { Link } from 'react-router-dom'
+import { cn } from '@/shared/utils/utils'
+import { Button } from '@/shared/ui/button'
+import { ThemeToggle } from '@/shared/theme/ThemeToggle'
+import { MobileMenu } from './MobileMenu'
+import { MobileMenuContent } from './MobileMenuContent'
+import { HeaderDeviceProps } from '../../header.types'
+import styles from './header-mobile.module.scss'
+import { FaArrowRightArrowLeft } from 'react-icons/fa6'
+import { IoClose } from 'react-icons/io5'
+import { ROUTES } from '@/shared/constants/routes'
+
+export const HeaderMobile: React.FC<HeaderDeviceProps> = ({
+  className,
+  isMobileMenuOpen,
+  onMobileMenuToggle,
+  onMobileMenuClose,
+  activeIndex,
+  onServiceChange,
+  services
+}) => {
+  return (
+    <header className={cn(
+      styles.header, 
+      className, 
+      
+      { 
+        [styles.headerExpanded]: isMobileMenuOpen
+      }
+    )}>
+      <div className={styles.container}>
+        {/* Логотип */}
+        <div className={styles.logo}>
+          <Link to={ROUTES.HOME} className={styles.logoPlaceholder}>
+            <h3>SYNC</h3>
+          </Link>
+        </div>
+
+        {/* Правый блок с действиями */}
+        <div className={styles.actionsSection}>
+          {/* Переключатель темы */}
+
+          {/* Кнопка Discuss */}
+          <Button 
+            variant="outline" 
+            size="md"
+            className={styles.discussBtn}
+          >
+            Discuss
+          </Button>
+          <div className={styles.themeToggle}>
+            <ThemeToggle />
+          </div>
+
+
+          {/* Кнопка меню */}
+          <button 
+            className={styles.mobileToggle}
+            onClick={onMobileMenuToggle}
+            aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
+          >
+            <FaArrowRightArrowLeft 
+              className={cn(styles.menuIcon, { [styles.menuIconHidden]: isMobileMenuOpen })}
+              size={18}
+            />
+            <IoClose 
+              className={cn(styles.closeIcon, { [styles.closeIconVisible]: isMobileMenuOpen })}
+              size={24}
+            />
+          </button>
+        </div>
+      </div>
+      
+      {/* Blur эффект */}
+      <div className={styles.blur}></div>
+
+      {/* Mobile Menu */}
+      <MobileMenu
+        isOpen={isMobileMenuOpen}
+        onClose={onMobileMenuClose}
+        services={services}
+        activeIndex={activeIndex}
+        onServiceChange={onServiceChange}
+        variant="mobile"
+      />
+
+      <MobileMenuContent
+        isOpen={isMobileMenuOpen}
+        services={services}
+        activeIndex={activeIndex}
+        onServiceChange={onServiceChange}
+        variant="mobile"
+      />
+    </header>
+  )
+}
+
+________________________________________________________________________________
+
+АБСОЛЮТНЫЙ ПУТЬ: /Users/vladimirmazyrec/sync-agency-new/src/widgets/header/components/mobile/mobile-menu-item.tsx
+название файла: header/components/mobile/mobile-menu-item.tsx
+
+СОДЕРЖИМОЕ ФАЙЛА:
+----------------------------------------
+import React from 'react'
+import { cn } from '@/shared/utils/utils'
+import { Service } from '../../header.types'
+// Исправленные импорты
+import mobileStyles from './mobile-menu.mobile.module.scss'
+import tabletStyles from '../tablet/mobile-menu.tablet.module.scss'
+
+interface MobileMenuItemProps {
+  service: Service
+  isActive: boolean
+  onClick: () => void
+  index: number
+  isOpen: boolean
+  totalItems: number
+  variant?: 'mobile' | 'tablet'
+}
+
+export const MobileMenuItem: React.FC<MobileMenuItemProps> = ({
+  service,
+  isActive,
+  onClick,
+  index,
+  isOpen,
+  totalItems,
+  variant = 'mobile'
+}) => {
+  const styles = variant === 'tablet' ? tabletStyles : mobileStyles
+
+  const getDelay = () => {
+    if (isOpen) {
+      return `${index * 60}ms`
+    } else {
+      return `${(totalItems - 1 - index) * 60}ms`
+    }
+  }
+
+  return (
+    <button
+      className={cn(styles.item, {
+        [styles.itemActive]: isActive,
+        [styles.itemVisible]: isOpen,
+        [styles.itemHidden]: !isOpen
+      })}
+      onClick={onClick}
+      style={{ 
+        transitionDelay: getDelay()
+      }}
+    >
+      {service.name}
+    </button>
+  )
+}
+
+________________________________________________________________________________
+
+АБСОЛЮТНЫЙ ПУТЬ: /Users/vladimirmazyrec/sync-agency-new/src/widgets/header/components/mobile/mobile-menu.mobile.module.scss
+название файла: header/components/mobile/mobile-menu.mobile.module.scss
+
+СОДЕРЖИМОЕ ФАЙЛА:
+----------------------------------------
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  backdrop-filter: blur(2px) saturate(150%);
+  background-color: var(--background-primary-yellow);
+  //background-color: var(--background-primary-yellow);
+  -webkit-backdrop-filter: blur(2px) saturate(150%);
+
+
+  opacity: 0;
+  visibility: hidden;
+  z-index: -2;
+  pointer-events: none;
+  transition: all 0.3s ease;
+
+  &.overlayVisible {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    z-index: -2;
+  }
+  
+  &.overlayHidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: all 0.25s ease 0.1s; // Небольшая задержка для закрытия
+  }
+}
+
+.menu {
+  position: relative;
+  width: 100%;
+  background: transparent;
+  display: block;
+  transform-origin: top center;
+  z-index: 1;
+  
+  // Анимация высоты меню
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease;
+  
+  &.menuVisible {
+    max-height: 500px;
+    transition: max-height 0.4s ease;
+  }
+  
+  &.menuHidden {
+    max-height: 0;
+    transition: max-height 0.35s ease 0; // Задержка чтобы дождаться анимации элементов
+  }
+}
+
+.nav {
+  padding: 20px 25px;
+  display: flex;
+  flex-direction: column;
+  // backdrop-filter: blur(20px);
+  // -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(50px) saturate(150%);
+  -webkit-backdrop-filter: blur(50px) saturate(150%);
+  border-radius: 25px;
+  margin: 5px;
+  //background: var(--background-primary-yellow);
+  box-shadow: var(--box-shadow-primary);
+  transform-origin: top center;
+  
+  // Анимация для навигации
+  transition: all 0.3s ease;
+  
+  &.navHidden {
+    transform: scaleY(0.8);
+    opacity: 0;
+    transition: all 0.25s ease; // Быстрее при закрытии
+  }
+  
+  &.navVisible {
+    transform: scaleY(1);
+    opacity: 1;
+    transition: all 0.3s ease 0s; // Задержка при открытии
+  }
+}
+
+.item {
+  padding: 0.5rem 0.5rem;
+  background: none;
+  border: none;
+  text-align: left;
+  font-size: 1.2rem;
+  color: var(--text-primary);
+  border-radius: 8px;
+  cursor: pointer;
+  scale: 1;
+  transition-delay: color 0ms !important;
+  
+  // Анимация для элементов
+  transition: all 0.25s ease;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-user-select: none;
+  user-select: none;
+  touch-action: manipulation; // Оптимизация для тач-устройств
+  
+  &:active, &:focus {
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+  
+  &.itemHidden {
+    opacity: 0;
+    transform: translateY(-5px) scale(0.8);
+    // transition-delay устанавливается через style
+  }
+  
+  &.itemVisible {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    // transition-delay устанавливается через style
+
+  }
+
+  &:hover {
+    transition: all 0.25s ease;
+    color: var(--primary-color);
+    scale: 1.01;
+  }
+
+  &.itemActive {
+    color: var(--primary-color);
+    scale: 1.01;
+  }
+}
+
+________________________________________________________________________________
+
+АБСОЛЮТНЫЙ ПУТЬ: /Users/vladimirmazyrec/sync-agency-new/src/widgets/header/components/mobile/MobileMenu.tsx
+название файла: header/components/mobile/MobileMenu.tsx
+
+СОДЕРЖИМОЕ ФАЙЛА:
+----------------------------------------
+import React from 'react'
+import { cn } from '@/shared/utils/utils'
+import { MobileMenuProps } from '../../header.types' // Исправленный путь
+import mobileStyles from './mobile-menu.mobile.module.scss'
+import tabletStyles from '../tablet/mobile-menu.tablet.module.scss'
+
+export const MobileMenu: React.FC<MobileMenuProps> = ({
+  isOpen,
+  onClose,
+  variant = 'mobile'
+}) => {
+  const styles = variant === 'tablet' ? tabletStyles : mobileStyles
+
+  return (
+    <div 
+      className={cn(styles.overlay, { 
+        [styles.overlayVisible]: isOpen,
+        [styles.overlayHidden]: !isOpen
+      })}
+      onClick={onClose}
+    />
+  )
+}
+
+________________________________________________________________________________
+
+АБСОЛЮТНЫЙ ПУТЬ: /Users/vladimirmazyrec/sync-agency-new/src/widgets/header/components/mobile/MobileMenuContent.tsx
+название файла: header/components/mobile/MobileMenuContent.tsx
+
+СОДЕРЖИМОЕ ФАЙЛА:
+----------------------------------------
+import React from 'react'
+import { cn } from '@/shared/utils/utils'
+import { MobileMenuContentProps } from '../../header.types' // Исправленный путь
+import { MobileMenuItem } from './mobile-menu-item' // Исправленный путь
+import mobileStyles from './mobile-menu.mobile.module.scss'
+import tabletStyles from '../tablet/mobile-menu.tablet.module.scss'
+
+export const MobileMenuContent: React.FC<MobileMenuContentProps> = ({
+  services,
+  activeIndex,
+  onServiceChange,
+  isOpen,
+  variant = 'mobile'
+}) => {
+  const styles = variant === 'tablet' ? tabletStyles : mobileStyles
+
+  const handleServiceClick = (index: number) => {
+    onServiceChange(index)
+  }
+
+  return (
+    <div className={cn(styles.menu, {
+      [styles.menuVisible]: isOpen,
+      [styles.menuHidden]: !isOpen
+    })}>
+      <nav className={cn(styles.nav, {
+        [styles.navVisible]: isOpen,
+        [styles.navHidden]: !isOpen
+      })}>
+        {services.map((service, index) => (
+          <MobileMenuItem
+            key={service.path}
+            service={service}
+            isActive={index === activeIndex}
+            onClick={() => handleServiceClick(index)}
+            index={index}
+            isOpen={isOpen}
+            totalItems={services.length}
+            variant={variant}
+          />
+        ))}
+      </nav>
+    </div>
+  )
+}
+
+________________________________________________________________________________
+
+АБСОЛЮТНЫЙ ПУТЬ: /Users/vladimirmazyrec/sync-agency-new/src/widgets/header/components/tablet/header-tablet.module.scss
+название файла: header/components/tablet/header-tablet.module.scss
+
+СОДЕРЖИМОЕ ФАЙЛА:
+----------------------------------------
+@use '@app/styles/abstracts' as vars;
+
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: transparent;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0;
+  border-radius: 24px;
+  position: fixed;
+  width: calc(100% - 20px);
+  top: 10px;
+  left: 10px;
+  right: 10px;
+  z-index: 1000;
+  overflow-y: visible;
+
+  min-height: 60px;
+  box-shadow: inset 0px 0px 7px var(--border-color-accent);
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+
+
+  &::before {
+    content: '';
+    position: absolute;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(86, 156, 254, 0.1),
+      transparent
+    );
+    transition: left 1.2s ease;
+  }
+  
+  &:hover {
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    box-shadow: var(--box-shadow-primary), inset 0px 0px 5px var(--border-color-accent);
+    background: var(--background-primary-yellow);
+
+    &::before {
+      left: 100%;
+    }
+  }
+}
+
+.blur {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  top: 0;
+  z-index: -1;
+  border-radius: 24px;
+  transition: backdrop-filter 0.3s ease;
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px !important;
+  padding: vars.spacing(3) vars.spacing(3);
+  transition: padding 0.3s ease;
+  min-height: 60px;
+}
+
+.logo {
+  margin-left: 10px;
+  flex-shrink: 0;
+  cursor: pointer;
+}
+
+.logoPlaceholder {
+  display: flex;
+  align-items: center;
+  //font-family: 'TASA Orbiter';
+  font-weight: 700;
+  font-size: vars.text-size(lg);
+  color: var(--primary-color);
+  padding: vars.spacing(2) vars.spacing(4);
+  border-radius: var(--colabsys-radius);
+  background: transparent;
+  border: 0px solid var(--border-color-accent);
+  text-decoration: none ;
+
+
+  h3 {
+    background: linear-gradient(135deg, var(--primary-color), #ffffff);
+    font-weight: 700;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: -1px;
+  }
+}
+
+/* Правый блок с действиями (аналогично мобильной версии) */
+.actionsSection {
+  display: flex;
+  align-items: center;
+  gap: vars.spacing(2);
+  margin-right: 10px;
+}
+
+.themeToggle {
+  display: flex;
+  align-items: center;
+  
+  // Стили для переключателя темы
+  :global(.theme-toggle) {
+    transform: scale(0.9);
+  }
+}
+
+.discussBtn {
+  // Стили для кнопки Discuss
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+}
+
+/* Анимированная кнопка меню как в мобильной версии */
+.mobileToggle {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 8px;
+  border: none;
+  transition: all 0.3s ease;
+  position: relative;
+  width: 40px;
+  height: 40px;
+  -webkit-tap-highlight-color: transparent;
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+  border-radius: 40%;
+  box-shadow: var(--box-shadow-primary), inset 0px 0px 1px var(--border-color-accent);
+  -webkit-tap-highlight-color: transparent; // Убирает синюю подсветку
+  -webkit-user-select: none; // Предотвращает выделение текста
+  user-select: none;
+  
+  &:active, &:focus {
+    outline: none; // Убирает outline при фокусе
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  &:before {
+    content: "";
+    position: absolute;
+    inset: 0px;
+    border-radius: 40%;
+    padding: 1px;
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--border-color-accent) 50%, var(--text-secondary) 100%);
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask-composite: exclude;
+    opacity: 0;
+    transition: all 0.3s ease;
+  }
+
+  &:hover {
+    background: var(--accent-color);
+    transform: translateY(0px);
+    box-shadow: 
+      0 4px 12px rgba(0, 0, 0, 0.15),
+      inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    
+    &::before {
+      opacity: 1;
+      transform: scale(0.98);
+      border-radius: 50%;
+    }
+  }
+}
+
+.menuIcon {
+  transition: all 0.3s ease;
+  opacity: 1;
+  transform: rotate(90deg);
+  
+  &.menuIconHidden {
+    opacity: 0;
+    transform: rotate(90deg) scale(0.3);
+  }
+}
+
+.closeIcon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.3);
+  opacity: 0;
+  transition: all 0.3s ease;
+  
+  &.closeIconVisible {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+/* Убираем старые стили навигации */
+.navSection,
+.nav {
+  display: none;
+}
+
+.actions {
+  display: none;
+}
+
+.actionItems {
+  display: none;
+}
+
+
+
+
+________________________________________________________________________________
+
+АБСОЛЮТНЫЙ ПУТЬ: /Users/vladimirmazyrec/sync-agency-new/src/widgets/header/components/tablet/HeaderTablet.tsx
+название файла: header/components/tablet/HeaderTablet.tsx
+
+СОДЕРЖИМОЕ ФАЙЛА:
+----------------------------------------
+import React from 'react'
+import { Link } from 'react-router-dom'
+import { cn } from '@/shared/utils/utils'
+import { Button } from '@/shared/ui/button'
+import { ThemeToggle } from '@/shared/theme/ThemeToggle'
+import { MobileMenu } from '../mobile/MobileMenu'
+import { MobileMenuContent } from '../mobile/MobileMenuContent'
+import { HeaderDeviceProps } from '../../header.types'
+import styles from './header-tablet.module.scss'
+import { FaArrowRightArrowLeft } from 'react-icons/fa6'
+import { IoClose } from 'react-icons/io5'
+import { ROUTES } from '@/shared/constants/routes'
+
+export const HeaderTablet: React.FC<HeaderDeviceProps> = ({
+  className,
+  isMobileMenuOpen,
+  onMobileMenuToggle,
+  onMobileMenuClose,
+  activeIndex,
+  onServiceChange,
+  services
+}) => {
+  return (
+    <header className={cn(styles.header, className, 'uc-global-container')}>
+      <div className={styles.container}>
+        {/* Логотип */}
+        <div className={styles.logo}>
+          <Link to={ROUTES.HOME} className={styles.logoPlaceholder}>
+            <h3>SYNC</h3>
+          </Link>
+        </div>
+
+        {/* Правый блок с действиями (аналогично мобильной версии) */}
+        <div className={styles.actionsSection}>
+          {/* Кнопка Discuss */}
+          <Button 
+            variant="outline" 
+            size="md"
+            className={styles.discussBtn}
+          >
+            Discuss
+          </Button>
+
+          {/* Переключатель темы */}
+          <div className={styles.themeToggle}>
+            <ThemeToggle />
+          </div>
+
+          {/* Кнопка меню с анимацией как в мобильной версии */}
+          <button 
+            className={styles.mobileToggle}
+            onClick={onMobileMenuToggle}
+            aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
+          >
+            <FaArrowRightArrowLeft 
+              className={cn(styles.menuIcon, { [styles.menuIconHidden]: isMobileMenuOpen })}
+              size={18}
+            />
+            <IoClose 
+              className={cn(styles.closeIcon, { [styles.closeIconVisible]: isMobileMenuOpen })}
+              size={24}
+            />
+          </button>
+        </div>
+      </div>
+      
+      {/* Blur эффект */}
+      <div className={styles.blur}></div>
+
+      {/* Mobile Menu для tablet */}
+      <MobileMenu
+        isOpen={isMobileMenuOpen}
+        onClose={onMobileMenuClose}
+        services={services}
+        activeIndex={activeIndex}
+        onServiceChange={onServiceChange}
+        variant="tablet"
+      />
+
+      <MobileMenuContent
+        isOpen={isMobileMenuOpen}
+        services={services}
+        activeIndex={activeIndex}
+        onServiceChange={onServiceChange}
+        variant="tablet"
+      />
+    </header>
+  )
+}
+
+________________________________________________________________________________
+
+АБСОЛЮТНЫЙ ПУТЬ: /Users/vladimirmazyrec/sync-agency-new/src/widgets/header/components/tablet/mobile-menu.tablet.module.scss
+название файла: header/components/tablet/mobile-menu.tablet.module.scss
+
+СОДЕРЖИМОЕ ФАЙЛА:
+----------------------------------------
+@use '@app/styles/abstracts' as vars;
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--background-primary-yellow);
+  backdrop-filter: blur(2px);
+  opacity: 0;
+  visibility: hidden;
+  z-index: -3;
+  pointer-events: none;
+  transition: all 0.3s ease;
+  
+  &.overlayVisible {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+  }
+  
+  &.overlayHidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: all 0.25s ease 0.1s;
+  }
+}
+
+.menu {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  width: auto;
+  max-width: fit-content;
+  //background: var(--background-primary-yellow);
+  transform-origin: top right;
+  z-index: 1001;
+  border-radius: 2.1rem;
+  backdrop-filter: blur(2rem);
+  -webkit-backdrop-filter: blur(2rem);
+  //box-shadow: var(--box-shadow-primary);
+  
+  // Независимая анимация без влияния на высоту хедера
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease;
+  
+  &.menuVisible {
+    max-height: 100vh;
+    transition: max-height 0.4s ease;
+
+  }
+  
+  &.menuHidden {
+    max-height: 0;
+    transition: max-height 0.35s ease;
+  }
+}
+
+.nav {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  backdrop-filter: blur(15px);
+  border-radius: 2rem;
+  margin: 5px;
+  //background: var(--background-primary-yellow);
+  box-shadow: var(--box-shadow-primary);
+  transform-origin: top right;
+  gap: 0.25rem;
+  transition: all 0.3s ease;
+  //box-shadow: var(--box-shadow-primary);
+
+
+  
+  &.navHidden {
+    transform: scale(0.8);
+    opacity: 0;
+    transition: all 0.25s ease;
+  }
+  
+  &.navVisible {
+    transform: scale(1);
+    opacity: 1;
+    transition: all 0.3s ease 0.05s;
+  }
+}
+
+.item {
+  padding: 1rem 1.5rem;
+  background: none;
+  border: none;
+  text-align: left;
+  font-size: 1.4rem;
+  color: var(--text-primary);
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-user-select: none;
+  user-select: none;
+  touch-action: manipulation; // Оптимизация для тач-устройств
+  transition: all 0.3s ease !important;
+  scale: 1;
+
+
+  &:active, &:focus {
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+  
+  &.itemHidden {
+    opacity: 0;
+    transform: translateX(10px);
+  }
+  
+  &.itemVisible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  &:hover {
+    color: var(--primary-color);
+    //background: var(--bg-secondary);
+    box-shadow: inset 0px 0px 7px var(--border-color-accent);
+    transition: all 0.3s ease !important;
+    scale: 0.995;
+    border-radius: 1.5rem;
+
+
+  }
+
+  &.itemActive {
+    color: var(--primary-color);
+    font-weight: 550;
+    box-shadow: inset 0px 0px 7px var(--border-color-accent);
+    background: var(--background-primary-yellow);
+    scale: 1.005;
+    border-radius: 1.5rem;
+
+
+  }
+}
+
+________________________________________________________________________________
+
+АБСОЛЮТНЫЙ ПУТЬ: /Users/vladimirmazyrec/sync-agency-new/src/widgets/header/header.module.scss
+название файла: header/header.module.scss
+
+СОДЕРЖИМОЕ ФАЙЛА:
+----------------------------------------
+@use '@app/styles/abstracts' as vars;
+
+.header {
+  //position: sticky;
+  //top: 0;
+  z-index: 50;
+  //background: transparent;
+  background: var(--background-primary-yellow);
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0;
+  //box-shadow: inset 0px 0px 5px var(--border-color-accent);
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  border-radius: 25px;
+  position: fixed;
+  width: calc(100% - 20px);
+  top: 10px;
+  left: 10px;
+  right: 10px;
+  z-index: 1000;
+  overflow: hidden; // Меняем на visible чтобы контент меню был виден
+  min-height: 60px;
+  box-shadow: var(--box-shadow-primary);
+
+
+
+
+  // Стиль для расширенного состояния (когда меню открыто)
+  &.headerExpanded {
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 60px; // увеличиваем высоту при открытом меню
+    background: var(--background-primary-yellow);
+    border-radius: 30px;
+
+    
+    .blur {
+      backdrop-filter: blur(10px);
+      box-shadow: var(--box-shadow-primary);
+      border-radius: 30px;
+      background: var(--background-primary-yellow);
+
+
+    }
+
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(86, 156, 254, 0.1),
+      transparent
+    );
+    transition: left 1.2s ease;
+  }
+  
+  &:hover {
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    box-shadow: var(--box-shadow-primary), inset 0px 0px 5px var(--border-color-accent);
+    background: var(--background-primary-yellow);
+
+    &::before {
+      left: 100%;
+    }
+  }
+}
+
+.blur {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backdrop-filter: blur(10px);
+  top: 0;
+  z-index: -1;
+  border-radius: 24px;
+  transition: backdrop-filter 0.3s ease;
+  box-shadow: var(--box-shadow-primary);
+
+
+  .header:hover & {
+    box-shadow: var(--box-shadow-primary);
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  //flex-direction: column;
+  justify-content: center;
+  gap: 10px !important;
+  justify-content: space-between;
+  padding: vars.spacing(3) vars.spacing(3);
+  gap: vars.spacing(8);
+  transition: padding 0.3s ease;
+  min-height: 60px;
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+
+  .actionsWrapper {
+    display: flex;
+  }
+
+
+
+  @media (max-width: vars.breakpoint(lg)) {
+    padding: vars.spacing(3) vars.spacing(4);
+  }
+  
+  @media (max-width: vars.breakpoint(sm)) {
+    padding: vars.spacing(2) vars.spacing(3);
+  }
+
+  // Стили для ButtonStack внутри контейнера
+  :global(.colabsys-btn-stack-item) {
+    backdrop-filter: blur(1px);
+    padding: 0.5rem 1rem;
+  }
+}
+
+// Логотип
+.logo {
+  margin-left: 10px;
+  flex-shrink: 0;
+  cursor: pointer;
+  
+}
+
+.logoPlaceholder {
+  display: flex;
+  align-items: center;
+  font-family: 'Manrope';
+  font-size: vars.text-size(lg);
+  font-weight: 900;
+  letter-spacing: 2px;
+
+  color: var(--primary-color);
+  padding: vars.spacing(2) vars.spacing(4);
+  border-radius: var(--colabsys-radius);
+  background: transparent;
+  border: 0px solid var(--border-color-accent);
+  color: #333; /* Основной цвет текста */
+ 
+  @media (max-width: vars.breakpoint(sm)) {
+    padding: vars.spacing(1) vars.spacing(3);
+    font-size: vars.text-size(md);
+  }
+
+  h3 {
+
+    letter-spacing: 2px;
+    font-weight: 800;
+
+    background: linear-gradient(45deg, #FEAC5E, #C779D0, #4BC0C8);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    //background-size: 200% 200%;
+    animation: gradientShift 3s ease infinite;
+        transition: all 0.6s ease !important;
+  }
+}
+
+// Действия
+.actions {
+  margin-right: 20px;
+  flex-shrink: 0;
+  border: none;
+  
+  @media (max-width: vars.breakpoint(sm)) {
+    display: none;
+  }
+}
+
+.actionItems {
+  border: none;
+  display: flex;
+  align-items: center;
+  gap: vars.spacing(2);
+}
+
+// Мобильная кнопка меню (иконка)
+.mobileToggle {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-primary-opacity);  
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  position: relative;
+  width: 2rem;
+  height: 2rem;
+  -webkit-tap-highlight-color: transparent;
+  color: #4BC0C8;
+
+  &:hover {
+    transition: all 0.3s ease;
+    background: var(--bg-primary);
+    scale: 0.95;
+    border-radius: 12px;
+
+  }
+  
+  @media (max-width: vars.breakpoint(md)) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+.menuIcon {
+  //background: var(--bg-primary-opacity);  
+  transition: all 0.3s ease;
+  opacity: 1;
+  transform: rotate(90deg); // Поворачиваем на 90 градусов
+
+  
+  &.menuIconHidden {
+    opacity: 0;
+    transform: rotate(90deg) scale(0.3); // Сохраняем поворот при скрытии
+  }
+
+  
+}
+
+
+.closeIcon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.3);
+  opacity: 0;
+  transition: all 0.3s ease;
+  
+  &.closeIconVisible {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+// Адаптивные стили
+@media (max-width: vars.breakpoint(lg)) {
+  .container {
+    gap: vars.spacing(4);
+  }
+}
+
+@media (max-width: vars.breakpoint(md)) {
+  .mobileToggle {
+    display: flex;
+
+  }
+}
+
+@media (max-width: vars.breakpoint(sm)) {
+  .logoPlaceholder {
+    font-size: 1rem;
+    padding: vars.spacing(1) vars.spacing(2);
+  }
+}
+
+// Анимации для header
+// Для мобильных устройств
+@media (max-width: 768px) {
+  .header {
+    transition: height 0.4s ease;
+    overflow: hidden;
+    
+    // Расширенное состояние
+    &.headerExpanded {
+      height: auto; // Автоматическая высота для всего контента
+    }
+  }
+}
+
+________________________________________________________________________________
+
+АБСОЛЮТНЫЙ ПУТЬ: /Users/vladimirmazyrec/sync-agency-new/src/widgets/header/header.tsx
+название файла: header/header.tsx
+
+СОДЕРЖИМОЕ ФАЙЛА:
+----------------------------------------
+import React, { useState } from 'react'
+import { useDeviceType } from '@/shared/hooks/useDeviceType'
+import { useNavigation } from '@/shared/hooks/useNavigation'
+import { HeaderDesktop } from './components/desktop/HeaderDesktop'
+import { HeaderTablet } from './components/tablet/HeaderTablet'
+import { HeaderMobile } from './components/mobile/HeaderMobile'
+import { HeaderProps } from './header.types'
+
+export const Header: React.FC<HeaderProps> = ({
+  className,
+  onServiceChange,
+  activeServiceIndex,
+  services: externalServices
+}) => {
+  const deviceType = useDeviceType()
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  
+  const { 
+    activeServiceIndex: currentActiveIndex, 
+    handleServiceChange: handleNavChange,
+    services: navServices
+  } = useNavigation()
+
+  const services = externalServices || navServices
+  const activeIndex = activeServiceIndex !== undefined ? activeServiceIndex : currentActiveIndex
+
+  const handleServiceChange = (index: number) => {
+    console.log('Changing service to:', index, services[index]?.name)
+    handleNavChange(index)
+    onServiceChange?.(index)
+    setIsMobileMenuOpen(false)
+  }
+
+  const handleMobileMenuToggle = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen)
+  }
+
+  const handleMobileMenuClose = () => {
+    setIsMobileMenuOpen(false)
+  }
+
+  const commonProps = {
+    isMobileMenuOpen,
+    onMobileMenuToggle: handleMobileMenuToggle,
+    onMobileMenuClose: handleMobileMenuClose,
+    activeIndex,
+    onServiceChange: handleServiceChange,
+    services,
+    className
+  }
+
+  // Рендер соответствующего компонента для устройства
+  switch (deviceType) {
+    case 'desktop':
+      return <HeaderDesktop {...commonProps} />
+    case 'tablet':
+      return <HeaderTablet {...commonProps} />
+    case 'mobile':
+      return <HeaderMobile {...commonProps} />
+    default:
+      return <HeaderDesktop {...commonProps} />
+  }
+}
+
+________________________________________________________________________________
+
+АБСОЛЮТНЫЙ ПУТЬ: /Users/vladimirmazyrec/sync-agency-new/src/widgets/header/header.types.ts
+название файла: header/header.types.ts
+
+СОДЕРЖИМОЕ ФАЙЛА:
+----------------------------------------
+export interface Service {
+  readonly name: string
+  readonly path: string
+}
+
+export interface HeaderProps {
+  className?: string
+  onServiceChange?: (index: number) => void
+  activeServiceIndex?: number
+  services?: readonly Service[]
+}
+
+export interface HeaderDeviceProps extends HeaderProps {
+  isMobileMenuOpen: boolean
+  onMobileMenuToggle: () => void
+  onMobileMenuClose: () => void
+  activeIndex: number
+  onServiceChange: (index: number) => void
+  services: readonly Service[]
+}
+
+export interface MobileMenuProps {
+  isOpen: boolean
+  onClose: () => void
+  services: readonly Service[]
+  activeIndex: number
+  onServiceChange: (index: number) => void
+  variant?: 'mobile' | 'tablet'
+}
+
+export interface MobileMenuContentProps {
+  isOpen: boolean
+  services: readonly Service[]
+  activeIndex: number
+  onServiceChange: (index: number) => void
+  variant?: 'mobile' | 'tablet'
+}
+
+________________________________________________________________________________
+
+АБСОЛЮТНЫЙ ПУТЬ: /Users/vladimirmazyrec/sync-agency-new/src/widgets/header/index.ts
+название файла: header/index.ts
+
+СОДЕРЖИМОЕ ФАЙЛА:
+----------------------------------------
+export { Header } from './header'
+//export { MobileMenuItem } from './mobile-menu-item'
+export type { HeaderProps, Service } from './header.types'
+//export { MobileMenu } from './mobile-menu'
+//export { MobileMenuContent } from './mobile-menu-content'
+
+
+================================================================================
+
+СТАТИСТИКА:
+----------------------------------------
+Обработано файлов: 15
+Общий размер папки: 40,368 байт
+Дата создания отчета: 2026-01-24 08:43:58

@@ -1,1 +1,0 @@
-export { WavyBackground } from './WavyBackground'

@@ -47,7 +47,9 @@ html.ru body {
   // CSS переменные для светлой темы
   :root {
     --black-white: rgb(255, 255, 255);
-    --bg-primary: #f2f2ff6d;
+    --bg-primary: rgba(242, 242, 255, 0.427);
+    --bg-primary-rgb: 242, 242, 255;
+
     --bg-primary-100: #f4f8ffe5;
 
     --bg-primary-opacity: rgba(255, 255, 255, 0.2);
@@ -71,7 +73,9 @@ html.ru body {
     --text-secondary: #6c757d;
     --text-thirdly: #6c757d;
 
-    --primary-color: #0C8CE9;
+    --primary-color: rgb(12, 140, 233);
+    --primary-color-rgb: 12, 140, 233;
+
     --primary-color-red: #ff0000;
     --accent-color: #56aafe25;
     --accent-color-red: #ff000020;
@@ -147,6 +151,8 @@ html.ru body {
     --text-thirdly: #adb5bd8b;
 
     --primary-color: #56aafe;
+    --primary-color-rgb: 12, 140, 233;
+
     --primary-color-red: #ff0000;
     --accent-color: #56aafe25;
     --accent-color-red: #321919;
@@ -246,3 +252,6 @@ html.ru body {
       background-position: 0% 50%;
     }
   }
+
+
+  

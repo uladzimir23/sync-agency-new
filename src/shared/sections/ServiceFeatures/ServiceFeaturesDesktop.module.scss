@@ -72,7 +72,23 @@
     transform-style: preserve-3d;
     backface-visibility: hidden;
     scale: 1;
-    
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(var(--primary-color-rgb), 0.05),
+        transparent
+      );
+      transition: left 0.2s ease;
+    }
+  
     .cardContent {
       position: relative;
       z-index: 1;
@@ -91,10 +107,14 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      background: linear-gradient(45deg, #ff7b0016, #df00f816, #00eeff1c);
+      background: transparent;
       border-radius: 50px;
-      border: 1px solid var(--border-color);
-      backdrop-filter: blur(1px) saturate(250%);
+      border: 1px solid var(--border-color-accent);
+      box-shadow: 0 0px 30px rgba(12, 140, 233, 0.1), inset 0px 0px 4px var(--border-color-accent);
+
+      // backdrop-filter: blur(1px) saturate(250%);
+      // -webkit-backdrop-filter: blur(1px) saturate(250%);
+
       
       &.arrowVisible {
         opacity: 1;
@@ -102,12 +122,21 @@
       }
       
       .arrow {
-        width: 0.8rem;
-        height: 0.8rem;
-        fill: currentColor;
+        // width: 0.8rem;
+        // height: 0.8rem;
+        // fill: currentColor;
+        //font-size: 0.6rem;
+        background: linear-gradient(45deg, #ff7b0016, #df00f816, #00eeff1c);
+        border-radius: 50px;
+        padding: 0.4rem;
+        width: 1.7rem;
+        height: 1.7rem;
+
         color: var(--text-primary);
         transition: all 0.3s ease;
         transform: rotate(-45deg);
+        background: linear-gradient(45deg, #ff7b0016, #df00f816, #00eeff1c);
+
       }
       
       &:hover .arrow {
@@ -126,6 +155,7 @@
       .arrowContainer {
         opacity: 1;
         transform: scale(1) rotate(45deg) translate(0, 0);
+
       }
   
       .arrow {
@@ -153,18 +183,18 @@
       background: linear-gradient(
         90deg,
         transparent,
-        rgba(86, 156, 254, 0.1),
+        rgba(86, 156, 254, 0.075),
         transparent
       );
-      transition: left 0.5s ease;
+      transition: left 0.4s ease;
     }
   
     &:hover {
-      box-shadow: 0 0px 30px rgba(12, 140, 233, 0.1), inset 0px 0px 1px var(--border-color-accent);
+      box-shadow: 0 0px 30px rgba(12, 140, 233, 0.1), inset 0px 0px 4px var(--border-color-accent);
       background: var(--background-primary-yellow);
       border-radius: 2rem;
       transition: all 0.3s ease;
-      scale: 0.99;
+      scale: 0.995;
   
       h3 {
         color: var(--primary-color);
@@ -175,16 +205,16 @@
       }
   
       &::before {
-        left: -100%;
+        left: 100%;
       }
     }
   
     &.active {
       background: var(--background-primary-yellow);
-      box-shadow: var(--box-shadow-primary), inset 0px 0px 1px var(--border-color-accent);
+      box-shadow: var(--box-shadow-primary), inset 0px 0px 6px var(--border-color-accent);
       border-radius: 2rem;
       transition: all 0.3s ease;
-      scale: 1.01;
+      scale: 1.005;
   
       h3 {
         color: var(--primary-color);

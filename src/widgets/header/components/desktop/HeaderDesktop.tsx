@@ -8,6 +8,7 @@ import { LanguageSwitcher } from '@/shared/localization'
 import { HeaderDeviceProps } from '../../header.types'
 import styles from './header-desktop.module.scss'
 import { ROUTES } from '@/shared/constants/routes'
+import Logo from '@/shared/assets/svg/Logo/Sync-primary-logo.svg'
 
 export const HeaderDesktop: React.FC<HeaderDeviceProps> = ({
   className,
@@ -25,7 +26,11 @@ export const HeaderDesktop: React.FC<HeaderDeviceProps> = ({
         {/* Логотип */}
         <div className={styles.logo}>
           <Link to={ROUTES.HOME} className={styles.logoPlaceholder}>
-            <h3>SYNC</h3>
+            <img 
+              src={Logo} 
+              alt="SYNC" 
+              className={styles.logoSvg}
+            />
           </Link>
         </div>
 

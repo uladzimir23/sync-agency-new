@@ -1,12 +1,17 @@
+
 import React from 'react'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import { ROUTES } from '@/shared/constants/routes'
 
-import { ThemeProvider, useThemeContext } from '@app/providers/ThemeProvider'
+import { ThemeProvider } from '@app/providers/ThemeProvider'
 import { LanguageProvider } from '@/shared/localization/contexts/LanguageContext'
 
 import { Header } from '@/widgets/header'
 import { Footer } from '@/shared/sections/Footer'
+
+// Импортируем компоненты
+import { SimpleGridBackground } from '@/shared/ui/simple-grid-background'
+import ScrollToTop from '@/shared/utils/ScrollToTop'
 
 // Импорты страниц
 import { HomePage } from '@pages/Home'
@@ -34,6 +39,27 @@ const AppContent: React.FC = () => {
 
   return (
     <div className={styles.app}>
+      {/* Grid Background на всех страницах */}
+      <SimpleGridBackground
+        cellSize={45.39}
+        lineWidth={1}
+        color="var(--border-color-accent)"
+        opacity={0.16}
+        speed={0.12}
+        highlightCount={50}
+        highlightColors={[
+          'rgba(79, 70, 229, 0.15)',
+          'rgba(147, 51, 234, 0.12)',
+          'rgba(236, 72, 153, 0.1)',
+          'rgba(6, 182, 212, 0.1)',
+          'rgba(34, 197, 94, 0.08)',
+        ]}
+        className={styles.gridBackground}
+      />
+      
+      {/* Компонент для сброса скролла при переходе между страницами */}
+      <ScrollToTop />
+      
       <Header onServiceChange={handleServiceChange} />
       
       <main className={styles.appMainContent}>

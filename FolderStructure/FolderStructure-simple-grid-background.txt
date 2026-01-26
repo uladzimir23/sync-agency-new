@@ -1,3 +1,238 @@
+АНАЛИЗ ПАПКИ: /Users/vladimirmazyrec/sync-agency-new/src/shared/ui/simple-grid-background
+Python версия: 3.12.4
+================================================================================
+
+СТРУКТУРА ПАПОК (полные пути):
+--------------------------------------------------------------------------------
+
+simple-grid-background
+    ├── index.ts
+    ├── SimpleGridBackground.module.scss
+    └── SimpleGridBackground.tsx
+
+
+================================================================================
+СОДЕРЖИМОЕ ФАЙЛОВ:
+================================================================================
+
+АБСОЛЮТНЫЙ ПУТЬ: /Users/vladimirmazyrec/sync-agency-new/src/shared/ui/simple-grid-background/index.ts
+название файла: simple-grid-background/index.ts
+
+СОДЕРЖИМОЕ ФАЙЛА:
+----------------------------------------
+export { SimpleGridBackground } from './SimpleGridBackground';
+
+
+________________________________________________________________________________
+
+АБСОЛЮТНЫЙ ПУТЬ: /Users/vladimirmazyrec/sync-agency-new/src/shared/ui/simple-grid-background/SimpleGridBackground.module.scss
+название файла: simple-grid-background/SimpleGridBackground.module.scss
+
+СОДЕРЖИМОЕ ФАЙЛА:
+----------------------------------------
+.container {
+    position: relative;
+    width: 100%;
+    height: 100vh; // Удвоенная высота
+    overflow: hidden;
+  }
+  
+  .fixed {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -2; // Уменьшаем z-index чтобы backdrop-filter работал
+  }
+  
+  .absolute {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+  }
+  
+  .gridLayer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    will-change: transform; // Оптимизация для анимаций
+  }
+  
+  .gridLayer2 {
+    position: absolute;
+    top: -400px;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    will-change: transform; // Оптимизация для анимаций
+  }
+  
+  .grid {
+    width: 100%;
+    height: 100%;
+    background-image: 
+      linear-gradient(
+        to right,
+        var(--grid-color) var(--grid-line-width, 1px),
+        transparent var(--grid-line-width, 1px)
+      ),
+      linear-gradient(
+        to bottom,
+        var(--grid-color) var(--grid-line-width, 1px),
+        transparent var(--grid-line-width, 1px)
+      );
+    background-size: var(--grid-cell-size, 60px) var(--grid-cell-size, 60px);
+    background-position: 0 0;
+    opacity: var(--grid-opacity, 0.08);
+    pointer-events: none;
+  }
+  
+  .highlightsLayer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    will-change: transform; // Оптимизация для анимаций
+  }
+  
+  .highlightSquare {
+    position: absolute;
+    pointer-events: none;
+    border-radius: 4px;
+    backface-visibility: hidden; // Улучшение производительности
+    transform: translateZ(0); // Аппаратное ускорение
+    
+    &.border {
+      background: transparent;
+      border: 2px solid var(--highlight-color);
+      box-shadow: 
+        0 0 15px var(--highlight-color),
+        inset 0 0 15px var(--highlight-color);
+      
+      &::before {
+        content: '';
+        position: absolute;
+        top: -4px;
+        left: -4px;
+        right: -4px;
+        bottom: -4px;
+        border-radius: 6px;
+        background: var(--highlight-color);
+        opacity: 0.1;
+        filter: blur(4px);
+      }
+    }
+    
+    &.fill {
+      background: var(--highlight-color);
+      opacity: 0.15;
+      filter: blur(2px);
+      
+      &::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(
+          45deg,
+          transparent 0%,
+          rgba(255, 255, 255, 0.1) 50%,
+          transparent 100%
+        );
+      }
+    }
+    
+    &.pulse {
+      background: var(--highlight-color);
+      opacity: 0.2;
+      animation: pulse 4s ease-in-out infinite;
+      animation-delay: calc(var(--highlight-size) * 0.5s);
+      
+      @keyframes pulse {
+        0%, 100% { opacity: 0.1; transform: scale(0.95); }
+        50% { opacity: 0.3; transform: scale(1.05); }
+      }
+    }
+  }
+  
+  .content {
+    position: relative;
+    z-index: 1;
+  }
+  
+  // Варианты
+  .dense {
+    --grid-cell-size: 40px;
+  }
+  
+  .sparse {
+    --grid-cell-size: 80px;
+  }
+  
+  .visible {
+    --grid-opacity: 0.15;
+  }
+  
+  .subtle {
+    --grid-opacity: 0.05;
+  }
+  
+  // Оптимизация для мобильных устройств
+  @media (max-width: 768px) {
+    .container {
+      height: 300vh;
+    }
+    
+    .gridLayer {
+      height: 300%;
+    }
+    
+    .highlightsLayer {
+      height: 300%;
+    }
+    
+    .gridLayer2 {
+      top: -1200px; // Увеличиваем отступ для мобильных
+    }
+    
+    // Уменьшаем количество анимаций на мобильных
+    .highlightSquare.pulse {
+      animation: pulse 6s ease-in-out infinite; // Увеличиваем длительность анимации
+    }
+    
+    // Уменьшаем blur для лучшей производительности
+    .highlightSquare.border::before {
+      filter: blur(2px);
+    }
+  }
+  
+  @media (max-width: 480px) {
+    // Дополнительная оптимизация для маленьких экранов
+    .highlightSquare {
+      //display: none; // Скрываем квадраты на очень маленьких экранах для производительности
+    }
+    
+    .highlightSquare:nth-child(-n+5) {
+      //display: block; // Оставляем только 5 квадратов
+    }
+  }
+
+________________________________________________________________________________
+
+АБСОЛЮТНЫЙ ПУТЬ: /Users/vladimirmazyrec/sync-agency-new/src/shared/ui/simple-grid-background/SimpleGridBackground.tsx
+название файла: simple-grid-background/SimpleGridBackground.tsx
+
+СОДЕРЖИМОЕ ФАЙЛА:
+----------------------------------------
 // src/shared/ui/simple-grid-background/SimpleGridBackground.tsx
 import React, { useEffect, useRef, useState, useCallback } from 'react';
 import { useScroll, useTransform, motion } from 'framer-motion';
@@ -223,3 +458,11 @@ export const SimpleGridBackground: React.FC<SimpleGridBackgroundProps> = ({
     </div>
   );
 };
+
+================================================================================
+
+СТАТИСТИКА:
+----------------------------------------
+Обработано файлов: 3
+Общий размер папки: 11,989 байт
+Дата создания отчета: 2026-01-25 15:52:00

@@ -27,14 +27,14 @@ export const MarketingStrategyPage: React.FC = () => {
   return (
     <div className="marketing-strategy-page">
 
-<PageHeader
-  pageTitle="Marketing Strategy"
-  title={<>Launch with clarity.<br />Grow with data.</>}
+      <PageHeader
+        pageTitle="Marketing Strategy"
+        title={<>Launch with clarity.<br />Grow with data.</>}
 
-  subtitle="We create marketing strategies built on analytics and insights. We define the right channels, audiences, and messaging, build funnels and content plans. For new launches and scaling existing products."
-  onBookCall={() => console.log('Book call for Marketing Strategy')}
-  onMakeBrief={handleMakeBrief}
-/>
+        subtitle="We create marketing strategies built on analytics and insights. We define the right channels, audiences, and messaging, build funnels and content plans. For new launches and scaling existing products."
+        onBookCall={() => console.log('Book call for Marketing Strategy')}
+        onMakeBrief={handleMakeBrief}
+      />
 
       <ServiceFeatures
         title="Strategic Marketing Framework"

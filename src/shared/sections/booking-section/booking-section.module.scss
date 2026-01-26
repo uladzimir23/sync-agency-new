@@ -45,14 +45,15 @@
     -webkit-text-fill-color: transparent;
     background-size: 200% 200%;
     animation: gradientShift 3s ease infinite;
-    
+    text-align: center;
+
   }
   
   .subtitle {
     font-size: 1.3rem;
     color: var(--text-secondary);
     margin: 0;
-    text-align: left;
+    text-align: center;
 
   }
   

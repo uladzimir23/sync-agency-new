@@ -1,53 +1,128 @@
 @import '@app/styles/main.scss';
 
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-english), var(--font-russian), -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--black-white);
+    color: var(--text-primary);
+    line-height: 1.5;
+    transition: all 0.3s ease;
+    // Убираем скроллбар, если фон фиксированный
+    overflow-x: hidden;
+}
+
+// Устанавливаем шрифт для элементов
+body:lang(en) {
+    font-family: var(--font-english);
+}
+
+body:lang(ru) {
+    font-family: var(--font-russian);
+}
+
+// Также можно применить через классы на HTML элементе
+html.en body {
+    font-family: var(--font-english);
+}
+
+html.ru body {
+    font-family: var(--font-russian);
+}
+
 .app {
-  min-height: 100vh;
-  transition: all 0.3s ease;
+    position: relative;
+    min-height: 100vh;
+    transition: all 0.3s ease;
+    // Для правильного позиционирования фиксированного фона
+    overflow-x: hidden;
 }
 
-.appWavyBg {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: -1; // Фон позади всего контента
-}
-
+//
 .appMainContent {
-  position: relative;
-  z-index: 1; // Контент поверх фона
-  min-height: 100vh;
+    position: relative;
+    z-index: 2; // Контент поверх сетки
+    min-height: 100vh;
 }
 
 // Плавный скролл для всей страницы
 :global(html) {
-  scroll-behavior: smooth;
+    scroll-behavior: smooth;
+    // Убираем горизонтальный скролл
+    overflow-x: hidden;
 }
 
 :global(html),
 :global(body) {
-  margin: 0;
-  padding: 0;
-  height: 100%;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    // Убираем горизонтальный скролл
+    overflow-x: hidden;
 }
 
 :global(#root) {
-  height: 100%;
+    height: 100%;
 }
 
-// Глобальные стили для курсоров (так как они используются в других компонентах)
+// Глобальные стили для курсоров
 :global(button),
 :global(a),
 :global(.clickable),
 :global(.colabsys-btn-stack-item),
 :global(.calendar-day) {
-  cursor: pointer !important;
+    cursor: pointer !important;
 }
 
 // Для полей ввода оставляем стандартный курсор
 :global(input),
 :global(textarea),
 :global(select) {
-  cursor: auto !important;
+    cursor: auto !important;
+}
+
+// CSS переменные для светлой темы
+:root {
+    // ... остальные переменные остаются без изменений ...
+    
+    // Переменные для сетки
+    --grid-color: var(--border-color);
+    --grid-opacity: 0.03;
+}
+
+// Темная тема
+body.dark-theme {
+    // ... остальные переменные остаются без изменений ...
+    
+    // Переменные для сетки (темная тема)
+    --grid-color: var(--border-color);
+    --grid-opacity: 0.05;
+}
+
+
+.page-enter {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.page-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 300ms, transform 300ms;
+}
+
+.page-exit {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.page-exit-active {
+  opacity: 0;
+  transform: translateY(-20px);
+  transition: opacity 300ms, transform 300ms;
 }

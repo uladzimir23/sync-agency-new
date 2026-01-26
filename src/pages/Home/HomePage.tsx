@@ -58,22 +58,7 @@ export const HomePage: React.FC = () => {
 
   return (
     <div className={styles.homePage}>
-      <SimpleGridBackground
-        cellSize={45.39}
-        lineWidth={1}
-        color="var(--border-color-accent)"
-        opacity={0.16}
-        speed={0.12}
-        highlightCount={50}
-        highlightColors={[
-          'rgba(79, 70, 229, 0.15)',
-          'rgba(147, 51, 234, 0.12)',
-          'rgba(236, 72, 153, 0.1)',
-          'rgba(6, 182, 212, 0.1)',
-          'rgba(34, 197, 94, 0.08)',
-        ]}
-        className={styles.gridBackground}
-      />
+
 
       <div className={styles.homePageContent}>
         <div className={styles.dashboardSection}>
