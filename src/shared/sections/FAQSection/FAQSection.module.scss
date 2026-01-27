@@ -82,6 +82,7 @@
   
   &:first-child {
     border-top: 1px solid var(--border-color);
+
   }
   
   &.active {
@@ -91,6 +92,7 @@
     backdrop-filter: blur(3px) saturate(280%);
     -webkit-backdrop-filter: blur(3px) saturate(280%);   
     scale: 1.007;
+
 
     &::before {
       left: 100%;
@@ -231,7 +233,8 @@
   flex-shrink: 0;
   position: relative;
   background: transparent;
-
+  // backdrop-filter: blur(20px);
+  // -webkit-backdrop-filter: blur(20px);
   transition: all 0.3s ease;
 
   &::before {
