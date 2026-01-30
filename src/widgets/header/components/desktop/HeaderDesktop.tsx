@@ -8,7 +8,7 @@ import { LanguageSwitcher } from '@/shared/localization'
 import { HeaderDeviceProps } from '../../header.types'
 import styles from './header-desktop.module.scss'
 import { ROUTES } from '@/shared/constants/routes'
-import Logo from '@/shared/assets/svg/Logo/Sync-primary-logo.svg'
+import Logo from '@/shared/assets/svg/Logo/Sync-primary-logo3.svg'
 
 export const HeaderDesktop: React.FC<HeaderDeviceProps> = ({
   className,
