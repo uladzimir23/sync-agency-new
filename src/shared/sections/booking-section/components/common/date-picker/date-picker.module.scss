@@ -7,7 +7,8 @@
   overflow: hidden;
   transition: all 0.3s ease;
   background: var(--bg-primary-opacity-sec);
-
+  position: relative;
+  top: -1rem;
 
   &:hover {
     transition: all 0.3s ease;
@@ -41,7 +42,7 @@
     font-weight: 600;
     color: var(--text-secondary);
     padding: 8px 4px;
-    
+
     &.weekend {
       color: #ef4444;
     }
@@ -50,12 +51,11 @@
   .stack {
     width: 100%;
     
-    
     // Исправление: одинаковый размер для всех ячеек
     :global(.btnStack__container) {
       display: grid !important;
       grid-template-columns: repeat(7, 1fr) !important;
-      gap: 4px !important;
+      gap: 0px !important;
       width: 100% !important;
     }
     
@@ -78,7 +78,6 @@
         }
       }
 
-      
       &.weekend {
         .itemNumber {
           color: #ef4444 !important;
@@ -88,7 +87,6 @@
       &.today {
         position: relative !important;
 
-        
         &::before {
           content: '';
           position: absolute;
@@ -106,7 +104,6 @@
           font-weight: 700 !important;
         }
       }
-
 
       &:hover {
         :global(.button-stack-item-module__btnStackItem__content) {

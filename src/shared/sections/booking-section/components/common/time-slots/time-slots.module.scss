@@ -22,8 +22,8 @@
     }
   
     .stack {
-      width: max-content;
-      min-width: 100%;
+      width: min-content;
+      //min-width: 100%;
 
       .slot {
         font-size: 1rem !important;
@@ -32,7 +32,7 @@
       
       
       :global(.btnStackItem) {
-        min-width: 70px;
+        //min-width: 70px;
         padding: 8px 12px;
         flex-shrink: 0;
         

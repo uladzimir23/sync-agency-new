@@ -6,8 +6,16 @@
   
   &--row {
     flex-direction: row;
+    border-radius: 3rem;
+    //background: var(--accent-color);
+    width: min-content;
+    padding: 0.25rem;
+    border: 1px solid var(--accent-color);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     
     .btnStack__container {
+      width: min-content;
       flex-direction: row;
       gap: 3px;
     }
@@ -36,6 +44,7 @@
       grid-template-columns: repeat(7, 1fr) !important;
       gap: 4px !important;
       width: 100% !important;
+
     }
   }
   
